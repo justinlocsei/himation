@@ -1,0 +1,9 @@
+{
+  "extends": "chiton/configurations/browser",
+  "env": {
+    "commonjs": true
+  },
+  "rules": {
+    "strict": [2, "never"]
+  }
+}
