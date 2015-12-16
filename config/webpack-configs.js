@@ -85,14 +85,13 @@ function load(environment) {
         },
         {
           test: /\.js$/,
+          exclude: /node_modules/,
           include: [paths.app.js],
           loader: 'babel',
           query: {
-            plugins: [
-              'transform-merge-sibling-variables',
-              'transform-minify-booleans',
-              'transform-strict-mode'
-            ]
+            cacheDirectory: true,
+            plugins: ['transform-runtime'],
+            presets: ['es2015', 'react']
           }
         },
         {
