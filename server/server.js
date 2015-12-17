@@ -3,7 +3,6 @@
 var express = require('express');
 var helmet = require('helmet');
 
-var endpoints = require('./endpoints');
 var templateEngines = require('./template-engines');
 
 /**
@@ -30,7 +29,6 @@ function create(options) {
   var templates = templateEngines.nunjucks(settings.templates);
   templates.express(app);
 
-  endpoints.map(app, settings.routes, settings.assets);
 
   return app;
 }
