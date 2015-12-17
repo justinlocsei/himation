@@ -23,4 +23,7 @@ var app = server.create({
   templates: paths.ui.templates
 });
 
-http.createServer(app).listen(servers.api.port, servers.api.host);
+http.createServer(app).listen(servers.api.port, servers.api.host, function() {
+  var address = this.address();
+  console.log('Server available at %s:%s', address.address, address.port);
+});
