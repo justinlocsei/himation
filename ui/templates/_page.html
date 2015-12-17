@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block document_title %}{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% for stylesheet in stylesheets %}
+      <link rel="stylesheet" href="{{ stylesheet }}">
+    {% endfor %}
+
+  </head>
+
+  <body>
+    <h1>{% block page_title %}{% endblock %}</h1>
+
+    {% block content %}{% endblock %}
+
+    {% for javascript in javascripts %}
+      <script src="{{ javascript }}"></script>
+    {% endfor %}
+  </body>
+
+</html>

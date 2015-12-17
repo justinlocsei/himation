@@ -30,8 +30,7 @@ function create(options) {
     trimBlocks: true
   });
 
-  var routes = settings.routes;
-  app.get(routes.urls.index, endpoints.index);
+  endpoints.map(app, settings.routes, settings.assets);
 
   return app;
 }
