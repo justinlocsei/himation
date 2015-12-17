@@ -3,6 +3,7 @@
 var express = require('express');
 var helmet = require('helmet');
 
+var components = require('./components');
 var templateEngines = require('./template-engines');
 
 /**
@@ -28,6 +29,10 @@ function create(options) {
 
   var templates = templateEngines.nunjucks(settings.templates);
   templates.express(app);
+
+  var loader = new components.Loader(settings.components);
+  var About = loader.load('about');
+  var Index = loader.load('index');
 
 
   return app;

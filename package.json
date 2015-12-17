@@ -12,6 +12,8 @@
     "serve": "node index"
   },
   "dependencies": {
+    "babel-polyfill": "^6.3.14",
+    "babel-register": "^6.3.13",
     "express": "^4.13.3",
     "helmet": "^0.15.0",
     "nunjucks": "^2.2.0",
