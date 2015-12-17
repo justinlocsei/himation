@@ -11,9 +11,9 @@ var MEDIA_TYPES = ['css', 'js'];
  */
 function urls(config) {
   return Object.keys(config.entry).reduce(function(entries, entry) {
-    entries[entry] = MEDIA_TYPES.reduce(function(urls, media) {
-      urls[media] = config.output.publicPath + entry + '.' + media;
-      return urls;
+    entries[entry] = MEDIA_TYPES.reduce(function(bundles, media) {
+      bundles[media] = config.output.publicPath + entry + '.' + media;
+      return bundles;
     }, {});
     return entries;
   }, {});

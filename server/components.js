@@ -5,10 +5,10 @@ var path = require('path');
 /**
  * Create a new loader for React components
  *
- * @param {string} path The path to the components directory
+ * @param {string} components The path to the components directory
  */
-function Loader(path) {
-  this.path = path;
+function Loader(components) {
+  this.path = components;
 
   this._jsxEnabled = false;
 }
