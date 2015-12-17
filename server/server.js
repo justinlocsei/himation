@@ -2,9 +2,9 @@
 
 var express = require('express');
 var helmet = require('helmet');
-var nunjucks = require('nunjucks');
 
 var endpoints = require('./endpoints');
+var templateEngines = require('./template-engines');
 
 /**
  * Create an instance of an API server
@@ -26,12 +26,8 @@ function create(options) {
 
   app.use(helmet());
 
-  nunjucks.configure(settings.templates, {
-    autoescape: true,
-    express: app,
-    lstripBlocks: true,
-    trimBlocks: true
-  });
+  var templates = templateEngines.nunjucks(settings.templates);
+  templates.express(app);
 
   endpoints.map(app, settings.routes, settings.assets);
 
