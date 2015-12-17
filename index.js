@@ -18,6 +18,7 @@ var servers = resources.servers(options.environment);
 
 var app = server.create({
   assets: assets,
+  components: paths.ui.components,
   routes: routes,
   templates: paths.ui.templates
 });
