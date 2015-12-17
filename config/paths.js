@@ -20,6 +20,7 @@ module.exports = {
     base: ui,
     images: path.join(ui, 'images'),
     js: path.join(ui, 'js'),
+    components: path.join(ui, 'components'),
     scss: path.join(ui, 'scss'),
     templates: path.join(ui, 'templates')
   }
