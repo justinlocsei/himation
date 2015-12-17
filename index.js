@@ -3,7 +3,7 @@
 var cliArgs = require('./config/cli-args');
 var paths = require('./config/paths');
 var routes = require('./config/routes');
-var server = require('./lib/server');
+var server = require('./server/server');
 var resources = require('./config/resources');
 
 var options = cliArgs.parse();
@@ -13,5 +13,5 @@ server.serve({
   host: servers.api.host,
   port: servers.api.port,
   routes: routes,
-  templates: paths.lib.templates
+  templates: paths.ui.templates
 });

@@ -21,12 +21,12 @@ var webpackConfig = webpackConfigs.load(options.environment);
 var all = {
   js: [
     files.shallow(paths.root, 'js'),
-    files.deep(paths.app.js, 'js'),
+    files.deep(paths.ui.js, 'js'),
     files.deep(paths.config, 'js'),
-    files.deep(paths.lib, 'js')
+    files.deep(paths.server, 'js')
   ],
   scss: [
-    files.deep(paths.app.scss, 'scss')
+    files.deep(paths.ui.scss, 'scss')
   ]
 };
 

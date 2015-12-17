@@ -72,7 +72,7 @@ function load(environment) {
 
   return _.extend({
     cache: true,
-    context: paths.app.js,
+    context: paths.ui.js,
     devtool: 'source-map',
     entry: {
       index: './index'
@@ -86,7 +86,7 @@ function load(environment) {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          include: [paths.app.js],
+          include: [paths.ui.js],
           loader: 'babel',
           query: {
             cacheDirectory: true,
@@ -105,7 +105,7 @@ function load(environment) {
         {
           test: /\.js$/,
           loaders: ['eslint'],
-          include: [paths.app.js]
+          include: [paths.ui.js]
         }
       ]
     },
@@ -127,12 +127,12 @@ function load(environment) {
     resolve: {
       extensions: ['', '.js', '.scss'],
       alias: {
-        'chiton/app': paths.app.base,
-        'chiton/server': paths.lib
+        'chiton/server': paths.server,
+        'chiton/ui': paths.ui.base
       }
     },
     sassLoader: {
-      includePaths: [paths.app.scss]
+      includePaths: [paths.ui.scss]
     }
   }, custom.config);
 }
