@@ -10,10 +10,10 @@ var buildAssets = path.join(build, 'assets');
 module.exports = {
   app: {
     base: app,
-    html: path.join(app, 'html'),
     images: path.join(app, 'images'),
     js: path.join(app, 'js'),
-    scss: path.join(app, 'scss')
+    scss: path.join(app, 'scss'),
+    templates: path.join(app, 'templates')
   },
   build: {
     assets: buildAssets,
