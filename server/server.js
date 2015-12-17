@@ -34,6 +34,15 @@ function create(options) {
   var About = loader.load('about');
   var Index = loader.load('index');
 
+  var routes = settings.routes;
+
+  app.get(routes.index, function(req, res) {
+    res.render('public.html');
+  });
+
+  app.get(routes.about, function(req, res) {
+    res.render('public.html');
+  });
 
   return app;
 }
