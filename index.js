@@ -7,11 +7,17 @@ var paths = require('./config/paths');
 var routes = require('./config/routes');
 var server = require('./server/server');
 var resources = require('./config/resources');
+var webpackBundles = require('./config/webpack-bundles');
+var webpackConfigs = require('./config/webpack-configs');
 
 var options = cliArgs.parse();
+
+var config = webpackConfigs.load(options.environment);
+var assets = webpackBundles.urls(config);
 var servers = resources.servers(options.environment);
 
 var app = server.create({
+  assets: assets,
   routes: routes,
   templates: paths.ui.templates
 });
