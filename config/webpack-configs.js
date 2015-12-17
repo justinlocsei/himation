@@ -72,11 +72,11 @@ function load(environment) {
 
   return _.extend({
     cache: true,
-    context: paths.ui.js,
+    context: paths.ui.components,
     devtool: 'source-map',
     entry: {
-      about: './about',
-      index: './index'
+      about: './about.jsx',
+      index: './index.jsx'
     },
     module: {
       loaders: [
@@ -86,8 +86,16 @@ function load(environment) {
         },
         {
           test: /\.js$/,
-          exclude: /node_modules/,
           include: [paths.ui.js],
+          loader: 'babel',
+          query: {
+            cacheDirectory: true,
+            plugins: ['transform-strict-mode']
+          }
+        },
+        {
+          text: /\.jsx$/,
+          include: [paths.ui.components],
           loader: 'babel',
           query: {
             cacheDirectory: true,
