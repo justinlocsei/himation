@@ -29,7 +29,7 @@ Loader.prototype.load = function(name) {
 };
 
 /**
- * Allow ES6 JSX files to be required
+ * Allow JSX files to be required
  */
 Loader.prototype._enableJsx = function() {
   var register = require('babel-register');
@@ -38,7 +38,7 @@ Loader.prototype._enableJsx = function() {
   register({
     extensions: ['.jsx'],
     only: new RegExp(this.path),
-    presets: ['es2015', 'react']
+    presets: ['react']
   });
 };
 

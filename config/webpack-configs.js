@@ -100,7 +100,7 @@ function load(environment) {
           query: {
             cacheDirectory: true,
             plugins: ['transform-runtime'],
-            presets: ['es2015', 'react']
+            presets: ['react']
           }
         },
         {
