@@ -13,7 +13,7 @@ var NAMES = _.values(IDS);
  * Determine if an environment is known
  *
  * @param {string} environment The name of an enviornment
- * @return {boolean}
+ * @returns {boolean}
  * @private
  */
 function isKnown(environment) {
