@@ -90,17 +90,8 @@ function load(environment) {
           loader: 'babel',
           query: {
             cacheDirectory: true,
-            plugins: ['transform-strict-mode']
-          }
-        },
-        {
-          text: /\.jsx$/,
-          include: [paths.ui.components],
-          loader: 'babel',
-          query: {
-            cacheDirectory: true,
             plugins: ['transform-runtime'],
-            presets: ['react']
+            presets: ['es2015', 'react']
           }
         },
         {
