@@ -72,11 +72,11 @@ function load(environment) {
 
   return _.extend({
     cache: true,
-    context: paths.ui.components,
+    context: paths.ui.js,
     devtool: 'source-map',
     entry: {
-      about: './about.jsx',
-      index: './index.jsx'
+      about: './components/about.jsx',
+      index: './components/index.jsx'
     },
     module: {
       loaders: [

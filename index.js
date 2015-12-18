@@ -18,9 +18,9 @@ var servers = resources.servers(options.environment);
 
 var app = server.create({
   assets: assets,
-  components: paths.ui.components,
   routes: routes,
-  templates: paths.ui.templates
+  templates: paths.ui.templates,
+  ui: paths.ui.js
 });
 
 http.createServer(app).listen(servers.api.port, servers.api.host, function() {
