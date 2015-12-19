@@ -6,6 +6,7 @@ var loadPlugins = require('gulp-load-plugins');
 var rimraf = require('rimraf');
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
+var WebpackProgressPlugin = require('webpack/lib/ProgressPlugin');
 
 var cliArgs = require('./config/cli-args');
 var environments = require('./config/environments');
@@ -39,11 +40,16 @@ gulp.task('lint', ['lint-js', 'lint-scss']);
 
 // Bundle all assets using webpack
 gulp.task('bundle-assets', function bundleAssets(done) {
-  webpack(webpackConfig, function(err, stats) {
+  var builder = webpack(webpackConfig, function(err, stats) {
     if (err) { throw new gutil.PluginError('build', err); }
-    gutil.log('build', stats.toString({colors: true}));
+    gutil.log('Webpack', stats.toString({colors: true}));
     done();
   });
+
+  builder.apply(new WebpackProgressPlugin(function(percentage, message) {
+    var rounded = Math.floor(percentage * 100);
+    gutil.log('Webpack', rounded + '% ' + message);
+  }));
 });
 
 // Clear the build directory
