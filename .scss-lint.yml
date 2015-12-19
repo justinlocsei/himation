@@ -118,6 +118,9 @@ linters:
   PropertyUnits:
     enabled: true
     global: ["em", "rem", "%"]
+    properties:
+      border: ["px"]
+      line-height: []
 
   PseudoElement:
     enabled: true
