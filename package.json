@@ -6,10 +6,10 @@
   "license": "UNLICENSED",
   "main": "index.js",
   "scripts": {
-    "develop": "gulp develop",
-    "lint": "gulp lint",
-    "rebuild": "gulp clear && gulp build --environment production",
-    "serve": "node index"
+    "api:serve": "node index",
+    "assets:rebuild": "gulp clear && gulp build",
+    "assets:serve": "gulp develop",
+    "lint": "gulp lint"
   },
   "dependencies": {
     "babel-polyfill": "^6.3.14",
