@@ -2,6 +2,8 @@
 
 var express = require('express');
 var helmet = require('helmet');
+var React = require('react');
+var ReactDomServer = require('react-dom/server');
 
 var templateEngines = require('./template-engines');
 var uiBridge = require('./ui-bridge');
@@ -36,8 +38,15 @@ function create(options) {
 
   var routes = settings.routes;
 
-  app.get(routes.index, function(req, res) { res.render('public.html'); });
-  app.get(routes.about, function(req, res) { res.render('public.html'); });
+  app.get(routes.index, function(req, res) {
+    var content = ReactDomServer.renderToString(React.createElement(Index));
+    res.render('public.html', {content: content});
+  });
+
+  app.get(routes.about, function(req, res) {
+    var content = ReactDomServer.renderToString(React.createElement(About));
+    res.render('public.html', {content: content});
+  });
 
   return app;
 }
