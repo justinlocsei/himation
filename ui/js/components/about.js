@@ -1,7 +1,8 @@
 import React from 'react';
 
+import 'chiton/ui/scss/about.scss';
+
 const About = React.createClass({
-  displayName: 'About',
   render: function() {
     return (
       <h1>About</h1>
