@@ -75,8 +75,8 @@ function load(environment) {
     context: paths.ui.js,
     devtool: 'source-map',
     entry: {
-      about: './components/about.jsx',
-      index: './components/index.jsx'
+      about: './components/about',
+      index: './components/index'
     },
     module: {
       loaders: [
