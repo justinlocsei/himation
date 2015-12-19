@@ -8,14 +8,16 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 
 var cliArgs = require('./config/cli-args');
+var environments = require('./config/environments');
 var files = require('./config/files');
 var paths = require('./config/paths');
-var resources = require('./config/resources');
 var webpackConfigs = require('./config/webpack-configs');
 
 var options = cliArgs.parse();
 var plugins = loadPlugins();
-var webpackConfig = webpackConfigs.load(options.environment);
+
+var settings = environments.loadSettings(options.environment);
+var webpackConfig = webpackConfigs.load(settings);
 
 // Globs for matching all known assets of a type
 var all = {
@@ -69,7 +71,7 @@ gulp.task('lint-scss', function lintScss() {
 
 // Run the webpack development server
 gulp.task('serve', function serve() {
-  var servers = resources.servers(options.environment);
+  var servers = settings.servers(options.environment);
 
   var server = new WebpackDevServer(webpack(webpackConfig), {
     contentBase: paths.build.base,

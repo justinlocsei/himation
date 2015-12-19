@@ -1,6 +1,5 @@
 'use strict';
 
-var _ = require('lodash');
 var yargs = require('yargs');
 
 var environments = require('./environments');
@@ -11,20 +10,14 @@ var environments = require('./environments');
  * @returns {Object} The parsed arguments
  */
 function parse() {
-  var options = {
-    environment: process.env.CHITON_ENV
-  };
-
-  var parsed = yargs
+  return yargs
     .option('environment', {
       alias: 'e',
-      default: environments.default,
+      default: process.env.CHITON_ENV || environments.default,
       describe: 'Set the target environment',
-      choices: environments.known,
+      choices: environments.names,
       type: 'string'
     }).argv;
-
-  return _.extend(options, parsed);
 }
 
 module.exports = {

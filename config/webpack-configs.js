@@ -1,13 +1,12 @@
 'use strict';
 
-var _ = require('lodash');
 var autoprefixer = require('autoprefixer');
 var cssnano = require('cssnano');
+var extend = require('extend');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
 var webpack = require('webpack');
 
-var environments = require('./environments');
 var paths = require('./paths');
 
 /**
@@ -27,50 +26,45 @@ function useSourcemaps(loaders) {
 /**
  * Load the webpack configuration for an environment
  *
- * @param {string} environment The name of an environment
+ * @param {ChitonSettings} settings The current settings
  * @returns {Object} The environment's webpack configuration
  */
-function load(environment) {
-  var custom = _.extend({
-    config: {},
+function load(settings) {
+  var custom = {
+    config: {
+      debug: settings.webpack.debug
+    },
     images: [],
     plugins: [],
     postcss: []
-  }, environments.tailor(environment, {
-    development: function() {
-      return {
-        config: {
-          debug: true
-        }
-      };
-    },
-    production: function() {
-      return {
-        images: [
-          'image-webpack?{interlaced: false, optimizationLevel: 4, pngquant:{quality: "65-90", speed: 4}, progressive: false}'
-        ],
-        plugins: [
-          new webpack.optimize.UglifyJsPlugin({
-            compressor: {
-              warnings: false
-            }
-          }),
-          new webpack.NoErrorsPlugin()
-        ],
-        postcss: [
-          cssnano({
-            autoprefixer: false,
-            zindex: false
-          })
-        ]
-      };
-    }
-  }, {}));
+  };
+
+  if (settings.webpack.optimize) {
+    extend(custom, {
+      images: [
+        'image-webpack?{interlaced: false, optimizationLevel: 4, pngquant:{quality: "65-90", speed: 4}, progressive: false}'
+      ],
+      plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+          compressor: {
+            warnings: false
+          }
+        }),
+        new webpack.NoErrorsPlugin()
+      ],
+      postcss: [
+        cssnano({
+          autoprefixer: false,
+          zindex: false
+        })
+      ]
+    });
+  }
 
   var relativeAssets = path.relative(paths.build.base, paths.build.assets);
   var relativeImages = path.relative(paths.build.assets, paths.build.images);
 
-  return _.extend({
+  return extend({
     cache: true,
     context: paths.ui.js,
     devtool: 'source-map',
