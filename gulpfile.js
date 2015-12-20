@@ -18,7 +18,8 @@ var options = cliArgs.parse();
 var plugins = loadPlugins();
 
 var settings = environments.loadSettings(options.environment);
-var webpackConfig = webpackConfigs.load(settings);
+var browserConfig = webpackConfigs.browser(settings);
+var serverConfig = webpackConfigs.server(settings);
 
 // Globs for matching all known assets of a type
 var all = {
@@ -33,24 +34,14 @@ var all = {
   ]
 };
 
-gulp.task('build', ['bundle-assets']);
+gulp.task('build', ['bundle-assets', 'bundle-server']);
 gulp.task('default', ['develop']);
 gulp.task('develop', ['watch', 'serve']);
 gulp.task('lint', ['lint-js', 'lint-scss']);
 
-// Bundle all assets using webpack
-gulp.task('bundle-assets', function bundleAssets(done) {
-  var builder = webpack(webpackConfig, function(err, stats) {
-    if (err) { throw new gutil.PluginError('build', err); }
-    gutil.log('Webpack', stats.toString({colors: true}));
-    done();
-  });
-
-  builder.apply(new WebpackProgressPlugin(function(percentage, message) {
-    var rounded = Math.floor(percentage * 100);
-    gutil.log('Webpack', rounded + '% ' + message);
-  }));
-});
+// Create webpack tasks for client and server builds
+webpackBuildTask('bundle-assets', browserConfig);
+webpackBuildTask('bundle-server', serverConfig);
 
 // Clear the build directory
 gulp.task('clear', function clear(done) {
@@ -79,9 +70,9 @@ gulp.task('lint-scss', function lintScss() {
 gulp.task('serve', function serve() {
   var servers = settings.servers(options.environment);
 
-  var server = new WebpackDevServer(webpack(webpackConfig), {
+  var server = new WebpackDevServer(webpack(browserConfig), {
     contentBase: paths.build.base,
-    publicPath: webpackConfig.output.publicPath,
+    publicPath: browserConfig.output.publicPath,
     stats: {colors: true}
   });
 
@@ -95,3 +86,26 @@ gulp.task('watch', function watch() {
   gulp.watch(all.js, ['lint-js']);
   gulp.watch(all.scss, ['lint-scss']);
 });
+
+/**
+ * Create a gulp task for building a webpack bundle
+ *
+ * @param {string} task The name of the gulp task
+ * @param {Object} config A webpack configuration
+ */
+function webpackBuildTask(task, config) {
+  gulp.task(task, function(done) {
+    var logLabel = 'Webpack (' + config.target + ')';
+
+    var builder = webpack(config, function(err, stats) {
+      if (err) { throw new gutil.PluginError(task, err); }
+      gutil.log(logLabel, stats.toString({colors: true}));
+      done();
+    });
+
+    builder.apply(new WebpackProgressPlugin(function(percentage, message) {
+      var rounded = Math.floor(percentage * 100);
+      gutil.log(logLabel, rounded + '% ' + message);
+    }));
+  });
+}

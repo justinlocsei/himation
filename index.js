@@ -13,7 +13,7 @@ var webpackConfigs = require('./config/webpack-configs');
 var options = cliArgs.parse();
 
 var settings = environments.loadSettings(options.environment);
-var config = webpackConfigs.load(settings);
+var config = webpackConfigs.server(settings);
 var assets = webpackBundles.urls(config);
 
 var app = server.create({
