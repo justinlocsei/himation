@@ -26,7 +26,7 @@ var all = {
     files.shallow(paths.root, 'js'),
     files.deep(paths.ui.js, 'js'),
     files.deep(paths.config, 'js'),
-    files.deep(paths.server, 'js')
+    files.shallow(paths.server.root, 'js')
   ],
   scss: [
     files.deep(paths.ui.scss, 'scss')
