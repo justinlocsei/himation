@@ -156,6 +156,11 @@ function server(settings) {
     entry: {
       pages: './pages'
     },
+    externals: function(context, request, callback) {
+      var isNonRelative = /^[^\.]/.test(request);
+      var isUiModule = /^chiton\//.test(request);
+      return callback(null, isNonRelative && !isUiModule);
+    },
     module: {
       loaders: _.flatten([
         imageLoaders(settings.webpack.optimize),
