@@ -19,8 +19,7 @@ var assets = webpackBundles.urls(config);
 var app = server.create({
   assets: assets,
   routes: routes,
-  templates: paths.ui.templates,
-  ui: paths.ui.js
+  templates: paths.ui.templates
 });
 
 http.createServer(app).listen(settings.servers.api.port, settings.servers.api.host, function() {
