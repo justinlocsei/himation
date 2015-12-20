@@ -5,6 +5,7 @@ var autoprefixer = require('autoprefixer');
 var cssnano = require('cssnano');
 var extend = require('extend');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
 
@@ -143,6 +144,20 @@ function postCssPlugins(optimize) {
 }
 
 /**
+ * Create a webpack plugin that logs the stats of a build to a file
+ *
+ * @param {string} file The absolute path of the file to receive the stats
+ * @returns {function} The plugin function
+ */
+function statsPlugin(file) {
+  return function() {
+    this.plugin('done', function(stats) {
+      fs.writeFileSync(file, JSON.stringify(stats.toJson(), null, '  '));
+    });
+  };
+}
+
+/**
  * Create a webpack configuration for use on the server
  *
  * @param {ChitonSettings} settings The current settings
@@ -214,7 +229,9 @@ function browser(settings) {
       path: paths.build.assets,
       publicPath: '/' + relativeAssets + '/'
     },
-    plugins: globalPlugins(settings.webpack.optimize),
+    plugins: globalPlugins(settings.webpack.optimize).concat([
+      statsPlugin(path.join(paths.server.ui, 'build.json'))
+    ]),
     postcss: postCssPlugins(settings.webpack.optimize),
     target: 'web'
   });
