@@ -1,3 +1,3 @@
-# Chiton Demo
+# Chiton Site
 
-This repository holds code for an interactive prototype of Chiton.
+This repository holds the front-end code for Cover Your Basics.

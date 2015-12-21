@@ -1,8 +1,8 @@
 {
-  "name": "chiton-demo",
+  "name": "chiton-site",
   "version": "0.1.0",
-  "description": "An interactive prototype of Chiton",
-  "repository": "git://github.com/justinlocsei/chiton-demo.git",
+  "description": "The front-end code for Cover Your basics",
+  "repository": "git://github.com/justinlocsei/chiton-site.git",
   "license": "UNLICENSED",
   "main": "index.js",
   "scripts": {
