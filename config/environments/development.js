@@ -12,11 +12,13 @@ function load() {
     servers: {
       api: {
         host: 'localhost',
-        port: 8080
+        port: 8080,
+        protocol: 'http'
       },
       assets: {
         host: 'localhost',
-        port: 8081
+        port: 8081,
+        protocol: 'http'
       }
     },
     webpack: {
