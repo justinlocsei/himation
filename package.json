@@ -9,8 +9,8 @@
     "api:serve": "node index",
     "assets:rebuild": "gulp clear && gulp build",
     "assets:serve": "gulp develop",
-    "assets:watch": "gulp watch",
-    "lint": "gulp lint"
+    "lint": "gulp lint",
+    "watch": "gulp watch"
   },
   "dependencies": {
     "autoprefixer": "^6.1.2",
