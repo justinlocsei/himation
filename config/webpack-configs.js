@@ -107,7 +107,7 @@ function imageLoaders(optimize) {
  * @private
  */
 function globalPlugins(optimize) {
-  var plugins = [new ExtractTextPlugin('[name].css')];
+  var plugins = [new ExtractTextPlugin('[hash].css')];
 
   if (optimize) {
     plugins.push(new webpack.optimize.UglifyJsPlugin({
@@ -184,7 +184,7 @@ function server(settings) {
       ])
     },
     output: {
-      filename: '[name].js',
+      filename: '[hash].js',
       libraryTarget: 'commonjs2',
       path: paths.server.ui,
       publicPath: '/' + relativeAssets + '/'
@@ -225,7 +225,7 @@ function browser(settings) {
       ]
     },
     output: {
-      filename: '[name].js',
+      filename: '[hash].js',
       path: paths.build.assets,
       publicPath: '/' + relativeAssets + '/'
     },
