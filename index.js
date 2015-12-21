@@ -1,28 +1,33 @@
 'use strict';
 
 var http = require('http');
+var https = require('https');
 
 var cliArgs = require('./config/cli-args');
 var environments = require('./config/environments');
 var paths = require('./config/paths');
 var routes = require('./config/routes');
 var server = require('./server/server');
-var webpackBundles = require('./config/webpack-bundles');
-var webpackConfigs = require('./config/webpack-configs');
+var urls = require('./server/urls');
 
 var options = cliArgs.parse();
 
 var settings = environments.loadSettings(options.environment);
-var config = webpackConfigs.server(settings);
-var assets = webpackBundles.urls(config);
+var servers = settings.servers;
+
+var assetUrl = urls.expandHost(servers.assets.host, {
+  port: servers.assets.port,
+  protocol: servers.assets.protocol
+});
 
 var app = server.create({
-  assets: assets,
+  assetUrl: assetUrl,
   routes: routes,
   templates: paths.ui.templates
 });
 
-http.createServer(app).listen(settings.servers.api.port, settings.servers.api.host, function() {
+var serverFactory = servers.api.protocol === 'https' ? https : http;
+serverFactory.createServer(app).listen(servers.api.port, servers.api.host, function() {
   var address = this.address();
   console.log('Server available at %s:%s', address.address, address.port);
 });
