@@ -5,11 +5,11 @@ var nj = require('nunjucks');
 /**
  * Create a new nunjucks template engine
  *
- * @param {string} templates The path to the templates directory
+ * @param {string} templatePath The path to the templates directory
  * @returns {nunjucks.Environment} A nunjucks environment
  */
-function nunjucks(templates) {
-  var loader = new nj.FileSystemLoader(templates);
+function nunjucks(templatePath) {
+  var loader = new nj.FileSystemLoader(templatePath);
 
   return new nj.Environment(loader, {
     autoescape: true,
