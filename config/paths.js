@@ -11,8 +11,8 @@ var server = path.join(root, 'server');
 module.exports = {
   build: {
     assets: buildAssets,
-    base: build,
-    images: path.join(buildAssets, 'images')
+    images: path.join(buildAssets, 'images'),
+    root: build
   },
   config: path.join(root, 'config'),
   root: root,
@@ -21,9 +21,9 @@ module.exports = {
     ui: path.join(server, 'ui')
   },
   ui: {
-    base: ui,
     images: path.join(ui, 'images'),
     js: path.join(ui, 'js'),
+    root: ui,
     scss: path.join(ui, 'scss'),
     templates: path.join(ui, 'templates')
   }

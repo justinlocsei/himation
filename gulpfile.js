@@ -45,7 +45,7 @@ webpackBuildTask('bundle-server', serverConfig);
 
 // Clear the build directory
 gulp.task('clear', function clear(done) {
-  rimraf(paths.build.base, function(err) {
+  rimraf(paths.build.root, function(err) {
     if (err) { throw new gutil.PluginError('clear', err); }
     done();
   });
@@ -69,7 +69,7 @@ gulp.task('lint-scss', function lintScss() {
 // Run the webpack development server
 gulp.task('serve', function serve() {
   var server = new WebpackDevServer(webpack(browserConfig), {
-    contentBase: paths.build.base,
+    contentBase: paths.build.root,
     publicPath: browserConfig.output.publicPath,
     stats: {colors: true}
   });

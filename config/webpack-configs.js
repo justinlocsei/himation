@@ -11,7 +11,7 @@ var webpack = require('webpack');
 
 var paths = require('./paths');
 
-var relativeAssets = path.relative(paths.build.base, paths.build.assets);
+var relativeAssets = path.relative(paths.build.root, paths.build.assets);
 var relativeImages = path.relative(paths.build.assets, paths.build.images);
 
 // The baseline webpack config to use
@@ -21,7 +21,7 @@ var base = {
     extensions: ['', '.js', '.scss'],
     alias: {
       'chiton/server': paths.server.root,
-      'chiton/ui': paths.ui.base
+      'chiton/ui': paths.ui.root
     }
   },
   sassLoader: {
