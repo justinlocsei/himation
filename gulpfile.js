@@ -68,15 +68,14 @@ gulp.task('lint-scss', function lintScss() {
 
 // Run the webpack development server
 gulp.task('serve', function serve() {
-  var servers = settings.servers(options.environment);
-
   var server = new WebpackDevServer(webpack(browserConfig), {
     contentBase: paths.build.base,
     publicPath: browserConfig.output.publicPath,
     stats: {colors: true}
   });
 
-  server.listen(servers.assets.port, servers.assets.host, function(err) {
+  var binding = settings.servers.assets;
+  server.listen(binding.port, binding.host, function(err) {
     if (err) { throw new gutil.PluginError('develop', err); }
   });
 });
