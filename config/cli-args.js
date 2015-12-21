@@ -7,7 +7,7 @@ var environments = require('./environments');
 /**
  * Parse all comment-line otions
  *
- * @returns {Object} The parsed arguments
+ * @returns {object} The parsed arguments
  */
 function parse() {
   return yargs

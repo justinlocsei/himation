@@ -41,7 +41,7 @@ function withAssets(page, host, context) {
  * Add route mappings to an application
  *
  * @param {Server} app An application instance
- * @param {Object} routes A mapping of route IDs to URLs
+ * @param {object} routes A mapping of route IDs to URLs
  * @param {string} assetUrl The URL at which assets are hosted
  * @private
  */
@@ -62,9 +62,9 @@ function route(app, routes, assetUrl) {
 /**
  * Create an instance of an API server
  *
- * @param {Object} options Configuration for the server
+ * @param {object} options Configuration for the server
  * @param {string} options.assetUrl The URL at which assets are available
- * @param {Object} options.routes A mapping of route names to URLs
+ * @param {object} options.routes A mapping of route names to URLs
  * @param {string} options.templates The path to the templates directory
  * @returns {Server} An API server that can be bound to an address
  */

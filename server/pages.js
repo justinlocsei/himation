@@ -28,7 +28,7 @@ function index() {
  * Require the named UI React component
  *
  * @param {string} name The name of the component's file
- * @returns {Object} The requested component
+ * @returns {object} The requested component
  * @private
  */
 function requireComponent(name) {

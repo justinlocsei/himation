@@ -161,7 +161,7 @@ function statsPlugin(file) {
  * Create a webpack configuration for use on the server
  *
  * @param {ChitonSettings} settings The current settings
- * @returns {Object} A server-appropriate webpack configuration
+ * @returns {object} A server-appropriate webpack configuration
  */
 function server(settings) {
   return extend(true, {}, base, {
@@ -199,7 +199,7 @@ function server(settings) {
  * Create a webpack configuration for use in the browser
  *
  * @param {ChitonSettings} settings The current settings
- * @returns {Object} A browser-appropriate webpack configuration
+ * @returns {object} A browser-appropriate webpack configuration
  */
 function browser(settings) {
   return extend(true, {}, base, {

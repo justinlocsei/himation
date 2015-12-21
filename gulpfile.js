@@ -90,7 +90,7 @@ gulp.task('watch', function watch() {
  * Create a gulp task for building a webpack bundle
  *
  * @param {string} task The name of the gulp task
- * @param {Object} config A webpack configuration
+ * @param {object} config A webpack configuration
  */
 function webpackBuildTask(task, config) {
   gulp.task(task, function(done) {
