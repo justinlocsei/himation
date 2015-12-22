@@ -18,8 +18,8 @@ var options = cliArgs.parse();
 var plugins = loadPlugins();
 
 var settings = environments.loadSettings(options.environment);
-var browserConfig = webpackConfigs.browser(settings);
 var serverConfig = webpackConfigs.server(settings);
+var uiConfig = webpackConfigs.ui(settings);
 
 // Globs for matching all known assets of a type
 var all = {
@@ -27,7 +27,7 @@ var all = {
     files.shallow(paths.root, 'js'),
     files.deep(paths.ui.js, 'js'),
     files.deep(paths.config, 'js'),
-    files.shallow(paths.server.root, 'js')
+    files.deep(paths.server, 'js')
   ],
   scss: [
     files.deep(paths.ui.scss, 'scss')
@@ -40,7 +40,7 @@ gulp.task('develop', ['watch', 'serve']);
 gulp.task('lint', ['lint-js', 'lint-scss']);
 
 // Create webpack tasks for client and server builds
-webpackBuildTask('bundle-assets', browserConfig);
+webpackBuildTask('bundle-assets', uiConfig);
 webpackBuildTask('bundle-server', serverConfig);
 
 // Clear the build directory
@@ -68,9 +68,9 @@ gulp.task('lint-scss', function lintScss() {
 
 // Run the webpack development server
 gulp.task('serve', function serve() {
-  var server = new WebpackDevServer(webpack(browserConfig), {
+  var server = new WebpackDevServer(webpack(uiConfig), {
     contentBase: paths.build.root,
-    publicPath: browserConfig.output.publicPath,
+    publicPath: uiConfig.output.publicPath,
     stats: {colors: true}
   });
 

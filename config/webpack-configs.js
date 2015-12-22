@@ -11,16 +11,13 @@ var webpack = require('webpack');
 
 var paths = require('./paths');
 
-var relativeAssets = path.relative(paths.build.root, paths.build.assets);
-var relativeImages = path.relative(paths.build.assets, paths.build.images);
-
 // The baseline webpack config to use
 var base = {
   cache: true,
   resolve: {
     extensions: ['', '.js', '.scss'],
     alias: {
-      'chiton/server': paths.server.root,
+      'chiton/server': paths.server,
       'chiton/ui': paths.ui.root
     }
   },
@@ -89,7 +86,7 @@ function jsLoaders() {
 function imageLoaders(optimize) {
   var rasterLoader = {
     test: /\.(jpg|png)$/,
-    loaders: ['url?limit=2500&name=' + relativeImages + '/[hash].[ext]']
+    loaders: ['url?limit=2500&name=images/[hash].[ext]']
   };
 
   if (optimize) {
@@ -102,12 +99,16 @@ function imageLoaders(optimize) {
 /**
  * Return an array of webpack plugins to use
  *
+ * @param {string} label The label for the build
  * @param {boolean} optimize Whether to optimize the assets
  * @returns {Object[]}
  * @private
  */
-function globalPlugins(optimize) {
-  var plugins = [new ExtractTextPlugin('[hash].css')];
+function globalPlugins(label, optimize) {
+  var plugins = [
+    new ExtractTextPlugin('[name]-[hash].css'),
+    statsPlugin(path.join(paths.build.root, label + '.json'))
+  ];
 
   if (optimize) {
     plugins.push(new webpack.optimize.UglifyJsPlugin({
@@ -165,7 +166,7 @@ function statsPlugin(file) {
  */
 function server(settings) {
   return extend(true, {}, base, {
-    context: paths.server.root,
+    context: paths.server,
     debug: settings.webpack.debug,
     devtool: false,
     entry: {
@@ -184,24 +185,24 @@ function server(settings) {
       ])
     },
     output: {
-      filename: '[hash].js',
+      filename: '[name].js',
       libraryTarget: 'commonjs2',
-      path: paths.server.ui,
-      publicPath: '/' + relativeAssets + '/'
+      path: paths.build.server,
+      publicPath: '/'
     },
-    plugins: globalPlugins(settings.webpack.optimize),
+    plugins: globalPlugins('server', settings.webpack.optimize),
     postcss: postCssPlugins(settings.webpack.optimize),
     target: 'node'
   });
 }
 
 /**
- * Create a webpack configuration for use in the browser
+ * Create a webpack configuration for rendering the UI in the browser
  *
  * @param {ChitonSettings} settings The current settings
  * @returns {object} A browser-appropriate webpack configuration
  */
-function browser(settings) {
+function ui(settings) {
   return extend(true, {}, base, {
     context: paths.ui.js,
     debug: settings.webpack.debug,
@@ -225,19 +226,17 @@ function browser(settings) {
       ]
     },
     output: {
-      filename: '[hash].js',
-      path: paths.build.assets,
-      publicPath: '/' + relativeAssets + '/'
+      filename: '[name]-[hash].js',
+      path: paths.build.ui,
+      publicPath: '/'
     },
-    plugins: globalPlugins(settings.webpack.optimize).concat([
-      statsPlugin(path.join(paths.server.ui, 'build.json'))
-    ]),
+    plugins: globalPlugins('ui', settings.webpack.optimize),
     postcss: postCssPlugins(settings.webpack.optimize),
     target: 'web'
   });
 }
 
 module.exports = {
-  browser: browser,
-  server: server
+  server: server,
+  ui: ui
 };

@@ -1,14 +1,16 @@
 'use strict';
 
+var _ = require('lodash');
 var express = require('express');
 var extend = require('extend');
 var helmet = require('helmet');
 
-var assets = require('./assets');
-var build = require('./ui/build.json');
-var pages = require('./ui/pages');
+var build = require('./build');
 var templateEngines = require('./template-engines');
 var urls = require('./urls');
+
+var pages = build.bridge('pages');
+var uiBuild = build.stats('ui');
 
 // A map between asset groups and file extensions
 var ASSET_GROUPS = {
@@ -23,16 +25,14 @@ var ASSET_GROUPS = {
  * @param {string} host The URL at which the asset files are hosted
  * @param {object} context The base rendering context
  * @returns {object} A rendering context for a template
+ * @private
  */
 function withAssets(page, host, context) {
-  var media = Object.keys(ASSET_GROUPS).reduce(function(groups, group) {
-    var files = assets.extract(build, page, ASSET_GROUPS[group]);
-    groups[group] = files.map(function(file) {
-      return urls.absolute(file, host);
-    });
-
-    return groups;
-  }, {});
+  var media = _.zipObject(Object.keys(ASSET_GROUPS).map(function(group) {
+    var files = build.assets(uiBuild, page, ASSET_GROUPS[group]);
+    var hrefs = files.map(function(file) { return urls.absolute(file, host); });
+    return [group, hrefs];
+  }));
 
   return extend(media, context);
 }
