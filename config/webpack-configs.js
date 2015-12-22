@@ -153,7 +153,13 @@ function postCssPlugins(optimize) {
 function statsPlugin(file) {
   return function() {
     this.plugin('done', function(stats) {
-      fs.writeFileSync(file, JSON.stringify(stats.toJson(), null, '  '));
+      var details = stats.toJson({
+        modules: false,
+        reasons: false,
+        timings: false,
+        version: false
+      });
+      fs.writeFileSync(file, JSON.stringify(details, null, '  '));
     });
   };
 }
