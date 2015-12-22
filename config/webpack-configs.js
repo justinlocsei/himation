@@ -43,7 +43,7 @@ function useSourcemaps(loaders) {
 /**
  * Return an array of loaders for Sass files
  *
- * @returns {Object[]}
+ * @returns {object[]}
  * @private
  */
 function sassLoaders() {
@@ -58,7 +58,7 @@ function sassLoaders() {
 /**
  * Return an array of loaders for JS files
  *
- * @returns {Object[]}
+ * @returns {object[]}
  * @private
  */
 function jsLoaders() {
@@ -80,7 +80,7 @@ function jsLoaders() {
  * Return an array of loaders for image files
  *
  * @param {boolean} optimize Whether to optimize the images
- * @returns {Object[]}
+ * @returns {object[]}
  * @private
  */
 function imageLoaders(optimize) {
@@ -101,7 +101,7 @@ function imageLoaders(optimize) {
  *
  * @param {string} label The label for the build
  * @param {boolean} optimize Whether to optimize the assets
- * @returns {Object[]}
+ * @returns {object[]}
  * @private
  */
 function globalPlugins(label, optimize) {
@@ -122,7 +122,7 @@ function globalPlugins(label, optimize) {
 /**
  * Return an array of PostCSS plugins to use
  *
- * @returns {Object[]}
+ * @returns {object[]}
  * @param {boolean} optimize Whether to optimize the CSS
  * @private
  */
