@@ -3,8 +3,10 @@
 var React = require('react');
 var ReactDomServer = require('react-dom/server');
 
-var About = requireComponent('about');
-var Index = requireComponent('index');
+var ui = require('./ui');
+
+var About = ui.module('components/about');
+var Index = ui.module('components/index');
 
 /**
  * Render the body content for the about page
@@ -22,17 +24,6 @@ function about() {
  */
 function index() {
   return ReactDomServer.renderToString(React.createElement(Index));
-}
-
-/**
- * Require the named UI React component
- *
- * @param {string} name The name of the component's file
- * @returns {object} The requested component
- * @private
- */
-function requireComponent(name) {
-  return require('../ui/js/components/' + name);
 }
 
 module.exports = {
