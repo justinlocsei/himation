@@ -90,7 +90,16 @@ function imageLoaders(optimize) {
   };
 
   if (optimize) {
-    rasterLoader.loaders.push('image-webpack?{interlaced: false, optimizationLevel: 4, pngquant:{quality: "65-90", speed: 4}, progressive: false}');
+    var compression = {
+      interlaced: false,
+      optimizationLevel: 4,
+      pngquant: {
+        quality: '65-90',
+        speed: 4
+      },
+      progressive: false
+    };
+    rasterLoader.loaders.push('image-webpack?' + JSON.stringify(compression));
   }
 
   return [rasterLoader];
