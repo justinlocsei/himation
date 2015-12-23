@@ -12,6 +12,7 @@ var cliArgs = require('./config/cli-args');
 var environments = require('./config/environments');
 var files = require('./config/files');
 var paths = require('./config/paths');
+var server = require('./server');
 var webpackConfigs = require('./config/webpack-configs');
 
 var options = cliArgs.parse();
@@ -36,8 +37,9 @@ var all = {
 
 gulp.task('build', ['bundle-assets', 'bundle-server']);
 gulp.task('default', ['develop']);
-gulp.task('develop', ['watch', 'serve']);
+gulp.task('develop', ['serve-assets', 'watch']);
 gulp.task('lint', ['lint-js', 'lint-scss']);
+gulp.task('serve', ['serve-application', 'serve-assets']);
 
 // Create webpack tasks for client and server builds
 webpackBuildTask('bundle-assets', uiConfig);
@@ -66,16 +68,23 @@ gulp.task('lint-scss', function lintScss() {
     }));
 });
 
-// Run the webpack development server
-gulp.task('serve', function serve() {
-  var server = new WebpackDevServer(webpack(uiConfig), {
+// Run the application server
+gulp.task('serve-application', function serveApplication() {
+  server.start(function(address) {
+    gutil.log('Application Server', 'Server available at ' + address.address + ':' + address.port);
+  });
+});
+
+// Run the webpack development server to serve assets
+gulp.task('serve-assets', function serveAssets() {
+  var assetServer = new WebpackDevServer(webpack(uiConfig), {
     contentBase: paths.build.root,
     publicPath: uiConfig.output.publicPath,
     stats: {colors: true}
   });
 
   var binding = settings.servers.assets;
-  server.listen(binding.port, binding.host, function(err) {
+  assetServer.listen(binding.port, binding.host, function(err) {
     if (err) { throw new gutil.PluginError('develop', err); }
   });
 });
