@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var autoprefixer = require('autoprefixer');
+var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 var cssnano = require('cssnano');
 var extend = require('extend');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -114,16 +115,15 @@ function imageLoaders(optimize) {
  * @private
  */
 function globalPlugins(label, optimize) {
-  var plugins = [
-    new ExtractTextPlugin('[name]-[hash].css'),
-    statsPlugin(path.join(paths.build.root, label + '.json'))
-  ];
+  var plugins = [new ExtractTextPlugin('[name]-[hash].css')];
 
   if (optimize) {
     plugins.push(new webpack.optimize.UglifyJsPlugin({
       compressor: {warnings: false}
     }));
   }
+
+  plugins.push(statsPlugin(path.join(paths.build.root, label + '.json')));
 
   return plugins;
 }
@@ -245,7 +245,12 @@ function ui(settings) {
       path: paths.build.ui,
       publicPath: '/'
     },
-    plugins: globalPlugins('ui', settings.webpack.optimize),
+    plugins: [
+      new CommonsChunkPlugin({
+        name: 'commons',
+        filename: 'commons-[hash].js'
+      })
+    ].concat(globalPlugins('ui', settings.webpack.optimize)),
     postcss: postCssPlugins(settings.webpack.optimize),
     target: 'web'
   });
