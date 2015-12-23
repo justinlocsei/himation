@@ -124,6 +124,7 @@ function globalPlugins(label, optimize) {
   }
 
   plugins.push(statsPlugin(path.join(paths.build.root, label + '.json')));
+  plugins.push(new webpack.NoErrorsPlugin());
 
   return plugins;
 }
