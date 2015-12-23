@@ -3,7 +3,6 @@
 var http = require('http');
 var https = require('https');
 
-var application = require('./server/application');
 var cliArgs = require('./config/cli-args');
 var environments = require('./config/environments');
 var paths = require('./config/paths');
@@ -31,6 +30,7 @@ function start(callback) {
     protocol: servers.assets.protocol
   });
 
+  var application = require('./server/application');
   var app = application.create({
     assetUrl: assetUrl,
     routes: routes,
