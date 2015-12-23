@@ -2,10 +2,12 @@
 
 var path = require('path');
 
-var root = path.normalize(path.join(__dirname, '..'));
+var root = path.normalize(path.join(__dirname, '..', '..'));
 
 var build = path.join(root, 'build');
-var ui = path.join(root, 'ui');
+var src = path.join(root, 'src');
+
+var ui = path.join(src, 'ui');
 
 module.exports = {
   build: {
@@ -13,9 +15,11 @@ module.exports = {
     server: path.join(build, 'server'),
     ui: path.join(build, 'ui')
   },
-  config: path.join(root, 'config'),
+  config: path.join(src, 'config'),
+  core: path.join(src, 'core'),
   root: root,
-  server: path.join(root, 'server'),
+  server: path.join(src, 'server'),
+  src: src,
   ui: {
     images: path.join(ui, 'images'),
     js: path.join(ui, 'js'),

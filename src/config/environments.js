@@ -32,7 +32,7 @@ function loadSettings(environment) {
     throw new Error('"' + environment + '" is not a valid environment (Choices are: ' + names.join(', ') + ')');
   }
 
-  var settings = require('./environments/' + environment);
+  var settings = require('chiton/config/environments/' + environment);
   return settings.load();
 }
 

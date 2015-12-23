@@ -4,10 +4,10 @@ var _ = require('lodash');
 var express = require('express');
 var helmet = require('helmet');
 
-var build = require('./build');
-var templateEngines = require('./template-engines');
-var routing = require('./routing');
-var urls = require('./urls');
+var build = require('chiton/server/build');
+var templateEngines = require('chiton/server/template-engines');
+var routing = require('chiton/server/routing');
+var urls = require('chiton/server/urls');
 
 var pages = build.bridge('pages');
 var uiBuild = build.stats('ui');

@@ -12,7 +12,7 @@
  * @throws If the module cannot be found
  */
 function requireModule(name) {
-  return require('../ui/js/' + name);
+  return require('chiton/ui/js/' + name);
 }
 
 module.exports = {

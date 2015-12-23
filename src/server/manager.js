@@ -3,11 +3,11 @@
 var http = require('http');
 var https = require('https');
 
-var cliArgs = require('./config/cli-args');
-var environments = require('./config/environments');
-var paths = require('./config/paths');
-var routes = require('./config/routes');
-var urls = require('./server/urls');
+var cliArgs = require('chiton/config/cli-args');
+var environments = require('chiton/config/environments');
+var paths = require('chiton/core/paths');
+var routes = require('chiton/config/routes');
+var urls = require('chiton/server/urls');
 
 /**
  * Start the server
@@ -30,7 +30,7 @@ function start(callback) {
     protocol: servers.assets.protocol
   });
 
-  var application = require('./server/application');
+  var application = require('chiton/server/application');
   var app = application.create({
     assetUrl: assetUrl,
     routes: routes,

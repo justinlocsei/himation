@@ -2,7 +2,7 @@
 
 var path = require('path');
 
-var paths = require('../config/paths');
+var paths = require('chiton/core/paths');
 
 /**
  * Extract assets URLs associated with a webpack entry point

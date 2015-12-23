@@ -1,9 +1,9 @@
 'use strict';
 
-var settings = require('../settings');
+var settings = require('chiton/config/settings');
 
 /**
- * Load the settings for the development environment
+ * Load the settings for the production environment
  *
  * @returns {ChitonSettings}
  */
@@ -22,8 +22,8 @@ function load() {
       }
     },
     webpack: {
-      debug: true,
-      optimize: false
+      debug: false,
+      optimize: true
     }
   });
 }

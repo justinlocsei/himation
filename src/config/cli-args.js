@@ -2,7 +2,7 @@
 
 var yargs = require('yargs');
 
-var environments = require('./environments');
+var environments = require('chiton/config/environments');
 
 /**
  * Parse all comment-line otions

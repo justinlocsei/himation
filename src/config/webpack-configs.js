@@ -10,7 +10,7 @@ var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
 
-var paths = require('./paths');
+var paths = require('chiton/core/paths');
 
 // The baseline webpack config to use
 var base = {

@@ -3,7 +3,7 @@
 var React = require('react');
 var ReactDomServer = require('react-dom/server');
 
-var ui = require('./ui');
+var ui = require('chiton/server/ui');
 
 var About = ui.module('components/pages/about');
 var Index = ui.module('components/pages/index');
