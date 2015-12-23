@@ -37,10 +37,10 @@ function start(callback) {
     templates: paths.ui.templates
   });
 
-  var serverFactory = servers.api.protocol === 'https' ? https : http;
+  var serverFactory = servers.app.protocol === 'https' ? https : http;
   var server = serverFactory.createServer(app);
 
-  server.listen(servers.api.port, servers.api.host, function() {
+  server.listen(servers.app.port, servers.app.host, function() {
     onBind(this.address());
   });
 

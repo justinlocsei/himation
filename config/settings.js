@@ -5,9 +5,9 @@ var extend = require('extend');
 /**
  * @typedef {object} ChitonSettings
  * @property {object} servers Addresses for all known servers
- * @property {object} servers.api Address components for the API server
- * @property {string} servers.api.host The hostname for the API server
- * @property {number} servers.api.port The port for the API server
+ * @property {object} servers.app Address components for the application server
+ * @property {string} servers.app.host The hostname for the application server
+ * @property {number} servers.app.port The port for the application server
  * @property {object} servers.assets Address components for the assets server
  * @property {string} servers.assets.host The hostname for the assets server
  * @property {number} servers.assets.port The port for the assets server
@@ -17,7 +17,7 @@ var extend = require('extend');
  */
 var defaults = {
   servers: {
-    api: {},
+    app: {},
     assets: {}
   },
   webpack: {

@@ -39,7 +39,7 @@ gulp.task('build', ['bundle-assets', 'bundle-server']);
 gulp.task('default', ['develop']);
 gulp.task('develop', ['serve-assets', 'watch']);
 gulp.task('lint', ['lint-js', 'lint-scss']);
-gulp.task('serve', ['serve-application', 'serve-assets']);
+gulp.task('serve', ['serve-app', 'serve-assets']);
 
 // Create webpack tasks for client and server builds
 webpackBuildTask('bundle-assets', uiConfig);
@@ -69,9 +69,9 @@ gulp.task('lint-scss', function lintScss() {
 });
 
 // Run the application server
-gulp.task('serve-application', function serveApplication() {
+gulp.task('serve-app', function serveApplication() {
   server.start(function(address) {
-    gutil.log('Application Server', 'Server available at ' + address.address + ':' + address.port);
+    gutil.log('Application server available at ' + address.address + ':' + address.port);
   });
 });
 

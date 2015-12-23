@@ -6,7 +6,7 @@
   "license": "UNLICENSED",
   "main": "index.js",
   "scripts": {
-    "api:serve": "node index",
+    "app:serve": "node index",
     "assets:rebuild": "gulp clear && gulp build",
     "assets:serve": "gulp develop",
     "lint": "gulp lint",

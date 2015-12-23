@@ -10,7 +10,7 @@ var settings = require('../settings');
 function load() {
   return settings.customize({
     servers: {
-      api: {
+      app: {
         host: 'localhost',
         port: 8080,
         protocol: 'http'

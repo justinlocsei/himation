@@ -60,13 +60,13 @@ function route(app, routes, assetUrl) {
 }
 
 /**
- * Create an instance of an API server
+ * Create an instance of an application server
  *
  * @param {object} options Configuration for the server
  * @param {string} options.assetUrl The URL at which assets are available
  * @param {object} options.routes A mapping of route names to URLs
  * @param {string} options.templates The path to the templates directory
- * @returns {Server} An API server that can be bound to an address
+ * @returns {Server} An application server that can be bound to an address
  */
 function create(options) {
   var settings = options || {};
