@@ -3,6 +3,9 @@
   "env": {
     "mocha": true
   },
+  "globals": {
+    "assert": true
+  },
   "rules": {
     "strict": [2, "global"]
   }
