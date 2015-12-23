@@ -99,7 +99,7 @@ gulp.task('test', function test() {
 
 // Verify all assets when they are changed
 gulp.task('watch', function watch() {
-  gulp.watch(all.js, ['lint-js']);
+  gulp.watch(all.js, ['lint-js', 'test']);
   gulp.watch(all.scss, ['lint-scss']);
 });
 
