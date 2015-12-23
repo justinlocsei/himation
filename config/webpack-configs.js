@@ -223,8 +223,8 @@ function ui(settings) {
     debug: settings.webpack.debug,
     devtool: 'source-map',
     entry: {
-      about: './components/about',
-      index: './components/index'
+      about: './components/pages/about',
+      index: './components/pages/index'
     },
     module: {
       loaders: _.flatten([

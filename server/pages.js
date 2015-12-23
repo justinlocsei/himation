@@ -5,8 +5,8 @@ var ReactDomServer = require('react-dom/server');
 
 var ui = require('./ui');
 
-var About = ui.module('components/about');
-var Index = ui.module('components/index');
+var About = ui.module('components/pages/about');
+var Index = ui.module('components/pages/index');
 
 /**
  * Render the body content for the about page
