@@ -8,14 +8,14 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var WebpackProgressPlugin = require('webpack/lib/ProgressPlugin');
 
-var cliArgs = require('chiton/config/cli-args');
+var cli = require('chiton/config/cli');
 var environments = require('chiton/config/environments');
 var files = require('chiton/core/files');
 var paths = require('chiton/core/paths');
 var serverManager = require('chiton/server/manager');
 var webpackConfigs = require('chiton/config/webpack-configs');
 
-var options = cliArgs.parse();
+var options = cli.args();
 var plugins = loadPlugins();
 
 var settings = environments.loadSettings(options.environment);

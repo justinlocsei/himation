@@ -3,7 +3,7 @@
 var http = require('http');
 var https = require('https');
 
-var cliArgs = require('chiton/config/cli-args');
+var cli = require('chiton/config/cli');
 var environments = require('chiton/config/environments');
 var paths = require('chiton/core/paths');
 var routes = require('chiton/config/routes');
@@ -20,7 +20,7 @@ var urls = require('chiton/server/urls');
  */
 function start(callback) {
   var onBind = callback || function() {};
-  var options = cliArgs.parse();
+  var options = cli.args();
 
   var settings = environments.loadSettings(options.environment);
   var servers = settings.servers;

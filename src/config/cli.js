@@ -9,7 +9,7 @@ var environments = require('chiton/config/environments');
  *
  * @returns {object} The parsed arguments
  */
-function parse() {
+function args() {
   return yargs
     .option('environment', {
       alias: 'e',
@@ -21,5 +21,5 @@ function parse() {
 }
 
 module.exports = {
-  parse: parse
+  args: args
 };
