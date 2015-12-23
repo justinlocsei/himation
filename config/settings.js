@@ -3,6 +3,8 @@
 var extend = require('extend');
 
 /**
+ * Chiton environment settings
+ *
  * @typedef {object} ChitonSettings
  * @property {object} servers Addresses for all known servers
  * @property {object} servers.app Address components for the application server
