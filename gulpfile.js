@@ -26,7 +26,8 @@ var uiConfig = webpackConfigs.ui(settings);
 var all = {
   js: [
     files.shallow(paths.root, 'js'),
-    files.deep(paths.src, 'js')
+    files.deep(paths.src, 'js'),
+    files.deep(paths.test.root, 'js')
   ],
   scss: [
     files.deep(paths.ui.scss, 'scss')
@@ -84,6 +85,16 @@ gulp.task('serve-assets', function serveAssets() {
   assetServer.listen(binding.port, binding.host, function(err) {
     if (err) { throw new gutil.PluginError('develop', err); }
   });
+});
+
+// Run all tests
+gulp.task('test', function test() {
+  return gulp.src(files.deep(paths.test.functional), {read: false})
+    .pipe(plugins.mocha({
+      reporter: 'spec',
+      require: ['chiton-test/support/environment'],
+      ui: 'bdd'
+    }));
 });
 
 // Verify all assets when they are changed

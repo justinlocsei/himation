@@ -11,6 +11,7 @@
     "serve": "gulp serve",
     "serve:app": "gulp serve-app",
     "serve:assets": "gulp serve-assets",
+    "test": "gulp test",
     "watch": "gulp watch"
   },
   "dependencies": {
@@ -58,6 +59,7 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
+    "chiton-test": "file:./test",
     "gulp-mocha": "^2.2.0",
     "mocha": "^2.3.4",
     "sinon": "^1.17.2"
