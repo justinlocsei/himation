@@ -13,9 +13,14 @@ var urls = require('./server/urls');
 /**
  * Start the server
  *
+ * If a callback is provided, it will be called with the address of the server
+ * once it has been bound.
+ *
+ * @param {function} callback A function to call when the server is available
  * @returns {Server} The listening server
  */
-function start() {
+function start(callback) {
+  var onBind = callback || function() {};
   var options = cliArgs.parse();
 
   var settings = environments.loadSettings(options.environment);
@@ -36,8 +41,7 @@ function start() {
   var server = serverFactory.createServer(app);
 
   server.listen(servers.api.port, servers.api.host, function() {
-    var address = this.address();
-    console.log('Server available at %s:%s', address.address, address.port);
+    onBind(this.address());
   });
 
   return server;
