@@ -2,11 +2,11 @@
 
 var _ = require('lodash');
 var express = require('express');
-var extend = require('extend');
 var helmet = require('helmet');
 
 var build = require('./build');
 var templateEngines = require('./template-engines');
+var routing = require('./routing');
 var urls = require('./urls');
 
 var pages = build.bridge('pages');
@@ -19,43 +19,47 @@ var ASSET_GROUPS = {
 };
 
 /**
- * Include information on a page's assets in the rendering context
+ * Create a middleware function that adds assets to the template context
  *
- * @param {string} page The name of the page
- * @param {string} host The URL at which the asset files are hosted
- * @param {object} context The base rendering context
- * @returns {object} A rendering context for a template
+ * @param {string} host The URL at which assets are hosted
+ * @param {ChitonRoutes} routes A mapping of route IDs to URLs
+ * @param {ChitonSettings} settings The environment settings
+ * @returns {function} The asset-injector middleware
  * @private
  */
-function withAssets(page, host, context) {
-  var media = _.zipObject(Object.keys(ASSET_GROUPS).map(function(group) {
-    var files = build.assets(uiBuild, page, ASSET_GROUPS[group]);
-    var hrefs = files.map(function(file) { return urls.absolute(file, host); });
-    return [group, hrefs];
-  }));
+function assetInjector(host, routes) {
+  return function(req, res, next) {
+    var route = routing.reverse(routes, req.path);
 
-  return extend(media, context);
+    if (route) {
+      _.each(ASSET_GROUPS, function(extension, group) {
+        res.locals[group] = ['commons', route].reduce(function(files, entry) {
+          var assets = build.assets(uiBuild, entry, extension);
+          return files.concat(assets.map(function(asset) {
+            return urls.absolute(asset, host);
+          }));
+        }, []);
+      });
+    }
+
+    next();
+  };
 }
 
 /**
  * Add route mappings to an application
  *
  * @param {Server} app An application instance
- * @param {object} routes A mapping of route IDs to URLs
- * @param {string} assetUrl The URL at which assets are hosted
+ * @param {ChitonRoutes} routes A mapping of route IDs to URLs
  * @private
  */
-function route(app, routes, assetUrl) {
-  app.get(routes.index, function(req, res) {
-    res.render('public', withAssets('index', assetUrl, {
-      content: pages.index()
-    }));
+function connectRoutes(app, routes) {
+  app.get(routing.url(routes, 'index'), function(req, res) {
+    res.render('public', {content: pages.index()});
   });
 
-  app.get(routes.about, function(req, res) {
-    res.render('public', withAssets('about', assetUrl, {
-      content: pages.about()
-    }));
+  app.get(routing.url(routes, 'about'), function(req, res) {
+    res.render('public', {content: pages.about()});
   });
 }
 
@@ -64,7 +68,7 @@ function route(app, routes, assetUrl) {
  *
  * @param {object} options Configuration for the server
  * @param {string} options.assetUrl The URL at which assets are available
- * @param {object} options.routes A mapping of route names to URLs
+ * @param {ChitonRoutes} options.routes A mapping of route names to URLs
  * @param {string} options.templates The path to the templates directory
  * @returns {Server} An application server that can be bound to an address
  */
@@ -76,14 +80,15 @@ function create(options) {
   if (!settings.templates) { throw new Error('You must specify a path to the templates directory'); }
 
   var app = express();
-  app.use(helmet());
 
   var templates = templateEngines.nunjucks(settings.templates);
   templates.express(app);
-
   app.set('view engine', 'html');
 
-  route(app, settings.routes, settings.assetUrl);
+  app.use(helmet());
+  app.use(assetInjector(settings.assetUrl, settings.routes));
+
+  connectRoutes(app, settings.routes);
 
   return app;
 }
