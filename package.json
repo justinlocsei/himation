@@ -6,10 +6,11 @@
   "license": "UNLICENSED",
   "main": "index.js",
   "scripts": {
-    "app:serve": "node index",
-    "assets:rebuild": "gulp clear && gulp build",
-    "assets:serve": "gulp develop",
     "lint": "gulp lint",
+    "rebuild": "gulp clear && gulp build",
+    "serve": "gulp serve",
+    "serve:app": "gulp serve-app",
+    "serve:assets": "gulp serve-assets",
     "watch": "gulp watch"
   },
   "dependencies": {

@@ -36,8 +36,7 @@ var all = {
 };
 
 gulp.task('build', ['bundle-assets', 'bundle-server']);
-gulp.task('default', ['develop']);
-gulp.task('develop', ['serve-assets', 'watch']);
+gulp.task('default', ['serve-assets']);
 gulp.task('lint', ['lint-js', 'lint-scss']);
 gulp.task('serve', ['serve-app', 'serve-assets']);
 
