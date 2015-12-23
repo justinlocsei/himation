@@ -6,6 +6,7 @@ var root = path.normalize(path.join(__dirname, '..', '..'));
 
 var build = path.join(root, 'build');
 var src = path.join(root, 'src');
+var test = path.join(root, 'test');
 
 var ui = path.join(src, 'ui');
 
@@ -20,6 +21,10 @@ module.exports = {
   root: root,
   server: path.join(src, 'server'),
   src: src,
+  test: {
+    functional: path.join(test, 'functional'),
+    root: test
+  },
   ui: {
     images: path.join(ui, 'images'),
     js: path.join(ui, 'js'),
