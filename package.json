@@ -41,6 +41,7 @@
     "gulp-util": "^3.0.7",
     "helmet": "^0.15.0",
     "image-webpack-loader": "^1.6.2",
+    "linklocal": "^2.5.2",
     "lodash": "^3.10.1",
     "node-sass": "^3.4.2",
     "nunjucks": "^2.2.0",
