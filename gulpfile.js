@@ -87,21 +87,36 @@ gulp.task('serve-assets', function serveAssets() {
   });
 });
 
-// Run all tests
-gulp.task('test', function test() {
-  return gulp.src(files.deep(paths.test.functional), {read: false})
-    .pipe(plugins.mocha({
-      reporter: 'spec',
-      require: ['chiton-test/support/environment'],
-      ui: 'bdd'
-    }));
+// Run all tests with terse output
+gulp.task('test-terse', function testTerse() {
+  return runTests('dot');
+});
+
+// Run all tests with verbose output
+gulp.task('test-verbose', function testVerbose() {
+  return runTests('spec');
 });
 
 // Verify all assets when they are changed
 gulp.task('watch', function watch() {
-  gulp.watch(all.js, ['lint-js', 'test']);
+  gulp.watch(all.js, ['lint-js', 'test-terse']);
   gulp.watch(all.scss, ['lint-scss']);
 });
+
+/**
+ * Run Mocha tests with a custom configuration
+ *
+ * @param {string} reporter An identifier for the Mocha reporter
+ * @returns {Stream}
+ */
+function runTests(reporter) {
+  return gulp.src(files.deep(paths.test.functional), {read: false})
+    .pipe(plugins.mocha({
+      reporter: reporter,
+      require: ['chiton-test/support/environment'],
+      ui: 'bdd'
+    }));
+}
 
 /**
  * Create a gulp task for building a webpack bundle
