@@ -1,9 +1,9 @@
 'use strict';
 
+var extend = require('extend');
 var http = require('http');
 var https = require('https');
 
-var cli = require('chiton/config/cli');
 var environments = require('chiton/config/environments');
 var paths = require('chiton/core/paths');
 var routes = require('chiton/config/routes');
@@ -15,15 +15,19 @@ var urls = require('chiton/server/urls');
  * If a callback is provided, it will be called with the address of the server
  * once it has been bound.
  *
- * @param {function} callback A function to call when the server is available
+ * @param {object} options Options for starting the server
+ * @param {string} environment The environment in which to run the server
+ * @param {function} onBind A function to call when the server is available
  * @returns {Server} The listening server
  */
-function start(callback) {
-  var onBind = callback || function() {};
-  var options = cli.args();
+function start(options) {
+  var settings = extend({
+    environment: null,
+    onBind: function() {}
+  }, options || {});
 
-  var settings = environments.loadSettings(options.environment);
-  var servers = settings.servers;
+  var config = environments.load(settings.environment);
+  var servers = config.servers;
 
   var assetUrl = urls.expandHost(servers.assets.host, {
     port: servers.assets.port,
@@ -41,7 +45,7 @@ function start(callback) {
   var server = serverFactory.createServer(app);
 
   server.listen(servers.app.port, servers.app.host, function() {
-    onBind(this.address());
+    config.onBind(this.address());
   });
 
   return server;
