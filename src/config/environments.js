@@ -1,13 +1,12 @@
 'use strict';
 
-// A mapping of environment IDs to names
-var ids = {
-  development: 'development',
-  production: 'production'
-};
+var errors = require('chiton/core/errors');
+var settings = require('chiton/config/settings');
 
-// The string names of all known environments
-var names = Object.keys(ids).map(function(id) { return ids[id]; }).sort();
+var EnvironmentError = errors.subclass();
+
+// All known environment names
+var names = ['development', 'production'];
 
 /**
  * Determine if an environment is valid
@@ -23,21 +22,22 @@ function isValid(environment) {
 /**
  * Load the settings for a given environment
  *
- * @param {string} environment The name of an environment
+ * @param {string} [environment] The name of an environment
  * @returns {ChitonSettings}
- * @throws If the environment is invalid
+ * @throws {EnvironmentError} If the environment is invalid
  */
-function loadSettings(environment) {
-  if (!isValid(environment)) {
-    throw new Error('"' + environment + '" is not a valid environment (Choices are: ' + names.join(', ') + ')');
+function load(environment) {
+  var name = environment || 'development';
+
+  if (!isValid(name)) {
+    throw new EnvironmentError('"' + name + '" is not a valid environment (Choices are: ' + names.join(', ') + ')');
   }
 
-  var settings = require('chiton/config/environments/' + environment);
-  return settings.load();
+  var config = require('chiton/config/environments/' + name);
+  return settings.customize(config);
 }
 
 module.exports = {
-  default: ids.development,
-  loadSettings: loadSettings,
-  names: names
+  EnvironmentError: EnvironmentError,
+  load: load
 };
