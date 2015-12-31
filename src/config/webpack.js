@@ -184,7 +184,7 @@ function statsPlugin(file) {
 function server(settings) {
   return extend(true, {}, base, {
     context: paths.server,
-    debug: settings.webpack.debug,
+    debug: settings.assets.debug,
     devtool: false,
     entry: {
       pages: './pages'
@@ -196,7 +196,7 @@ function server(settings) {
     },
     module: {
       loaders: _.flatten([
-        imageLoaders(settings.webpack.optimize),
+        imageLoaders(settings.assets.optimize),
         jsLoaders(),
         sassLoaders()
       ])
@@ -207,8 +207,8 @@ function server(settings) {
       path: paths.build.server,
       publicPath: '/'
     },
-    plugins: globalPlugins('server', settings.webpack.optimize),
-    postcss: postCssPlugins(settings.webpack.optimize),
+    plugins: globalPlugins('server', settings.assets.optimize),
+    postcss: postCssPlugins(settings.assets.optimize),
     target: 'node'
   });
 }
@@ -222,7 +222,7 @@ function server(settings) {
 function ui(settings) {
   return extend(true, {}, base, {
     context: paths.ui.js,
-    debug: settings.webpack.debug,
+    debug: settings.assets.debug,
     devtool: 'source-map',
     entry: {
       about: './components/pages/about',
@@ -230,7 +230,7 @@ function ui(settings) {
     },
     module: {
       loaders: _.flatten([
-        imageLoaders(settings.webpack.optimize),
+        imageLoaders(settings.assets.optimize),
         jsLoaders(),
         sassLoaders()
       ]),
@@ -252,8 +252,8 @@ function ui(settings) {
         name: 'commons',
         filename: 'commons-[hash].js'
       })
-    ].concat(globalPlugins('ui', settings.webpack.optimize)),
-    postcss: postCssPlugins(settings.webpack.optimize),
+    ].concat(globalPlugins('ui', settings.assets.optimize)),
+    postcss: postCssPlugins(settings.assets.optimize),
     target: 'web'
   });
 }

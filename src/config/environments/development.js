@@ -1,6 +1,10 @@
 'use strict';
 
 module.exports = {
+  assets: {
+    debug: true,
+    optimize: false
+  },
   servers: {
     app: {
       host: 'localhost',
@@ -12,9 +16,5 @@ module.exports = {
       port: 8081,
       protocol: 'http'
     }
-  },
-  webpack: {
-    debug: true,
-    optimize: false
   }
 };

@@ -19,7 +19,7 @@ describe('config/environments', function() {
     it('loads different settings for each environment', function() {
       var development = environments.load('development');
       var production = environments.load('production');
-      assert.notEqual(development.webpack.debug, production.webpack.debug);
+      assert.notEqual(development.assets.debug, production.assets.debug);
     });
 
     it('throws an error when an unknown environment is provided', function() {

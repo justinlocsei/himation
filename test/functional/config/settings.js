@@ -9,7 +9,7 @@ describe('config/settings', function() {
     it('returns a settings object by default', function() {
       var options = settings.customize();
       assert.isObject(options);
-      assert.isObject(options.webpack);
+      assert.isObject(options.assets);
     });
 
     it('combines a user-provided object with the defaults', function() {
@@ -19,12 +19,12 @@ describe('config/settings', function() {
 
     it('deeply merges the user settings', function() {
       var options = settings.customize({
-        webpack: {
+        assets: {
           custom: true
         }
       });
-      assert.isBoolean(options.webpack.debug);
-      assert.isTrue(options.webpack.custom);
+      assert.isBoolean(options.assets.debug);
+      assert.isTrue(options.assets.custom);
     });
 
   });
