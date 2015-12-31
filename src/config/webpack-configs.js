@@ -159,6 +159,7 @@ function postCssPlugins(optimize) {
  *
  * @param {string} file The absolute path of the file to receive the stats
  * @returns {function} The plugin function
+ * @private
  */
 function statsPlugin(file) {
   return function() {
