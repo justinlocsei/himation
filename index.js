@@ -2,4 +2,6 @@
 
 var server = require('chiton/server/manager');
 
-server.start();
+server.start({
+  environment: process.env.CHITON_ENV
+});

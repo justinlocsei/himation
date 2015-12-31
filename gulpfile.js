@@ -8,17 +8,16 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var WebpackProgressPlugin = require('webpack/lib/ProgressPlugin');
 
-var cli = require('chiton/config/cli');
 var environments = require('chiton/config/environments');
 var files = require('chiton/core/files');
 var paths = require('chiton/core/paths');
 var serverManager = require('chiton/server/manager');
 var webpackConfigs = require('chiton/config/webpack-configs');
 
-var options = cli.args();
+var environment = process.env.CHITON_ENV;
 var plugins = loadPlugins();
 
-var settings = environments.loadSettings(options.environment);
+var settings = environments.load(environment);
 var serverConfig = webpackConfigs.server(settings);
 var uiConfig = webpackConfigs.ui(settings);
 
@@ -68,8 +67,11 @@ gulp.task('lint-scss', function lintScss() {
 
 // Run the application server
 gulp.task('serve-app', function serveApplication() {
-  serverManager.start(function(address) {
-    gutil.log('Application server available at ' + address.address + ':' + address.port);
+  serverManager.start({
+    environment: environment,
+    onBind: function(address) {
+      gutil.log('Application server available at ' + address.address + ':' + address.port);
+    }
   });
 });
 
