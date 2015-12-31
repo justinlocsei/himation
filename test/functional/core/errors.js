@@ -2,7 +2,7 @@
 
 var errors = require('chiton/core/errors');
 
-describe('errors', function() {
+describe('core/errors', function() {
 
   describe('.subclass', function() {
     it('creates new error subclasses', function() {

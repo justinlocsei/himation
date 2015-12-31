@@ -5,7 +5,7 @@ var path = require('path');
 
 var paths = require('chiton/core/paths');
 
-describe('paths', function() {
+describe('core/paths', function() {
 
   describe('the root directory', function() {
     it('exists', function() {

@@ -2,7 +2,7 @@
 
 var settings = require('chiton/config/settings');
 
-describe('settings', function() {
+describe('config/settings', function() {
 
   describe('.customize', function() {
 

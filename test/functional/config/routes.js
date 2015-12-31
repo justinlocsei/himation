@@ -2,7 +2,7 @@
 
 var routes = require('chiton/config/routes');
 
-describe('routes', function() {
+describe('config/routes', function() {
 
   it('defines a single entry point', function() {
     assert.equal(routes.length, 1);

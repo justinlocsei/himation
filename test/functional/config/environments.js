@@ -2,7 +2,7 @@
 
 var environments = require('chiton/config/environments');
 
-describe('environments', function() {
+describe('config/environments', function() {
 
   describe('.load', function() {
 

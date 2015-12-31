@@ -2,7 +2,7 @@
 
 var routing = require('chiton/core/routing');
 
-describe('routing', function() {
+describe('core/routing', function() {
 
   var routes = [
     {

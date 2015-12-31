@@ -2,7 +2,7 @@
 
 var files = require('chiton/core/files');
 
-describe('files', function() {
+describe('core/files', function() {
 
   describe('.deep', function() {
     it('returns a glob that recursively match files in a directory', function() {
