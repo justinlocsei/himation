@@ -12,20 +12,38 @@ var webpack = require('webpack');
 
 var paths = require('chiton/core/paths');
 
-// The baseline webpack config to use
-var base = {
-  cache: true,
-  resolve: {
-    extensions: ['', '.js', '.scss'],
-    alias: {
-      'chiton/server': paths.server,
-      'chiton/ui': paths.ui.root
+/**
+ * Create a webpack config by applying settings on top of a baseline
+ *
+ * @param {ChitonSettings} settings The settings to use for creating the config
+ * @param {object} custom Custom settings to add to the baseline
+ * @returns {object}
+ * @private
+ */
+function create(settings, custom) {
+  return extend(true, {
+    cache: true,
+    debug: settings.assets.debug,
+    module: {
+      loaders: _.flatten([
+        imageLoaders(settings.assets.optimize),
+        jsLoaders(),
+        sassLoaders()
+      ])
+    },
+    resolve: {
+      extensions: ['', '.js', '.scss'],
+      alias: {
+        'chiton/server': paths.server,
+        'chiton/ui': paths.ui.root
+      }
+    },
+    postcss: postCssPlugins(settings.assets.optimize),
+    sassLoader: {
+      includePaths: [paths.ui.scss]
     }
-  },
-  sassLoader: {
-    includePaths: [paths.ui.scss]
-  }
-};
+  }, custom);
+}
 
 /**
  * Enable source maps on a chain of loaders
@@ -182,9 +200,8 @@ function statsPlugin(file) {
  * @returns {object} A server-appropriate webpack configuration
  */
 function server(settings) {
-  return extend(true, {}, base, {
+  return create(settings, {
     context: paths.server,
-    debug: settings.assets.debug,
     devtool: false,
     entry: {
       pages: './pages'
@@ -194,13 +211,6 @@ function server(settings) {
       var isUiModule = /^chiton\//.test(request);
       return callback(null, isNonRelative && !isUiModule);
     },
-    module: {
-      loaders: _.flatten([
-        imageLoaders(settings.assets.optimize),
-        jsLoaders(),
-        sassLoaders()
-      ])
-    },
     output: {
       filename: '[name].js',
       libraryTarget: 'commonjs2',
@@ -208,7 +218,6 @@ function server(settings) {
       publicPath: '/'
     },
     plugins: globalPlugins('server', settings.assets.optimize),
-    postcss: postCssPlugins(settings.assets.optimize),
     target: 'node'
   });
 }
@@ -220,20 +229,14 @@ function server(settings) {
  * @returns {object} A browser-appropriate webpack configuration
  */
 function ui(settings) {
-  return extend(true, {}, base, {
+  return create(settings, {
     context: paths.ui.js,
-    debug: settings.assets.debug,
     devtool: 'source-map',
     entry: {
       about: './components/pages/about',
       index: './components/pages/index'
     },
     module: {
-      loaders: _.flatten([
-        imageLoaders(settings.assets.optimize),
-        jsLoaders(),
-        sassLoaders()
-      ]),
       preLoaders: [
         {
           test: /\.js$/,
@@ -253,7 +256,6 @@ function ui(settings) {
         filename: 'commons-[hash].js'
       })
     ].concat(globalPlugins('ui', settings.assets.optimize)),
-    postcss: postCssPlugins(settings.assets.optimize),
     target: 'web'
   });
 }
