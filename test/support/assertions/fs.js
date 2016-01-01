@@ -3,11 +3,20 @@
 var files = require('chiton/core/files');
 
 /**
+ * Assert that a path describes a nonexistent file
+ *
+ * @param {string} target A path to a filesystem resource
+ */
+function fileDoesNotExist(target) {
+  assert.isFalse(files.exists(target), target + ' does not exist');
+}
+
+/**
  * Assert that a path describes an existing filesystem resource
  *
  * @param {string} target A path to a filesystem resource
  */
-function exists(target) {
+function fileExists(target) {
   assert.isTrue(files.exists(target), target + ' exists');
 }
 
@@ -40,7 +49,8 @@ function isFile(target) {
 }
 
 module.exports = {
-  exists: exists,
+  fileDoesNotExist: fileDoesNotExist,
+  fileExists: fileExists,
   isChildOf: isChildOf,
   isDirectory: isDirectory,
   isFile: isFile
