@@ -6,11 +6,10 @@ var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 var cssnano = require('cssnano');
 var extend = require('extend');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var fs = require('fs');
-var path = require('path');
 var webpack = require('webpack');
 
 var paths = require('chiton/core/paths');
+var BuildStatsPlugin = require('chiton/config/webpack-plugins/build-stats');
 
 /**
  * Create a webpack config by applying settings on top of a baseline
@@ -141,7 +140,7 @@ function globalPlugins(label, optimize) {
     }));
   }
 
-  plugins.push(statsPlugin(path.join(paths.build.root, label + '.json')));
+  plugins.push(new BuildStatsPlugin(label, paths.build.root));
   plugins.push(new webpack.NoErrorsPlugin());
 
   return plugins;
@@ -170,27 +169,6 @@ function postCssPlugins(optimize) {
   }
 
   return plugins;
-}
-
-/**
- * Create a webpack plugin that logs the stats of a build to a file
- *
- * @param {string} file The absolute path of the file to receive the stats
- * @returns {function} The plugin function
- * @private
- */
-function statsPlugin(file) {
-  return function() {
-    this.plugin('done', function(stats) {
-      var details = stats.toJson({
-        modules: false,
-        reasons: false,
-        timings: false,
-        version: false
-      });
-      fs.writeFileSync(file, JSON.stringify(details, null, '  '));
-    });
-  };
 }
 
 /**
