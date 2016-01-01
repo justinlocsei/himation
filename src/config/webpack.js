@@ -240,7 +240,7 @@ function ui(settings) {
       preLoaders: [
         {
           test: /\.js$/,
-          loaders: ['eslint'],
+          loader: 'eslint',
           include: [paths.ui.js]
         }
       ]
