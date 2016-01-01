@@ -15,7 +15,7 @@ describe('core/paths', function() {
   describe('the build directory', function() {
 
     it('is below the root directory', function() {
-      assert.childDirectory(paths.build.root, paths.root);
+      assert.isChildOf(paths.build.root, paths.root);
     });
 
     it('is not the source directory', function() {
@@ -23,11 +23,11 @@ describe('core/paths', function() {
     });
 
     it('contains a directory for server builds', function() {
-      assert.childDirectory(paths.build.server, paths.build.root);
+      assert.isChildOf(paths.build.server, paths.build.root);
     });
 
     it('contains a directory for UI builds', function() {
-      assert.childDirectory(paths.build.ui, paths.build.root);
+      assert.isChildOf(paths.build.ui, paths.build.root);
     });
 
   });
@@ -39,33 +39,33 @@ describe('core/paths', function() {
     });
 
     it('is below the root directory', function() {
-      assert.childDirectory(paths.src, paths.root);
+      assert.isChildOf(paths.src, paths.root);
     });
 
     it('contains a directory for server code', function() {
-      assert.childDirectory(paths.server, paths.src);
+      assert.isChildOf(paths.server, paths.src);
       assert.isDirectory(paths.server);
     });
 
     it('contains a directory for UI code', function() {
-      assert.childDirectory(paths.ui.root, paths.src);
+      assert.isChildOf(paths.ui.root, paths.src);
       assert.isDirectory(paths.ui.root);
     });
 
     describe('the UI directory', function() {
 
       it('contains a directory for JS files', function() {
-        assert.childDirectory(paths.ui.js, paths.ui.root);
+        assert.isChildOf(paths.ui.js, paths.ui.root);
         assert.isDirectory(paths.ui.js);
       });
 
       it('contains a directory for Sass files', function() {
-        assert.childDirectory(paths.ui.scss, paths.ui.root);
+        assert.isChildOf(paths.ui.scss, paths.ui.root);
         assert.isDirectory(paths.ui.scss);
       });
 
       it('contains a directory for templates', function() {
-        assert.childDirectory(paths.ui.templates, paths.ui.root);
+        assert.isChildOf(paths.ui.templates, paths.ui.root);
         assert.isDirectory(paths.ui.templates);
       });
 
@@ -80,11 +80,11 @@ describe('core/paths', function() {
     });
 
     it('is below the root directory', function() {
-      assert.childDirectory(paths.test.root, paths.root);
+      assert.isChildOf(paths.test.root, paths.root);
     });
 
     it('contains a directory for functional tests', function() {
-      assert.childDirectory(paths.test.functional, paths.test.root);
+      assert.isChildOf(paths.test.functional, paths.test.root);
       assert.isDirectory(paths.test.functional);
     });
 
