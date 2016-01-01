@@ -26,8 +26,8 @@ function exists(fsPath) {
  * @param {string} parent The possible parent directory
  */
 function childDirectory(child, parent) {
-  var relative = path.relative(child, parent);
-  assert.isTrue(/^\.{2}/.test(relative));
+  var relative = path.relative(parent, child);
+  assert.notEqual(relative.indexOf('.'), 0);
 }
 
 /**
