@@ -11,6 +11,7 @@ describe('core/files', function() {
   });
 
   describe('.deep', function() {
+
     it('returns a glob that recursively match files in a directory', function() {
       var glob = files.deep('test/path', 'js');
       assert.equal(glob, 'test/path/**/*.js');
@@ -20,6 +21,7 @@ describe('core/files', function() {
       var glob = files.deep('test/path');
       assert.equal(glob, 'test/path/**/*.*');
     });
+
   });
 
   describe('.exists', function() {
@@ -105,6 +107,7 @@ describe('core/files', function() {
   });
 
   describe('.shallow', function() {
+
     it('returns a global that matches files in a directory', function() {
       var glob = files.shallow('test/path', 'js');
       assert.equal(glob, 'test/path/*.js');
@@ -114,6 +117,7 @@ describe('core/files', function() {
       var glob = files.shallow('test/path');
       assert.equal(glob, 'test/path/*.*');
     });
+
   });
 
 });

@@ -5,6 +5,7 @@ var errors = require('chiton/core/errors');
 describe('core/errors', function() {
 
   describe('.subclass', function() {
+
     it('creates new error subclasses', function() {
       var MyError = errors.subclass();
       var error = new MyError();
@@ -29,6 +30,7 @@ describe('core/errors', function() {
       assert.instanceOf(error, ParentError);
       assert.instanceOf(error, ChildError);
     });
+
   });
 
 });

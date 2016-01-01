@@ -5,12 +5,15 @@ var paths = require('chiton/core/paths');
 describe('core/paths', function() {
 
   describe('the root directory', function() {
+
     it('exists', function() {
       assert.isDirectory(paths.root);
     });
+
   });
 
   describe('the build directory', function() {
+
     it('is below the root directory', function() {
       assert.childDirectory(paths.build.root, paths.root);
     });
@@ -26,9 +29,11 @@ describe('core/paths', function() {
     it('contains a directory for UI builds', function() {
       assert.childDirectory(paths.build.ui, paths.build.root);
     });
+
   });
 
   describe('the source directory', function() {
+
     it('exists', function() {
       assert.isDirectory(paths.src);
     });
@@ -48,6 +53,7 @@ describe('core/paths', function() {
     });
 
     describe('the UI directory', function() {
+
       it('contains a directory for JS files', function() {
         assert.childDirectory(paths.ui.js, paths.ui.root);
         assert.isDirectory(paths.ui.js);
@@ -62,10 +68,13 @@ describe('core/paths', function() {
         assert.childDirectory(paths.ui.templates, paths.ui.root);
         assert.isDirectory(paths.ui.templates);
       });
+
     });
+
   });
 
   describe('the test directory', function() {
+
     it('exists', function() {
       assert.isDirectory(paths.test.root);
     });
@@ -78,6 +87,7 @@ describe('core/paths', function() {
       assert.childDirectory(paths.test.functional, paths.test.root);
       assert.isDirectory(paths.test.functional);
     });
+
   });
 
 });
