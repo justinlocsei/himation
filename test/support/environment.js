@@ -2,14 +2,14 @@
 
 var chai = require('chai');
 
-var fs = require('./helpers/fs');
+var fs = require('./assertions/fs');
 
 var assert = global.assert = chai.assert;
 
-// Create assertions for all helpers
-var helpers = [fs];
-helpers.forEach(function(helper) {
-  Object.keys(helper).forEach(function(helperFn) {
-    assert[helperFn] = helper[helperFn];
+// Expose all assertions via the global assertion object
+var assertionModules = [fs];
+assertionModules.forEach(function(assertions) {
+  Object.keys(assertions).forEach(function(assertion) {
+    assert[assertion] = assertions[assertion];
   });
 });
