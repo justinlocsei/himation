@@ -1,5 +1,6 @@
 'use strict';
 
+var fs = require('fs');
 var path = require('path');
 
 /**
@@ -11,6 +12,61 @@ var path = require('path');
  */
 function deep(directory, extension) {
   return path.join(directory, '**', '*.' + (extension || '*'));
+}
+
+/**
+ * Determine whether the target path exists
+ *
+ * @param {string} target A path to a filesystem resource
+ * @returns {boolean}
+ */
+function exists(target) {
+  try {
+    fs.statSync(target);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
+ * Determine whether one resource is a child of a directory
+ *
+ * @param {string} resource A path to a file or directory
+ * @param {string} directory A path to the possible parent directory
+ * @returns {boolean}
+ */
+function isChildOf(resource, directory) {
+  var relative = path.relative(directory, resource);
+  return relative !== '' && relative[0] !== '.';
+}
+
+/**
+ * Determine whether a path describes an extant directory
+ *
+ * @param {string} target A path to a filesystem resource
+ * @returns {boolean}
+ */
+function isDirectory(target) {
+  if (exists(target)) {
+    return fs.statSync(target).isDirectory();
+  } else {
+    return false;
+  }
+}
+
+/**
+ * Determine whether a path describes an extant directory
+ *
+ * @param {string} target A path to a filesystem resource
+ * @returns {boolean}
+ */
+function isFile(target) {
+  if (exists(target)) {
+    return fs.statSync(target).isFile();
+  } else {
+    return false;
+  }
 }
 
 /**
@@ -26,5 +82,9 @@ function shallow(directory, extension) {
 
 module.exports = {
   deep: deep,
+  exists: exists,
+  isChildOf: isChildOf,
+  isDirectory: isDirectory,
+  isFile: isFile,
   shallow: shallow
 };
