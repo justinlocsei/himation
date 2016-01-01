@@ -5,7 +5,7 @@ var express = require('express');
 var helmet = require('helmet');
 
 var build = require('chiton/server/build');
-var templateEngines = require('chiton/server/template-engines');
+var templating = require('chiton/server/templating');
 var routing = require('chiton/server/routing');
 var urls = require('chiton/server/urls');
 
@@ -81,7 +81,7 @@ function create(options) {
 
   var app = express();
 
-  var templates = templateEngines.nunjucks(settings.templates);
+  var templates = templating.nunjucks(settings.templates);
   templates.express(app);
   app.set('view engine', 'html');
 
