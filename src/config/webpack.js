@@ -11,6 +11,12 @@ var webpack = require('webpack');
 var paths = require('chiton/core/paths');
 var BuildStatsPlugin = require('chiton/config/webpack-plugins/build-stats');
 
+// The IDs of each build
+var BUILD_IDS = {
+  server: 'server',
+  ui: 'ui'
+};
+
 /**
  * Create a webpack config by applying settings on top of a baseline
  *
@@ -195,7 +201,7 @@ function server(settings) {
       path: paths.build.server,
       publicPath: '/'
     },
-    plugins: globalPlugins('server', settings.assets.optimize),
+    plugins: globalPlugins(BUILD_IDS.server, settings.assets.optimize),
     target: 'node'
   });
 }
@@ -233,12 +239,11 @@ function ui(settings) {
         name: 'commons',
         filename: 'commons-[hash].js'
       })
-    ].concat(globalPlugins('ui', settings.assets.optimize)),
+    ].concat(globalPlugins(BUILD_IDS.ui, settings.assets.optimize)),
     target: 'web'
   });
 }
 
-module.exports = {
-  server: server,
-  ui: ui
-};
+module.exports = {};
+module.exports[BUILD_IDS.server] = server;
+module.exports[BUILD_IDS.ui] = ui;
