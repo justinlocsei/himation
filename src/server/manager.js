@@ -45,7 +45,7 @@ function start(options) {
   var server = serverFactory.createServer(app);
 
   server.listen(servers.app.port, servers.app.host, function() {
-    config.onBind(this.address());
+    settings.onBind(this.address());
   });
 
   return server;
