@@ -11,6 +11,15 @@ describe('config/webpack-plugins/build-stats', function() {
 
   describe('BuildStatsPlugin', function() {
 
+    describe('.statsFile', function() {
+
+      it('points to a file with the build name in the given directory', function() {
+        var file = BuildStatsPlugin.statsFile('id', '/build');
+        assert.equal(file, '/build/id.json');
+      });
+
+    });
+
     describe('#statsFile', function() {
 
       it('points to a JSON file in the given directory', function() {

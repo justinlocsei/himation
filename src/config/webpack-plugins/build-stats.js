@@ -10,8 +10,19 @@ var path = require('path');
  * @param {string} directory The directory in which to save the file
  */
 function BuildStatsPlugin(id, directory) {
-  this.statsFile = path.join(directory, id + '.json');
+  this.statsFile = BuildStatsPlugin.statsFile(id, directory);
 }
+
+/**
+ * Product the path to the stats file that would be used for a named build
+ *
+ * @param {string} id The ID of the build
+ * @param {string} directory The directory in which to save the file
+ * @returns {[type]}
+ */
+BuildStatsPlugin.statsFile = function(id, directory) {
+  return path.join(directory, id + '.json');
+};
 
 /**
  * Save the stats to a file when the build process completes
