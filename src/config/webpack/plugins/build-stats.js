@@ -69,4 +69,13 @@ BuildStatsPlugin.prototype.apply = function(compiler) {
   });
 };
 
+/**
+ * Load the build statistics from the plugin's file
+ *
+ * @returns {ChitonBuildStats} Information on the build
+ */
+BuildStatsPlugin.prototype.loadStats = function() {
+  return JSON.parse(fs.readFileSync(this.statsFile));
+};
+
 module.exports = BuildStatsPlugin;

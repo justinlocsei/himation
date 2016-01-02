@@ -72,6 +72,40 @@ describe('config/webpack/plugins/build-stats', function() {
 
     });
 
+    describe('#load', function() {
+
+      function configure(directory, id, plugins) {
+        return {
+          output: {
+            path: directory,
+            publicPath: '/'
+          },
+          plugins: plugins
+        };
+      }
+
+      it('loads the stats file', function(done) {
+        var directory = tmp.dirSync().name;
+        var plugin = new BuildStatsPlugin('build', directory);
+        var config = configure(directory, 'build', [plugin]);
+
+        webpack(config, function() {
+          var output = plugin.loadStats();
+          assert.equal(output.root, directory);
+
+          done();
+        });
+      });
+
+      it('throws an error when the stats file does not exist', function() {
+        var directory = tmp.dirSync().name;
+        var plugin = new BuildStatsPlugin('build', directory);
+
+        assert.throws(function() { plugin.loadStats(); }, 'ENOENT');
+      });
+
+    });
+
   });
 
 });
