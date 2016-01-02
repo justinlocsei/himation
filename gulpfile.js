@@ -101,7 +101,7 @@ gulp.task('test-verbose', function testVerbose() {
 
 // Verify all assets when they are changed
 gulp.task('watch', function watch() {
-  gulp.watch(all.js, ['lint-js', 'test-terse']);
+  gulp.watch(all.js, ['lint-js']);
   gulp.watch(all.scss, ['lint-scss']);
 });
 
