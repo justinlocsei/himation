@@ -1,11 +1,14 @@
 'use strict';
 
 var mockFs = require('mock-fs');
+var sinon = require('sinon');
 
 var build = require('chiton/config/webpack/build');
 var BuildStatsPlugin = require('chiton/config/webpack/plugins/build-stats');
 
 describe('config/webpack/build', function() {
+
+  var sandbox = sinon.sandbox.create();
 
   function configure() {
     return {
@@ -55,20 +58,21 @@ describe('config/webpack/build', function() {
   describe('.stats', function() {
 
     afterEach(function() {
-      mockFs.restore();
+      sandbox.restore();
     });
 
     it('returns an object describing the webpack build when the build-stats plugin is used', function() {
       var plugin = new BuildStatsPlugin('build', '/output');
 
+      var loader = sandbox.stub(plugin, 'loadStats');
+      loader.returns({});
+
       var config = configure();
       config.plugins = [plugin];
 
-      var mock = {};
-      mock[plugin.statsFile] = '{}';
-      mockFs(mock);
-
       var stats = build.stats(config);
+
+      assert.isTrue(loader.called);
       assert.isObject(stats);
     });
 
@@ -82,14 +86,14 @@ describe('config/webpack/build', function() {
     it('throws an error if the build statistics cannot be loaded', function() {
       var plugin = new BuildStatsPlugin('build', '/output');
 
+      var loader = sandbox.stub(plugin, 'loadStats');
+      loader.throws();
+
       var config = configure();
       config.plugins = [plugin];
 
-      var mock = {};
-      mock[plugin.statsFile] = 'invalid JSON';
-      mockFs(mock);
-
       assert.throws(function() { build.stats(config); }, build.StatsError);
+      assert.isTrue(loader.called);
     });
 
   });
