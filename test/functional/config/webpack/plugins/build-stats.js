@@ -31,10 +31,15 @@ describe('config/webpack/plugins/build-stats', function() {
 
     describe('#apply', function() {
 
-      function config(directory, id) {
+      function configure(directory, id) {
         return {
-          output: {path: directory},
-          plugins: [new BuildStatsPlugin(id, directory)]
+          output: {
+            path: directory,
+            publicPath: '/'
+          },
+          plugins: [
+            new BuildStatsPlugin(id, directory)
+          ]
         };
       }
 
@@ -44,23 +49,22 @@ describe('config/webpack/plugins/build-stats', function() {
 
         assert.fileDoesNotExist(stats);
 
-        webpack(config(directory, 'build'), function() {
+        webpack(configure(directory, 'build'), function() {
           assert.fileExists(stats);
           done();
         });
       });
 
-      it('saves minimal information on the build', function(done) {
+      it('stores simplified build data', function(done) {
         var directory = tmp.dirSync().name;
         var stats = path.join(directory, 'build.json');
 
-        webpack(config(directory, 'build'), function() {
+        webpack(configure(directory, 'build'), function() {
           var output = JSON.parse(fs.readFileSync(stats));
 
-          assert.isUndefined(output.modules);
-          assert.isUndefined(output.reasons);
-          assert.isUndefined(output.timings);
-          assert.isUndefined(output.version);
+          assert.isObject(output.assets);
+          assert.equal(output.root, directory);
+          assert.equal(output.url, '/');
 
           done();
         });
