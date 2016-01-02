@@ -5,9 +5,9 @@ var path = require('path');
 var tmp = require('tmp');
 var webpack = require('webpack');
 
-var BuildStatsPlugin = require('chiton/config/webpack-plugins/build-stats');
+var BuildStatsPlugin = require('chiton/config/webpack/plugins/build-stats');
 
-describe('config/webpack-plugins/build-stats', function() {
+describe('config/webpack/plugins/build-stats', function() {
 
   describe('BuildStatsPlugin', function() {
 

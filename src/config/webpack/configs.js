@@ -9,7 +9,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
 
 var paths = require('chiton/core/paths');
-var BuildStatsPlugin = require('chiton/config/webpack-plugins/build-stats');
+var BuildStatsPlugin = require('chiton/config/webpack/plugins/build-stats');
 
 // The IDs of each build
 var BUILD_IDS = {

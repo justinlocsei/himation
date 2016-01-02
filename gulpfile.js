@@ -12,7 +12,7 @@ var environments = require('chiton/config/environments');
 var files = require('chiton/core/files');
 var paths = require('chiton/core/paths');
 var serverManager = require('chiton/server/manager');
-var webpackConfigs = require('chiton/config/webpack');
+var webpackConfigs = require('chiton/config/webpack/configs');
 
 var environment = process.env.CHITON_ENV;
 var plugins = loadPlugins();

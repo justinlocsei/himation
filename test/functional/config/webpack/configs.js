@@ -3,11 +3,11 @@
 var glob = require('glob');
 var path = require('path');
 
-var configs = require('chiton/config/webpack');
+var configs = require('chiton/config/webpack/configs');
 var makeSettings = require('chiton/config/settings').customize;
 var paths = require('chiton/core/paths');
 
-describe('config/webpack', function() {
+describe('config/webpack/configs', function() {
 
   var settings = {
     base: makeSettings({assets: {debug: false, optimize: false}}),
