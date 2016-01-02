@@ -7,7 +7,7 @@ var https = require('https');
 var environments = require('chiton/config/environments');
 var paths = require('chiton/core/paths');
 var routes = require('chiton/config/routes');
-var urls = require('chiton/server/urls');
+var urls = require('chiton/core/urls');
 
 /**
  * Start the server

@@ -7,7 +7,7 @@ var helmet = require('helmet');
 var build = require('chiton/server/build');
 var templating = require('chiton/server/templating');
 var routing = require('chiton/server/routing');
-var urls = require('chiton/server/urls');
+var urls = require('chiton/core/urls');
 
 var pages = build.bridge('pages');
 var uiBuild = build.stats('ui');

@@ -1,6 +1,6 @@
 'use strict';
 
-var url = require('url');
+var URL = require('url');
 
 // Default ports for protocols
 var PORTS = {
@@ -11,43 +11,45 @@ var PORTS = {
 /**
  * Make a URL be absolute, relative to an existing absolute URL
  *
- * @param {string} base The URL to make absolute
+ * @param {string} url The URL to make absolute
  * @param {string} root The absolute base for the URL
  * @returns {string} An absolute URL
  */
-function absolute(base, root) {
-  var parts = url.parse(base);
+function absolute(url, root) {
+  var parts = URL.parse(url, false, true);
 
-  if (parts.protocol && parts.path) {
-    return base;
+  if (parts.host) {
+    return url;
   } else {
-    return url.resolve(root, base);
+    return URL.resolve(root, url);
   }
 }
 
 /**
  * Expand a hostname to include a protocol and port
  *
- * @param {string} host A hostname
+ * @param {string} hostname A hostname
  * @param {object} options Information on how to expand the hostname
  * @param {number} options.port The port to use
  * @param {string} options.protocol The protocol to use
  * @returns {string} The hostname with a protocol and port
  */
-function expandHost(host, options) {
+function expandHostname(hostname, options) {
   var settings = options || {};
 
   var protocol = settings.protocol || 'http';
   var port = settings.port !== PORTS[protocol] ? settings.port : null;
 
-  return url.format({
-    hostname: host,
+  var url = URL.format({
+    hostname: hostname,
     protocol: protocol,
     port: port
   });
+
+  return url.replace(/^\/{2}:/, '//');
 }
 
 module.exports = {
   absolute: absolute,
-  expandHost: expandHost
+  expandHostname: expandHostname
 };
