@@ -4,7 +4,6 @@ var _ = require('lodash');
 
 var errors = require('chiton/core/errors');
 
-var ROUTE_SEPARATOR = '.';
 var GUID_SEPARATOR = '.';
 var URL_SEPARATOR = '/';
 
@@ -83,7 +82,7 @@ function resolve(routes, path) {
     var subroutes = match.urls || [];
     var subname = resolve(subroutes, remainder);
     if (subname) {
-      routeName += ROUTE_SEPARATOR + subname;
+      routeName += GUID_SEPARATOR + subname;
     } else {
       routeName = null;
     }
@@ -96,31 +95,31 @@ function resolve(routes, path) {
  * Produce the URL for accessing a named route
  *
  * @param {ChitonRoute[]} routes A route definition
- * @param {string} routeName The name of the route
+ * @param {string} guid The unique identifier for the route
  * @returns {string} The URL for the route
  * @throws {UrlError} If no URL for the route was found
  */
-function url(routes, routeName) {
-  var hierarchy = routeName.split(ROUTE_SEPARATOR);
+function url(routes, guid) {
+  var hierarchy = guid.split(GUID_SEPARATOR);
   var parentName = hierarchy[0];
   var childNames = hierarchy.slice(1);
 
   var matches = routes.filter(function(route) { return route.name === parentName; });
 
-  if (!matches.length) { throw new UrlError('No route named "' + routeName + '" was found'); }
-  if (matches.length > 1) { throw new UrlError('Multiple routes named "' + routeName + '" were found'); }
+  if (!matches.length) { throw new UrlError('No route named "' + guid + '" was found'); }
+  if (matches.length > 1) { throw new UrlError('Multiple routes named "' + guid + '" were found'); }
 
   var parentRoute = matches[0];
   var path = parentRoute.url;
 
   if (path === undefined) {
-    throw new UrlError('No URL was found for the route named "' + routeName + '"');
+    throw new UrlError('No URL was found for the route named "' + guid + '"');
   }
 
   if (childNames.length) {
     var subroutes = parentRoute.urls || [];
     var separator = parentRoute.url === URL_SEPARATOR ? '' : URL_SEPARATOR;
-    path += separator + url(subroutes, childNames.join(ROUTE_SEPARATOR));
+    path += separator + url(subroutes, childNames.join(GUID_SEPARATOR));
   }
 
   return path;
