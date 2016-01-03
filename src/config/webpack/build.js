@@ -1,49 +1,12 @@
 'use strict';
 
 var _ = require('lodash');
-var fs = require('fs');
-var path = require('path');
 
 var BuildStatsPlugin = require('chiton/config/webpack/plugins/build-stats');
 var errors = require('chiton/core/errors');
 
 var ConfigurationError = errors.subclass();
 var StatsError = errors.subclass();
-
-/**
- * Determine the target path for a compiled webpack entry point
- *
- * @param {object} config A valid webpack configuration
- * @param {string} name The name of the entry point
- * @returns {string} The path to the compiled file
- * @throws {ConfigurationError} If the file is not a registered entry point
- * @throws {ConfigurationError} If the file's location cannot be determined from the configuration
- */
-function entry(config, name) {
-  var point = config.entry[name];
-
-  if (point === undefined) {
-    throw new ConfigurationError('No entry point named "' + name + '" is defined');
-  }
-
-  var filename = config.output.filename;
-  var dynamics = /\[([^\]]+)\]/g;
-  var subs = {name: name};
-
-  var placeholders = dynamics.exec(filename);
-  while (placeholders) {
-    if (subs[placeholders[1]] === undefined) {
-      throw new ConfigurationError('Output filenames cannot contain the "' + placeholders[0] + '" placeholder');
-    }
-    placeholders = dynamics.exec(filename);
-  }
-
-  var target = Object.keys(subs).reduce(function(template, sub) {
-    return template.replace('[' + sub + ']', subs[sub]);
-  }, filename);
-
-  return path.join(config.output.path, target);
-}
 
 /**
  * Load statistics on a webpack build
@@ -71,7 +34,6 @@ function stats(config) {
 
 module.exports = {
   ConfigurationError: ConfigurationError,
-  entry: entry,
   stats: stats,
   StatsError: StatsError
 };
