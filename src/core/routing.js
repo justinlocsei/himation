@@ -5,11 +5,35 @@ var _ = require('lodash');
 var errors = require('chiton/core/errors');
 
 var ROUTE_SEPARATOR = '.';
+var GUID_SEPARATOR = '.';
 var URL_SEPARATOR = '/';
 
 var LEADING_SLASH_MATCH = new RegExp('^' + URL_SEPARATOR);
 
 var UrlError = errors.subclass();
+
+/**
+ * Flatten the routes into a non-nested list of route GUIDs
+ *
+ * @param {ChitonRoute[]} routes A route definition
+ * @param {string} [namespace] The namespace prefix to use for all routes
+ * @returns {string[]} The GUID of each route
+ */
+function flatten(routes, namespace) {
+  var prefix = namespace || '';
+  if (prefix) { prefix += GUID_SEPARATOR; }
+
+  return routes.reduce(function(flattened, route) {
+    var guid = prefix + route.name;
+    var guids = [guid];
+
+    if (route.urls) {
+      guids = guids.concat(flatten(route.urls, guid));
+    }
+
+    return flattened.concat(guids);
+  }, []);
+}
 
 /**
  * Determine the name of the route described by a URL
@@ -94,6 +118,7 @@ function url(routes, routeName) {
 }
 
 module.exports = {
+  flatten: flatten,
   resolve: resolve,
   url: url,
   UrlError: UrlError

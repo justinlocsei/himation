@@ -22,6 +22,66 @@ describe('core/routing', function() {
     }
   ];
 
+  describe('.flatten', function() {
+
+    var nested = [
+      {
+        name: 'one',
+        url: '/',
+        urls: [
+          {url: 'two', name: 'two'},
+          {url: 'three', name: 'three', urls: [
+            {url: 'four', name: 'four'}
+          ]},
+          {url: 'five', name: 'five'}
+        ]
+      }
+    ];
+
+    it('creates a non-recursive list', function() {
+      var flattened = routing.flatten(nested);
+      assert.equal(flattened.length, 5);
+    });
+
+    it('generates GUIDs for each route based upon its level', function() {
+      var flattened = routing.flatten(nested);
+
+      assert.deepEqual(flattened, [
+        'one',
+        'one.two',
+        'one.three',
+        'one.three.four',
+        'one.five'
+      ]);
+    });
+
+    it('can accept a custom namespace for the GUIDs', function() {
+      var flattened = routing.flatten(nested, 'custom');
+
+      assert.deepEqual(flattened, [
+        'custom.one',
+        'custom.one.two',
+        'custom.one.three',
+        'custom.one.three.four',
+        'custom.one.five'
+      ]);
+    });
+
+    it('can use the GUIDs to look up route URLs', function() {
+      var flattened = routing.flatten(nested);
+      var urls = flattened.map(function(route) { return routing.url(nested, route); });
+
+      assert.deepEqual(urls, [
+        '/',
+        '/two',
+        '/three',
+        '/three/four',
+        '/five'
+      ]);
+    });
+
+  });
+
   describe('.resolve', function() {
 
     it('resolves the index URL to a route name', function() {
