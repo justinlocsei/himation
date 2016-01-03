@@ -1,35 +1,71 @@
 'use strict';
 
+var _ = require('lodash');
 var fs = require('fs');
 var path = require('path');
 
 /**
+ * Convert all placeholders in an entry point's file name into concrete values
+ *
+ * @param {string} entry The name of the entry point
+ * @param {string} filename The filename template for an entry point
+ * @param {string} stats Information on a webpack build
+ * @returns {string} The final name of the entry point's file
+ */
+function resolveEntry(entry, filename, stats) {
+  var subs = {
+    hash: stats.hash,
+    name: entry
+  };
+
+  var entryChunk = _.find(stats.chunks, function(chunk) {
+    return chunk.names.indexOf(entry) !== -1;
+  });
+
+  if (entryChunk) {
+    subs.chunkhash = entryChunk.hash;
+  }
+
+  return Object.keys(subs).reduce(function(template, sub) {
+    return template.replace('[' + sub + ']', subs[sub]);
+  }, filename);
+}
+
+/**
  * Transform webpack build stats into Chiton stats
  *
- * @param {string} destination The path to the output directory
+ * @param {object} config The webpack configuration file that produced the build
  * @param {webpack.Stats} stats A webpack build-stats object
  * @returns {ChitonBuildStats} Statistics on a Chiton build
  * @private
  */
-function buildStats(destination, stats) {
+function buildStats(config, stats) {
   var source = stats.toJson({
-    modules: false,
     reasons: false,
     timings: false,
     version: false
   });
+
+  var assets = source.assetsByChunkName;
+  var entries = Object.keys(assets).reduce(function(points, entry) {
+    var compiled = resolveEntry(entry, config.output.filename, source);
+    points[entry] = path.join(config.output.path, compiled);
+    return points;
+  }, {});
 
   /**
    * Stats on a Chiton webpack build
    *
    * @typedef {object} ChitonBuildStats
    * @property {object} assets A mapping of chunk names to relative asset paths
+   * @property {object} entries A mapping of entry point names to output paths
    * @property {string} root The directory containing the assets
    * @property {string} url The URL at which the assets can be accessed
    */
   return {
-    assets: source.assetsByChunkName,
-    root: destination,
+    assets: assets,
+    entries: entries,
+    root: config.output.path,
     url: source.publicPath
   };
 }
@@ -45,7 +81,7 @@ function BuildStatsPlugin(id, directory) {
 }
 
 /**
- * Product the path to the stats file that would be used for a named build
+ * Produce the path to the stats file that would be used for a named build
  *
  * @param {string} id The ID of the build
  * @param {string} directory The directory in which to save the file
@@ -64,7 +100,7 @@ BuildStatsPlugin.prototype.apply = function(compiler) {
   var statsFile = this.statsFile;
 
   compiler.plugin('done', function(stats) {
-    var details = buildStats(compiler.outputPath, stats);
+    var details = buildStats(compiler.options, stats);
     fs.writeFileSync(statsFile, JSON.stringify(details, null, '  '));
   });
 };

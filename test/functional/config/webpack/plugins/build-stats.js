@@ -63,11 +63,128 @@ describe('config/webpack/plugins/build-stats', function() {
           var output = JSON.parse(fs.readFileSync(stats));
 
           assert.isObject(output.assets);
-          assert.equal(output.root, directory);
-          assert.equal(output.url, '/');
+          assert.isObject(output.entries);
+          assert.isString(output.root);
+          assert.isString(output.url);
 
           done();
         });
+      });
+
+      describe('the build data', function() {
+
+        function configureBuild(directory, id, filename) {
+          var source = tmp.dirSync().name;
+          fs.writeFileSync(path.join(source, 'source.js'), '"use strict"');
+
+          return {
+            context: source,
+            entry: {
+              point: './source.js'
+            },
+            output: {
+              filename: filename,
+              path: directory,
+              publicPath: '/assets/'
+            },
+            plugins: [
+              new BuildStatsPlugin(id, directory)
+            ]
+          };
+        }
+
+        function checkOutput(directory, filename, callback) {
+          var stats = path.join(directory, 'build.json');
+
+          webpack(configureBuild(directory, 'build', filename), function() {
+            var output = JSON.parse(fs.readFileSync(stats));
+            callback(output);
+          });
+        }
+
+        it('contains the URL to access the build files', function(done) {
+          var directory = tmp.dirSync().name;
+
+          checkOutput(directory, 'output.js', function(output) {
+            assert.equal(output.url, '/assets/');
+            done();
+          });
+        });
+
+        it('contains the directory path to the build files', function(done) {
+          var directory = tmp.dirSync().name;
+
+          checkOutput(directory, 'output.js', function(output) {
+            assert.equal(output.root, directory);
+            done();
+          });
+        });
+
+        it('contains a list of assets associated with each chunk', function(done) {
+          var directory = tmp.dirSync().name;
+
+          checkOutput(directory, 'output.js', function(output) {
+            assert.equal(output.assets.point, 'output.js');
+            done();
+          });
+        });
+
+        it('contains a map between entry-point source and compiled files', function(done) {
+          var directory = tmp.dirSync().name;
+
+          checkOutput(directory, 'output.js', function(output) {
+            assert.equal(output.entries.point, path.join(directory, 'output.js'));
+            done();
+          });
+        });
+
+        describe('entry-point filename placeholders', function() {
+
+          function checkFilename(template, callback) {
+            var directory = tmp.dirSync().name;
+            checkOutput(directory, template, callback);
+          }
+
+          it('resolves [name]', function(done) {
+            checkFilename('[name].js', function(output) {
+              assert.match(output.entries.point, /\/point\.js$/);
+              assert.fileExists(output.entries.point);
+
+              done();
+            });
+          });
+
+          it('resolves [hash]', function(done) {
+            checkFilename('[hash].js', function(output) {
+              assert.notMatch(output.entries.point, /point\.js$/);
+              assert.match(output.entries.point, /\/[a-z0-9]{16,}\.js$/);
+              assert.fileExists(output.entries.point);
+
+              done();
+            });
+          });
+
+          it('resolves [chunkhash]', function(done) {
+            checkFilename('[chunkhash].js', function(output) {
+              assert.notMatch(output.entries.point, /point\.js$/);
+              assert.match(output.entries.point, /\/[a-z0-9]{16,}\.js$/);
+              assert.fileExists(output.entries.point);
+
+              done();
+            });
+          });
+
+          it('correctly resolves multiple placeholders', function(done) {
+            checkFilename('[name]-[chunkhash].js', function(output) {
+              assert.match(output.entries.point, /\/point-[a-z0-9]{16,}\.js$/);
+              assert.fileExists(output.entries.point);
+
+              done();
+            });
+          });
+
+        });
+
       });
 
     });
