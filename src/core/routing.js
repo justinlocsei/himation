@@ -13,6 +13,15 @@ var LEADING_SLASH_MATCH = new RegExp('^' + URL_SEPARATOR);
 var UrlError = errors.subclass();
 
 /**
+ * A Chiton route definition
+ *
+ * @typedef {object} ChitonRoute
+ * @property {string} name The internal ID for the route
+ * @property {string} url The path to the route
+ * @property {ChitonRoute[]} urls Child URLs within the route's namespace
+ */
+
+/**
  * Flatten the routes into a non-nested list of route GUIDs
  *
  * @param {ChitonRoute[]} routes A route definition
