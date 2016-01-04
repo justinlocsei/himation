@@ -57,31 +57,33 @@ function commons(points, depth) {
  *
  * @param {ChitonRoute[]} routes A route definition
  * @param {object} [options] Options for generating the map of entries
- * @param {string[]} options.namespace The namespace hierarchy to use for each entry point and module
+ * @param {string[]} options.module The hierarchy to use for each module
+ * @param {string[]} options.namespace The namespace hierarchy to use for each entry point
  * @param {string} options.root The name of the root route
  * @returns {object} A mapping of entry points to modules
  */
 function entries(routes, options) {
   var settings = extend({
+    module: [],
     namespace: [],
     root: ''
   }, options || {});
 
   return routes.reduce(function(points, route) {
-    var paths = settings.namespace.filter(path => path !== settings.root);
-
+    var modules = settings.module.filter(path => path !== settings.root);
     var routeName = route.name === settings.root ? '' : route.name;
-    if (routeName) { paths.push(routeName); }
-    if (route.urls || !routeName) { paths.push(ROOT_MODULE); }
+    if (routeName) { modules.push(routeName); }
+    if (route.urls || !routeName) { modules.push(ROOT_MODULE); }
 
-    var ids = settings.namespace.concat([route.name]);
-    if (route.urls) { ids.push(ROOT_MODULE); }
+    var namespaces = settings.namespace.concat([route.name]);
+    if (route.urls) { namespaces.push(ROOT_MODULE); }
 
-    var guid = ids.join(NAMESPACE_SEPARATOR);
-    points[guid] = './' + paths.join('/');
+    var guid = namespaces.join(NAMESPACE_SEPARATOR);
+    points[guid] = './' + modules.join('/');
 
     if (route.urls) {
       extend(true, points, entries(route.urls, {
+        module: settings.module.concat([route.name]),
         namespace: settings.namespace.concat([route.name]),
         root: settings.root
       }));
