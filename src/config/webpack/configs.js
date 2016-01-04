@@ -9,6 +9,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
 
 var paths = require('chiton/core/paths');
+var routes = require('chiton/config/routes');
+var sources = require('chiton/config/webpack/sources');
 var BuildStatsPlugin = require('chiton/config/webpack/plugins/build-stats');
 
 // The IDs of each build
@@ -213,13 +215,15 @@ function server(settings) {
  * @returns {object} A browser-appropriate webpack configuration
  */
 function ui(settings) {
+  var entries = sources.entries(routes, {
+    module: ['components', 'pages'],
+    root: 'chiton'
+  });
+
   return create(settings, {
     context: paths.ui.js,
     devtool: 'source-map',
-    entry: {
-      about: './components/pages/about',
-      index: './components/pages/index'
-    },
+    entry: entries,
     module: {
       preLoaders: [
         {
