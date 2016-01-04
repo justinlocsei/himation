@@ -1,5 +1,6 @@
 'use strict';
 
+var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 var glob = require('glob');
 var path = require('path');
 
@@ -315,6 +316,22 @@ describe('config/webpack/configs', function() {
       entries.forEach(function(entry) {
         var file = config.entry[entry] + '.js';
         assert.fileExists(path.join(config.context, file));
+      });
+    });
+
+    it('defines commons chunks for all shared pages', function() {
+      var config = configs.ui(settings.base);
+      var commons = config.plugins.filter(function(plugin) {
+        return plugin.constructor === CommonsChunkPlugin;
+      });
+
+      assert.isAbove(commons.length, 0);
+
+      commons.forEach(function(plugin) {
+        assert.isAbove(plugin.selectedChunks.length, 1);
+        plugin.selectedChunks.forEach(function(chunk) {
+          assert.property(config.entry, chunk);
+        });
       });
     });
 

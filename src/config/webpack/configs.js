@@ -220,6 +220,10 @@ function ui(settings) {
     root: 'chiton'
   });
 
+  var commons = sources.commons(entries).map(function(options) {
+    return new CommonsChunkPlugin(options);
+  });
+
   return create(settings, {
     context: paths.ui.js,
     devtool: 'source-map',
@@ -238,12 +242,7 @@ function ui(settings) {
       path: paths.build.ui,
       publicPath: '/'
     },
-    plugins: [
-      new CommonsChunkPlugin({
-        name: 'commons',
-        filename: 'commons-[hash].js'
-      })
-    ].concat(globalPlugins(BUILD_IDS.ui, settings.assets.optimize)),
+    plugins: commons.concat(globalPlugins(BUILD_IDS.ui, settings.assets.optimize)),
     target: 'web'
   });
 }
