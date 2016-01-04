@@ -1,6 +1,5 @@
 'use strict';
 
-var mockFs = require('mock-fs');
 var sinon = require('sinon');
 
 var build = require('chiton/config/webpack/build');
@@ -22,38 +21,6 @@ describe('config/webpack/build', function() {
       }
     };
   }
-
-  describe('.entry', function() {
-
-    it('generates the absolute path to the compiled file', function() {
-      var config = configure();
-
-      var target = build.entry(config, 'point');
-      assert.equal(target, '/output/file.js');
-    });
-
-    it('handles name-based output targets', function() {
-      var config = configure();
-      config.output.filename = '[name].js';
-
-      var target = build.entry(config, 'point');
-      assert.equal(target, '/output/point.js');
-    });
-
-    it('throws an error if the source file is not an entry point', function() {
-      var config = configure();
-
-      assert.throws(function() { build.entry(config, 'invalid'); }, build.ConfigurationError);
-    });
-
-    it('throws an error if the target file relies on compile-time information', function() {
-      var config = configure();
-      config.output.filename = '[name]-[id].js';
-
-      assert.throws(function() { build.entry(config, 'point'); }, build.ConfigurationError);
-    });
-
-  });
 
   describe('.stats', function() {
 
