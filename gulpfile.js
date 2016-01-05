@@ -22,7 +22,7 @@ var serverConfig = webpackConfigs.server(settings);
 var uiConfig = webpackConfigs.ui(settings);
 
 // Globs for matching all known assets of a type
-var all = {
+var assetsByType = {
   js: [
     files.matchShallow(paths.root, 'js'),
     files.matchDeep(paths.src, 'js'),
@@ -52,14 +52,14 @@ gulp.task('clear', function clear(done) {
 
 // Lint all JS files
 gulp.task('lint-js', function lintJs() {
-  return gulp.src(all.js)
+  return gulp.src(assetsByType.js)
     .pipe(plugins.eslint())
     .pipe(plugins.eslint.format());
 });
 
 // Lint all Sass files
 gulp.task('lint-scss', function lintScss() {
-  return gulp.src(all.scss)
+  return gulp.src(assetsByType.scss)
     .pipe(plugins.scssLint({
       bundleExec: true
     }));
@@ -101,8 +101,8 @@ gulp.task('test-verbose', function testVerbose() {
 
 // Verify all assets when they are changed
 gulp.task('watch', function watch() {
-  gulp.watch(all.js, ['lint-js']);
-  gulp.watch(all.scss, ['lint-scss']);
+  gulp.watch(assetsByType.js, ['lint-js']);
+  gulp.watch(assetsByType.scss, ['lint-scss']);
 });
 
 /**
