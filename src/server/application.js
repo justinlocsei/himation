@@ -50,7 +50,7 @@ function assetInjector(host, routes) {
  * Add route mappings to an application
  *
  * @param {Server} app An application instance
- * @param {ChitonRoutes} routes A mapping of route IDs to URLs
+ * @param {ChitonRoute[]} routes A mapping of route IDs to URLs
  * @private
  */
 function connectRoutes(app, routes) {
@@ -68,7 +68,7 @@ function connectRoutes(app, routes) {
  *
  * @param {object} options Configuration for the server
  * @param {string} options.assetUrl The URL at which assets are available
- * @param {ChitonRoutes} options.routes A mapping of route names to URLs
+ * @param {ChitonRoute[]} options.routes A mapping of route names to URLs
  * @param {string} options.templates The path to the templates directory
  * @returns {Server} An application server that can be bound to an address
  */
