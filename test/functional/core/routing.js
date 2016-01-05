@@ -25,7 +25,7 @@ describe('core/routing', function() {
     ];
   }
 
-  describe('.flattenRoutes', function() {
+  describe('.routesToGuids', function() {
 
     function nested() {
       return [
@@ -43,15 +43,15 @@ describe('core/routing', function() {
       ];
     }
 
-    it('creates a non-recursive list', function() {
-      var flattened = routing.flattenRoutes(nested());
-      assert.equal(flattened.length, 5);
+    it('creates a flat map of GUIDs', function() {
+      var guids = routing.routesToGuids(nested());
+      assert.equal(Object.keys(guids).length, 5);
     });
 
     it('generates GUIDs for each route based upon its level', function() {
-      var flattened = routing.flattenRoutes(nested());
+      var guids = routing.routesToGuids(nested());
 
-      assert.deepEqual(flattened, [
+      assert.deepEqual(guids, [
         'one.index',
         'one.two',
         'one.three.index',
@@ -60,21 +60,9 @@ describe('core/routing', function() {
       ]);
     });
 
-    it('can accept a custom namespace for the GUIDs', function() {
-      var flattened = routing.flattenRoutes(nested(), 'custom');
-
-      assert.deepEqual(flattened, [
-        'custom.one.index',
-        'custom.one.two',
-        'custom.one.three.index',
-        'custom.one.three.four',
-        'custom.one.five'
-      ]);
-    });
-
     it('can use the GUIDs to look up route URLs', function() {
-      var flattened = routing.flattenRoutes(nested());
-      var urls = flattened.map(function(route) { return routing.routeToPath(nested(), route); });
+      var guids = routing.routesToGuids(nested());
+      var urls = guids.map(route => routing.routeToPath(nested(), route));
 
       assert.deepEqual(urls, [
         '/',

@@ -24,26 +24,29 @@ var LEADING_SLASH_MATCH = new RegExp('^' + PATH_SEPARATOR);
  * Flatten the routes into a non-nested list of route GUIDs
  *
  * @param {ChitonRoute[]} routes A route definition
- * @param {string} [namespace] The namespace prefix to use for all routes
  * @returns {string[]} A list of all route GUIDs
  */
-function flattenRoutes(routes, namespace) {
-  var prefix = namespace || '';
-  if (prefix) { prefix += GUID_SEPARATOR; }
+function routesToGuids(routes) {
+  function createGuids(subroutes, namespace) {
+    var prefix = namespace || '';
+    if (prefix) { prefix += GUID_SEPARATOR; }
 
-  return routes.reduce(function(flattened, route) {
-    var guid = prefix + route.name;
-    var guids = [];
+    return subroutes.reduce(function(flattened, route) {
+      var guid = prefix + route.name;
+      var guids = [];
 
-    if (route.paths) {
-      guids.push(guid + GUID_SEPARATOR + INDEX_ROUTE);
-      guids = guids.concat(flattenRoutes(route.paths, guid));
-    } else {
-      guids.push(guid);
-    }
+      if (route.paths) {
+        guids.push(guid + GUID_SEPARATOR + INDEX_ROUTE);
+        guids = guids.concat(createGuids(route.paths, guid));
+      } else {
+        guids.push(guid);
+      }
 
-    return flattened.concat(guids);
-  }, []);
+      return flattened.concat(guids);
+    }, []);
+  }
+
+  return createGuids(routes, '');
 }
 
 /**
@@ -134,7 +137,7 @@ function routeToPath(routes, guid) {
 }
 
 module.exports = {
-  flattenRoutes: flattenRoutes,
+  routesToGuids: routesToGuids,
   pathToRoute: pathToRoute,
   routeToPath: routeToPath
 };
