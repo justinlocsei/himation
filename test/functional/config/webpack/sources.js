@@ -4,10 +4,10 @@ var sources = require('chiton/config/webpack/sources');
 
 describe('config/webpack/sources', function() {
 
-  describe('.commons', function() {
+  describe('.entryPointsToCommonsChunks', function() {
 
     it('creates a commons chunk for entry points that share a hierarchy level', function() {
-      var commons = sources.commons({
+      var commons = sources.entryPointsToCommonsChunks({
         'test.one': './test/one',
         'test.two': './test/two'
       });
@@ -22,7 +22,7 @@ describe('config/webpack/sources', function() {
     });
 
     it('creates separate commons chunks for nested routes that share a namespace', function() {
-      var commons = sources.commons({
+      var commons = sources.entryPointsToCommonsChunks({
         'one.one': './one/one',
         'one.two': './one/two',
         'one.three.index': './one/three/index',
@@ -64,7 +64,7 @@ describe('config/webpack/sources', function() {
     });
 
     it('does not create commons chunks for routes that do not share a namespace', function() {
-      var commons = sources.commons({
+      var commons = sources.entryPointsToCommonsChunks({
         'test.one': './test/one',
         'test.two': './test/two',
         'one': './one',
@@ -77,7 +77,7 @@ describe('config/webpack/sources', function() {
 
   });
 
-  describe('.entries', function() {
+  describe('.routesToEntryPoints', function() {
 
     describe('with a single root route', function() {
 
@@ -95,12 +95,12 @@ describe('config/webpack/sources', function() {
       ];
 
       it('maps the root route for a namespace to an index module', function() {
-        var entries = sources.entries(routes);
+        var entries = sources.routesToEntryPoints(routes);
         assert.equal(entries['test.index'], './test/index');
       });
 
       it('creates a flat map of entry-point names to relative module paths', function() {
-        var entries = sources.entries(routes);
+        var entries = sources.routesToEntryPoints(routes);
 
         assert.deepEqual(entries, {
           'test.index': './test/index',
@@ -111,7 +111,7 @@ describe('config/webpack/sources', function() {
       });
 
       it('accepts a root route that is removed from the module path', function() {
-        var entries = sources.entries(routes, {root: 'test'});
+        var entries = sources.routesToEntryPoints(routes, {root: 'test'});
 
         assert.deepEqual(entries, {
           'test.index': './index',
@@ -122,7 +122,7 @@ describe('config/webpack/sources', function() {
       });
 
       it('accepts a namespace that is added to each entry point', function() {
-        var entries = sources.entries(routes, {namespace: ['one', 'two']});
+        var entries = sources.routesToEntryPoints(routes, {namespace: ['one', 'two']});
 
         assert.deepEqual(entries, {
           'one.two.test.index': './test/index',
@@ -133,7 +133,7 @@ describe('config/webpack/sources', function() {
       });
 
       it('accepts a module namespace that is added to each entry point', function() {
-        var entries = sources.entries(routes, {module: ['one', 'two']});
+        var entries = sources.routesToEntryPoints(routes, {module: ['one', 'two']});
 
         assert.deepEqual(entries, {
           'test.index': './one/two/test/index',
@@ -144,7 +144,7 @@ describe('config/webpack/sources', function() {
       });
 
       it('can combine a root route with a namespace and module path', function() {
-        var entries = sources.entries(routes, {root: 'test', namespace: ['namespace'], module: ['module']});
+        var entries = sources.routesToEntryPoints(routes, {root: 'test', namespace: ['namespace'], module: ['module']});
 
         assert.deepEqual(entries, {
           'namespace.test.index': './module/index',
@@ -164,7 +164,7 @@ describe('config/webpack/sources', function() {
       ];
 
       it('uses a flat structure', function() {
-        var entries = sources.entries(routes);
+        var entries = sources.routesToEntryPoints(routes);
 
         assert.deepEqual(entries, {
           'one': './one',
@@ -173,7 +173,7 @@ describe('config/webpack/sources', function() {
       });
 
       it('applies the root route to a single route', function() {
-        var entries = sources.entries(routes, {root: 'one'});
+        var entries = sources.routesToEntryPoints(routes, {root: 'one'});
 
         assert.deepEqual(entries, {
           'one': './index',
@@ -182,7 +182,7 @@ describe('config/webpack/sources', function() {
       });
 
       it('applies the namespace to each route', function() {
-        var entries = sources.entries(routes, {namespace: ['prefix']});
+        var entries = sources.routesToEntryPoints(routes, {namespace: ['prefix']});
 
         assert.deepEqual(entries, {
           'prefix.one': './one',
@@ -191,7 +191,7 @@ describe('config/webpack/sources', function() {
       });
 
       it('applies the module path to each route', function() {
-        var entries = sources.entries(routes, {module: ['prefix']});
+        var entries = sources.routesToEntryPoints(routes, {module: ['prefix']});
 
         assert.deepEqual(entries, {
           'one': './prefix/one',

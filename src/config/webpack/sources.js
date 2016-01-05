@@ -13,14 +13,15 @@ var ROOT_MODULE = 'index';
  * Create a series of definitions for commons chunks for entry points
  *
  * This expects the given entry points to match the output format of the
- * `entries` function, which uses a dot-separated notation to express hierarchy.
- * Each group of shared levels will receive its own commons chunk.
+ * `routesToEntryPoints` function, which uses a dot-separated notation to
+ * express hierarchy. Each group of shared levels will receive its own commons
+ * chunk.
  *
  * @param {object} points A mapping of entry-point names to module paths
  * @param {number} [depth] The namespace depth to use
  * @returns {object[]} A series of options used to create commons-chunks plugins
  */
-function commons(points, depth) {
+function entryPointsToCommonsChunks(points, depth) {
   var level = depth || 1;
 
   var names = Object.keys(points);
@@ -46,7 +47,7 @@ function commons(points, depth) {
     return result;
   }, []);
 
-  return chunks.concat(commons(points, level + 1));
+  return chunks.concat(entryPointsToCommonsChunks(points, level + 1));
 }
 
 /**
@@ -62,7 +63,7 @@ function commons(points, depth) {
  * @param {string} options.root The name of the root route
  * @returns {object} A mapping of entry points to modules
  */
-function entries(routes, options) {
+function routesToEntryPoints(routes, options) {
   var settings = extend({
     module: [],
     namespace: [],
@@ -82,7 +83,7 @@ function entries(routes, options) {
     points[guid] = './' + modules.join('/');
 
     if (route.paths) {
-      extend(true, points, entries(route.paths, {
+      extend(true, points, routesToEntryPoints(route.paths, {
         module: settings.module.concat([route.name]),
         namespace: settings.namespace.concat([route.name]),
         root: settings.root
@@ -94,6 +95,6 @@ function entries(routes, options) {
 }
 
 module.exports = {
-  commons: commons,
-  entries: entries
+  entryPointsToCommonsChunks: entryPointsToCommonsChunks,
+  routesToEntryPoints: routesToEntryPoints
 };

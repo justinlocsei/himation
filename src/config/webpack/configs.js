@@ -215,12 +215,12 @@ function server(settings) {
  * @returns {object} A browser-appropriate webpack configuration
  */
 function ui(settings) {
-  var entries = sources.entries(routes, {
+  var entries = sources.routesToEntryPoints(routes, {
     module: ['components', 'pages'],
     root: 'chiton'
   });
 
-  var commons = sources.commons(entries).map(function(options) {
+  var commons = sources.entryPointsToCommonsChunks(entries).map(function(options) {
     return new CommonsChunkPlugin(options);
   });
 
