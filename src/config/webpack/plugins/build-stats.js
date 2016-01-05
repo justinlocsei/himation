@@ -23,7 +23,7 @@ var path = require('path');
  * @param {object} stats Information on a webpack build
  * @returns {string} The final name of the entry point's file
  */
-function resolveEntry(entry, filename, stats) {
+function determineEntryFilename(entry, filename, stats) {
   var subs = {
     hash: stats.hash,
     name: entry
@@ -43,7 +43,7 @@ function resolveEntry(entry, filename, stats) {
 }
 
 /**
- * Produce a list of all file dependencies for a
+ * Produce a list of all file dependencies for an entry point
  *
  * This is used to fetch any assets associated with the entry point that are
  * stored in a commons chunk.
@@ -53,7 +53,7 @@ function resolveEntry(entry, filename, stats) {
  * @param {object} stats Information on a webpack build
  * @returns {string} The final name of the entry point's file
  */
-function dependentFiles(entry, config, stats) {
+function entryPointDependencies(entry, config, stats) {
   var commons = (config.plugins || []).filter(function(plugin) {
     return plugin.constructor === CommonsChunkPlugin;
   });
@@ -75,7 +75,7 @@ function dependentFiles(entry, config, stats) {
  * @returns {ChitonBuildStats} Statistics on a Chiton build
  * @private
  */
-function buildStats(config, stats) {
+function webpackStatsToChitonStats(config, stats) {
   var source = stats.toJson({
     reasons: false,
     timings: false,
@@ -85,12 +85,12 @@ function buildStats(config, stats) {
   var assets = Object.keys(source.assetsByChunkName).reduce(function(chunks, chunk) {
     var files = source.assetsByChunkName[chunk];
     if (_.isString(files)) { files = [files]; }
-    chunks[chunk] = dependentFiles(chunk, config, source).concat(files);
+    chunks[chunk] = entryPointDependencies(chunk, config, source).concat(files);
     return chunks;
   }, {});
 
   var entries = Object.keys(assets).reduce(function(points, entry) {
-    var compiled = resolveEntry(entry, config.output.filename, source);
+    var compiled = determineEntryFilename(entry, config.output.filename, source);
     points[entry] = path.join(config.output.path, compiled);
     return points;
   }, {});
@@ -133,7 +133,7 @@ BuildStatsPlugin.prototype.apply = function(compiler) {
   var statsFile = this.statsFile;
 
   compiler.plugin('done', function(stats) {
-    var details = buildStats(compiler.options, stats);
+    var details = webpackStatsToChitonStats(compiler.options, stats);
     fs.writeFileSync(statsFile, JSON.stringify(details, null, '  '));
   });
 };
