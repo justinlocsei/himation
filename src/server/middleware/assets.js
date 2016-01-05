@@ -19,7 +19,7 @@ var ASSET_GROUPS = {
  */
 function assets(stats, host, routes) {
   return function(req, res, next) {
-    var route = routing.resolve(routes, req.path);
+    var route = routing.pathToRoute(routes, req.path);
     if (!route) { return next(); }
 
     res.locals.assets = Object.keys(ASSET_GROUPS).reduce(function(groups, group) {

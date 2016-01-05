@@ -49,13 +49,13 @@ function flatten(routes, namespace) {
 }
 
 /**
- * Determine the name of the route described by a URL
+ * Determine the name of the route described by a path
  *
  * @param {ChitonRoute[]} routes A route definition
  * @param {string} path The path component of a URL
  * @returns {?string} The name of the route
  */
-function resolve(routes, path) {
+function pathToRoute(routes, path) {
   var matches = routes.filter(function(route) {
     var match = new RegExp('^' + route.url + '/?', 'i');
     return match.test(path);
@@ -85,7 +85,7 @@ function resolve(routes, path) {
   var remainder = path.substring(match.url.length).replace(LEADING_SLASH_MATCH, '');
   if (remainder) {
     var subroutes = match.urls || [];
-    var subname = resolve(subroutes, remainder);
+    var subname = pathToRoute(subroutes, remainder);
     if (subname) {
       routeName += GUID_SEPARATOR + subname;
     } else {
@@ -135,7 +135,7 @@ function routeToPath(routes, guid) {
 
 module.exports = {
   flatten: flatten,
-  resolve: resolve,
+  pathToRoute: pathToRoute,
   routeToPath: routeToPath,
   UrlError: UrlError
 };

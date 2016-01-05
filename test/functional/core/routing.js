@@ -85,46 +85,46 @@ describe('core/routing', function() {
   describe('.resolve', function() {
 
     it('resolves the index URL to a route name', function() {
-      assert.equal(routing.resolve(routes, '/'), 'root.index');
+      assert.equal(routing.pathToRoute(routes, '/'), 'root.index');
     });
 
     it('resolves a URL to a route name', function() {
-      assert.equal(routing.resolve(routes, '/about'), 'root.about');
+      assert.equal(routing.pathToRoute(routes, '/about'), 'root.about');
     });
 
     it('uses the full URL for matching', function() {
-      assert.equal(routing.resolve(routes, '/about-us'), 'root.aboutUs');
+      assert.equal(routing.pathToRoute(routes, '/about-us'), 'root.aboutUs');
     });
 
     it('resolves a nested index URL to a route name', function() {
-      assert.equal(routing.resolve(routes, '/admin'), 'root.admin.index');
+      assert.equal(routing.pathToRoute(routes, '/admin'), 'root.admin.index');
     });
 
     it('resolves a nested URL to a route name', function() {
-      assert.equal(routing.resolve(routes, '/admin/account'), 'root.admin.account');
+      assert.equal(routing.pathToRoute(routes, '/admin/account'), 'root.admin.account');
     });
 
     it('resolves a index URL not mounted at the root URL', function() {
-      assert.equal(routing.resolve(routes, '/sub'), 'sub');
+      assert.equal(routing.pathToRoute(routes, '/sub'), 'sub');
     });
 
     it('ignores trailing slashes', function() {
-      assert.equal(routing.resolve(routes, '/about/'), 'root.about');
-      assert.equal(routing.resolve(routes, '/admin/'), 'root.admin.index');
-      assert.equal(routing.resolve(routes, '/admin/account/'), 'root.admin.account');
+      assert.equal(routing.pathToRoute(routes, '/about/'), 'root.about');
+      assert.equal(routing.pathToRoute(routes, '/admin/'), 'root.admin.index');
+      assert.equal(routing.pathToRoute(routes, '/admin/account/'), 'root.admin.account');
     });
 
     it('returns null when a URL does not match a route', function() {
-      assert.isNull(routing.resolve(routes, '/home'));
+      assert.isNull(routing.pathToRoute(routes, '/home'));
     });
 
     it('returns null when a URL partially matches a nested route', function() {
-      assert.isNull(routing.resolve(routes, '/admin/missing'));
+      assert.isNull(routing.pathToRoute(routes, '/admin/missing'));
     });
 
     it('throws an error when multiple routes match a path', function() {
       var ambiguous = routes.concat(routes);
-      assert.throws(function() { routing.resolve(ambiguous, '/'); }, routing.UrlError);
+      assert.throws(function() { routing.pathToRoute(ambiguous, '/'); }, routing.UrlError);
     });
 
   });
