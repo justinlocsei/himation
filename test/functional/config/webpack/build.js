@@ -22,7 +22,7 @@ describe('config/webpack/build', function() {
     };
   }
 
-  describe('.stats', function() {
+  describe('.loadStats', function() {
 
     afterEach(function() {
       sandbox.restore();
@@ -37,7 +37,7 @@ describe('config/webpack/build', function() {
       var config = configure();
       config.plugins = [plugin];
 
-      var stats = build.stats(config);
+      var stats = build.loadStats(config);
 
       assert.isTrue(loader.called);
       assert.isObject(stats);
@@ -47,7 +47,7 @@ describe('config/webpack/build', function() {
       var config = configure();
       config.plugins = [];
 
-      assert.throws(function() { build.stats(config); }, build.ConfigurationError);
+      assert.throws(function() { build.loadStats(config); }, build.ConfigurationError);
     });
 
     it('throws an error if the build statistics cannot be loaded', function() {
@@ -59,7 +59,7 @@ describe('config/webpack/build', function() {
       var config = configure();
       config.plugins = [plugin];
 
-      assert.throws(function() { build.stats(config); }, build.StatsError);
+      assert.throws(function() { build.loadStats(config); }, build.StatsError);
       assert.isTrue(loader.called);
     });
 
