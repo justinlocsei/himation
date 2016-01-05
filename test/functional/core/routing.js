@@ -47,9 +47,9 @@ describe('core/routing', function() {
       var flattened = routing.flatten(nested);
 
       assert.deepEqual(flattened, [
-        'one',
+        'one.index',
         'one.two',
-        'one.three',
+        'one.three.index',
         'one.three.four',
         'one.five'
       ]);
@@ -59,9 +59,9 @@ describe('core/routing', function() {
       var flattened = routing.flatten(nested, 'custom');
 
       assert.deepEqual(flattened, [
-        'custom.one',
+        'custom.one.index',
         'custom.one.two',
-        'custom.one.three',
+        'custom.one.three.index',
         'custom.one.three.four',
         'custom.one.five'
       ]);
@@ -85,7 +85,7 @@ describe('core/routing', function() {
   describe('.resolve', function() {
 
     it('resolves the index URL to a route name', function() {
-      assert.equal(routing.resolve(routes, '/'), 'root');
+      assert.equal(routing.resolve(routes, '/'), 'root.index');
     });
 
     it('resolves a URL to a route name', function() {
@@ -97,7 +97,7 @@ describe('core/routing', function() {
     });
 
     it('resolves a nested index URL to a route name', function() {
-      assert.equal(routing.resolve(routes, '/admin'), 'root.admin');
+      assert.equal(routing.resolve(routes, '/admin'), 'root.admin.index');
     });
 
     it('resolves a nested URL to a route name', function() {
@@ -110,7 +110,7 @@ describe('core/routing', function() {
 
     it('ignores trailing slashes', function() {
       assert.equal(routing.resolve(routes, '/about/'), 'root.about');
-      assert.equal(routing.resolve(routes, '/admin/'), 'root.admin');
+      assert.equal(routing.resolve(routes, '/admin/'), 'root.admin.index');
       assert.equal(routing.resolve(routes, '/admin/account/'), 'root.admin.account');
     });
 
@@ -132,7 +132,7 @@ describe('core/routing', function() {
   describe('.url', function() {
 
     it('returns the URL for the index route', function() {
-      assert.equal(routing.url(routes, 'root'), '/');
+      assert.equal(routing.url(routes, 'root.index'), '/');
     });
 
     it('returns the URL for a top-level route', function() {
@@ -140,7 +140,7 @@ describe('core/routing', function() {
     });
 
     it('returns the URL for a nested index route', function() {
-      assert.equal(routing.url(routes, 'root.admin'), '/admin');
+      assert.equal(routing.url(routes, 'root.admin.index'), '/admin');
     });
 
     it('returns the URL for a nested route', function() {

@@ -7,6 +7,8 @@ var errors = require('chiton/core/errors');
 var GUID_SEPARATOR = '.';
 var URL_SEPARATOR = '/';
 
+var INDEX_ROUTE = 'index';
+
 var LEADING_SLASH_MATCH = new RegExp('^' + URL_SEPARATOR);
 
 var UrlError = errors.subclass();
@@ -25,7 +27,7 @@ var UrlError = errors.subclass();
  *
  * @param {ChitonRoute[]} routes A route definition
  * @param {string} [namespace] The namespace prefix to use for all routes
- * @returns {string[]} The GUID of each route
+ * @returns {string[]} A list of all route GUIDs
  */
 function flatten(routes, namespace) {
   var prefix = namespace || '';
@@ -33,10 +35,13 @@ function flatten(routes, namespace) {
 
   return routes.reduce(function(flattened, route) {
     var guid = prefix + route.name;
-    var guids = [guid];
+    var guids = [];
 
     if (route.urls) {
+      guids.push(guid + GUID_SEPARATOR + INDEX_ROUTE);
       guids = guids.concat(flatten(route.urls, guid));
+    } else {
+      guids.push(guid);
     }
 
     return flattened.concat(guids);
@@ -86,6 +91,8 @@ function resolve(routes, path) {
     } else {
       routeName = null;
     }
+  } else if (match.urls) {
+    routeName += GUID_SEPARATOR + INDEX_ROUTE;
   }
 
   return routeName;
@@ -102,7 +109,8 @@ function resolve(routes, path) {
 function url(routes, guid) {
   var hierarchy = guid.split(GUID_SEPARATOR);
   var parentName = hierarchy[0];
-  var childNames = hierarchy.slice(1);
+  var endpoint = _.last(hierarchy) === INDEX_ROUTE ? -1 : hierarchy.length;
+  var childNames = hierarchy.slice(1, endpoint);
 
   var matches = routes.filter(function(route) { return route.name === parentName; });
 
