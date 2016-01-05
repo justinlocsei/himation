@@ -106,7 +106,7 @@ function resolve(routes, path) {
  * @returns {string} The URL for the route
  * @throws {UrlError} If no URL for the route was found
  */
-function url(routes, guid) {
+function routeToUrl(routes, guid) {
   var hierarchy = guid.split(GUID_SEPARATOR);
   var parentName = hierarchy[0];
   var endpoint = _.last(hierarchy) === INDEX_ROUTE ? -1 : hierarchy.length;
@@ -118,24 +118,24 @@ function url(routes, guid) {
   if (matches.length > 1) { throw new UrlError('Multiple routes named "' + guid + '" were found'); }
 
   var parentRoute = matches[0];
-  var path = parentRoute.url;
+  var url = parentRoute.url;
 
-  if (path === undefined) {
+  if (url === undefined) {
     throw new UrlError('No URL was found for the route named "' + guid + '"');
   }
 
   if (childNames.length) {
     var subroutes = parentRoute.urls || [];
     var separator = parentRoute.url === URL_SEPARATOR ? '' : URL_SEPARATOR;
-    path += separator + url(subroutes, childNames.join(GUID_SEPARATOR));
+    url += separator + routeToUrl(subroutes, childNames.join(GUID_SEPARATOR));
   }
 
-  return path;
+  return url;
 }
 
 module.exports = {
   flatten: flatten,
   resolve: resolve,
-  url: url,
+  routeToUrl: routeToUrl,
   UrlError: UrlError
 };

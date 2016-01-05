@@ -54,11 +54,11 @@ function assetInjector(host, routes) {
  * @private
  */
 function connectRoutes(app, routes) {
-  app.get(routing.url(routes, 'index'), function(req, res) {
+  app.get(routing.routeToUrl(routes, 'index'), function(req, res) {
     res.render('public', {content: pages.index()});
   });
 
-  app.get(routing.url(routes, 'about'), function(req, res) {
+  app.get(routing.routeToUrl(routes, 'about'), function(req, res) {
     res.render('public', {content: pages.about()});
   });
 }
