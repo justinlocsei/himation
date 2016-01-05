@@ -99,14 +99,14 @@ function resolve(routes, path) {
 }
 
 /**
- * Produce the URL for accessing a named route
+ * Produce the path for accessing a named route
  *
  * @param {ChitonRoute[]} routes A route definition
  * @param {string} guid The unique identifier for the route
- * @returns {string} The URL for the route
- * @throws {UrlError} If no URL for the route was found
+ * @returns {string} The path for the route
+ * @throws {UrlError} If no path for the route was found
  */
-function routeToUrl(routes, guid) {
+function routeToPath(routes, guid) {
   var hierarchy = guid.split(GUID_SEPARATOR);
   var parentName = hierarchy[0];
   var endpoint = _.last(hierarchy) === INDEX_ROUTE ? -1 : hierarchy.length;
@@ -118,24 +118,24 @@ function routeToUrl(routes, guid) {
   if (matches.length > 1) { throw new UrlError('Multiple routes named "' + guid + '" were found'); }
 
   var parentRoute = matches[0];
-  var url = parentRoute.url;
+  var path = parentRoute.url;
 
-  if (url === undefined) {
-    throw new UrlError('No URL was found for the route named "' + guid + '"');
+  if (path === undefined) {
+    throw new UrlError('No path was found for the route named "' + guid + '"');
   }
 
   if (childNames.length) {
     var subroutes = parentRoute.urls || [];
     var separator = parentRoute.url === URL_SEPARATOR ? '' : URL_SEPARATOR;
-    url += separator + routeToUrl(subroutes, childNames.join(GUID_SEPARATOR));
+    path += separator + routeToPath(subroutes, childNames.join(GUID_SEPARATOR));
   }
 
-  return url;
+  return path;
 }
 
 module.exports = {
   flatten: flatten,
   resolve: resolve,
-  routeToUrl: routeToUrl,
+  routeToPath: routeToPath,
   UrlError: UrlError
 };
