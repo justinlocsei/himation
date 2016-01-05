@@ -8,7 +8,7 @@
 
     <title>Cover Your Basics</title>
 
-    {% for stylesheet in stylesheets %}
+    {% for stylesheet in assets.stylesheets %}
       <link rel="stylesheet" href="{{ stylesheet }}">
     {% endfor %}
   </head>
@@ -16,7 +16,7 @@
   <body>
     {{ content | safe }}
 
-    {% for javascript in javascripts %}
+    {% for javascript in assets.javascripts %}
       <script src="{{ javascript }}"></script>
     {% endfor %}
   </body>
