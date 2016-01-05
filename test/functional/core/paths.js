@@ -40,6 +40,18 @@ describe('core/paths', function() {
 
   });
 
+  describe('the module directories', function() {
+
+    it('is below the root directory', function() {
+      assert.isChildOf(paths.modules.root, paths.root);
+    });
+
+    it('contains a binary directory', function() {
+      assert.isChildOf(paths.modules.bin, paths.modules.root);
+    });
+
+  });
+
   describe('the source directory', function() {
 
     it('exists', function() {

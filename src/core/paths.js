@@ -5,6 +5,7 @@ var path = require('path');
 var root = path.normalize(path.join(__dirname, '..', '..'));
 
 var build = path.join(root, 'build');
+var modules = path.join(root, 'node_modules');
 var src = path.join(root, 'src');
 var test = path.join(root, 'test');
 
@@ -17,6 +18,10 @@ module.exports = {
     ui: path.join(build, 'ui')
   },
   docs: path.join(root, 'docs'),
+  modules: {
+    bin: path.join(modules, '.bin'),
+    root: modules
+  },
   root: root,
   server: path.join(src, 'server'),
   src: src,
