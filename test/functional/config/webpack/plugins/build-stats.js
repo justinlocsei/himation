@@ -124,7 +124,7 @@ describe('config/webpack/plugins/build-stats', function() {
           var directory = tmp.dirSync().name;
 
           checkOutput(directory, 'output.js', function(output) {
-            assert.equal(output.assets.point, 'output.js');
+            assert.deepEqual(output.assets.point, ['output.js']);
             done();
           });
         });

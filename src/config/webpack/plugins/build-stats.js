@@ -46,7 +46,12 @@ function buildStats(config, stats) {
     version: false
   });
 
-  var assets = source.assetsByChunkName;
+  var assets = Object.keys(source.assetsByChunkName).reduce(function(chunks, chunk) {
+    var files = source.assetsByChunkName[chunk];
+    chunks[chunk] = _.isString(files) ? [files] : files;
+    return chunks;
+  }, {});
+
   var entries = Object.keys(assets).reduce(function(points, entry) {
     var compiled = resolveEntry(entry, config.output.filename, source);
     points[entry] = path.join(config.output.path, compiled);
