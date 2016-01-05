@@ -32,6 +32,14 @@ describe('core/paths', function() {
 
   });
 
+  describe('the documentation directory', function() {
+
+    it('is below the root directory', function() {
+      assert.isChildOf(paths.docs, paths.root);
+    });
+
+  });
+
   describe('the source directory', function() {
 
     it('exists', function() {

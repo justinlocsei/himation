@@ -1,0 +1,8 @@
+{
+  "tags": {
+    "dictionaries": ["jsdoc"]
+  },
+  "templates": {
+    "cleverLinks": true
+  }
+}
