@@ -81,8 +81,8 @@ describe('config/webpack/plugins/build-stats', function() {
           return {
             context: source,
             entry: {
-              one: './one.js',
-              two: './two.js'
+              'test.one': './one.js',
+              'test.two': './two.js'
             },
             output: {
               filename: filename,
@@ -126,8 +126,8 @@ describe('config/webpack/plugins/build-stats', function() {
           var directory = tmp.dirSync().name;
 
           checkOutput(directory, '[name].js', function(output) {
-            assert.deepEqual(output.assets.one, ['one.js']);
-            assert.deepEqual(output.assets.two, ['two.js']);
+            assert.deepEqual(output.assets['test.one'], ['test.one.js']);
+            assert.deepEqual(output.assets['test.two'], ['test.two.js']);
             done();
           });
         });
@@ -136,8 +136,8 @@ describe('config/webpack/plugins/build-stats', function() {
           var directory = tmp.dirSync().name;
 
           checkOutput(directory, '[name].js', function(output) {
-            assert.equal(output.entries.one, path.join(directory, 'one.js'));
-            assert.equal(output.entries.two, path.join(directory, 'two.js'));
+            assert.equal(output.entries['test.one'], path.join(directory, 'test.one.js'));
+            assert.equal(output.entries['test.two'], path.join(directory, 'test.two.js'));
             done();
           });
         });
@@ -151,8 +151,8 @@ describe('config/webpack/plugins/build-stats', function() {
 
           it('resolves [name]', function(done) {
             checkFilename('[name].js', function(output) {
-              assert.match(output.entries.one, /\/one\.js$/);
-              assert.fileExists(output.entries.one);
+              assert.match(output.entries['test.one'], /\/test\.one\.js$/);
+              assert.fileExists(output.entries['test.one']);
 
               done();
             });
@@ -160,9 +160,9 @@ describe('config/webpack/plugins/build-stats', function() {
 
           it('resolves [hash]', function(done) {
             checkFilename('[hash].js', function(output) {
-              assert.notMatch(output.entries.one, /one\.js$/);
-              assert.match(output.entries.one, /\/[a-z0-9]{16,}\.js$/);
-              assert.fileExists(output.entries.one);
+              assert.notMatch(output.entries['test.one'], /test\.one\.js$/);
+              assert.match(output.entries['test.one'], /\/[a-z0-9]{16,}\.js$/);
+              assert.fileExists(output.entries['test.one']);
 
               done();
             });
@@ -170,9 +170,9 @@ describe('config/webpack/plugins/build-stats', function() {
 
           it('resolves [chunkhash]', function(done) {
             checkFilename('[chunkhash].js', function(output) {
-              assert.notMatch(output.entries.one, /one\.js$/);
-              assert.match(output.entries.one, /\/[a-z0-9]{16,}\.js$/);
-              assert.fileExists(output.entries.one);
+              assert.notMatch(output.entries['test.one'], /test\.one\.js$/);
+              assert.match(output.entries['test.one'], /\/[a-z0-9]{16,}\.js$/);
+              assert.fileExists(output.entries['test.one']);
 
               done();
             });
@@ -180,8 +180,8 @@ describe('config/webpack/plugins/build-stats', function() {
 
           it('correctly resolves multiple placeholders', function(done) {
             checkFilename('[name]-[chunkhash].js', function(output) {
-              assert.match(output.entries.one, /\/one-[a-z0-9]{16,}\.js$/);
-              assert.fileExists(output.entries.one);
+              assert.match(output.entries['test.one'], /\/test\.one-[a-z0-9]{16,}\.js$/);
+              assert.fileExists(output.entries['test.one']);
 
               done();
             });
