@@ -58,6 +58,11 @@ describe('core/files', function() {
       assert.isFalse(files.isChildOf('/one', '/one'));
     });
 
+    it('handles hidden directories', function() {
+      assert.isTrue(files.isChildOf('/one/.bin', '/one'));
+      assert.isFalse(files.isChildOf('/one', '/one/.bin'));
+    });
+
   });
 
   describe('.isDirectory', function() {

@@ -38,7 +38,7 @@ function exists(target) {
  */
 function isChildOf(resource, directory) {
   var relative = path.relative(directory, resource);
-  return relative !== '' && relative[0] !== '.';
+  return relative !== '' && !/^\.{2}/.test(relative);
 }
 
 /**
