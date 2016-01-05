@@ -42,7 +42,7 @@ function create(options) {
 
   var app = express();
 
-  var templates = templating.nunjucks(settings.templates);
+  var templates = templating.createEngine(settings.templates);
   templates.express(app);
   app.set('view engine', 'html');
 
