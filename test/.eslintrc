@@ -1,8 +1,5 @@
 {
-  "extends": "chiton/configurations/node",
-  "env": {
-    "mocha": true
-  },
+  "extends": "chiton/configurations/mocha",
   "globals": {
     "assert": true
   },
