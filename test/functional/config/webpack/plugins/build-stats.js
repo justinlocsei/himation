@@ -1,5 +1,6 @@
 'use strict';
 
+var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 var fs = require('fs');
 var path = require('path');
 var tmp = require('tmp');
@@ -73,32 +74,35 @@ describe('config/webpack/plugins/build-stats', function() {
 
       describe('the build data', function() {
 
-        function configureBuild(directory, id, filename) {
+        function configureBuild(directory, id, filename, plugins) {
           var source = tmp.dirSync().name;
-          fs.writeFileSync(path.join(source, 'one.js'), '"use strict"');
-          fs.writeFileSync(path.join(source, 'two.js'), '"use strict"');
+          fs.writeFileSync(path.join(source, 'shared.js'), '"use strict"');
+          fs.writeFileSync(path.join(source, 'one.js'), 'require("./shared")');
+          fs.writeFileSync(path.join(source, 'two.js'), 'require("./shared")');
+          fs.writeFileSync(path.join(source, 'three.js'), 'require("./shared")');
 
           return {
             context: source,
             entry: {
               'test.one': './one.js',
-              'test.two': './two.js'
+              'test.two': './two.js',
+              'test.three': './three.js'
             },
             output: {
               filename: filename,
               path: directory,
               publicPath: '/assets/'
             },
-            plugins: [
+            plugins: (plugins || []).concat([
               new BuildStatsPlugin(id, directory)
-            ]
+            ])
           };
         }
 
-        function checkOutput(directory, filename, callback) {
+        function checkOutput(directory, filename, callback, plugins) {
           var stats = path.join(directory, 'build.json');
 
-          webpack(configureBuild(directory, 'build', filename), function() {
+          webpack(configureBuild(directory, 'build', filename, plugins), function() {
             var output = JSON.parse(fs.readFileSync(stats));
             callback(output);
           });
@@ -140,6 +144,34 @@ describe('config/webpack/plugins/build-stats', function() {
             assert.equal(output.entries['test.two'], path.join(directory, 'test.two.js'));
             done();
           });
+        });
+
+        it('adds files from the commons chunk to each file list', function(done) {
+          var directory = tmp.dirSync().name;
+          var plugins = [new CommonsChunkPlugin({name: 'commons', filename: 'commons.js'})];
+
+          checkOutput(directory, '[name].js', function(output) {
+            assert.deepEqual(output.assets['test.one'], ['commons.js', 'test.one.js']);
+            assert.deepEqual(output.assets['test.two'], ['commons.js', 'test.two.js']);
+            done();
+          }, plugins);
+        });
+
+        it('omits commons-chunk files from excluded entry points', function(done) {
+          var directory = tmp.dirSync().name;
+          var plugins = [
+            new CommonsChunkPlugin({
+              name: 'commons',
+              filename: 'commons.js',
+              chunks: ['test.one', 'test.three']
+            })
+          ];
+
+          checkOutput(directory, '[name].js', function(output) {
+            assert.deepEqual(output.assets['test.one'], ['commons.js', 'test.one.js']);
+            assert.deepEqual(output.assets['test.two'], ['test.two.js']);
+            done();
+          }, plugins);
         });
 
         describe('entry-point filename placeholders', function() {

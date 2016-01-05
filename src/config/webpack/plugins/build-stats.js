@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 var fs = require('fs');
 var path = require('path');
 
@@ -42,6 +43,31 @@ function resolveEntry(entry, filename, stats) {
 }
 
 /**
+ * Produce a list of all file dependencies for a
+ *
+ * This is used to fetch any assets associated with the entry point that are
+ * stored in a commons chunk.
+ *
+ * @param {string} entry The name of the entry point
+ * @param {object} config The webpack configuration file that produced the build
+ * @param {object} stats Information on a webpack build
+ * @returns {string} The final name of the entry point's file
+ */
+function dependentFiles(entry, config, stats) {
+  var commons = (config.plugins || []).filter(function(plugin) {
+    return plugin.constructor === CommonsChunkPlugin;
+  });
+
+  return commons.reduce(function(files, plugin) {
+    if (!plugin.selectedChunks || plugin.selectedChunks.indexOf(entry) !== -1) {
+      return files.concat(stats.assetsByChunkName[plugin.chunkNames]);
+    } else {
+      return files;
+    }
+  }, []);
+}
+
+/**
  * Transform webpack build stats into Chiton stats
  *
  * @param {object} config The webpack configuration file that produced the build
@@ -58,7 +84,8 @@ function buildStats(config, stats) {
 
   var assets = Object.keys(source.assetsByChunkName).reduce(function(chunks, chunk) {
     var files = source.assetsByChunkName[chunk];
-    chunks[chunk] = _.isString(files) ? [files] : files;
+    if (_.isString(files)) { files = [files]; }
+    chunks[chunk] = dependentFiles(chunk, config, source).concat(files);
     return chunks;
   }, {});
 
