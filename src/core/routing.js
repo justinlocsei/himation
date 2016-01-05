@@ -27,7 +27,7 @@ var LEADING_SLASH_MATCH = new RegExp('^' + PATH_SEPARATOR);
  * @param {string} [namespace] The namespace prefix to use for all routes
  * @returns {string[]} A list of all route GUIDs
  */
-function flatten(routes, namespace) {
+function flattenRoutes(routes, namespace) {
   var prefix = namespace || '';
   if (prefix) { prefix += GUID_SEPARATOR; }
 
@@ -37,7 +37,7 @@ function flatten(routes, namespace) {
 
     if (route.paths) {
       guids.push(guid + GUID_SEPARATOR + INDEX_ROUTE);
-      guids = guids.concat(flatten(route.paths, guid));
+      guids = guids.concat(flattenRoutes(route.paths, guid));
     } else {
       guids.push(guid);
     }
@@ -134,7 +134,7 @@ function routeToPath(routes, guid) {
 }
 
 module.exports = {
-  flatten: flatten,
+  flattenRoutes: flattenRoutes,
   pathToRoute: pathToRoute,
   routeToPath: routeToPath
 };
