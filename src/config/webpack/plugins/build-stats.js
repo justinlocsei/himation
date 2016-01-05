@@ -19,7 +19,7 @@ var path = require('path');
  *
  * @param {string} entry The name of the entry point
  * @param {string} filename The filename template for an entry point
- * @param {string} stats Information on a webpack build
+ * @param {object} stats Information on a webpack build
  * @returns {string} The final name of the entry point's file
  */
 function resolveEntry(entry, filename, stats) {
