@@ -54,12 +54,13 @@ gulp.task('clear', function clear(done) {
 });
 
 // Build JSDoc documentation
-gulp.task('docs-js', function(done) {
+gulp.task('docs-js', function docsJs(done) {
   var jsdoc = [
-    path.join(paths.root, 'node_modules', '.bin', 'jsdoc'),
+    path.join(paths.modules.bin, 'jsdoc'),
     '--configure', path.join(paths.root, '.jsdoc.json'),
     '--destination', paths.docs,
     '--recurse',
+    '--template', path.join(paths.modules.root, 'ink-docstrap', 'template'),
     files.deep(paths.src)
   ];
 

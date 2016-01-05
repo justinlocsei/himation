@@ -3,6 +3,7 @@
     "dictionaries": ["jsdoc"]
   },
   "templates": {
-    "cleverLinks": true
+    "cleverLinks": true,
+    "theme": "flatly"
   }
 }

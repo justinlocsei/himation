@@ -64,6 +64,7 @@
     "chai": "^3.4.1",
     "chiton-test": "file:./test",
     "gulp-mocha": "^2.2.0",
+    "ink-docstrap": "^1.1.0",
     "jsdoc": "^3.4.0",
     "mocha": "^2.3.4",
     "mock-fs": "^3.6.0",
