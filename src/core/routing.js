@@ -5,21 +5,21 @@ var _ = require('lodash');
 var errors = require('chiton/core/errors');
 
 var GUID_SEPARATOR = '.';
-var URL_SEPARATOR = '/';
+var PATH_SEPARATOR = '/';
 
 var INDEX_ROUTE = 'index';
 
-var LEADING_SLASH_MATCH = new RegExp('^' + URL_SEPARATOR);
+var LEADING_SLASH_MATCH = new RegExp('^' + PATH_SEPARATOR);
 
-var UrlError = errors.subclass();
+var RoutingError = errors.subclass();
 
 /**
  * A Chiton route definition
  *
  * @typedef {object} ChitonRoute
  * @property {string} name The internal ID for the route
- * @property {string} url The path to the route
- * @property {ChitonRoute[]} urls Child URLs within the route's namespace
+ * @property {string} path The path to the route
+ * @property {ChitonRoute[]} paths Child paths within the route's namespace
  */
 
 /**
@@ -37,9 +37,9 @@ function flatten(routes, namespace) {
     var guid = prefix + route.name;
     var guids = [];
 
-    if (route.urls) {
+    if (route.paths) {
       guids.push(guid + GUID_SEPARATOR + INDEX_ROUTE);
-      guids = guids.concat(flatten(route.urls, guid));
+      guids = guids.concat(flatten(route.paths, guid));
     } else {
       guids.push(guid);
     }
@@ -57,14 +57,14 @@ function flatten(routes, namespace) {
  */
 function pathToRoute(routes, path) {
   var matches = routes.filter(function(route) {
-    var match = new RegExp('^' + route.url + '/?', 'i');
+    var match = new RegExp('^' + route.path + PATH_SEPARATOR + '?', 'i');
     return match.test(path);
   });
 
   if (matches.length > 1) {
-    var uniqueUrls = _.uniq(_.pluck(matches, 'url'));
-    if (uniqueUrls.length !== matches.length) {
-      throw new UrlError('Multiple routes match the path "' + path + '"');
+    var uniquePaths = _.uniq(_.pluck(matches, 'path'));
+    if (uniquePaths.length !== matches.length) {
+      throw new RoutingError('Multiple routes match the path "' + path + '"');
     }
   } else if (!matches.length) {
     return null;
@@ -72,26 +72,26 @@ function pathToRoute(routes, path) {
 
   var match;
   if (matches.length) {
-    match = _.first(_.sortBy(matches, function(route) { return route.url.length * -1; }));
+    match = _.first(_.sortBy(matches, function(route) { return route.path.length * -1; }));
   } else {
     match = matches[0];
   }
 
   var routeName = match.name;
   if (routeName === undefined) {
-    throw new UrlError('No name was given to the route with a URL of "' + match.url + '"');
+    throw new RoutingError('No name was given to the route with a path of "' + match.path + '"');
   }
 
-  var remainder = path.substring(match.url.length).replace(LEADING_SLASH_MATCH, '');
+  var remainder = path.substring(match.path.length).replace(LEADING_SLASH_MATCH, '');
   if (remainder) {
-    var subroutes = match.urls || [];
+    var subroutes = match.paths || [];
     var subname = pathToRoute(subroutes, remainder);
     if (subname) {
       routeName += GUID_SEPARATOR + subname;
     } else {
       routeName = null;
     }
-  } else if (match.urls) {
+  } else if (match.paths) {
     routeName += GUID_SEPARATOR + INDEX_ROUTE;
   }
 
@@ -104,7 +104,7 @@ function pathToRoute(routes, path) {
  * @param {ChitonRoute[]} routes A route definition
  * @param {string} guid The unique identifier for the route
  * @returns {string} The path for the route
- * @throws {UrlError} If no path for the route was found
+ * @throws {RoutingError} If no path for the route was found
  */
 function routeToPath(routes, guid) {
   var hierarchy = guid.split(GUID_SEPARATOR);
@@ -114,19 +114,19 @@ function routeToPath(routes, guid) {
 
   var matches = routes.filter(function(route) { return route.name === parentName; });
 
-  if (!matches.length) { throw new UrlError('No route named "' + guid + '" was found'); }
-  if (matches.length > 1) { throw new UrlError('Multiple routes named "' + guid + '" were found'); }
+  if (!matches.length) { throw new RoutingError('No route named "' + guid + '" was found'); }
+  if (matches.length > 1) { throw new RoutingError('Multiple routes named "' + guid + '" were found'); }
 
   var parentRoute = matches[0];
-  var path = parentRoute.url;
+  var path = parentRoute.path;
 
   if (path === undefined) {
-    throw new UrlError('No path was found for the route named "' + guid + '"');
+    throw new RoutingError('No path was found for the route named "' + guid + '"');
   }
 
   if (childNames.length) {
-    var subroutes = parentRoute.urls || [];
-    var separator = parentRoute.url === URL_SEPARATOR ? '' : URL_SEPARATOR;
+    var subroutes = parentRoute.paths || [];
+    var separator = parentRoute.path === PATH_SEPARATOR ? '' : PATH_SEPARATOR;
     path += separator + routeToPath(subroutes, childNames.join(GUID_SEPARATOR));
   }
 
@@ -137,5 +137,5 @@ module.exports = {
   flatten: flatten,
   pathToRoute: pathToRoute,
   routeToPath: routeToPath,
-  UrlError: UrlError
+  RoutingError: RoutingError
 };

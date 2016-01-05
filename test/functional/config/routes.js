@@ -9,7 +9,7 @@ describe('config/routes', function() {
   });
 
   it('is mounted at the root', function() {
-    assert.equal(routes[0].url, '/');
+    assert.equal(routes[0].path, '/');
   });
 
 });

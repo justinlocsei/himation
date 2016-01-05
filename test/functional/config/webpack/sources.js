@@ -84,11 +84,11 @@ describe('config/webpack/sources', function() {
       var routes = [
         {
           name: 'test',
-          url: '/',
-          urls: [
-            {url: 'about', name: 'about'},
-            {url: 'admin', name: 'admin', urls: [
-              {url: 'account', name: 'account'}
+          path: '/',
+          paths: [
+            {path: 'about', name: 'about'},
+            {path: 'admin', name: 'admin', paths: [
+              {path: 'account', name: 'account'}
             ]}
           ]
         }
@@ -159,8 +159,8 @@ describe('config/webpack/sources', function() {
     describe('with multiple root routes', function() {
 
       var routes = [
-        {name: 'one', url: '/one'},
-        {name: 'two', url: '/two'}
+        {name: 'one', path: '/one'},
+        {name: 'two', path: '/two'}
       ];
 
       it('uses a flat structure', function() {

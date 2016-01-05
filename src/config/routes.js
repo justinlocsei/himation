@@ -2,9 +2,9 @@
 
 var routes = [{
   name: 'chiton',
-  url: '/',
-  urls: [
-    {url: 'about', name: 'about'}
+  path: '/',
+  paths: [
+    {path: 'about', name: 'about'}
   ]
 }];
 

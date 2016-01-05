@@ -66,7 +66,7 @@ describe('config/webpack/plugins/build-stats', function() {
           assert.isObject(output.assets);
           assert.isObject(output.entries);
           assert.isString(output.root);
-          assert.isString(output.url);
+          assert.isString(output.path);
 
           done();
         });
@@ -112,7 +112,7 @@ describe('config/webpack/plugins/build-stats', function() {
           var directory = tmp.dirSync().name;
 
           checkOutput(directory, '[name].js', function(output) {
-            assert.equal(output.url, '/assets/');
+            assert.equal(output.path, '/assets/');
             done();
           });
         });

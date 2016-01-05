@@ -7,18 +7,18 @@ describe('core/routing', function() {
   var routes = [
     {
       name: 'root',
-      url: '/',
-      urls: [
-        {url: 'about', name: 'about'},
-        {url: 'about-us', name: 'aboutUs'},
-        {url: 'admin', name: 'admin', urls: [
-          {url: 'account', name: 'account'}
+      path: '/',
+      paths: [
+        {path: 'about', name: 'about'},
+        {path: 'about-us', name: 'aboutUs'},
+        {path: 'admin', name: 'admin', paths: [
+          {path: 'account', name: 'account'}
         ]}
       ]
     },
     {
       name: 'sub',
-      url: '/sub'
+      path: '/sub'
     }
   ];
 
@@ -27,13 +27,13 @@ describe('core/routing', function() {
     var nested = [
       {
         name: 'one',
-        url: '/',
-        urls: [
-          {url: 'two', name: 'two'},
-          {url: 'three', name: 'three', urls: [
-            {url: 'four', name: 'four'}
+        path: '/',
+        paths: [
+          {path: 'two', name: 'two'},
+          {path: 'three', name: 'three', paths: [
+            {path: 'four', name: 'four'}
           ]},
-          {url: 'five', name: 'five'}
+          {path: 'five', name: 'five'}
         ]
       }
     ];
@@ -82,7 +82,7 @@ describe('core/routing', function() {
 
   });
 
-  describe('.resolve', function() {
+  describe('.pathToRoute', function() {
 
     it('resolves the index URL to a route name', function() {
       assert.equal(routing.pathToRoute(routes, '/'), 'root.index');
@@ -124,12 +124,12 @@ describe('core/routing', function() {
 
     it('throws an error when multiple routes match a path', function() {
       var ambiguous = routes.concat(routes);
-      assert.throws(function() { routing.pathToRoute(ambiguous, '/'); }, routing.UrlError);
+      assert.throws(function() { routing.pathToRoute(ambiguous, '/'); }, routing.RoutingError);
     });
 
   });
 
-  describe('.url', function() {
+  describe('.routeToPath', function() {
 
     it('returns the URL for the index route', function() {
       assert.equal(routing.routeToPath(routes, 'root.index'), '/');
@@ -152,22 +152,22 @@ describe('core/routing', function() {
     });
 
     it('throws an error when a named route is not defined', function() {
-      assert.throws(function() { routing.routeToPath(routes, 'home'); }, routing.UrlError);
+      assert.throws(function() { routing.routeToPath(routes, 'home'); }, routing.RoutingError);
     });
 
     it('throws an error when any component of a named route is not defined', function() {
-      assert.throws(function() { routing.routeToPath(routes, 'root.posts'); }, routing.UrlError);
-      assert.throws(function() { routing.routeToPath(routes, 'root.admin.posts'); }, routing.UrlError);
+      assert.throws(function() { routing.routeToPath(routes, 'root.posts'); }, routing.RoutingError);
+      assert.throws(function() { routing.routeToPath(routes, 'root.admin.posts'); }, routing.RoutingError);
     });
 
     it('throws an error when there are multiple routes with the same name', function() {
       var ambiguous = routes.concat(routes);
-      assert.throws(function() { routing.routeToPath(ambiguous, 'root'); }, routing.UrlError);
+      assert.throws(function() { routing.routeToPath(ambiguous, 'root'); }, routing.RoutingError);
     });
 
     it('throws an error when a route is missing a URL', function() {
-      var missing = [{name: 'root', url: '/'}, {name: 'missing'}];
-      assert.throws(function() { routing.routeToPath(missing, 'missing'); }, routing.UrlError);
+      var missing = [{name: 'root', path: '/'}, {name: 'missing'}];
+      assert.throws(function() { routing.routeToPath(missing, 'missing'); }, routing.RoutingError);
     });
 
   });

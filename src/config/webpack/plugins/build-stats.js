@@ -99,7 +99,7 @@ function buildStats(config, stats) {
     assets: assets,
     entries: entries,
     root: config.output.path,
-    url: source.publicPath
+    path: source.publicPath
   };
 }
 
