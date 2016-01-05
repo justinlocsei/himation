@@ -1,11 +1,9 @@
 'use strict';
 
-var routes = [{
+module.exports = [{
   name: 'chiton',
   path: '/',
   paths: [
     {path: 'about', name: 'about'}
   ]
 }];
-
-module.exports = routes;
