@@ -24,12 +24,12 @@ var uiConfig = webpackConfigs.ui(settings);
 // Globs for matching all known assets of a type
 var all = {
   js: [
-    files.shallow(paths.root, 'js'),
-    files.deep(paths.src, 'js'),
-    files.deep(paths.test.root, 'js')
+    files.matchShallow(paths.root, 'js'),
+    files.matchDeep(paths.src, 'js'),
+    files.matchDeep(paths.test.root, 'js')
   ],
   scss: [
-    files.deep(paths.ui.scss, 'scss')
+    files.matchDeep(paths.ui.scss, 'scss')
   ]
 };
 
@@ -112,7 +112,7 @@ gulp.task('watch', function watch() {
  * @returns {Stream}
  */
 function runTests(reporter) {
-  return gulp.src(files.deep(paths.test.functional), {read: false})
+  return gulp.src(files.matchDeep(paths.test.functional), {read: false})
     .pipe(plugins.mocha({
       reporter: reporter,
       require: ['chiton-test/support/environment'],

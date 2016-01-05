@@ -10,20 +10,6 @@ describe('core/files', function() {
     mockFs.restore();
   });
 
-  describe('.deep', function() {
-
-    it('returns a glob that recursively match files in a directory', function() {
-      var glob = files.deep('test/path', 'js');
-      assert.equal(glob, 'test/path/**/*.js');
-    });
-
-    it('matches all files when no extension is given', function() {
-      var glob = files.deep('test/path');
-      assert.equal(glob, 'test/path/**/*.*');
-    });
-
-  });
-
   describe('.exists', function() {
 
     beforeEach(function() {
@@ -111,15 +97,29 @@ describe('core/files', function() {
 
   });
 
-  describe('.shallow', function() {
+  describe('.matchDeep', function() {
+
+    it('returns a glob that recursively match files in a directory', function() {
+      var glob = files.matchDeep('test/path', 'js');
+      assert.equal(glob, 'test/path/**/*.js');
+    });
+
+    it('matches all files when no extension is given', function() {
+      var glob = files.matchDeep('test/path');
+      assert.equal(glob, 'test/path/**/*.*');
+    });
+
+  });
+
+  describe('.matchShallow', function() {
 
     it('returns a global that matches files in a directory', function() {
-      var glob = files.shallow('test/path', 'js');
+      var glob = files.matchShallow('test/path', 'js');
       assert.equal(glob, 'test/path/*.js');
     });
 
     it('matches all files when no extension is given', function() {
-      var glob = files.shallow('test/path');
+      var glob = files.matchShallow('test/path');
       assert.equal(glob, 'test/path/*.*');
     });
 

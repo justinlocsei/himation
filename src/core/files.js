@@ -4,17 +4,6 @@ var fs = require('fs');
 var path = require('path');
 
 /**
- * Return a glob that recursively matches all files in a directory
- *
- * @param {string} directory The directory containing files
- * @param {string} [extension] The extension of the files to find
- * @returns {string} The file-matching glob
- */
-function deep(directory, extension) {
-  return path.join(directory, '**', '*.' + (extension || '*'));
-}
-
-/**
  * Determine whether the target path exists
  *
  * @param {string} target A path to a filesystem resource
@@ -70,21 +59,32 @@ function isFile(target) {
 }
 
 /**
+ * Return a glob that recursively matches all files in a directory
+ *
+ * @param {string} directory The directory containing files
+ * @param {string} [extension] The extension of the files to find
+ * @returns {string} The file-matching glob
+ */
+function matchDeep(directory, extension) {
+  return path.join(directory, '**', '*.' + (extension || '*'));
+}
+
+/**
  * Return a glob that matches all files in a directory
  *
  * @param {string} directory The directory containing files
  * @param {string} [extension] The extension of the files to find
  * @returns {string} The file-matching glob
  */
-function shallow(directory, extension) {
+function matchShallow(directory, extension) {
   return path.join(directory, '*.' + (extension || '*'));
 }
 
 module.exports = {
-  deep: deep,
   exists: exists,
   isChildOf: isChildOf,
   isDirectory: isDirectory,
   isFile: isFile,
-  shallow: shallow
+  matchDeep: matchDeep,
+  matchShallow: matchShallow
 };
