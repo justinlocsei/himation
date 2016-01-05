@@ -1,5 +1,6 @@
 'use strict';
 
+var ConfigurationError = require('chiton/core/errors/configuration-error');
 var routing = require('chiton/core/routing');
 
 describe('core/routing', function() {
@@ -124,7 +125,7 @@ describe('core/routing', function() {
 
     it('throws an error when multiple routes match a path', function() {
       var ambiguous = routes.concat(routes);
-      assert.throws(function() { routing.pathToRoute(ambiguous, '/'); }, routing.RoutingError);
+      assert.throws(function() { routing.pathToRoute(ambiguous, '/'); }, ConfigurationError);
     });
 
   });
@@ -152,22 +153,22 @@ describe('core/routing', function() {
     });
 
     it('throws an error when a named route is not defined', function() {
-      assert.throws(function() { routing.routeToPath(routes, 'home'); }, routing.RoutingError);
+      assert.throws(function() { routing.routeToPath(routes, 'home'); }, ConfigurationError);
     });
 
     it('throws an error when any component of a named route is not defined', function() {
-      assert.throws(function() { routing.routeToPath(routes, 'root.posts'); }, routing.RoutingError);
-      assert.throws(function() { routing.routeToPath(routes, 'root.admin.posts'); }, routing.RoutingError);
+      assert.throws(function() { routing.routeToPath(routes, 'root.posts'); }, ConfigurationError);
+      assert.throws(function() { routing.routeToPath(routes, 'root.admin.posts'); }, ConfigurationError);
     });
 
     it('throws an error when there are multiple routes with the same name', function() {
       var ambiguous = routes.concat(routes);
-      assert.throws(function() { routing.routeToPath(ambiguous, 'root'); }, routing.RoutingError);
+      assert.throws(function() { routing.routeToPath(ambiguous, 'root'); }, ConfigurationError);
     });
 
     it('throws an error when a route is missing a URL', function() {
       var missing = [{name: 'root', path: '/'}, {name: 'missing'}];
-      assert.throws(function() { routing.routeToPath(missing, 'missing'); }, routing.RoutingError);
+      assert.throws(function() { routing.routeToPath(missing, 'missing'); }, ConfigurationError);
     });
 
   });

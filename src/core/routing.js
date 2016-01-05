@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 
-var errors = require('chiton/core/errors');
+var ConfigurationError = require('chiton/core/errors/configuration-error');
 
 var GUID_SEPARATOR = '.';
 var PATH_SEPARATOR = '/';
@@ -10,8 +10,6 @@ var PATH_SEPARATOR = '/';
 var INDEX_ROUTE = 'index';
 
 var LEADING_SLASH_MATCH = new RegExp('^' + PATH_SEPARATOR);
-
-var RoutingError = errors.subclass();
 
 /**
  * A Chiton route definition
@@ -54,6 +52,8 @@ function flatten(routes, namespace) {
  * @param {ChitonRoute[]} routes A route definition
  * @param {string} path The path component of a URL
  * @returns {?string} The name of the route
+ * @throws {ConfigurationError} If multiple routes match the given path
+ * @throws {ConfigurationError} If the matching route lacks a name
  */
 function pathToRoute(routes, path) {
   var matches = routes.filter(function(route) {
@@ -64,7 +64,7 @@ function pathToRoute(routes, path) {
   if (matches.length > 1) {
     var uniquePaths = _.uniq(_.pluck(matches, 'path'));
     if (uniquePaths.length !== matches.length) {
-      throw new RoutingError('Multiple routes match the path "' + path + '"');
+      throw new ConfigurationError('Multiple routes match the path "' + path + '"');
     }
   } else if (!matches.length) {
     return null;
@@ -79,7 +79,7 @@ function pathToRoute(routes, path) {
 
   var routeName = match.name;
   if (routeName === undefined) {
-    throw new RoutingError('No name was given to the route with a path of "' + match.path + '"');
+    throw new ConfigurationError('No name was given to the route with a path of "' + match.path + '"');
   }
 
   var remainder = path.substring(match.path.length).replace(LEADING_SLASH_MATCH, '');
@@ -104,7 +104,7 @@ function pathToRoute(routes, path) {
  * @param {ChitonRoute[]} routes A route definition
  * @param {string} guid The unique identifier for the route
  * @returns {string} The path for the route
- * @throws {RoutingError} If no path for the route was found
+ * @throws {ConfigurationError} If no path for the route was found
  */
 function routeToPath(routes, guid) {
   var hierarchy = guid.split(GUID_SEPARATOR);
@@ -114,14 +114,14 @@ function routeToPath(routes, guid) {
 
   var matches = routes.filter(function(route) { return route.name === parentName; });
 
-  if (!matches.length) { throw new RoutingError('No route named "' + guid + '" was found'); }
-  if (matches.length > 1) { throw new RoutingError('Multiple routes named "' + guid + '" were found'); }
+  if (!matches.length) { throw new ConfigurationError('No route named "' + guid + '" was found'); }
+  if (matches.length > 1) { throw new ConfigurationError('Multiple routes named "' + guid + '" were found'); }
 
   var parentRoute = matches[0];
   var path = parentRoute.path;
 
   if (path === undefined) {
-    throw new RoutingError('No path was found for the route named "' + guid + '"');
+    throw new ConfigurationError('No path was found for the route named "' + guid + '"');
   }
 
   if (childNames.length) {
@@ -136,6 +136,5 @@ function routeToPath(routes, guid) {
 module.exports = {
   flatten: flatten,
   pathToRoute: pathToRoute,
-  routeToPath: routeToPath,
-  RoutingError: RoutingError
+  routeToPath: routeToPath
 };

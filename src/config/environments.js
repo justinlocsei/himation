@@ -1,9 +1,7 @@
 'use strict';
 
-var errors = require('chiton/core/errors');
+var ConfigurationError = require('chiton/core/errors/configuration-error');
 var settings = require('chiton/config/settings');
-
-var EnvironmentError = errors.subclass();
 
 // All known environment names
 var names = ['development', 'production'];
@@ -24,13 +22,13 @@ function isValid(environment) {
  *
  * @param {string} [environment] The name of an environment
  * @returns {ChitonSettings}
- * @throws {EnvironmentError} If the environment is invalid
+ * @throws {ConfigurationError} If the environment is invalid
  */
 function load(environment) {
   var name = environment || 'development';
 
   if (!isValid(name)) {
-    throw new EnvironmentError('"' + name + '" is not a valid environment (Choices are: ' + names.join(', ') + ')');
+    throw new ConfigurationError('"' + name + '" is not a valid environment (Choices are: ' + names.join(', ') + ')');
   }
 
   var config = require('chiton/config/environments/' + name);
@@ -38,6 +36,5 @@ function load(environment) {
 }
 
 module.exports = {
-  EnvironmentError: EnvironmentError,
   load: load
 };
