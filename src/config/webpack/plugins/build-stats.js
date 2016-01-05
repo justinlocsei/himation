@@ -5,6 +5,16 @@ var fs = require('fs');
 var path = require('path');
 
 /**
+ * Stats on a Chiton webpack build
+ *
+ * @typedef {object} ChitonBuildStats
+ * @property {object} assets A mapping of chunk names to relative asset paths
+ * @property {object} entries A mapping of entry point names to output paths
+ * @property {string} root The directory containing the assets
+ * @property {string} url The URL at which the assets can be accessed
+ */
+
+/**
  * Convert all placeholders in an entry point's file name into concrete values
  *
  * @param {string} entry The name of the entry point
@@ -58,15 +68,6 @@ function buildStats(config, stats) {
     return points;
   }, {});
 
-  /**
-   * Stats on a Chiton webpack build
-   *
-   * @typedef {object} ChitonBuildStats
-   * @property {object} assets A mapping of chunk names to relative asset paths
-   * @property {object} entries A mapping of entry point names to output paths
-   * @property {string} root The directory containing the assets
-   * @property {string} url The URL at which the assets can be accessed
-   */
   return {
     assets: assets,
     entries: entries,
