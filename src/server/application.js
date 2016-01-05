@@ -1,50 +1,11 @@
 'use strict';
 
-var _ = require('lodash');
 var express = require('express');
 var helmet = require('helmet');
 
-var build = require('chiton/server/build');
+var assets = require('chiton/server/middleware/assets');
 var templating = require('chiton/server/templating');
 var routing = require('chiton/server/routing');
-var urls = require('chiton/core/urls');
-
-var pages = build.bridge('pages');
-var uiBuild = build.stats('ui');
-
-// A map between asset groups and file extensions
-var ASSET_GROUPS = {
-  javascripts: 'js',
-  stylesheets: 'css'
-};
-
-/**
- * Create a middleware function that adds assets to the template context
- *
- * @param {string} host The URL at which assets are hosted
- * @param {ChitonRoutes} routes A mapping of route IDs to URLs
- * @param {ChitonSettings} settings The environment settings
- * @returns {function} The asset-injector middleware
- * @private
- */
-function assetInjector(host, routes) {
-  return function(req, res, next) {
-    var route = routing.reverse(routes, req.path);
-
-    if (route) {
-      _.each(ASSET_GROUPS, function(extension, group) {
-        res.locals[group] = ['commons', route].reduce(function(files, entry) {
-          var assets = build.assets(uiBuild, entry, extension);
-          return files.concat(assets.map(function(asset) {
-            return urls.absolute(asset, host);
-          }));
-        }, []);
-      });
-    }
-
-    next();
-  };
-}
 
 /**
  * Add route mappings to an application
@@ -55,11 +16,11 @@ function assetInjector(host, routes) {
  */
 function connectRoutes(app, routes) {
   app.get(routing.routeToPath(routes, 'index'), function(req, res) {
-    res.render('public', {content: pages.index()});
+    res.render('public');
   });
 
   app.get(routing.routeToPath(routes, 'about'), function(req, res) {
-    res.render('public', {content: pages.about()});
+    res.render('public');
   });
 }
 
@@ -86,7 +47,7 @@ function create(options) {
   app.set('view engine', 'html');
 
   app.use(helmet());
-  app.use(assetInjector(settings.assetUrl, settings.routes));
+  app.use(assets(settings.assetUrl, settings.routes));
 
   connectRoutes(app, settings.routes);
 
