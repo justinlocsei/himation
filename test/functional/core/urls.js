@@ -4,25 +4,25 @@ var urls = require('chiton/core/urls');
 
 describe('core/urls', function() {
 
-  describe('.absolute', function() {
+  describe('.relativeToAbsolute', function() {
 
     it('adds a relative URL to an absolute base URL', function() {
-      var url = urls.absolute('relative', 'http://example.com');
+      var url = urls.relativeToAbsolute('relative', 'http://example.com');
       assert.equal(url, 'http://example.com/relative');
     });
 
     it('requires a protocol in order to treat the URL as absolute', function() {
-      var url = urls.absolute('/root', 'http://example.com');
+      var url = urls.relativeToAbsolute('/root', 'http://example.com');
       assert.equal(url, 'http://example.com/root');
     });
 
     it('treats protocol-relative URLs as absolute URLs', function() {
-      var url = urls.absolute('//example.net', 'http://example.com');
+      var url = urls.relativeToAbsolute('//example.net', 'http://example.com');
       assert.equal(url, '//example.net');
     });
 
     it('replaces the absolute base URL when given an absolute URL', function() {
-      var url = urls.absolute('http://example.net', 'http://example.com');
+      var url = urls.relativeToAbsolute('http://example.net', 'http://example.com');
       assert.equal(url, 'http://example.net');
     });
 

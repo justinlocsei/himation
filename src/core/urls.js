@@ -9,23 +9,6 @@ var PORTS = {
 };
 
 /**
- * Make a URL be absolute, relative to an existing absolute URL
- *
- * @param {string} url The URL to make absolute
- * @param {string} root The absolute base for the URL
- * @returns {string} An absolute URL
- */
-function absolute(url, root) {
-  var parts = URL.parse(url, false, true);
-
-  if (parts.host) {
-    return url;
-  } else {
-    return URL.resolve(root, url);
-  }
-}
-
-/**
  * Expand a hostname to include a protocol and port
  *
  * @param {string} hostname A hostname
@@ -49,7 +32,24 @@ function expandHostname(hostname, options) {
   return url.replace(/^\/{2}:/, '//');
 }
 
+/**
+ * Convert a relative URL to an absolute URL rooted in an absolute root URL
+ *
+ * @param {string} url The URL to make absolute
+ * @param {string} root The absolute base for the URL
+ * @returns {string} An absolute URL
+ */
+function relativeToAbsolute(url, root) {
+  var parts = URL.parse(url, false, true);
+
+  if (parts.host) {
+    return url;
+  } else {
+    return URL.resolve(root, url);
+  }
+}
+
 module.exports = {
-  absolute: absolute,
+  relativeToAbsolute: relativeToAbsolute,
   expandHostname: expandHostname
 };

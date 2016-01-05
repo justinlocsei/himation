@@ -24,7 +24,7 @@ function assets(stats, host, routes) {
 
     res.locals.assets = Object.keys(ASSET_GROUPS).reduce(function(groups, group) {
       var paths = build.assets(stats, route, ASSET_GROUPS[group]);
-      groups[group] = paths.map(path => urls.absolute(path, host));
+      groups[group] = paths.map(path => urls.relativeToAbsolute(path, host));
 
       return groups;
     }, {});
