@@ -72,7 +72,7 @@ function pathToRoute(routes, path) {
 
   var match;
   if (matches.length) {
-    match = _.first(_.sortBy(matches, function(route) { return route.path.length * -1; }));
+    match = _.first(_.sortBy(matches, route => route.path.length * -1));
   } else {
     match = matches[0];
   }
@@ -112,7 +112,7 @@ function routeToPath(routes, guid) {
   var endpoint = _.last(hierarchy) === INDEX_ROUTE ? -1 : hierarchy.length;
   var childNames = hierarchy.slice(1, endpoint);
 
-  var matches = routes.filter(function(route) { return route.name === parentName; });
+  var matches = routes.filter(route => route.name === parentName);
 
   if (!matches.length) { throw new ConfigurationError('No route named "' + guid + '" was found'); }
   if (matches.length > 1) { throw new ConfigurationError('Multiple routes named "' + guid + '" were found'); }

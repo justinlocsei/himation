@@ -15,9 +15,8 @@ var ConfigurationError = require('chiton/core/errors/configuration-error');
  * @throws {BuildError} If the build statistics cannot be loaded
  */
 function loadStats(config) {
-  var statsPlugin = _.find(config.plugins || [], function(plugin) {
-    return plugin.constructor === BuildStatsPlugin;
-  });
+  var plugins = config.plugins || [];
+  var statsPlugin = _.find(plugins, plugin => plugin.constructor === BuildStatsPlugin);
 
   if (!statsPlugin) {
     throw new ConfigurationError('The configuration does not use the build-stats plugin');

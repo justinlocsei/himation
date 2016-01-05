@@ -220,9 +220,8 @@ function ui(settings) {
     root: 'chiton'
   });
 
-  var commons = sources.entryPointsToCommonsChunks(entries).map(function(options) {
-    return new CommonsChunkPlugin(options);
-  });
+  var commonsOptions = sources.entryPointsToCommonsChunks(entries);
+  var commons = commonsOptions.map(options => new CommonsChunkPlugin(options));
 
   return create(settings, {
     context: paths.ui.js,

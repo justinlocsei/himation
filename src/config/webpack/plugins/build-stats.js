@@ -29,9 +29,7 @@ function determineEntryFilename(entry, filename, stats) {
     name: entry
   };
 
-  var entryChunk = _.find(stats.chunks, function(chunk) {
-    return chunk.names.indexOf(entry) !== -1;
-  });
+  var entryChunk = _.find(stats.chunks, chunk => chunk.names.indexOf(entry) !== -1);
 
   if (entryChunk) {
     subs.chunkhash = entryChunk.hash;
@@ -54,9 +52,8 @@ function determineEntryFilename(entry, filename, stats) {
  * @returns {string} The final name of the entry point's file
  */
 function entryPointDependencies(entry, config, stats) {
-  var commons = (config.plugins || []).filter(function(plugin) {
-    return plugin.constructor === CommonsChunkPlugin;
-  });
+  var plugins = config.plugins || [];
+  var commons = plugins.filter(plugin => plugin.constructor === CommonsChunkPlugin);
 
   return commons.reduce(function(files, plugin) {
     if (!plugin.selectedChunks || plugin.selectedChunks.indexOf(entry) !== -1) {
