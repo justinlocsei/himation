@@ -60,7 +60,6 @@ gulp.task('docs-js', function docsJs(done) {
     '--configure', path.join(paths.root, '.jsdoc.json'),
     '--destination', paths.docs,
     '--recurse',
-    '--template', path.join(paths.modules.root, 'ink-docstrap', 'template'),
     files.deep(paths.src)
   ];
 
