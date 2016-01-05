@@ -1,10 +1,8 @@
 'use strict';
 
-var childProcess = require('child_process');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var loadPlugins = require('gulp-load-plugins');
-var path = require('path');
 var rimraf = require('rimraf');
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
@@ -37,7 +35,6 @@ var all = {
 
 gulp.task('build', ['bundle-assets', 'bundle-server']);
 gulp.task('default', ['serve-assets']);
-gulp.task('docs', ['docs-js']);
 gulp.task('lint', ['lint-js', 'lint-scss']);
 gulp.task('serve', ['serve-app', 'serve-assets']);
 
@@ -49,25 +46,6 @@ webpackBuildTask('bundle-server', serverConfig);
 gulp.task('clear', function clear(done) {
   rimraf(paths.build.root, function(err) {
     if (err) { throw new gutil.PluginError('clear', err); }
-    done();
-  });
-});
-
-// Build JSDoc documentation
-gulp.task('docs-js', function docsJs(done) {
-  var jsdoc = [
-    path.join(paths.modules.bin, 'jsdoc'),
-    '--configure', path.join(paths.root, '.jsdoc.json'),
-    '--destination', paths.docs,
-    '--recurse',
-    files.deep(paths.src)
-  ];
-
-  childProcess.exec(jsdoc.join(' '), function(err, stdout, stderr) {
-    if (err) { throw new gutil.PluginError('docs-js', err); }
-    if (stderr) { throw new gutil.PluginError('doscs-js', stderr); }
-
-    gutil.log(stdout);
     done();
   });
 });
