@@ -51,25 +51,25 @@ describe('core/routing', function() {
     it('generates GUIDs for each route based upon its level', function() {
       var guids = routing.routesToGuids(nested());
 
-      assert.deepEqual(guids, [
-        'one.index',
-        'one.two',
-        'one.three.index',
-        'one.three.four',
-        'one.five'
-      ]);
+      assert.deepEqual(guids, {
+        'one.index': ['one', 'index'],
+        'one.two': ['one', 'two'],
+        'one.three.index': ['one', 'three', 'index'],
+        'one.three.four': ['one', 'three', 'four'],
+        'one.five': ['one', 'five']
+      });
     });
 
     it('can use the GUIDs to look up route URLs', function() {
       var guids = routing.routesToGuids(nested());
-      var urls = guids.map(route => routing.routeToPath(nested(), route));
+      var urls = Object.keys(guids).map(route => routing.routeToPath(nested(), route));
 
-      assert.deepEqual(urls, [
+      assert.deepEqual(urls.sort(), [
         '/',
-        '/two',
+        '/five',
         '/three',
         '/three/four',
-        '/five'
+        '/two'
       ]);
     });
 

@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var extend = require('extend');
 
 var ConfigurationError = require('chiton/core/errors/configuration-error');
 
@@ -21,32 +22,33 @@ var LEADING_SLASH_MATCH = new RegExp('^' + PATH_SEPARATOR);
  */
 
 /**
- * Flatten the routes into a non-nested list of route GUIDs
+ * Transform a route definition into a map between GUIDs and name components
+ *
+ * Each GUID is a string that is guaranteed to not conflict with any other URL.
+ * The name components are represented as an array of strings representing each
+ * level in the hierarchy of the route.
  *
  * @param {ChitonRoute[]} routes A route definition
- * @returns {string[]} A list of all route GUIDs
+ * @returns {object} A list of all route GUIDs
  */
 function routesToGuids(routes) {
   function createGuids(subroutes, namespace) {
-    var prefix = namespace || '';
-    if (prefix) { prefix += GUID_SEPARATOR; }
-
-    return subroutes.reduce(function(flattened, route) {
-      var guid = prefix + route.name;
-      var guids = [];
+    return subroutes.reduce(function(guids, route) {
+      var levels = namespace.concat([route.name]);
 
       if (route.paths) {
-        guids.push(guid + GUID_SEPARATOR + INDEX_ROUTE);
-        guids = guids.concat(createGuids(route.paths, guid));
-      } else {
-        guids.push(guid);
+        extend(guids, createGuids(route.paths, levels));
+        levels.push(INDEX_ROUTE);
       }
 
-      return flattened.concat(guids);
-    }, []);
+      var guid = levels.join(GUID_SEPARATOR);
+      guids[guid] = levels;
+
+      return guids;
+    }, {});
   }
 
-  return createGuids(routes, '');
+  return createGuids(routes, []);
 }
 
 /**
