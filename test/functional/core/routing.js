@@ -120,6 +120,12 @@ describe('core/routing', function() {
       assert.throws(function() { routing.pathToRoute(ambiguous, '/'); }, ConfigurationError);
     });
 
+    it('throws an error when a matched route lacks a name', function() {
+      var malformed = routes();
+      delete malformed[0].name;
+      assert.throws(function() { routing.pathToRoute(malformed, '/'); }, ConfigurationError);
+    });
+
   });
 
   describe('.routeToPath', function() {

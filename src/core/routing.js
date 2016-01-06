@@ -88,7 +88,7 @@ function pathToRoute(routes, path) {
   }
 
   var routeName = match.name;
-  if (routeName === undefined) {
+  if (!routeName) {
     throw new ConfigurationError('No name was given to the route with a path of "' + match.path + '"');
   }
 
