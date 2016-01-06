@@ -61,7 +61,7 @@ function routesToGuids(routes) {
  *
  * @param {ChitonRoute[]} routes A route definition
  * @param {string} path The path component of a URL
- * @returns {?string} The name of the route
+ * @returns {?ChitonRouteGUID} The GUID of the route
  * @throws {ConfigurationError} If multiple routes match the given path
  * @throws {ConfigurationError} If the matching route lacks a name
  */
