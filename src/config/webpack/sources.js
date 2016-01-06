@@ -18,36 +18,38 @@ var ROOT_MODULE = 'index';
  * chunk.
  *
  * @param {object} points A mapping of entry-point names to module paths
- * @param {number} [depth] The namespace depth to use
  * @returns {object[]} A series of options used to create commons-chunks plugins
  */
-function entryPointsToCommonsChunks(points, depth) {
-  var level = depth || 1;
-
+function entryPointsToCommonsChunks(points) {
   var names = Object.keys(points);
-  var namespaces = names.map(name => name.split(NAMESPACE_SEPARATOR).slice(0, level));
-  var candidates = namespaces.filter(namespace => namespace.length === level);
-  var searches = _.uniq(candidates.map(candidate => candidate.join(NAMESPACE_SEPARATOR)));
-  var matchers = searches.map(search => new RegExp('^' + search + NAMESPACE_SEPARATOR));
 
-  if (!matchers.length) { return []; }
+  function createCommonsChunks(depth) {
+    var namespaces = names.map(name => name.split(NAMESPACE_SEPARATOR).slice(0, depth));
+    var candidates = namespaces.filter(namespace => namespace.length === depth);
+    var searches = _.uniq(candidates.map(candidate => candidate.join(NAMESPACE_SEPARATOR)));
+    var matchers = searches.map(search => new RegExp('^' + search + NAMESPACE_SEPARATOR));
 
-  var chunks = matchers.reduce(function(result, matcher, i) {
-    var matches = names.filter(name => matcher.test(name));
+    if (!matchers.length) { return []; }
 
-    if (matches.length > 1) {
-      var levels = searches[i].split(NAMESPACE_SEPARATOR);
-      result.push({
-        chunks: matches,
-        filename: [COMMONS_ROOT].concat(levels, ['[hash].js']).join(COMMONS_SEPARATOR),
-        name: [COMMONS_ROOT].concat(levels).join(NAMESPACE_SEPARATOR)
-      });
-    }
+    var chunks = matchers.reduce(function(result, matcher, i) {
+      var matches = names.filter(name => matcher.test(name));
 
-    return result;
-  }, []);
+      if (matches.length > 1) {
+        var levels = searches[i].split(NAMESPACE_SEPARATOR);
+        result.push({
+          chunks: matches,
+          filename: [COMMONS_ROOT].concat(levels, ['[hash].js']).join(COMMONS_SEPARATOR),
+          name: [COMMONS_ROOT].concat(levels).join(NAMESPACE_SEPARATOR)
+        });
+      }
 
-  return chunks.concat(entryPointsToCommonsChunks(points, level + 1));
+      return result;
+    }, []);
+
+    return chunks.concat(createCommonsChunks(depth + 1));
+  }
+
+  return createCommonsChunks(1);
 }
 
 /**
