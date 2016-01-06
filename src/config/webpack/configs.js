@@ -216,7 +216,7 @@ function server(settings) {
  */
 function ui(settings) {
   var entries = sources.routesToEntryPoints(routes, {
-    module: ['components', 'pages'],
+    modules: ['components', 'pages'],
     root: 'chiton'
   });
 

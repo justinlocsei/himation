@@ -123,19 +123,8 @@ describe('config/webpack/sources', function() {
         });
       });
 
-      it('accepts a namespace that is added to each entry point', function() {
-        var entries = sources.routesToEntryPoints(routes(), {namespace: ['one', 'two']});
-
-        assert.deepEqual(entries, {
-          'one.two.test.index': './test/index',
-          'one.two.test.about': './test/about',
-          'one.two.test.admin.index': './test/admin/index',
-          'one.two.test.admin.account': './test/admin/account'
-        });
-      });
-
       it('accepts a module namespace that is added to each entry point', function() {
-        var entries = sources.routesToEntryPoints(routes(), {module: ['one', 'two']});
+        var entries = sources.routesToEntryPoints(routes(), {modules: ['one', 'two']});
 
         assert.deepEqual(entries, {
           'test.index': './one/two/test/index',
@@ -145,14 +134,14 @@ describe('config/webpack/sources', function() {
         });
       });
 
-      it('can combine a root route with a namespace and module path', function() {
-        var entries = sources.routesToEntryPoints(routes(), {root: 'test', namespace: ['namespace'], module: ['module']});
+      it('can combine a root route with a module path', function() {
+        var entries = sources.routesToEntryPoints(routes(), {root: 'test', modules: ['module']});
 
         assert.deepEqual(entries, {
-          'namespace.test.index': './module/index',
-          'namespace.test.about': './module/about',
-          'namespace.test.admin.index': './module/admin/index',
-          'namespace.test.admin.account': './module/admin/account'
+          'test.index': './module/index',
+          'test.about': './module/about',
+          'test.admin.index': './module/admin/index',
+          'test.admin.account': './module/admin/account'
         });
       });
 
@@ -185,17 +174,8 @@ describe('config/webpack/sources', function() {
         });
       });
 
-      it('applies the namespace to each route', function() {
-        var entries = sources.routesToEntryPoints(routes(), {namespace: ['prefix']});
-
-        assert.deepEqual(entries, {
-          'prefix.one': './one',
-          'prefix.two': './two'
-        });
-      });
-
       it('applies the module path to each route', function() {
-        var entries = sources.routesToEntryPoints(routes(), {module: ['prefix']});
+        var entries = sources.routesToEntryPoints(routes(), {modules: ['prefix']});
 
         assert.deepEqual(entries, {
           'one': './prefix/one',

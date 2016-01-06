@@ -58,40 +58,44 @@ function entryPointsToCommonsChunks(points, depth) {
  *
  * @param {ChitonRoute[]} routes A route definition
  * @param {object} [options] Options for generating the map of entries
- * @param {string[]} options.module The hierarchy to use for each module
- * @param {string[]} options.namespace The namespace hierarchy to use for each entry point
+ * @param {string[]} options.modules The hierarchy to use for each module
  * @param {string} options.root The name of the root route
  * @returns {object} A mapping of entry points to modules
  */
 function routesToEntryPoints(routes, options) {
   var settings = extend({
-    module: [],
-    namespace: [],
+    modules: [],
     root: ''
   }, options || {});
 
-  return routes.reduce(function(points, route) {
-    var modules = settings.module.filter(path => path !== settings.root);
-    var routeName = route.name === settings.root ? '' : route.name;
-    if (routeName) { modules.push(routeName); }
-    if (route.paths || !routeName) { modules.push(ROOT_MODULE); }
+  function createEntryPoints(subroutes, root, parentModules, namespaces) {
+    return subroutes.reduce(function(points, route) {
+      var modules = parentModules.filter(path => path !== root);
 
-    var namespaces = settings.namespace.concat([route.name]);
-    if (route.paths) { namespaces.push(ROOT_MODULE); }
+      var routeName = route.name === root ? '' : route.name;
+      if (routeName) { modules.push(routeName); }
+      if (route.paths || !routeName) { modules.push(ROOT_MODULE); }
 
-    var guid = namespaces.join(NAMESPACE_SEPARATOR);
-    points[guid] = './' + modules.join('/');
+      var namespace = namespaces.concat([route.name]);
+      if (route.paths) { namespace.push(ROOT_MODULE); }
 
-    if (route.paths) {
-      extend(true, points, routesToEntryPoints(route.paths, {
-        module: settings.module.concat([route.name]),
-        namespace: settings.namespace.concat([route.name]),
-        root: settings.root
-      }));
-    }
+      var guid = namespace.join(NAMESPACE_SEPARATOR);
+      points[guid] = './' + modules.join('/');
 
-    return points;
-  }, {});
+      if (route.paths) {
+        extend(true, points, createEntryPoints(
+          route.paths,
+          root,
+          parentModules.concat([route.name]),
+          namespaces.concat([route.name])
+        ));
+      }
+
+      return points;
+    }, {});
+  }
+
+  return createEntryPoints(routes, settings.root, settings.modules, []);
 }
 
 module.exports = {
