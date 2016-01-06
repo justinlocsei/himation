@@ -22,14 +22,19 @@ var LEADING_SLASH_MATCH = new RegExp('^' + PATH_SEPARATOR);
  */
 
 /**
- * Transform a route definition into a map between GUIDs and name components
+ * A GUID for a Chiton route
  *
- * Each GUID is a string that is guaranteed to not conflict with any other URL.
- * The name components are represented as an array of strings representing each
- * level in the hierarchy of the route.
+ * Route GUIDS are guaranteed to not conflict with any other routes, and define
+ * their hierarchy as a string separated by dots.
+ *
+ * @typedef {string} ChitonRouteGUID
+ */
+
+/**
+ * Transform a route definition into a map between GUIDs and namespaces
  *
  * @param {ChitonRoute[]} routes A route definition
- * @returns {object} A list of all route GUIDs
+ * @returns {object} A map of route GUIDs to their namespace hierarchies
  */
 function routesToGuids(routes) {
   function createGuids(subroutes, namespace) {
@@ -107,12 +112,12 @@ function pathToRoute(routes, path) {
  * Produce the path for accessing a named route
  *
  * @param {ChitonRoute[]} routes A route definition
- * @param {string} guid The unique identifier for the route
+ * @param {ChitonRouteGUID} guid The unique identifier for the route
  * @returns {string} The path for the route
  * @throws {ConfigurationError} If no path for the route was found
  */
 function routeToPath(routes, guid) {
-  var hierarchy = guid.split(GUID_SEPARATOR);
+  var hierarchy = guidToNamespaces(guid);
   var parentName = hierarchy[0];
   var endpoint = _.last(hierarchy) === INDEX_ROUTE ? -1 : hierarchy.length;
   var childNames = hierarchy.slice(1, endpoint);
@@ -132,13 +137,35 @@ function routeToPath(routes, guid) {
   if (childNames.length) {
     var subroutes = parentRoute.paths || [];
     var separator = parentRoute.path === PATH_SEPARATOR ? '' : PATH_SEPARATOR;
-    path += separator + routeToPath(subroutes, childNames.join(GUID_SEPARATOR));
+    path += separator + routeToPath(subroutes, namespacesToGuid(childNames));
   }
 
   return path;
 }
 
+/**
+ * Extract the ordered namespaces described by a route GUID
+ *
+ * @param {string} guid A route GUID
+ * @returns {string[]} The hierarchy defined by the GUID
+ */
+function guidToNamespaces(guid) {
+  return guid.split(GUID_SEPARATOR);
+}
+
+/**
+ * Convert a series of namespaces to a route GUID
+ *
+ * @param {string[]} namespaces The namespace hierarchy for a route
+ * @returns {string} The GUID for the hierarchy
+ */
+function namespacesToGuid(namespaces) {
+  return namespaces.join(GUID_SEPARATOR);
+}
+
 module.exports = {
+  guidToNamespaces: guidToNamespaces,
+  namespacesToGuid: namespacesToGuid,
   routesToGuids: routesToGuids,
   pathToRoute: pathToRoute,
   routeToPath: routeToPath

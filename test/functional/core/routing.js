@@ -165,4 +165,22 @@ describe('core/routing', function() {
 
   });
 
+  describe('.guidToNamespaces', function() {
+
+    it('split a GUID into a list of namespaces', function() {
+      var namespaces = routing.guidToNamespaces('one.two.three');
+      assert.deepEqual(namespaces, ['one', 'two', 'three']);
+    });
+
+  });
+
+  describe('.namespacesToGuid', function() {
+
+    it('combines a list of namespaces into a route GUID', function() {
+      var guid = routing.namespacesToGuid(['one', 'two', 'three']);
+      assert.equal(guid, 'one.two.three');
+    });
+
+  });
+
 });
