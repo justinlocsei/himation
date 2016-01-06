@@ -5,42 +5,38 @@ var extend = require('extend');
 
 var routing = require('chiton/core/routing');
 
-var COMMONS_SEPARATOR = '--';
-var NAMESPACE_SEPARATOR = '.';
-
-var COMMONS_ROOT = 'commons';
-
 /**
  * Create a series of definitions for commons chunks for entry points
  *
- * This expects the given entry points to match the output format of the
- * `routesToEntryPoints` function, which uses a dot-separated notation to
- * express hierarchy. Each group of shared levels will receive its own commons
- * chunk.
+ * This expects to receive a mapping of entry points whose keys are route GUIDs,
+ * which allows entry points that share a namespace to be determined.
  *
  * @param {object} points A mapping of entry-point names to module paths
  * @returns {object[]} A series of options used to create commons-chunks plugins
  */
 function entryPointsToCommonsChunks(points) {
-  var names = Object.keys(points);
+  var entries = Object.keys(points);
 
   function createCommonsChunks(depth) {
-    var namespaces = names.map(name => name.split(NAMESPACE_SEPARATOR).slice(0, depth));
-    var candidates = namespaces.filter(namespace => namespace.length === depth);
-    var searches = _.uniq(candidates.map(candidate => candidate.join(NAMESPACE_SEPARATOR)));
-    var matchers = searches.map(search => new RegExp('^' + search + NAMESPACE_SEPARATOR));
+    var allNamespaces = entries.map(name => routing.guidToNamespaces(name).slice(0, depth));
+    var candidates = allNamespaces.filter(namespace => namespace.length === depth);
+    var prefixes = _.uniq(candidates.map(candidate => routing.namespacesToGuid(candidate)));
+    var namespaces = prefixes.map(search => routing.guidToNamespaces(search));
 
-    if (!matchers.length) { return []; }
+    if (!namespaces.length) { return []; }
 
-    var chunks = matchers.reduce(function(result, matcher, i) {
-      var matches = names.filter(name => matcher.test(name));
+    var chunks = namespaces.reduce(function(result, namespace) {
+      var matches = entries.filter(function(entry) {
+        var prefix = routing.guidToNamespaces(entry);
+        return _.isEqual(prefix.slice(0, depth), namespace);
+      });
 
       if (matches.length > 1) {
-        var levels = searches[i].split(NAMESPACE_SEPARATOR);
+        var nameParts = ['commons'].concat(namespace);
         result.push({
           chunks: matches,
-          filename: [COMMONS_ROOT].concat(levels, ['[hash].js']).join(COMMONS_SEPARATOR),
-          name: [COMMONS_ROOT].concat(levels).join(NAMESPACE_SEPARATOR)
+          filename: nameParts.concat(['[hash].js']).join('--'),
+          name: nameParts.join('.')
         });
       }
 
@@ -57,7 +53,8 @@ function entryPointsToCommonsChunks(points) {
  * Create a map of entry-point names to modules from a route definition
  *
  * This can accept an optional name for the root route, which will be treated as
- * a reference to the root directory for the modules.
+ * a reference to the root directory for the modules.  The entry-point IDs
+ * created by this function will be route GUIDs.
  *
  * @param {ChitonRoute[]} routes A route definition
  * @param {object} [options] Options for generating the map of entries
