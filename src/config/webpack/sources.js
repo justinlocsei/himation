@@ -3,11 +3,12 @@
 var _ = require('lodash');
 var extend = require('extend');
 
+var routing = require('chiton/core/routing');
+
 var COMMONS_SEPARATOR = '--';
 var NAMESPACE_SEPARATOR = '.';
 
 var COMMONS_ROOT = 'commons';
-var ROOT_MODULE = 'index';
 
 /**
  * Create a series of definitions for commons chunks for entry points
@@ -62,7 +63,7 @@ function entryPointsToCommonsChunks(points) {
  * @param {object} [options] Options for generating the map of entries
  * @param {string[]} options.modules The hierarchy to use for each module
  * @param {string} options.root The name of the root route
- * @returns {object} A mapping of entry points to modules
+ * @returns {object} A mapping of entry points to module paths
  */
 function routesToEntryPoints(routes, options) {
   var settings = extend({
@@ -70,34 +71,16 @@ function routesToEntryPoints(routes, options) {
     root: ''
   }, options || {});
 
-  function createEntryPoints(subroutes, root, parentModules, namespaces) {
-    return subroutes.reduce(function(points, route) {
-      var modules = parentModules.filter(path => path !== root);
+  var parentModules = ['.'].concat(settings.modules);
 
-      var routeName = route.name === root ? '' : route.name;
-      if (routeName) { modules.push(routeName); }
-      if (route.paths || !routeName) { modules.push(ROOT_MODULE); }
+  var guids = routing.routesToGuids(routes);
+  return Object.keys(guids).reduce(function(points, guid) {
+    var split = guids[guid][0] === settings.root ? 1 : 0;
+    var modules = guids[guid].slice(split);
+    points[guid] = parentModules.concat(modules).join('/');
 
-      var namespace = namespaces.concat([route.name]);
-      if (route.paths) { namespace.push(ROOT_MODULE); }
-
-      var guid = namespace.join(NAMESPACE_SEPARATOR);
-      points[guid] = './' + modules.join('/');
-
-      if (route.paths) {
-        extend(true, points, createEntryPoints(
-          route.paths,
-          root,
-          parentModules.concat([route.name]),
-          namespaces.concat([route.name])
-        ));
-      }
-
-      return points;
-    }, {});
-  }
-
-  return createEntryPoints(routes, settings.root, settings.modules, []);
+    return points;
+  }, {});
 }
 
 module.exports = {

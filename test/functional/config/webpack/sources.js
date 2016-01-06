@@ -151,7 +151,9 @@ describe('config/webpack/sources', function() {
 
       function routes() {
         return [
-          {name: 'one', path: '/one'},
+          {name: 'one', path: '/one', paths: [
+            {name: 'one', path: 'one'}
+          ]},
           {name: 'two', path: '/two'}
         ];
       }
@@ -160,16 +162,18 @@ describe('config/webpack/sources', function() {
         var entries = sources.routesToEntryPoints(routes());
 
         assert.deepEqual(entries, {
-          'one': './one',
+          'one.index': './one/index',
+          'one.one': './one/one',
           'two': './two'
         });
       });
 
-      it('applies the root route to a single route', function() {
+      it('applies the root route to the top of a single route group', function() {
         var entries = sources.routesToEntryPoints(routes(), {root: 'one'});
 
         assert.deepEqual(entries, {
-          'one': './index',
+          'one.index': './index',
+          'one.one': './one',
           'two': './two'
         });
       });
@@ -178,7 +182,8 @@ describe('config/webpack/sources', function() {
         var entries = sources.routesToEntryPoints(routes(), {modules: ['prefix']});
 
         assert.deepEqual(entries, {
-          'one': './prefix/one',
+          'one.index': './prefix/one/index',
+          'one.one': './prefix/one/one',
           'two': './prefix/two'
         });
       });
