@@ -4,6 +4,7 @@ var _ = require('lodash');
 var extend = require('extend');
 
 var ConfigurationError = require('chiton/core/errors/configuration-error');
+var urls = require('chiton/core/urls');
 
 var GUID_SEPARATOR = '.';
 var PATH_SEPARATOR = '/';
@@ -117,30 +118,31 @@ function pathToRoute(routes, path) {
  * @throws {ConfigurationError} If no path for the route was found
  */
 function routeToPath(routes, guid) {
-  var hierarchy = guidToNamespaces(guid);
-  var parentName = hierarchy[0];
-  var endpoint = _.last(hierarchy) === INDEX_ROUTE ? -1 : hierarchy.length;
-  var childNames = hierarchy.slice(1, endpoint);
+  function resolvePath(subroutes, namespaces) {
+    var rootName = _.first(namespaces);
+    var matches = subroutes.filter(route => route.name === rootName);
 
-  var matches = routes.filter(route => route.name === parentName);
+    if (!matches.length) { throw new ConfigurationError('No route named "' + guid + '" was found'); }
+    if (matches.length > 1) { throw new ConfigurationError('Multiple routes named "' + guid + '" were found'); }
 
-  if (!matches.length) { throw new ConfigurationError('No route named "' + guid + '" was found'); }
-  if (matches.length > 1) { throw new ConfigurationError('Multiple routes named "' + guid + '" were found'); }
+    var matchedRoute = matches[0];
+    var matchedPath = matchedRoute.path;
 
-  var parentRoute = matches[0];
-  var path = parentRoute.path;
+    if (!matchedPath) { throw new ConfigurationError('No path was found for the route named "' + guid + '"'); }
 
-  if (path === undefined) {
-    throw new ConfigurationError('No path was found for the route named "' + guid + '"');
+    var levels = [matchedPath];
+    var endpoint = _.last(namespaces) === INDEX_ROUTE ? -1 : namespaces.length;
+    var childNames = namespaces.slice(1, endpoint);
+
+    if (childNames.length) {
+      levels = levels.concat(resolvePath(matchedRoute.paths || [], childNames));
+    }
+
+    return levels;
   }
 
-  if (childNames.length) {
-    var subroutes = parentRoute.paths || [];
-    var separator = parentRoute.path === PATH_SEPARATOR ? '' : PATH_SEPARATOR;
-    path += separator + routeToPath(subroutes, namespacesToGuid(childNames));
-  }
-
-  return path;
+  var paths = resolvePath(routes, guidToNamespaces(guid));
+  return urls.joinPaths(paths);
 }
 
 /**
