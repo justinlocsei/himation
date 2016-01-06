@@ -60,4 +60,38 @@ describe('core/urls', function() {
 
   });
 
+  describe('.joinPaths', function() {
+
+    it('joins path components into a single path', function() {
+      var path = urls.joinPaths(['one', 'two', 'three']);
+      assert.equal(path, 'one/two/three');
+    });
+
+    it('returns an absolute path when the first component is absolute', function() {
+      var path = urls.joinPaths(['/one', 'two', 'three']);
+      assert.equal(path, '/one/two/three');
+    });
+
+    it('omits the trailing slash', function() {
+      var path = urls.joinPaths(['one', 'two', 'three/']);
+      assert.equal(path, 'one/two/three');
+    });
+
+    it('removes duplicate slashes', function() {
+      var path = urls.joinPaths(['/one//', '/two/', '/three/']);
+      assert.equal(path, '/one/two/three');
+    });
+
+    it('preserves multi-part paths', function() {
+      var path = urls.joinPaths(['one/two', 'three', 'four']);
+      assert.equal(path, 'one/two/three/four');
+    });
+
+    it('preserves a root path', function() {
+      var path = urls.joinPaths(['/']);
+      assert.equal(path, '/');
+    });
+
+  });
+
 });

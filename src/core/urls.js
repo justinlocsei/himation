@@ -2,6 +2,9 @@
 
 var URL = require('url');
 
+var DOUBLE_SEPARATORS_MATCH = new RegExp(/\/{2,}/g);
+var TRAILING_SEPARATOR_MATCH = new RegExp(/\/$/);
+
 // Default ports for protocols
 var PORTS = {
   http: 80,
@@ -33,6 +36,17 @@ function expandHostname(hostname, options) {
 }
 
 /**
+ * Join a series of path components
+ *
+ * @param {string[]} paths A series of path components to a URL
+ * @returns {string} A single path string
+ */
+function joinPaths(paths) {
+  var path = paths.join('/');
+  return path.replace(DOUBLE_SEPARATORS_MATCH, '/').replace(TRAILING_SEPARATOR_MATCH, '') || '/';
+}
+
+/**
  * Convert a relative URL to an absolute URL rooted in an absolute root URL
  *
  * @param {string} url The URL to make absolute
@@ -50,6 +64,7 @@ function relativeToAbsolute(url, root) {
 }
 
 module.exports = {
-  relativeToAbsolute: relativeToAbsolute,
-  expandHostname: expandHostname
+  expandHostname: expandHostname,
+  joinPaths: joinPaths,
+  relativeToAbsolute: relativeToAbsolute
 };
