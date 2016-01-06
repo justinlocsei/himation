@@ -2,8 +2,8 @@
 
 var URL = require('url');
 
-var DOUBLE_SEPARATORS_MATCH = new RegExp(/\/{2,}/g);
-var TRAILING_SEPARATOR_MATCH = new RegExp(/\/$/);
+var DOUBLE_SEPARATORS_MATCH = new RegExp('/{2,}', 'g');
+var TRAILING_SEPARATOR_MATCH = new RegExp('/$');
 
 // Default ports for protocols
 var PORTS = {
