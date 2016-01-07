@@ -1,7 +1,6 @@
 'use strict';
 
 var express = require('express');
-var helmet = require('helmet');
 var nunjucks = require('nunjucks');
 
 var addRouteAssets = require('chiton/server/middleware/add-route-assets');
@@ -37,8 +36,6 @@ function configureTemplates(app) {
  * @private
  */
 function configureMiddleware(app, assetUrl) {
-  app.use(helmet());
-
   app.use(addRouteAssets(assetUrl, routes));
 }
 
