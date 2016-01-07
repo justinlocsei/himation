@@ -9,7 +9,7 @@ var errors = require('chiton/core/errors');
 /**
  * Configure the app's template engine
  *
- * @param {Server} app An application instance
+ * @param {express.Application} app An application instance
  * @param {string} directory The path to the template directory
  * @private
  */
@@ -29,7 +29,7 @@ function configureTemplates(app, directory) {
 /**
  * Configure basic security for the application
  *
- * @param {Server} app An application instance
+ * @param {express.Application} app An application instance
  * @private
  */
 function configureSecurity(app) {
@@ -45,7 +45,7 @@ function configureSecurity(app) {
  *
  * @param {object} options Configuration for the server
  * @param {string} options.templatesDirectory The path to the templates directory
- * @returns {Server} An application server that can be bound to an address
+ * @returns {express.Application} An application server that can be bound to an address
  */
 function create(options) {
   var settings = options || {};
