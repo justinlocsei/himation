@@ -44,38 +44,42 @@ describe('chiton/server/application', function() {
 
     describe('the application', function() {
 
-      function getOutput(context) {
-        var app = application.create(options());
+      describe('template output', function() {
 
-        mockFs({
-          '/templates': {
-            'template.html': '{{ message }}'
-          }
-        });
+        function getOutput(context) {
+          var app = application.create(options());
 
-        app.get('/', function(req, res) {
-          res.render('template.html', context, function(err, output) {
-            if (err) {
-              res.status(500).send(err.message);
-            } else {
-              res.send(output);
+          mockFs({
+            '/templates': {
+              'template.html': '{{ message }}'
             }
           });
+
+          app.get('/', function(req, res) {
+            res.render('template.html', context, function(err, output) {
+              if (err) {
+                res.status(500).send(err.message);
+              } else {
+                res.send(output);
+              }
+            });
+          });
+
+          return request(app).get('/');
+        }
+
+        it('renders Nunjucks templates', function(done) {
+          getOutput({message: 'test'}).expect(200, 'test', done);
         });
 
-        return request(app).get('/');
-      }
+        it('uses HTML escaping for template variables', function(done) {
+          getOutput({message: 'one & two'}).expect(200, 'one &amp; two', done);
+        });
 
-      it('renders Nunjucks templates', function(done) {
-        getOutput({message: 'test'}).expect(200, 'test', done);
-      });
+        it('throws an error when rendering a undefined variable', function(done) {
+          getOutput({other: 'value'}).expect(500, /undefined/, done);
+        });
 
-      it('uses HTML escaping for template variables', function(done) {
-        getOutput({message: 'one & two'}).expect(200, 'one &amp; two', done);
-      });
-
-      it('throws an error when rendering a undefined variable', function(done) {
-        getOutput({other: 'value'}).expect(500, /undefined/, done);
       });
 
     });
