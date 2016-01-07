@@ -1,7 +1,7 @@
 'use strict';
 
-var ConfigurationError = require('chiton/core/errors/configuration-error');
 var environments = require('chiton/config/environments');
+var errors = require('chiton/core/errors');
 
 describe('config/environments', function() {
 
@@ -24,7 +24,7 @@ describe('config/environments', function() {
     });
 
     it('throws an error when an unknown environment is provided', function() {
-      assert.throws(function() { environments.load('invalid'); }, ConfigurationError);
+      assert.throws(function() { environments.load('invalid'); }, errors.ConfigurationError);
     });
 
   });

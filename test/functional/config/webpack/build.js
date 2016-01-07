@@ -3,9 +3,8 @@
 var sinon = require('sinon');
 
 var build = require('chiton/config/webpack/build');
-var BuildError = require('chiton/core/errors/build-error');
+var errors = require('chiton/core/errors');
 var BuildStatsPlugin = require('chiton/config/webpack/plugins/build-stats');
-var ConfigurationError = require('chiton/core/errors/configuration-error');
 
 describe('config/webpack/build', function() {
 
@@ -49,7 +48,7 @@ describe('config/webpack/build', function() {
       var config = configure();
       config.plugins = [];
 
-      assert.throws(function() { build.loadStats(config); }, ConfigurationError);
+      assert.throws(function() { build.loadStats(config); }, errors.ConfigurationError);
     });
 
     it('throws an error if the build statistics cannot be loaded', function() {
@@ -61,7 +60,7 @@ describe('config/webpack/build', function() {
       var config = configure();
       config.plugins = [plugin];
 
-      assert.throws(function() { build.loadStats(config); }, BuildError);
+      assert.throws(function() { build.loadStats(config); }, errors.BuildError);
       assert.isTrue(loader.called);
     });
 

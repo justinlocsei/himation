@@ -2,9 +2,8 @@
 
 var _ = require('lodash');
 
-var BuildError = require('chiton/core/errors/build-error');
 var BuildStatsPlugin = require('chiton/config/webpack/plugins/build-stats');
-var ConfigurationError = require('chiton/core/errors/configuration-error');
+var errors = require('chiton/core/errors');
 
 /**
  * Load statistics on a webpack build
@@ -19,13 +18,13 @@ function loadStats(config) {
   var statsPlugin = _.find(plugins, plugin => plugin.constructor === BuildStatsPlugin);
 
   if (!statsPlugin) {
-    throw new ConfigurationError('The configuration does not use the build-stats plugin');
+    throw new errors.ConfigurationError('The configuration does not use the build-stats plugin');
   }
 
   try {
     return statsPlugin.loadStats();
   } catch (e) {
-    throw new BuildError('The build statistics could not be loaded');
+    throw new errors.BuildError('The build statistics could not be loaded');
   }
 }
 

@@ -1,6 +1,6 @@
 'use strict';
 
-var ConfigurationError = require('chiton/core/errors/configuration-error');
+var errors = require('chiton/core/errors');
 var routing = require('chiton/core/routing');
 
 describe('core/routing', function() {
@@ -117,13 +117,13 @@ describe('core/routing', function() {
 
     it('throws an error when multiple routes match a path', function() {
       var ambiguous = routes().concat(routes());
-      assert.throws(function() { routing.pathToRoute(ambiguous, '/'); }, ConfigurationError);
+      assert.throws(function() { routing.pathToRoute(ambiguous, '/'); }, errors.ConfigurationError);
     });
 
     it('throws an error when a matched route lacks a name', function() {
       var malformed = routes();
       delete malformed[0].name;
-      assert.throws(function() { routing.pathToRoute(malformed, '/'); }, ConfigurationError);
+      assert.throws(function() { routing.pathToRoute(malformed, '/'); }, errors.ConfigurationError);
     });
 
   });
@@ -151,22 +151,22 @@ describe('core/routing', function() {
     });
 
     it('throws an error when a named route is not defined', function() {
-      assert.throws(function() { routing.routeToPath(routes(), 'home'); }, ConfigurationError);
+      assert.throws(function() { routing.routeToPath(routes(), 'home'); }, errors.ConfigurationError);
     });
 
     it('throws an error when any component of a named route is not defined', function() {
-      assert.throws(function() { routing.routeToPath(routes(), 'root.posts'); }, ConfigurationError);
-      assert.throws(function() { routing.routeToPath(routes(), 'root.admin.posts'); }, ConfigurationError);
+      assert.throws(function() { routing.routeToPath(routes(), 'root.posts'); }, errors.ConfigurationError);
+      assert.throws(function() { routing.routeToPath(routes(), 'root.admin.posts'); }, errors.ConfigurationError);
     });
 
     it('throws an error when there are multiple routes with the same name', function() {
       var ambiguous = routes().concat(routes());
-      assert.throws(function() { routing.routeToPath(ambiguous, 'root'); }, ConfigurationError);
+      assert.throws(function() { routing.routeToPath(ambiguous, 'root'); }, errors.ConfigurationError);
     });
 
     it('throws an error when a route is missing a URL', function() {
       var missing = [{name: 'root', path: '/'}, {name: 'missing'}];
-      assert.throws(function() { routing.routeToPath(missing, 'missing'); }, ConfigurationError);
+      assert.throws(function() { routing.routeToPath(missing, 'missing'); }, errors.ConfigurationError);
     });
 
   });

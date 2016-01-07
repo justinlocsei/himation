@@ -3,7 +3,7 @@
 var _ = require('lodash');
 var extend = require('extend');
 
-var ConfigurationError = require('chiton/core/errors/configuration-error');
+var errors = require('chiton/core/errors');
 var urls = require('chiton/core/urls');
 
 var GUID_SEPARATOR = '.';
@@ -75,7 +75,7 @@ function pathToRoute(routes, path) {
     if (matches.length > 1) {
       var uniquePaths = _.uniq(_.pluck(matches, 'path'));
       if (uniquePaths.length !== matches.length) {
-        throw new ConfigurationError('Multiple routes match the path "' + subpath + '"');
+        throw new errors.ConfigurationError('Multiple routes match the path "' + subpath + '"');
       }
     } else if (!matches.length) {
       return [];
@@ -90,7 +90,7 @@ function pathToRoute(routes, path) {
 
     var namespaces = [match.name];
     if (!namespaces[0]) {
-      throw new ConfigurationError('No name was given to the route with a path of "' + match.path + '"');
+      throw new errors.ConfigurationError('No name was given to the route with a path of "' + match.path + '"');
     }
 
     var remainder = subpath.substring(match.path.length).replace(LEADING_SLASH_MATCH, '');
@@ -121,13 +121,13 @@ function routeToPath(routes, guid) {
     var rootName = _.first(namespaces);
     var matches = subroutes.filter(route => route.name === rootName);
 
-    if (!matches.length) { throw new ConfigurationError('No route named "' + guid + '" was found'); }
-    if (matches.length > 1) { throw new ConfigurationError('Multiple routes named "' + guid + '" were found'); }
+    if (!matches.length) { throw new errors.ConfigurationError('No route named "' + guid + '" was found'); }
+    if (matches.length > 1) { throw new errors.ConfigurationError('Multiple routes named "' + guid + '" were found'); }
 
     var matchedRoute = matches[0];
     var matchedPath = matchedRoute.path;
 
-    if (!matchedPath) { throw new ConfigurationError('No path was found for the route named "' + guid + '"'); }
+    if (!matchedPath) { throw new errors.ConfigurationError('No path was found for the route named "' + guid + '"'); }
 
     var levels = [matchedPath];
     var endpoint = _.last(namespaces) === INDEX_ROUTE ? -1 : namespaces.length;

@@ -4,7 +4,7 @@ var express = require('express');
 var helmet = require('helmet');
 var nunjucks = require('nunjucks');
 
-var ConfigurationError = require('chiton/core/errors/configuration-error');
+var errors = require('chiton/core/errors');
 
 /**
  * Configure the app's template engine
@@ -50,7 +50,9 @@ function configureSecurity(app) {
 function create(options) {
   var settings = options || {};
 
-  if (!settings.templatesDirectory) { throw new ConfigurationError('You must provide the path to the templates directory'); }
+  if (!settings.templatesDirectory) {
+    throw new errors.ConfigurationError('You must provide the path to the templates directory');
+  }
 
   var app = express();
 

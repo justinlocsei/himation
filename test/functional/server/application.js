@@ -4,7 +4,7 @@ var mockFs = require('mock-fs');
 var request = require('supertest');
 
 var application = require('chiton/server/application');
-var ConfigurationError = require('chiton/core/errors/configuration-error');
+var errors = require('chiton/core/errors');
 
 describe('chiton/server/application', function() {
 
@@ -30,7 +30,7 @@ describe('chiton/server/application', function() {
       var settings = options();
       delete settings[setting];
 
-      assert.throws(function() { application.create(settings); }, ConfigurationError);
+      assert.throws(function() { application.create(settings); }, errors.ConfigurationError);
     }
 
     it('creates an instance of an Express app', function() {
