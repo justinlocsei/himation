@@ -82,6 +82,55 @@ describe('chiton/server/application', function() {
 
       });
 
+      describe('security', function() {
+
+        function checkHeaders() {
+          var app = application.create(options());
+
+          app.get('/', function(req, res) {
+            res.send('response');
+          });
+
+          return request(app).get('/');
+        }
+
+        it('reduces the risk of XSS attacks', function(done) {
+          checkHeaders()
+            .expect('x-xss-protection', /^1/)
+            .expect('x-xss-protection', /mode=block/)
+            .end(done);
+        });
+
+        it('omits the powered-by header', function(done) {
+          checkHeaders()
+            .expect(function(res) {
+              if (res.headers['x-powered-by']) {
+                throw new Error('powered-by header present');
+              }
+            })
+            .end(done);
+        });
+
+        it('prevents frame embedding', function(done) {
+          checkHeaders().expect('x-frame-options', 'DENY').end(done);
+        });
+
+        it('disables content-type sniffing', function(done) {
+          checkHeaders().expect('x-content-type-options', 'nosniff').end(done);
+        });
+
+        it('disables client-side caching', function(done) {
+          checkHeaders()
+            .expect('cache-control', /no-store/)
+            .expect('cache-control', /no-cache/)
+            .expect('cache-control', /must-revalidate/)
+            .expect('expires', '0')
+            .expect('pragma', 'no-cache')
+            .end(done);
+        });
+
+      });
+
     });
 
   });

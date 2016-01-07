@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+var helmet = require('helmet');
 var nunjucks = require('nunjucks');
 
 var ConfigurationError = require('chiton/core/errors/configuration-error');
@@ -26,6 +27,20 @@ function configureTemplates(app, directory) {
 }
 
 /**
+ * Configure basic security for the application
+ *
+ * @param {Server} app An application instance
+ * @private
+ */
+function configureSecurity(app) {
+  app.use(helmet.frameguard('deny'));
+  app.use(helmet.hidePoweredBy());
+  app.use(helmet.noCache());
+  app.use(helmet.noSniff());
+  app.use(helmet.xssFilter());
+}
+
+/**
  * Create an instance of an application server
  *
  * @param {object} options Configuration for the server
@@ -40,6 +55,7 @@ function create(options) {
   var app = express();
 
   configureTemplates(app, settings.templatesDirectory);
+  configureSecurity(app);
 
   return app;
 }
