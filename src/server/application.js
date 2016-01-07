@@ -5,6 +5,7 @@ var helmet = require('helmet');
 var nunjucks = require('nunjucks');
 
 var addRouteAssets = require('chiton/server/middleware/add-route-assets');
+var ConfigurationError = require('chiton/core/errors/configuration-error');
 var paths = require('chiton/core/paths');
 var routes = require('chiton/core/routes');
 var routing = require('chiton/server/routing');
@@ -62,7 +63,7 @@ function configureRoutes(app) {
 function create(options) {
   var settings = options || {};
 
-  if (!settings.assetUrl) { throw new Error('You must provide the URL for the asset server'); }
+  if (!settings.assetUrl) { throw new ConfigurationError('You must provide the URL for the asset server'); }
 
   var app = express();
 
