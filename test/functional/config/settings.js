@@ -27,6 +27,14 @@ describe('config/settings', function() {
       assert.isTrue(options.assets.custom);
     });
 
+    it('defines partial defaults for the server addresses', function() {
+      var servers = settings.customize().servers;
+      assert.equal(servers.app.port, 80);
+      assert.equal(servers.app.protocol, 'http');
+      assert.equal(servers.assets.port, 80);
+      assert.equal(servers.assets.protocol, 'http');
+    });
+
   });
 
 });
