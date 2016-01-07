@@ -3,18 +3,18 @@
 var React = require('react');
 var ReactDomServer = require('react-dom/server');
 
-var About = page('about');
-var Index = page('index');
+var About = requirePage('about');
+var Index = requirePage('index');
 
 /**
  * Require a React page component from the UI module
  *
  * @param {string} name The name of the component
  * @returns {object} The required component
- * @throws If the component cannot be found
+ * @throws {Error} If the component cannot be found
  * @private
  */
-function page(name) {
+function requirePage(name) {
   return require('chiton/ui/js/components/pages/' + name);
 }
 
