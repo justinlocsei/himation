@@ -42,8 +42,8 @@ function create(options) {
 
   var app = express();
 
-  var templates = templating.createEngine(settings.templates);
-  templates.express(app);
+  var nunjucksEnv = templating.createNunjuckEnvironment(settings.templates);
+  nunjucksEnv.express(app);
   app.set('view engine', 'html');
 
   app.use(helmet());

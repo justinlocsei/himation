@@ -4,10 +4,10 @@ var templating = require('chiton/server/templating');
 
 describe('server/templating', function() {
 
-  describe('.createEngine', function() {
+  describe('.createNunjucksEnvironment', function() {
 
     it('creates a new Nunjucks environment in the specified directory', function() {
-      var environment = templating.createEngine('test/path');
+      var environment = templating.createNunjucksEnvironment('test/path');
       var loaders = environment.loaders;
 
       assert.equal(loaders.length, 1);
