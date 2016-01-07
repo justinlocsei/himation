@@ -3,6 +3,15 @@
 var extend = require('extend');
 
 /**
+ * Chiton server settings
+ *
+ * @typedef {object} ChitonServerSettings
+ * @property {string} host The hostname for the server
+ * @property {number} port The port for the server
+ * @property {string} protocol The protocol for the server
+ */
+
+/**
  * Chiton environment settings
  *
  * @typedef {object} ChitonSettings
@@ -10,12 +19,8 @@ var extend = require('extend');
  * @property {boolean} assets.debug Whether to bundle assets in debug mode
  * @property {boolean} assets.optimize Whether to optimize all bundled assets
  * @property {object} servers Addresses for all known servers
- * @property {object} servers.app Address components for the application server
- * @property {string} servers.app.host The hostname for the application server
- * @property {number} servers.app.port The port for the application server
- * @property {object} servers.assets Address components for the assets server
- * @property {string} servers.assets.host The hostname for the assets server
- * @property {number} servers.assets.port The port for the assets server
+ * @property {ChitonServerSettings} servers.app Address components for the application server
+ * @property {ChitonServerSettings} servers.assets Address components for the assets server
  */
 var defaults = {
   assets: {
