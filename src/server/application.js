@@ -3,7 +3,7 @@
 var express = require('express');
 var helmet = require('helmet');
 
-var assets = require('chiton/server/middleware/assets');
+var addRouteAssets = require('chiton/server/middleware/add-route-assets');
 var templating = require('chiton/server/templating');
 var routing = require('chiton/server/routing');
 
@@ -47,7 +47,7 @@ function create(options) {
   app.set('view engine', 'html');
 
   app.use(helmet());
-  app.use(assets(settings.assetUrl, settings.routes));
+  app.use(addRouteAssets(settings.assetUrl, settings.routes));
 
   connectRoutes(app, settings.routes);
 
