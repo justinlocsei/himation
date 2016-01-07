@@ -1,26 +1,18 @@
 'use strict';
 
-var mockFs = require('mock-fs');
+var fs = require('fs');
+var path = require('path');
 var request = require('supertest');
+var tmp = require('tmp');
 
 var application = require('chiton/server/application');
 var errors = require('chiton/core/errors');
 
 describe('chiton/server/application', function() {
 
-  beforeEach(function() {
-    mockFs({
-      '/templates': {}
-    });
-  });
-
-  afterEach(function() {
-    mockFs.restore();
-  });
-
   function options() {
     return {
-      templatesDirectory: '/templates'
+      templatesDirectory: tmp.dirSync().name
     };
   }
 
@@ -47,13 +39,11 @@ describe('chiton/server/application', function() {
       describe('template output', function() {
 
         function getOutput(context) {
-          var app = application.create(options());
+          var settings = options();
+          var app = application.create(settings);
+          var directory = settings.templatesDirectory;
 
-          mockFs({
-            '/templates': {
-              'template.html': '{{ message }}'
-            }
-          });
+          fs.writeFileSync(path.join(directory, 'template.html'), '{{ message }}');
 
           app.get('/', function(req, res) {
             res.render('template.html', context, function(err, output) {
