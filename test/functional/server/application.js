@@ -6,7 +6,7 @@ var request = require('supertest');
 var application = require('chiton/server/application');
 var ConfigurationError = require('chiton/core/errors/configuration-error');
 
-describe.only('chiton/server/application', function() {
+describe('chiton/server/application', function() {
 
   beforeEach(function() {
     mockFs({
