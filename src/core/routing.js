@@ -7,11 +7,10 @@ var ConfigurationError = require('chiton/core/errors/configuration-error');
 var urls = require('chiton/core/urls');
 
 var GUID_SEPARATOR = '.';
-var PATH_SEPARATOR = '/';
 
 var INDEX_ROUTE = 'index';
 
-var LEADING_SLASH_MATCH = new RegExp('^' + PATH_SEPARATOR);
+var LEADING_SLASH_MATCH = new RegExp('^/');
 
 /**
  * A Chiton route definition
@@ -47,7 +46,7 @@ function routesToGuids(routes) {
         levels.push(INDEX_ROUTE);
       }
 
-      var guid = levels.join(GUID_SEPARATOR);
+      var guid = namespacesToGuid(levels);
       guids[guid] = levels;
 
       return guids;
@@ -67,46 +66,46 @@ function routesToGuids(routes) {
  * @throws {ConfigurationError} If the matching route lacks a name
  */
 function pathToRoute(routes, path) {
-  var matches = routes.filter(function(route) {
-    var match = new RegExp('^' + route.path + PATH_SEPARATOR + '?', 'i');
-    return match.test(path);
-  });
+  function resolveRoute(subroutes, subpath) {
+    var matches = subroutes.filter(function(route) {
+      var match = new RegExp('^' + route.path + '/?', 'i');
+      return match.test(subpath);
+    });
 
-  if (matches.length > 1) {
-    var uniquePaths = _.uniq(_.pluck(matches, 'path'));
-    if (uniquePaths.length !== matches.length) {
-      throw new ConfigurationError('Multiple routes match the path "' + path + '"');
+    if (matches.length > 1) {
+      var uniquePaths = _.uniq(_.pluck(matches, 'path'));
+      if (uniquePaths.length !== matches.length) {
+        throw new ConfigurationError('Multiple routes match the path "' + subpath + '"');
+      }
+    } else if (!matches.length) {
+      return [];
     }
-  } else if (!matches.length) {
-    return null;
-  }
 
-  var match;
-  if (matches.length) {
-    match = _.first(_.sortBy(matches, route => route.path.length * -1));
-  } else {
-    match = matches[0];
-  }
-
-  var routeName = match.name;
-  if (!routeName) {
-    throw new ConfigurationError('No name was given to the route with a path of "' + match.path + '"');
-  }
-
-  var remainder = path.substring(match.path.length).replace(LEADING_SLASH_MATCH, '');
-  if (remainder) {
-    var subroutes = match.paths || [];
-    var subname = pathToRoute(subroutes, remainder);
-    if (subname) {
-      routeName += GUID_SEPARATOR + subname;
+    var match;
+    if (matches.length) {
+      match = _.first(_.sortBy(matches, route => route.path.length * -1));
     } else {
-      routeName = null;
+      match = matches[0];
     }
-  } else if (match.paths) {
-    routeName += GUID_SEPARATOR + INDEX_ROUTE;
+
+    var namespaces = [match.name];
+    if (!namespaces[0]) {
+      throw new ConfigurationError('No name was given to the route with a path of "' + match.path + '"');
+    }
+
+    var remainder = subpath.substring(match.path.length).replace(LEADING_SLASH_MATCH, '');
+    if (remainder) {
+      var subnamespaces = pathToRoute(match.paths || [], remainder);
+      namespaces = subnamespaces ? namespaces.concat(subnamespaces) : [];
+    } else if (match.paths) {
+      namespaces.push(INDEX_ROUTE);
+    }
+
+    return namespaces;
   }
 
-  return routeName;
+  var names = resolveRoute(routes, path);
+  return names.length ? namespacesToGuid(names) : null;
 }
 
 /**
@@ -148,7 +147,7 @@ function routeToPath(routes, guid) {
 /**
  * Extract the ordered namespaces described by a route GUID
  *
- * @param {string} guid A route GUID
+ * @param {ChitonRouteGUID} guid A route GUID
  * @returns {string[]} The hierarchy defined by the GUID
  */
 function guidToNamespaces(guid) {
@@ -159,7 +158,7 @@ function guidToNamespaces(guid) {
  * Convert a series of namespaces to a route GUID
  *
  * @param {string[]} namespaces The namespace hierarchy for a route
- * @returns {string} The GUID for the hierarchy
+ * @returns {ChitonRouteGUID} The GUID for the hierarchy
  */
 function namespacesToGuid(namespaces) {
   return namespaces.join(GUID_SEPARATOR);
