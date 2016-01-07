@@ -28,8 +28,14 @@ var defaults = {
     optimize: false
   },
   servers: {
-    app: {},
-    assets: {}
+    app: {
+      port: 80,
+      protocol: 'http'
+    },
+    assets: {
+      port: 80,
+      protocol: 'http'
+    }
   }
 };
 
