@@ -1,8 +1,11 @@
 'use strict';
 
 var chai = require('chai');
+var chaiAsPromised = require('chai-as-promised');
 
 var fs = require('./assertions/fs');
+
+chai.use(chaiAsPromised);
 
 var assert = global.assert = chai.assert;
 
