@@ -29,14 +29,15 @@ function configureTemplates(app) {
 }
 
 /**
- * Configure the middleware for the application
+ * Configure the asset-serving middleware for the app
  *
  * @param {Server} app An application instance
  * @param {string} assetUrl The URL at which assets are available
  * @private
  */
-function configureMiddleware(app, assetUrl) {
-  app.use(addRouteAssets(assetUrl, routes));
+function configureAssets(app, assetUrl) {
+  var injector = addRouteAssets(assetUrl, routes);
+  app.use(injector);
 }
 
 /**
@@ -65,7 +66,7 @@ function create(options) {
   var app = express();
 
   configureTemplates(app);
-  configureMiddleware(app);
+  configureAssets(app, settings.assetUrl);
   configureRoutes(app);
 
   return app;
