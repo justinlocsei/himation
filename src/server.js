@@ -4,8 +4,13 @@ var http = require('http');
 var https = require('https');
 var Promise = require('bluebird');
 
+var addRouteAssets = require('chiton/server/middleware/add-route-assets');
 var application = require('chiton/server/application');
+var build = require('chiton/config/webpack/build');
+var builds = require('chiton/config/webpack/configs');
 var paths = require('chiton/core/paths');
+var routes = require('chiton/config/routes');
+var urls = require('chiton/core/urls');
 
 /**
  * An application server
@@ -99,10 +104,30 @@ Server.prototype._getApplication = function() {
     templatesDirectory: paths.ui.templates
   });
 
+  app.use(this._createAssetMiddleware());
+
   var factory = this.settings.servers.app.protocol === 'https' ? https : http;
   this._app = factory.createServer(app);
 
   return this._app;
+};
+
+/**
+ * Create the middleware function for adding route assets
+ *
+ * @returns {function} An Express middleware function
+ */
+Server.prototype._createAssetMiddleware = function() {
+  var uiBuild = builds.ui(this.settings);
+  var buildStats = build.loadStats(uiBuild);
+
+  var uiServer = this.settings.servers.assets;
+  var assetHost = urls.expandHostname(uiServer.host, {
+    port: uiServer.port,
+    protocol: uiServer.protocol
+  });
+
+  return addRouteAssets.create(buildStats, assetHost, routes);
 };
 
 module.exports = Server;

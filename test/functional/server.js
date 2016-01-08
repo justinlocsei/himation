@@ -5,13 +5,25 @@ var https = require('https');
 var sinon = require('sinon');
 
 var application = require('chiton/server/application');
+var addRouteAssets = require('chiton/server/middleware/add-route-assets');
 var paths = require('chiton/core/paths');
+var routes = require('chiton/config/routes');
 var Server = require('chiton/server');
 var settings = require('chiton/config/settings');
+var webpackBuild = require('chiton/config/webpack/build');
+var webpackConfigs = require('chiton/config/webpack/configs');
 
 describe('Server', function() {
 
   var sandbox = sinon.sandbox.create();
+
+  var loadStats;
+  var buildStats = {};
+
+  beforeEach(function() {
+    loadStats = sandbox.stub(webpackBuild, 'loadStats');
+    loadStats.returns(buildStats);
+  });
 
   afterEach(function() {
     sandbox.restore();
@@ -55,6 +67,25 @@ describe('Server', function() {
       return server.start().then(function() {
         var params = create.args[0][0];
         assert.equal(params.templatesDirectory, paths.ui.templates);
+      });
+    });
+
+    it('creates asset-mapping middleware derived from the UI build', function() {
+      var uiBuild = sandbox.spy(webpackConfigs, 'ui');
+      var createMiddleware = sandbox.spy(addRouteAssets, 'create');
+
+      return server.start().then(function() {
+        assert.isTrue(uiBuild.called);
+        assert.equal(uiBuild.args[0][0].servers.assets.port, 3001);
+
+        assert.isTrue(loadStats.called);
+        assert.equal(loadStats.args[0][0].target, 'web');
+
+        assert.isTrue(createMiddleware.called);
+        var middlewareArgs = createMiddleware.args[0];
+        assert.equal(middlewareArgs[0], buildStats);
+        assert.equal(middlewareArgs[1], 'http://127.0.0.1:3001');
+        assert.equal(middlewareArgs[2], routes);
       });
     });
 
