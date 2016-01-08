@@ -86,6 +86,7 @@ gulp.task('serve-assets', function serveAssets() {
   var binding = settings.servers.assets;
   assetServer.listen(binding.port, binding.host, function(err) {
     if (err) { throw new gutil.PluginError('serve-assets', err); }
+    gutil.log('Asset server available at ' + binding.host + ':' + binding.port);
   });
 });
 
