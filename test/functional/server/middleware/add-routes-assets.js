@@ -105,7 +105,7 @@ describe('chiton/server/middleware/add-route-assets', function() {
           .end(done);
       });
 
-      it('includes source files and source maps for each asset type', function(done) {
+      it('includes only source files for each asset type', function(done) {
         var files = [
           'testjs',
           'test.js',
@@ -119,14 +119,8 @@ describe('chiton/server/middleware/add-route-assets', function() {
         request(app).get('/has-assets')
           .expect({
             assets: {
-              javascripts: [
-                'http://example.com/test.js',
-                'http://example.com/test.js.map'
-              ],
-              stylesheets: [
-                'http://example.com/test.css',
-                'http://example.com/test.css.map'
-              ]
+              javascripts: ['http://example.com/test.js'],
+              stylesheets: ['http://example.com/test.css']
             }
           })
           .end(done);

@@ -7,8 +7,8 @@ var urls = require('chiton/core/urls');
 
 // A map between named asset groups and their file extensions
 var ASSET_GROUPS = {
-  javascripts: ['.js', '.js.map'],
-  stylesheets: ['.css', '.css.map']
+  javascripts: ['.js'],
+  stylesheets: ['.css']
 };
 
 /**
