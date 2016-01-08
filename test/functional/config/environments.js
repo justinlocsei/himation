@@ -12,6 +12,13 @@ describe('config/environments', function() {
       assert.isObject(settings);
     });
 
+    it('defines default settings when passed a falsy value', function() {
+      [undefined, null, ''].forEach(function(value) {
+        var settings = environments.load(value);
+        assert.isObject(settings);
+      });
+    });
+
     it('loads settings for a known environment', function() {
       var settings = environments.load('development');
       assert.isObject(settings);
