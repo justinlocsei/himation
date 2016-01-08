@@ -68,7 +68,7 @@ function routesToGuids(routes) {
 function pathToRoute(routes, path) {
   function resolveRoute(subroutes, subpath) {
     var matches = subroutes.filter(function(route) {
-      var match = new RegExp('^' + route.path + '/?', 'i');
+      var match = new RegExp('^' + _.escapeRegExp(route.path) + '/?', 'i');
       return match.test(subpath);
     });
 
