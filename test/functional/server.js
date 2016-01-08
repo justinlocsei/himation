@@ -19,11 +19,11 @@ describe('Server', function() {
   var sandbox = sinon.sandbox.create();
 
   var loadStats;
-  var buildStats = factories.buildStats();
+  var buildManifest = factories.buildManifest();
 
   beforeEach(function() {
     loadStats = sandbox.stub(webpackBuild, 'loadStats');
-    loadStats.returns(buildStats);
+    loadStats.returns(buildManifest);
   });
 
   afterEach(function() {
@@ -84,7 +84,7 @@ describe('Server', function() {
 
         assert.isTrue(createMiddleware.called);
         var middlewareArgs = createMiddleware.args[0];
-        assert.equal(middlewareArgs[0], buildStats);
+        assert.equal(middlewareArgs[0], buildManifest);
         assert.equal(middlewareArgs[1], 'http://127.0.0.1:3001');
         assert.equal(middlewareArgs[2], routes);
       });

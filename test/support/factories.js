@@ -1,7 +1,7 @@
 'use strict';
 
 var factories = {
-  buildStats: 'build-stats',
+  buildManifest: 'build-manifest',
   settings: 'settings'
 };
 

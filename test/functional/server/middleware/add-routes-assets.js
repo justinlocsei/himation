@@ -11,8 +11,8 @@ var routing = require('chiton/core/routing');
 
 describe('chiton/server/middleware/add-route-assets', function() {
 
-  function buildStats() {
-    return factories.buildStats();
+  function buildManifest() {
+    return factories.buildManifest();
   }
 
   function makeRoutes() {
@@ -37,14 +37,14 @@ describe('chiton/server/middleware/add-route-assets', function() {
   describe('.create', function() {
 
     it('creates an Express middleware function', function() {
-      var middleware = addRouteAssets.create(buildStats(), 'http://example.com', makeRoutes());
+      var middleware = addRouteAssets.create(buildManifest(), 'http://example.com', makeRoutes());
       assert.isFunction(middleware);
       assert.equal(middleware.length, 3);
     });
 
     it('adds a response local defining assets', function(done) {
       var app = express();
-      app.use(addRouteAssets.create(buildStats(), 'http://example.com', makeRoutes()));
+      app.use(addRouteAssets.create(buildManifest(), 'http://example.com', makeRoutes()));
       app.get('/has-assets', (req, res) => res.json(res.locals));
 
       request(app).get('/has-assets')
@@ -60,9 +60,9 @@ describe('chiton/server/middleware/add-route-assets', function() {
     describe('asset matching', function() {
 
       function makeApp(assets, host, assetUrl) {
-        var stats = buildStats();
-        stats.assets['has-assets'] = assets;
-        stats.url = assetUrl || '/';
+        var manifest = buildManifest();
+        manifest.assets['has-assets'] = assets;
+        manifest.url = assetUrl || '/';
 
         var routes = makeRoutes();
         var pathToRoute = sandbox.stub(routing, 'pathToRoute');
@@ -70,7 +70,7 @@ describe('chiton/server/middleware/add-route-assets', function() {
         pathToRoute.withArgs(routes, '/lacks-assets').returns('lacks-assets');
 
         var app = express();
-        app.use(addRouteAssets.create(stats, host, routes));
+        app.use(addRouteAssets.create(manifest, host, routes));
 
         app.get('/has-assets', (req, res) => res.json(res.locals));
         app.get('/lacks-assets', (req, res) => res.json(res.locals));
@@ -78,7 +78,7 @@ describe('chiton/server/middleware/add-route-assets', function() {
         return app;
       }
 
-      it('adds assets when a path maps to a route mentioned in the build-stats asset list', function(done) {
+      it('adds assets when a path maps to a route mentioned in the build-manifest asset list', function(done) {
         var app = makeApp(['test.js', 'test.css'], 'http://example.com');
 
         request(app).get('/has-assets')
@@ -91,7 +91,7 @@ describe('chiton/server/middleware/add-route-assets', function() {
           .end(done);
       });
 
-      it('uses empty asset lists when a path maps to a route not mentioned in the build stats', function(done) {
+      it('uses empty asset lists when a path maps to a route not mentioned in the build manifest', function(done) {
         var app = makeApp(['test.js', 'test.css'], 'http://example.com');
 
         request(app).get('/lacks-assets')
@@ -145,7 +145,7 @@ describe('chiton/server/middleware/add-route-assets', function() {
           .end(done);
       });
 
-      it('respects non-root paths to the assets in the build stats', function(done) {
+      it('respects non-root paths to the assets in the build manifest', function(done) {
         var app = makeApp(['test.js', 'test.css'], 'http://example.com', '/assets');
 
         request(app).get('/has-assets')

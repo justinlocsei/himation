@@ -199,12 +199,12 @@ describe('config/webpack/configs', function() {
         assert.match(extractor.filename, /\.css$/);
       });
 
-      it('exports build stats to a JSON file', function() {
+      it('exports a build manifest to a JSON file', function() {
         var config = makeConfig(settings.base);
-        var stats = namedPlugin(config, 'BuildStatsPlugin');
+        var manifest = namedPlugin(config, 'BuildManifestPlugin');
 
-        assert.isDefined(stats);
-        assert.match(stats.statsFile, /\.json$/);
+        assert.isDefined(manifest);
+        assert.match(manifest.manifestFile, /\.json$/);
       });
 
       it('aborts when the build has errors', function() {

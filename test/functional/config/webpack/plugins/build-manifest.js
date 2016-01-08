@@ -6,26 +6,26 @@ var path = require('path');
 var tmp = require('tmp');
 var webpack = require('webpack');
 
-var BuildStatsPlugin = require('chiton/config/webpack/plugins/build-stats');
+var BuildManifestPlugin = require('chiton/config/webpack/plugins/build-manifest');
 
-describe('config/webpack/plugins/build-stats', function() {
+describe('config/webpack/plugins/build-manifest', function() {
 
-  describe('BuildStatsPlugin', function() {
+  describe('BuildManifestPlugin', function() {
 
-    describe('.statsFile', function() {
+    describe('.manifestFile', function() {
 
       it('points to a file with the build name in the given directory', function() {
-        var file = BuildStatsPlugin.statsFile('id', '/build');
+        var file = BuildManifestPlugin.manifestFile('id', '/build');
         assert.equal(file, '/build/id.json');
       });
 
     });
 
-    describe('#statsFile', function() {
+    describe('#manifestFile', function() {
 
       it('points to a JSON file in the given directory', function() {
-        var plugin = new BuildStatsPlugin('id', '/build');
-        assert.equal(plugin.statsFile, '/build/id.json');
+        var plugin = new BuildManifestPlugin('id', '/build');
+        assert.equal(plugin.manifestFile, '/build/id.json');
       });
 
     });
@@ -39,29 +39,29 @@ describe('config/webpack/plugins/build-stats', function() {
             publicPath: '/'
           },
           plugins: [
-            new BuildStatsPlugin(id, directory)
+            new BuildManifestPlugin(id, directory)
           ]
         };
       }
 
-      it('saves the build stats to a file when the build completes', function(done) {
+      it('saves the build manifest to a file when the build completes', function(done) {
         var directory = tmp.dirSync().name;
-        var stats = path.join(directory, 'build.json');
+        var manifest = path.join(directory, 'build.json');
 
-        assert.fileDoesNotExist(stats);
+        assert.fileDoesNotExist(manifest);
 
         webpack(configure(directory, 'build'), function() {
-          assert.fileExists(stats);
+          assert.fileExists(manifest);
           done();
         });
       });
 
       it('stores simplified build data', function(done) {
         var directory = tmp.dirSync().name;
-        var stats = path.join(directory, 'build.json');
+        var manifest = path.join(directory, 'build.json');
 
         webpack(configure(directory, 'build'), function() {
-          var output = JSON.parse(fs.readFileSync(stats));
+          var output = JSON.parse(fs.readFileSync(manifest));
 
           assert.isObject(output.assets);
           assert.isObject(output.entries);
@@ -94,16 +94,16 @@ describe('config/webpack/plugins/build-stats', function() {
               publicPath: '/assets/'
             },
             plugins: (plugins || []).concat([
-              new BuildStatsPlugin(id, directory)
+              new BuildManifestPlugin(id, directory)
             ])
           };
         }
 
         function checkOutput(directory, filename, callback, plugins) {
-          var stats = path.join(directory, 'build.json');
+          var manifest = path.join(directory, 'build.json');
 
           webpack(configureBuild(directory, 'build', filename, plugins), function() {
-            var output = JSON.parse(fs.readFileSync(stats));
+            var output = JSON.parse(fs.readFileSync(manifest));
             callback(output);
           });
         }
@@ -225,7 +225,7 @@ describe('config/webpack/plugins/build-stats', function() {
 
     });
 
-    describe('#load', function() {
+    describe('#loadManifest', function() {
 
       function configure(directory, id, plugins) {
         return {
@@ -237,9 +237,9 @@ describe('config/webpack/plugins/build-stats', function() {
         };
       }
 
-      it('loads the stats file', function(done) {
+      it('loads the manifest file', function(done) {
         var directory = tmp.dirSync().name;
-        var plugin = new BuildStatsPlugin('build', directory);
+        var plugin = new BuildManifestPlugin('build', directory);
         var config = configure(directory, 'build', [plugin]);
 
         webpack(config, function() {
@@ -250,9 +250,9 @@ describe('config/webpack/plugins/build-stats', function() {
         });
       });
 
-      it('throws an error when the stats file does not exist', function() {
+      it('throws an error when the manifest file does not exist', function() {
         var directory = tmp.dirSync().name;
-        var plugin = new BuildStatsPlugin('build', directory);
+        var plugin = new BuildManifestPlugin('build', directory);
 
         assert.throws(function() { plugin.loadStats(); }, 'ENOENT');
       });

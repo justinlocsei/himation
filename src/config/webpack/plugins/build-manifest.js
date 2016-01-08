@@ -8,7 +8,7 @@ var path = require('path');
 /**
  * Stats on a Chiton webpack build
  *
- * @typedef {object} ChitonBuildStats
+ * @typedef {object} ChitonBuildManifest
  * @property {object} assets A mapping of chunk names to relative asset paths
  * @property {object} entries A mapping of entry point names to output paths
  * @property {string} root The directory containing the assets
@@ -65,14 +65,14 @@ function entryPointDependencies(entry, config, stats) {
 }
 
 /**
- * Transform webpack build stats into Chiton stats
+ * Transform webpack build stats into a build manifest
  *
  * @param {object} config The webpack configuration file that produced the build
- * @param {webpack.Stats} stats A webpack build-stats object
- * @returns {ChitonBuildStats} Statistics on a Chiton build
+ * @param {webpack.Stats} stats A webpack build-manifest object
+ * @returns {ChitonBuildManifest} The final build manifest
  * @private
  */
-function webpackStatsToChitonStats(config, stats) {
+function webpackStatsToManifest(config, stats) {
   var source = stats.toJson({
     reasons: false,
     timings: false,
@@ -106,42 +106,42 @@ function webpackStatsToChitonStats(config, stats) {
  * @param {string} id The ID of the build
  * @param {string} directory The directory in which to save the file
  */
-function BuildStatsPlugin(id, directory) {
-  this.statsFile = BuildStatsPlugin.statsFile(id, directory);
+function BuildManifestPlugin(id, directory) {
+  this.manifestFile = BuildManifestPlugin.manifestFile(id, directory);
 }
 
 /**
- * Produce the path to the stats file that would be used for a named build
+ * Produce the path to the file used for the build
  *
  * @param {string} id The ID of the build
  * @param {string} directory The directory in which to save the file
- * @returns {[type]}
+ * @returns {string} The path to the build manifest
  */
-BuildStatsPlugin.statsFile = function(id, directory) {
+BuildManifestPlugin.manifestFile = function(id, directory) {
   return path.join(directory, id + '.json');
 };
 
 /**
- * Save the stats to a file when the build process completes
+ * Save the manifest to a file when the build process completes
  *
  * @param {webpack.Compiler} compiler The webpack compiler
  */
-BuildStatsPlugin.prototype.apply = function(compiler) {
-  var statsFile = this.statsFile;
+BuildManifestPlugin.prototype.apply = function(compiler) {
+  var manifestFile = this.manifestFile;
 
   compiler.plugin('done', function(stats) {
-    var details = webpackStatsToChitonStats(compiler.options, stats);
-    fs.writeFileSync(statsFile, JSON.stringify(details, null, '  '));
+    var details = webpackStatsToManifest(compiler.options, stats);
+    fs.writeFileSync(manifestFile, JSON.stringify(details, null, '  '));
   });
 };
 
 /**
  * Load the build statistics from the plugin's file
  *
- * @returns {ChitonBuildStats} Information on the build
+ * @returns {ChitonBuildManifest} Information on the build
  */
-BuildStatsPlugin.prototype.loadStats = function() {
-  return JSON.parse(fs.readFileSync(this.statsFile));
+BuildManifestPlugin.prototype.loadStats = function() {
+  return JSON.parse(fs.readFileSync(this.manifestFile));
 };
 
-module.exports = BuildStatsPlugin;
+module.exports = BuildManifestPlugin;

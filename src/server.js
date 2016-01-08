@@ -119,7 +119,7 @@ Server.prototype._getApplication = function() {
  */
 Server.prototype._createAssetMiddleware = function() {
   var uiBuild = builds.ui(this.settings);
-  var buildStats = build.loadStats(uiBuild);
+  var buildManifest = build.loadStats(uiBuild);
 
   var uiServer = this.settings.servers.assets;
   var assetHost = urls.expandHostname(uiServer.host, {
@@ -127,7 +127,7 @@ Server.prototype._createAssetMiddleware = function() {
     protocol: uiServer.protocol
   });
 
-  return addRouteAssets.create(buildStats, assetHost, routes);
+  return addRouteAssets.create(buildManifest, assetHost, routes);
 };
 
 module.exports = Server;

@@ -4,12 +4,12 @@ var extend = require('extend');
 var tmp = require('tmp');
 
 /**
- * Produce a valid build-stats object
+ * Produce a valid build-manifest object
  *
  * @param {object} extensions Data that will be applied to the defaults
- * @returns {ChitonBuildStats}
+ * @returns {ChitonBuildManifest}
  */
-function buildStats(extensions) {
+function buildManifest(extensions) {
   var directory = tmp.dirSync().name;
 
   var defaults = {
@@ -22,4 +22,4 @@ function buildStats(extensions) {
   return extend(true, {}, defaults, extensions || {});
 }
 
-module.exports = buildStats;
+module.exports = buildManifest;

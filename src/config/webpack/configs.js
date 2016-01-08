@@ -11,7 +11,7 @@ var webpack = require('webpack');
 var paths = require('chiton/core/paths');
 var routes = require('chiton/config/routes');
 var sources = require('chiton/config/webpack/sources');
-var BuildStatsPlugin = require('chiton/config/webpack/plugins/build-stats');
+var BuildManifestPlugin = require('chiton/config/webpack/plugins/build-manifest');
 
 // The IDs of each build
 var BUILD_IDS = {
@@ -148,7 +148,7 @@ function globalPlugins(label, optimize) {
     }));
   }
 
-  plugins.push(new BuildStatsPlugin(label, paths.build.root));
+  plugins.push(new BuildManifestPlugin(label, paths.build.root));
   plugins.push(new webpack.NoErrorsPlugin());
 
   return plugins;
