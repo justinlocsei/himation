@@ -21,7 +21,7 @@ var ASSET_GROUPS = {
  * @param {ChitonRoute[]} routes The server's route definitions
  * @returns {function} The asset-injector middleware
  */
-function addRouteAssets(stats, host, routes) {
+function create(stats, host, routes) {
   return function(req, res, next) {
     var route = routing.pathToRoute(routes, req.path);
     if (!route) { return next(); }
@@ -38,4 +38,6 @@ function addRouteAssets(stats, host, routes) {
   };
 }
 
-module.exports = addRouteAssets;
+module.exports = {
+  create: create
+};
