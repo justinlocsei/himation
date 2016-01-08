@@ -19,7 +19,7 @@ describe('Server', function() {
   var sandbox = sinon.sandbox.create();
 
   var loadStats;
-  var buildStats = {};
+  var buildStats = factories.buildStats();
 
   beforeEach(function() {
     loadStats = sandbox.stub(webpackBuild, 'loadStats');
