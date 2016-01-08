@@ -1,10 +1,10 @@
 'use strict';
 
-var names = [
-  'settings'
-];
+var factories = {
+  settings: 'settings'
+};
 
-module.exports = names.reduce(function(modules, name) {
-  modules[name] = require('chiton-test/support/factories/' + name);
+module.exports = Object.keys(factories).reduce(function(modules, name) {
+  modules[name] = require('chiton-test/support/factories/' + factories[name]);
   return modules;
 }, {});
