@@ -11,7 +11,7 @@ var WebpackProgressPlugin = require('webpack/lib/ProgressPlugin');
 var environments = require('chiton/config/environments');
 var files = require('chiton/core/files');
 var paths = require('chiton/core/paths');
-var serverManager = require('chiton/server/manager');
+var Server = require('chiton/server');
 var webpackConfigs = require('chiton/config/webpack/configs');
 
 var environment = process.env.CHITON_ENV;
@@ -67,12 +67,16 @@ gulp.task('lint-scss', function lintScss() {
 
 // Run the application server
 gulp.task('serve-app', function serveApplication() {
-  serverManager.start({
-    environment: environment,
-    onBind: function(address) {
-      gutil.log('Application server available at ' + address.address + ':' + address.port);
-    }
-  });
+  var server = new Server(settings);
+
+  server.start()
+    .then(function(app) {
+      var binding = app.address();
+      gutil.log('Application server available at ' + binding.address + ':' + binding.port);
+    })
+    .catch(function(err) {
+      throw new gutil.PluginError('serve-app', err);
+    });
 });
 
 // Run the webpack development server to serve assets

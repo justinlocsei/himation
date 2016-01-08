@@ -1,7 +1,9 @@
 'use strict';
 
-var server = require('chiton/server/manager');
+var environments = require('chiton/config/environments');
+var Server = require('chiton/server');
 
-server.start({
-  environment: process.env.CHITON_ENV
-});
+var settings = environments.load(process.env.CHITON_ENV);
+
+var server = new Server(settings);
+server.start();
