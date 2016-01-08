@@ -4,12 +4,13 @@ var http = require('http');
 var https = require('https');
 var sinon = require('sinon');
 
+var factories = require('chiton-test/support/factories');
+
 var application = require('chiton/server/application');
 var addRouteAssets = require('chiton/server/middleware/add-route-assets');
 var paths = require('chiton/core/paths');
 var routes = require('chiton/config/routes');
 var Server = require('chiton/server');
-var settings = require('chiton/config/settings');
 var webpackBuild = require('chiton/config/webpack/build');
 var webpackConfigs = require('chiton/config/webpack/configs');
 
@@ -30,7 +31,7 @@ describe('Server', function() {
   });
 
   function options() {
-    return settings.customize({
+    return factories.settings({
       servers: {
         app: {
           host: '127.0.0.1',

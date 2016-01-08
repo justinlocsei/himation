@@ -4,16 +4,17 @@ var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 var glob = require('glob');
 var path = require('path');
 
+var factories = require('chiton-test/support/factories');
+
 var configs = require('chiton/config/webpack/configs');
-var makeSettings = require('chiton/config/settings').customize;
 var paths = require('chiton/core/paths');
 
 describe('config/webpack/configs', function() {
 
   var settings = {
-    base: makeSettings({assets: {debug: false, optimize: false}}),
-    debug: makeSettings({assets: {debug: true}}),
-    optimized: makeSettings({assets: {optimize: true}})
+    base: factories.settings({assets: {debug: false, optimize: false}}),
+    debug: factories.settings({assets: {debug: true}}),
+    optimized: factories.settings({assets: {optimize: true}})
   };
 
   function baselineAssertions(makeConfig) {
