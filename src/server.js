@@ -42,17 +42,23 @@ Server.prototype.start = function() {
   var address = this.settings.servers.app;
 
   return new Promise(function(resolve, reject) {
-    app.on('error', function(err) {
-      app.removeAllListeners();
+    function handleError(err) {
       that._isBound = false;
       reject(err);
-    });
+    }
 
-    app.on('listening', function() {
-      app.removeAllListeners();
+    function handleListening() {
       that._isBound = true;
       resolve(app);
+    }
+
+    app.on('close', function() {
+      app.removeListener('error', handleError);
+      app.removeListener('listening', handleListening);
     });
+
+    app.on('error', handleError);
+    app.on('listening', handleListening);
 
     app.listen(address.port, address.host);
   });
@@ -76,7 +82,6 @@ Server.prototype.stop = function() {
   return new Promise(function(resolve, reject) {
     app.close(function(err) {
       that._isBound = false;
-      app.removeAllListeners();
 
       if (err) {
         reject(err);
