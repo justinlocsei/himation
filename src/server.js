@@ -119,7 +119,7 @@ Server.prototype._getApplication = function() {
  */
 Server.prototype._createAssetMiddleware = function() {
   var uiBuild = builds.ui(this.settings);
-  var buildManifest = build.loadStats(uiBuild);
+  var buildManifest = build.loadManifest(uiBuild);
 
   var uiServer = this.settings.servers.assets;
   var assetHost = urls.expandHostname(uiServer.host, {

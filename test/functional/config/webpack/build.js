@@ -23,7 +23,7 @@ describe('config/webpack/build', function() {
     };
   }
 
-  describe('.loadStats', function() {
+  describe('.loadManifest', function() {
 
     afterEach(function() {
       sandbox.restore();
@@ -32,35 +32,35 @@ describe('config/webpack/build', function() {
     it('returns an object describing the webpack build when the build-manifest plugin is used', function() {
       var plugin = new BuildManifestPlugin('build', '/output');
 
-      var loader = sandbox.stub(plugin, 'loadStats');
+      var loader = sandbox.stub(plugin, 'loadManifest');
       loader.returns({});
 
       var config = configure();
       config.plugins = [plugin];
 
-      var manifest = build.loadStats(config);
+      var manifest = build.loadManifest(config);
 
       assert.isTrue(loader.called);
       assert.isObject(manifest);
     });
 
-    it('throws an error if the configuration does not export build statistics', function() {
+    it('throws an error if the configuration does not export a build manifest', function() {
       var config = configure();
       config.plugins = [];
 
-      assert.throws(function() { build.loadStats(config); }, errors.ConfigurationError);
+      assert.throws(function() { build.loadManifest(config); }, errors.ConfigurationError);
     });
 
-    it('throws an error if the build statistics cannot be loaded', function() {
+    it('throws an error if the build manifest cannot be loaded', function() {
       var plugin = new BuildManifestPlugin('build', '/output');
 
-      var loader = sandbox.stub(plugin, 'loadStats');
+      var loader = sandbox.stub(plugin, 'loadManifest');
       loader.throws();
 
       var config = configure();
       config.plugins = [plugin];
 
-      assert.throws(function() { build.loadStats(config); }, errors.BuildError);
+      assert.throws(function() { build.loadManifest(config); }, errors.BuildError);
       assert.isTrue(loader.called);
     });
 

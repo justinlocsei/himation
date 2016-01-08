@@ -18,12 +18,12 @@ describe('Server', function() {
 
   var sandbox = sinon.sandbox.create();
 
-  var loadStats;
+  var loadManifest;
   var buildManifest = factories.buildManifest();
 
   beforeEach(function() {
-    loadStats = sandbox.stub(webpackBuild, 'loadStats');
-    loadStats.returns(buildManifest);
+    loadManifest = sandbox.stub(webpackBuild, 'loadManifest');
+    loadManifest.returns(buildManifest);
   });
 
   afterEach(function() {
@@ -79,8 +79,8 @@ describe('Server', function() {
         assert.isTrue(uiBuild.called);
         assert.equal(uiBuild.args[0][0].servers.assets.port, 3001);
 
-        assert.isTrue(loadStats.called);
-        assert.equal(loadStats.args[0][0].target, 'web');
+        assert.isTrue(loadManifest.called);
+        assert.equal(loadManifest.args[0][0].target, 'web');
 
         assert.isTrue(createMiddleware.called);
         var middlewareArgs = createMiddleware.args[0];

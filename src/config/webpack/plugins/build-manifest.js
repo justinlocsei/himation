@@ -136,11 +136,11 @@ BuildManifestPlugin.prototype.apply = function(compiler) {
 };
 
 /**
- * Load the build statistics from the plugin's file
+ * Load the manifest from the plugin's file
  *
  * @returns {ChitonBuildManifest} Information on the build
  */
-BuildManifestPlugin.prototype.loadStats = function() {
+BuildManifestPlugin.prototype.loadManifest = function() {
   return JSON.parse(fs.readFileSync(this.manifestFile));
 };
 

@@ -243,7 +243,7 @@ describe('config/webpack/plugins/build-manifest', function() {
         var config = configure(directory, 'build', [plugin]);
 
         webpack(config, function() {
-          var output = plugin.loadStats();
+          var output = plugin.loadManifest();
           assert.equal(output.root, directory);
 
           done();
@@ -254,7 +254,7 @@ describe('config/webpack/plugins/build-manifest', function() {
         var directory = tmp.dirSync().name;
         var plugin = new BuildManifestPlugin('build', directory);
 
-        assert.throws(function() { plugin.loadStats(); }, 'ENOENT');
+        assert.throws(function() { plugin.loadManifest(); }, 'ENOENT');
       });
 
     });
