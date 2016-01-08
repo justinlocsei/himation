@@ -16,7 +16,7 @@ describe('config/webpack/sources', function() {
 
       assert.deepEqual(commons[0], {
         chunks: ['test.one', 'test.two'],
-        filename: 'commons--test--[hash].js',
+        filename: 'commons.test-[hash].js',
         name: 'commons.test'
       });
     });
@@ -40,25 +40,25 @@ describe('config/webpack/sources', function() {
           'one.three.index', 'one.three.one',
           'one.four.index', 'one.four.one.index', 'one.four.one.two'
         ],
-        filename: 'commons--one--[hash].js',
+        filename: 'commons.one-[hash].js',
         name: 'commons.one'
       });
 
       assert.deepEqual(commons[1], {
         chunks: ['one.three.index', 'one.three.one'],
-        filename: 'commons--one--three--[hash].js',
+        filename: 'commons.one.three-[hash].js',
         name: 'commons.one.three'
       });
 
       assert.deepEqual(commons[2], {
         chunks: ['one.four.index', 'one.four.one.index', 'one.four.one.two'],
-        filename: 'commons--one--four--[hash].js',
+        filename: 'commons.one.four-[hash].js',
         name: 'commons.one.four'
       });
 
       assert.deepEqual(commons[3], {
         chunks: ['one.four.one.index', 'one.four.one.two'],
-        filename: 'commons--one--four--one--[hash].js',
+        filename: 'commons.one.four.one-[hash].js',
         name: 'commons.one.four.one'
       });
     });

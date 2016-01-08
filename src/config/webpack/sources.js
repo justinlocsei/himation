@@ -35,7 +35,7 @@ function entryPointsToCommonsChunks(points) {
         var nameParts = ['commons'].concat(namespace);
         result.push({
           chunks: matches,
-          filename: nameParts.concat(['[hash].js']).join('--'),
+          filename: nameParts.join('.') + '-[hash].js',
           name: nameParts.join('.')
         });
       }
