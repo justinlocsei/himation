@@ -1,12 +1,14 @@
 'use strict';
 
+var _ = require('lodash');
+
 var routing = require('chiton/core/routing');
 var urls = require('chiton/core/urls');
 
 // A map between named asset groups and their file extensions
 var ASSET_GROUPS = {
-  javascripts: 'js',
-  stylesheets: 'css'
+  javascripts: ['.js', '.js.map'],
+  stylesheets: ['.css', '.css.map']
 };
 
 /**
@@ -27,9 +29,12 @@ function create(stats, host, routes) {
     if (!route) { return next(); }
 
     res.locals.assets = Object.keys(ASSET_GROUPS).reduce(function(groups, group) {
-      var extensionMatcher = new RegExp('.' + ASSET_GROUPS[group] + '$');
+      var matches = ASSET_GROUPS[group].map(extension => _.escapeRegExp(extension) + '$');
+      var extensionMatcher = new RegExp(matches.join('|'));
+
       var assets = (stats.assets[route] || []).filter(file => extensionMatcher.test(file));
-      groups[group] = assets.map(asset => urls.relativeToAbsolute(asset, host));
+      var paths = assets.map(asset => urls.joinPaths([stats.url, asset]));
+      groups[group] = paths.map(path => urls.relativeToAbsolute(path, host));
 
       return groups;
     }, {});
