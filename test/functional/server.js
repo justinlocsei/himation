@@ -10,6 +10,7 @@ var application = require('chiton/server/application');
 var addRouteAssets = require('chiton/server/middleware/add-route-assets');
 var paths = require('chiton/core/paths');
 var routes = require('chiton/config/routes');
+var router = require('chiton/server/router');
 var Server = require('chiton/server');
 var webpackBuild = require('chiton/config/webpack/build');
 var webpackConfigs = require('chiton/config/webpack/configs');
@@ -87,6 +88,14 @@ describe('Server', function() {
         assert.equal(middlewareArgs[0], buildManifest);
         assert.equal(middlewareArgs[1], 'http://127.0.0.1:3001');
         assert.equal(middlewareArgs[2], routes);
+      });
+    });
+
+    it('creates a router for the application', function() {
+      var create = sandbox.spy(router, 'create');
+
+      return server.start().then(function() {
+        assert.isTrue(create.called);
       });
     });
 

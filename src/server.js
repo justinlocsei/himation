@@ -9,6 +9,7 @@ var application = require('chiton/server/application');
 var build = require('chiton/config/webpack/build');
 var builds = require('chiton/config/webpack/configs');
 var paths = require('chiton/core/paths');
+var router = require('chiton/server/router');
 var routes = require('chiton/config/routes');
 var urls = require('chiton/core/urls');
 
@@ -110,6 +111,7 @@ Server.prototype._getApplication = function() {
   });
 
   app.use(this._createAssetMiddleware());
+  app.use('/', router.create());
 
   var factory = this.settings.servers.app.protocol === 'https' ? https : http;
   this._app = factory.createServer(app);
