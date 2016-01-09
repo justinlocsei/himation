@@ -95,8 +95,8 @@ function pathToRoute(routes, path) {
 
     var remainder = subpath.substring(match.path.length).replace(LEADING_SLASH_MATCH, '');
     if (remainder) {
-      var subnamespaces = pathToRoute(match.paths || [], remainder);
-      namespaces = subnamespaces ? namespaces.concat(subnamespaces) : [];
+      var subnamespaces = resolveRoute(match.paths || [], remainder);
+      namespaces = subnamespaces.length ? namespaces.concat(subnamespaces) : [];
     } else if (match.paths) {
       namespaces.push(INDEX_ROUTE);
     }
