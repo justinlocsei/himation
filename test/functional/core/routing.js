@@ -12,9 +12,11 @@ describe('core/routing', function() {
         path: '/',
         paths: [
           {path: 'about', name: 'about'},
-          {path: 'about-us', name: 'aboutUs'},
+          {path: 'about-us', name: 'about-us'},
+          {path: 'log-out', name: 'log-out', method: 'post'},
           {path: 'admin', name: 'admin', paths: [
-            {path: 'account', name: 'account'}
+            {path: 'account', name: 'view-account', method: 'get'},
+            {path: 'account', name: 'update-account', method: 'put'}
           ]}
         ]
       },
@@ -86,7 +88,7 @@ describe('core/routing', function() {
     });
 
     it('uses the full URL for matching', function() {
-      assert.equal(routing.pathToRoute(routes(), '/about-us'), 'root.aboutUs');
+      assert.equal(routing.pathToRoute(routes(), '/about-us'), 'root.about-us');
     });
 
     it('resolves a nested index URL to a route name', function() {
@@ -94,7 +96,7 @@ describe('core/routing', function() {
     });
 
     it('resolves a nested URL to a route name', function() {
-      assert.equal(routing.pathToRoute(routes(), '/admin/account'), 'root.admin.account');
+      assert.equal(routing.pathToRoute(routes(), '/admin/account'), 'root.admin.view-account');
     });
 
     it('resolves an index URL not mounted at the root URL', function() {
@@ -104,7 +106,21 @@ describe('core/routing', function() {
     it('ignores trailing slashes', function() {
       assert.equal(routing.pathToRoute(routes(), '/about/'), 'root.about');
       assert.equal(routing.pathToRoute(routes(), '/admin/'), 'root.admin.index');
-      assert.equal(routing.pathToRoute(routes(), '/admin/account/'), 'root.admin.account');
+      assert.equal(routing.pathToRoute(routes(), '/admin/account/'), 'root.admin.view-account');
+    });
+
+    it('takes the HTTP method into account when a route defines one', function() {
+      assert.isNull(routing.pathToRoute(routes(), '/log-out', 'get'));
+      assert.equal(routing.pathToRoute(routes(), '/log-out', 'post'), 'root.log-out');
+    });
+
+    it('uses the method to disambiguate otherwise identical paths', function() {
+      assert.equal(routing.pathToRoute(routes(), '/admin/account', 'get'), 'root.admin.view-account');
+      assert.equal(routing.pathToRoute(routes(), '/admin/account', 'put'), 'root.admin.update-account');
+    });
+
+    it('ignores case when matching on methods', function() {
+      assert.equal(routing.pathToRoute(routes(), '/admin/account', 'PUT'), 'root.admin.update-account');
     });
 
     it('returns null when a URL does not match a route', function() {
@@ -143,7 +159,7 @@ describe('core/routing', function() {
     });
 
     it('returns the URL for a nested route', function() {
-      assert.equal(routing.routeToPath(routes(), 'root.admin.account'), '/admin/account');
+      assert.equal(routing.routeToPath(routes(), 'root.admin.view-account'), '/admin/account');
     });
 
     it('returns the URL for an index route not mounted at the root URL', function() {

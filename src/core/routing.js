@@ -12,10 +12,13 @@ var INDEX_ROUTE = 'index';
 
 var LEADING_SLASH_MATCH = new RegExp('^/');
 
+var DEFAULT_METHOD = 'get';
+
 /**
  * A Chiton route definition
  *
  * @typedef {object} ChitonRoute
+ * @property {string} [method] The HTTP method to use for accessing the URL
  * @property {string} name The internal ID for the route
  * @property {string} path The path to the route
  * @property {ChitonRoute[]} paths Child paths within the route's namespace
@@ -61,15 +64,19 @@ function routesToGuids(routes) {
  *
  * @param {ChitonRoute[]} routes A route definition
  * @param {string} path The path component of a URL
+ * @param {string} [method] The request method used to get the path
  * @returns {?ChitonRouteGUID} The GUID of the route
  * @throws {ConfigurationError} If multiple routes match the given path
  * @throws {ConfigurationError} If the matching route lacks a name
  */
-function pathToRoute(routes, path) {
+function pathToRoute(routes, path, method) {
+  var methodMatch = new RegExp('^' + _.escapeRegExp(method || DEFAULT_METHOD) + '$', 'i');
+
   function resolveRoute(subroutes, subpath) {
     var matches = subroutes.filter(function(route) {
-      var match = new RegExp('^' + _.escapeRegExp(route.path) + '/?', 'i');
-      return match.test(subpath);
+      var pathMatch = new RegExp('^' + _.escapeRegExp(route.path) + '/?', 'i');
+      var matchesMethod = route.paths ? true : methodMatch.test(route.method || DEFAULT_METHOD);
+      return pathMatch.test(subpath) && matchesMethod;
     });
 
     if (matches.length > 1) {
