@@ -97,7 +97,7 @@ describe('core/routing', function() {
       assert.equal(routing.pathToRoute(routes(), '/admin/account'), 'root.admin.account');
     });
 
-    it('resolves a index URL not mounted at the root URL', function() {
+    it('resolves an index URL not mounted at the root URL', function() {
       assert.equal(routing.pathToRoute(routes(), '/sub'), 'sub');
     });
 
