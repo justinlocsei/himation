@@ -10,8 +10,6 @@ var GUID_SEPARATOR = '.';
 
 var INDEX_ROUTE = 'index';
 
-var LEADING_SLASH_MATCH = new RegExp('^/');
-
 var DEFAULT_METHOD = 'get';
 
 /**
@@ -102,57 +100,19 @@ function routesToGuids(routes) {
 /**
  * Determine the name of the route described by a path
  *
- * @param {ChitonRouteDefinition[]} routes A route definition
+ * @param {ChitonRoute[]} routes All available routes
  * @param {string} path The path component of a URL
  * @param {string} [method] The request method used to get the path
- * @returns {?ChitonRouteGUID} The GUID of the route
- * @throws {ConfigurationError} If multiple routes match the given path
- * @throws {ConfigurationError} If the matching route lacks a name
+ * @returns {?ChitonRoute} The matching route
  */
 function pathToRoute(routes, path, method) {
-  var methodMatch = new RegExp('^' + _.escapeRegExp(method || DEFAULT_METHOD) + '$', 'i');
+  var basePath = path.replace(/\/+$/, '');
+  var pathMatch = new RegExp('^' + _.escapeRegExp(basePath) + '/?$', 'i');
+  var requestMethod = (method || DEFAULT_METHOD).toLowerCase();
 
-  function resolveRoute(subroutes, subpath) {
-    var matches = subroutes.filter(function(route) {
-      var pathMatch = new RegExp('^' + _.escapeRegExp(route.path) + '/?', 'i');
-      var matchesMethod = route.paths ? true : methodMatch.test(route.method || DEFAULT_METHOD);
-      return pathMatch.test(subpath) && matchesMethod;
-    });
-
-    if (matches.length > 1) {
-      var uniquePaths = _.uniq(_.pluck(matches, 'path'));
-      if (uniquePaths.length !== matches.length) {
-        throw new errors.ConfigurationError('Multiple routes match the path "' + subpath + '"');
-      }
-    } else if (!matches.length) {
-      return [];
-    }
-
-    var match;
-    if (matches.length) {
-      match = _.first(_.sortBy(matches, route => route.path.length * -1));
-    } else {
-      match = matches[0];
-    }
-
-    var namespaces = [match.name];
-    if (!namespaces[0]) {
-      throw new errors.ConfigurationError('No name was given to the route with a path of "' + match.path + '"');
-    }
-
-    var remainder = subpath.substring(match.path.length).replace(LEADING_SLASH_MATCH, '');
-    if (remainder) {
-      var subnamespaces = resolveRoute(match.paths || [], remainder);
-      namespaces = subnamespaces.length ? namespaces.concat(subnamespaces) : [];
-    } else if (match.paths) {
-      namespaces.push(INDEX_ROUTE);
-    }
-
-    return namespaces;
-  }
-
-  var names = resolveRoute(routes, path);
-  return names.length ? namespacesToGuid(names) : null;
+  return _.find(routes, function(route) {
+    return pathMatch.test(route.path) && route.method === requestMethod;
+  }) || null;
 }
 
 /**
