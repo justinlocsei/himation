@@ -20,7 +20,7 @@ var ASSET_GROUPS = {
  *
  * @param {ChitonBuildManifest} manifest The build manifest for the assets
  * @param {string} host The URL at which assets are hosted
- * @param {ChitonRouteDefinition[]} routes The server's route definitions
+ * @param {ChitonRoute[]} routes The server's route definitions
  * @returns {function} The asset-injector middleware
  */
 function create(manifest, host, routes) {

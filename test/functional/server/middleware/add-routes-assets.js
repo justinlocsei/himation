@@ -17,14 +17,8 @@ describe('chiton/server/middleware/add-route-assets', function() {
 
   function makeRoutes() {
     return [
-      {
-        name: 'has-assets',
-        path: '/has-assets'
-      },
-      {
-        name: 'lacks-assets',
-        path: '/lacks-assets'
-      }
+      {guid: 'has-assets', path: '/has-assets', method: 'get'},
+      {guid: 'lacks-assets', path: '/lacks-assets', method: 'get'}
     ];
   }
 
