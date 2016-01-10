@@ -30,7 +30,6 @@ var DEFAULT_METHOD = 'get';
  * @typedef {object} ChitonRoute
  * @property {ChitonRouteGUID} guid The route's GUID
  * @property {string} method The HTTP method to use for accessing the URL
- * @property {string[]} hierarchy The individual component's of the route's GUID
  * @property {string} path The full path to the route
  */
 
@@ -63,7 +62,6 @@ function defineRoutes(routes) {
       var guid = namespacesToGuid(levels);
       resolved.push({
         guid: guid,
-        hierarchy: levels,
         method: (route.method || DEFAULT_METHOD).toLowerCase(),
         path: routeToPath(routes, guid)
       });

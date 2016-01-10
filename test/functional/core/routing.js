@@ -35,7 +35,7 @@ describe('core/routing', function() {
       ]);
 
       assert.deepEqual(result, [
-        {guid: 'root', path: '/', method: 'get', hierarchy: ['root']}
+        {guid: 'root', path: '/', method: 'get'}
       ]);
     });
 
@@ -75,9 +75,9 @@ describe('core/routing', function() {
       ]);
 
       assert.deepEqual(result, [
-        {guid: 'root.index', path: '/', method: 'get', hierarchy: ['root', 'index']},
-        {guid: 'root.one', path: '/one', method: 'get', hierarchy: ['root', 'one']},
-        {guid: 'root.two', path: '/two', method: 'get', hierarchy: ['root', 'two']}
+        {guid: 'root.index', path: '/', method: 'get'},
+        {guid: 'root.one', path: '/one', method: 'get'},
+        {guid: 'root.two', path: '/two', method: 'get'}
       ]);
     });
 
