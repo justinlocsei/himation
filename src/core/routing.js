@@ -6,11 +6,9 @@ var extend = require('extend');
 var errors = require('chiton/core/errors');
 var urls = require('chiton/core/urls');
 
-var GUID_SEPARATOR = '.';
-
-var INDEX_ROUTE = 'index';
-
 var DEFAULT_METHOD = 'get';
+var GUID_SEPARATOR = '.';
+var INDEX_ROUTE = 'index';
 
 /**
  * A Chiton route definition
