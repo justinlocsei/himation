@@ -45,8 +45,13 @@ var INDEX_ROUTE = 'index';
   * @returns {ChitonRoute[]} A flat list of routes
   */
 function defineRoutes(routes) {
+  var conflicts = {};
+
   function resolveRoutes(subroutes, namespace) {
     return subroutes.reduce(function(resolved, route) {
+      if (!route.name) { throw new errors.ConfigurationError('All routes require a name'); }
+      if (!route.path) { throw new errors.ConfigurationError('All routes require a path'); }
+
       var levels = namespace.concat([route.name]);
 
       var children;
@@ -56,11 +61,21 @@ function defineRoutes(routes) {
       }
 
       var guid = namespacesToGuid(levels);
-      resolved.push({
+      var data = {
         guid: guid,
         method: (route.method || DEFAULT_METHOD).toLowerCase(),
         path: routeToPath(routes, guid)
-      });
+      };
+
+      conflicts[data.method] = conflicts[data.method] || {};
+      conflicts[data.method][route.path] = conflicts[data.method][route.path] || 0;
+      conflicts[data.method][route.path]++;
+
+      if (conflicts[data.method][route.path] > 1) {
+        throw new errors.ConfigurationError('Multiple routes are defined that handle ' + data.method.toUpperCase() + ' requests at ' + route.path);
+      }
+
+      resolved.push(data);
 
       return children ? resolved.concat(children) : resolved;
     }, []);

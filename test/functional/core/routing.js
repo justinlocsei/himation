@@ -81,6 +81,23 @@ describe('core/routing', function() {
       ]);
     });
 
+    it('throws an error when multiple routes share a path and method', function() {
+      var routes = [
+        {name: 'first', path: '/', method: 'get'},
+        {name: 'second', path: '/', method: 'get'}
+      ];
+
+      assert.throws(function() { routing.defineRoutes(routes); }, errors.ConfigurationError);
+    });
+
+    it('throws an error when a route lacks a name', function() {
+      assert.throws(function() { routing.defineRoutes([{name: '/'}]); }, errors.ConfigurationError);
+    });
+
+    it('throws an error when a route lacks a path', function() {
+      assert.throws(function() { routing.defineRoutes([{path: '/'}]); }, errors.ConfigurationError);
+    });
+
   });
 
   describe('.routesToGuids', function() {
