@@ -17,11 +17,21 @@ var DEFAULT_METHOD = 'get';
 /**
  * A Chiton route definition
  *
- * @typedef {object} ChitonRoute
+ * @typedef {object} ChitonRouteDefinition
  * @property {string} [method] The HTTP method to use for accessing the URL
  * @property {string} name The internal ID for the route
  * @property {string} path The path to the route
- * @property {ChitonRoute[]} paths Child paths within the route's namespace
+ * @property {ChitonRouteDefinition[]} paths Child paths within the route's namespace
+ */
+
+/**
+ * A Chiton route
+ *
+ * @typedef {object} ChitonRoute
+ * @property {ChitonRouteGUID} guid The route's GUID
+ * @property {string} method The HTTP method to use for accessing the URL
+ * @property {string[]} hierarchy The individual component's of the route's GUID
+ * @property {string} path The full path to the route
  */
 
 /**
@@ -33,10 +43,42 @@ var DEFAULT_METHOD = 'get';
  * @typedef {string} ChitonRouteGUID
  */
 
+ /**
+  * Transform route definitions into routes
+  *
+  * @param {ChitonRouteDefinition[]} routes Route definitions
+  * @returns {ChitonRoute[]} A flat list of routes
+  */
+function defineRoutes(routes) {
+  function resolveRoutes(subroutes, namespace) {
+    return subroutes.reduce(function(resolved, route) {
+      var levels = namespace.concat([route.name]);
+
+      var children;
+      if (route.paths) {
+        children = resolveRoutes(route.paths, levels);
+        levels.push(INDEX_ROUTE);
+      }
+
+      var guid = namespacesToGuid(levels);
+      resolved.push({
+        guid: guid,
+        hierarchy: levels,
+        method: (route.method || DEFAULT_METHOD).toLowerCase(),
+        path: routeToPath(routes, guid)
+      });
+
+      return children ? resolved.concat(children) : resolved;
+    }, []);
+  }
+
+  return resolveRoutes(routes, []);
+}
+
 /**
  * Transform a route definition into a map between GUIDs and namespaces
  *
- * @param {ChitonRoute[]} routes A route definition
+ * @param {ChitonRouteDefinition[]} routes A route definition
  * @returns {object} A map of route GUIDs to their namespace hierarchies
  */
 function routesToGuids(routes) {
@@ -62,7 +104,7 @@ function routesToGuids(routes) {
 /**
  * Determine the name of the route described by a path
  *
- * @param {ChitonRoute[]} routes A route definition
+ * @param {ChitonRouteDefinition[]} routes A route definition
  * @param {string} path The path component of a URL
  * @param {string} [method] The request method used to get the path
  * @returns {?ChitonRouteGUID} The GUID of the route
@@ -118,7 +160,7 @@ function pathToRoute(routes, path, method) {
 /**
  * Produce the path for accessing a named route
  *
- * @param {ChitonRoute[]} routes A route definition
+ * @param {ChitonRouteDefinition[]} routes A route definition
  * @param {ChitonRouteGUID} guid The unique identifier for the route
  * @returns {string} The path for the route
  * @throws {ConfigurationError} If no path for the route was found
@@ -172,6 +214,7 @@ function namespacesToGuid(namespaces) {
 }
 
 module.exports = {
+  defineRoutes: defineRoutes,
   guidToNamespaces: guidToNamespaces,
   namespacesToGuid: namespacesToGuid,
   routesToGuids: routesToGuids,

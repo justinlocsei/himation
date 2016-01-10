@@ -5,7 +5,7 @@ var routing = require('chiton/core/routing');
 
 describe('core/routing', function() {
 
-  function routes() {
+  function definitions() {
     return [
       {
         name: 'root',
@@ -27,9 +27,65 @@ describe('core/routing', function() {
     ];
   }
 
+  describe('.defineRoutes', function() {
+
+    it('converts route definitions into routes', function() {
+      var result = routing.defineRoutes([
+        {name: 'root', path: '/', method: 'get'}
+      ]);
+
+      assert.deepEqual(result, [
+        {guid: 'root', path: '/', method: 'get', hierarchy: ['root']}
+      ]);
+    });
+
+    it('uses GET as the default method', function() {
+      var result = routing.defineRoutes([
+        {name: 'root', path: '/'}
+      ]);
+
+      assert.equal(result.length, 1);
+      assert.equal(result[0].method, 'get');
+    });
+
+    it('respects an explicit HTTP method', function() {
+      var result = routing.defineRoutes([
+        {name: 'root', path: '/', method: 'post'}
+      ]);
+
+      assert.equal(result.length, 1);
+      assert.equal(result[0].method, 'post');
+    });
+
+    it('normalizes the formatting of HTTP methods', function() {
+      var result = routing.defineRoutes([
+        {name: 'root', path: '/', method: 'POST'}
+      ]);
+
+      assert.equal(result.length, 1);
+      assert.equal(result[0].method, 'post');
+    });
+
+    it('flattens the route definition using route GUIDs', function() {
+      var result = routing.defineRoutes([
+        {name: 'root', path: '/', method: 'get', paths: [
+          {name: 'one', path: 'one'},
+          {name: 'two', path: 'two'}
+        ]}
+      ]);
+
+      assert.deepEqual(result, [
+        {guid: 'root.index', path: '/', method: 'get', hierarchy: ['root', 'index']},
+        {guid: 'root.one', path: '/one', method: 'get', hierarchy: ['root', 'one']},
+        {guid: 'root.two', path: '/two', method: 'get', hierarchy: ['root', 'two']}
+      ]);
+    });
+
+  });
+
   describe('.routesToGuids', function() {
 
-    function nested() {
+    function nestedDefinitions() {
       return [
         {
           name: 'one',
@@ -46,12 +102,12 @@ describe('core/routing', function() {
     }
 
     it('creates a flat map of GUIDs', function() {
-      var guids = routing.routesToGuids(nested());
+      var guids = routing.routesToGuids(nestedDefinitions());
       assert.equal(Object.keys(guids).length, 5);
     });
 
     it('generates GUIDs for each route based upon its level', function() {
-      var guids = routing.routesToGuids(nested());
+      var guids = routing.routesToGuids(nestedDefinitions());
 
       assert.deepEqual(guids, {
         'one.index': ['one', 'index'],
@@ -63,8 +119,8 @@ describe('core/routing', function() {
     });
 
     it('can use the GUIDs to look up route URLs', function() {
-      var guids = routing.routesToGuids(nested());
-      var urls = Object.keys(guids).map(route => routing.routeToPath(nested(), route));
+      var guids = routing.routesToGuids(nestedDefinitions());
+      var urls = Object.keys(guids).map(route => routing.routeToPath(nestedDefinitions(), route));
 
       assert.deepEqual(urls.sort(), [
         '/',
@@ -80,64 +136,64 @@ describe('core/routing', function() {
   describe('.pathToRoute', function() {
 
     it('resolves the index URL to a route name', function() {
-      assert.equal(routing.pathToRoute(routes(), '/'), 'root.index');
+      assert.equal(routing.pathToRoute(definitions(), '/'), 'root.index');
     });
 
     it('resolves a URL to a route name', function() {
-      assert.equal(routing.pathToRoute(routes(), '/about'), 'root.about');
+      assert.equal(routing.pathToRoute(definitions(), '/about'), 'root.about');
     });
 
     it('uses the full URL for matching', function() {
-      assert.equal(routing.pathToRoute(routes(), '/about-us'), 'root.about-us');
+      assert.equal(routing.pathToRoute(definitions(), '/about-us'), 'root.about-us');
     });
 
     it('resolves a nested index URL to a route name', function() {
-      assert.equal(routing.pathToRoute(routes(), '/admin'), 'root.admin.index');
+      assert.equal(routing.pathToRoute(definitions(), '/admin'), 'root.admin.index');
     });
 
     it('resolves a nested URL to a route name', function() {
-      assert.equal(routing.pathToRoute(routes(), '/admin/account'), 'root.admin.view-account');
+      assert.equal(routing.pathToRoute(definitions(), '/admin/account'), 'root.admin.view-account');
     });
 
     it('resolves an index URL not mounted at the root URL', function() {
-      assert.equal(routing.pathToRoute(routes(), '/sub'), 'sub');
+      assert.equal(routing.pathToRoute(definitions(), '/sub'), 'sub');
     });
 
     it('ignores trailing slashes', function() {
-      assert.equal(routing.pathToRoute(routes(), '/about/'), 'root.about');
-      assert.equal(routing.pathToRoute(routes(), '/admin/'), 'root.admin.index');
-      assert.equal(routing.pathToRoute(routes(), '/admin/account/'), 'root.admin.view-account');
+      assert.equal(routing.pathToRoute(definitions(), '/about/'), 'root.about');
+      assert.equal(routing.pathToRoute(definitions(), '/admin/'), 'root.admin.index');
+      assert.equal(routing.pathToRoute(definitions(), '/admin/account/'), 'root.admin.view-account');
     });
 
     it('takes the HTTP method into account when a route defines one', function() {
-      assert.isNull(routing.pathToRoute(routes(), '/log-out', 'get'));
-      assert.equal(routing.pathToRoute(routes(), '/log-out', 'post'), 'root.log-out');
+      assert.isNull(routing.pathToRoute(definitions(), '/log-out', 'get'));
+      assert.equal(routing.pathToRoute(definitions(), '/log-out', 'post'), 'root.log-out');
     });
 
     it('uses the method to disambiguate otherwise identical paths', function() {
-      assert.equal(routing.pathToRoute(routes(), '/admin/account', 'get'), 'root.admin.view-account');
-      assert.equal(routing.pathToRoute(routes(), '/admin/account', 'put'), 'root.admin.update-account');
+      assert.equal(routing.pathToRoute(definitions(), '/admin/account', 'get'), 'root.admin.view-account');
+      assert.equal(routing.pathToRoute(definitions(), '/admin/account', 'put'), 'root.admin.update-account');
     });
 
     it('ignores case when matching on methods', function() {
-      assert.equal(routing.pathToRoute(routes(), '/admin/account', 'PUT'), 'root.admin.update-account');
+      assert.equal(routing.pathToRoute(definitions(), '/admin/account', 'PUT'), 'root.admin.update-account');
     });
 
     it('returns null when a URL does not match a route', function() {
-      assert.isNull(routing.pathToRoute(routes(), '/home'));
+      assert.isNull(routing.pathToRoute(definitions(), '/home'));
     });
 
     it('returns null when a URL partially matches a nested route', function() {
-      assert.isNull(routing.pathToRoute(routes(), '/admin/missing'));
+      assert.isNull(routing.pathToRoute(definitions(), '/admin/missing'));
     });
 
     it('throws an error when multiple routes match a path', function() {
-      var ambiguous = routes().concat(routes());
+      var ambiguous = definitions().concat(definitions());
       assert.throws(function() { routing.pathToRoute(ambiguous, '/'); }, errors.ConfigurationError);
     });
 
     it('throws an error when a matched route lacks a name', function() {
-      var malformed = routes();
+      var malformed = definitions();
       delete malformed[0].name;
       assert.throws(function() { routing.pathToRoute(malformed, '/'); }, errors.ConfigurationError);
     });
@@ -147,36 +203,36 @@ describe('core/routing', function() {
   describe('.routeToPath', function() {
 
     it('returns the URL for the index route', function() {
-      assert.equal(routing.routeToPath(routes(), 'root.index'), '/');
+      assert.equal(routing.routeToPath(definitions(), 'root.index'), '/');
     });
 
     it('returns the URL for a top-level route', function() {
-      assert.equal(routing.routeToPath(routes(), 'root.about'), '/about');
+      assert.equal(routing.routeToPath(definitions(), 'root.about'), '/about');
     });
 
     it('returns the URL for a nested index route', function() {
-      assert.equal(routing.routeToPath(routes(), 'root.admin.index'), '/admin');
+      assert.equal(routing.routeToPath(definitions(), 'root.admin.index'), '/admin');
     });
 
     it('returns the URL for a nested route', function() {
-      assert.equal(routing.routeToPath(routes(), 'root.admin.view-account'), '/admin/account');
+      assert.equal(routing.routeToPath(definitions(), 'root.admin.view-account'), '/admin/account');
     });
 
     it('returns the URL for an index route not mounted at the root URL', function() {
-      assert.equal(routing.routeToPath(routes(), 'sub'), '/sub');
+      assert.equal(routing.routeToPath(definitions(), 'sub'), '/sub');
     });
 
     it('throws an error when a named route is not defined', function() {
-      assert.throws(function() { routing.routeToPath(routes(), 'home'); }, errors.ConfigurationError);
+      assert.throws(function() { routing.routeToPath(definitions(), 'home'); }, errors.ConfigurationError);
     });
 
     it('throws an error when any component of a named route is not defined', function() {
-      assert.throws(function() { routing.routeToPath(routes(), 'root.posts'); }, errors.ConfigurationError);
-      assert.throws(function() { routing.routeToPath(routes(), 'root.admin.posts'); }, errors.ConfigurationError);
+      assert.throws(function() { routing.routeToPath(definitions(), 'root.posts'); }, errors.ConfigurationError);
+      assert.throws(function() { routing.routeToPath(definitions(), 'root.admin.posts'); }, errors.ConfigurationError);
     });
 
     it('throws an error when there are multiple routes with the same name', function() {
-      var ambiguous = routes().concat(routes());
+      var ambiguous = definitions().concat(definitions());
       assert.throws(function() { routing.routeToPath(ambiguous, 'root'); }, errors.ConfigurationError);
     });
 

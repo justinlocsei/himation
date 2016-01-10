@@ -56,7 +56,7 @@ function entryPointsToCommonsChunks(points) {
  * a reference to the root directory for the modules.  The entry-point IDs
  * created by this function will be route GUIDs.
  *
- * @param {ChitonRoute[]} routes A route definition
+ * @param {ChitonRouteDefinition[]} routes A route definition
  * @param {object} [options] Options for generating the map of entries
  * @param {string[]} options.modules The hierarchy to use for each module
  * @param {string} options.root The name of the root route
