@@ -56,7 +56,7 @@ function entryPointsToCommonsChunks(points) {
  * a reference to the root directory for the modules.  The entry-point IDs
  * created by this function will be route GUIDs.
  *
- * @param {ChitonRouteDefinition[]} routes A route definition
+ * @param {ChitonRoute[]} routes All available routes
  * @param {object} [options] Options for generating the map of entries
  * @param {string[]} options.modules The hierarchy to use for each module
  * @param {string} options.root The name of the root route
@@ -70,10 +70,12 @@ function routesToEntryPoints(routes, options) {
 
   var parentModules = ['.'].concat(settings.modules);
 
-  var guids = routing.routesToGuids(routes);
-  return Object.keys(guids).reduce(function(points, guid) {
-    var split = guids[guid][0] === settings.root ? 1 : 0;
-    var modules = guids[guid].slice(split);
+  return routes.reduce(function(points, route) {
+    var guid = route.guid;
+    var levels = routing.guidToNamespaces(guid);
+
+    var split = levels[0] === settings.root ? 1 : 0;
+    var modules = levels.slice(split);
     points[guid] = parentModules.concat(modules).join('/');
 
     return points;

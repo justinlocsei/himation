@@ -83,16 +83,10 @@ describe('config/webpack/sources', function() {
 
       function routes() {
         return [
-          {
-            name: 'test',
-            path: '/',
-            paths: [
-              {path: 'about', name: 'about'},
-              {path: 'admin', name: 'admin', paths: [
-                {path: 'account', name: 'account'}
-              ]}
-            ]
-          }
+          {guid: 'test.index', path: '/', method: 'get'},
+          {guid: 'test.about', path: '/about', method: 'get'},
+          {guid: 'test.admin.index', path: '/admin', method: 'get'},
+          {guid: 'test.admin.account', path: '/admin/account', method: 'get'}
         ];
       }
 
@@ -151,10 +145,9 @@ describe('config/webpack/sources', function() {
 
       function routes() {
         return [
-          {name: 'one', path: '/one', paths: [
-            {name: 'one', path: 'one'}
-          ]},
-          {name: 'two', path: '/two'}
+          {guid: 'one.index', path: '/one', method: 'get'},
+          {guid: 'one.one', path: '/one/one', method: 'get'},
+          {guid: 'two', path: '/two', method: 'get'}
         ];
       }
 
