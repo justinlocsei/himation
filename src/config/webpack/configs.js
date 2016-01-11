@@ -31,13 +31,6 @@ function create(settings, custom) {
   return extend(true, {
     cache: true,
     debug: settings.assets.debug,
-    module: {
-      loaders: _.flatten([
-        imageLoaders(settings.assets.optimize),
-        jsLoaders(),
-        sassLoaders()
-      ])
-    },
     resolve: {
       extensions: ['', '.js', '.scss'],
       alias: {
@@ -84,14 +77,15 @@ function sassLoaders() {
 /**
  * Return an array of loaders for JS files
  *
+ * @param {string[]} files Paths to JS files that should be processed
  * @returns {object[]}
  * @private
  */
-function jsLoaders() {
+function jsLoaders(files) {
   return [
     {
       test: /\.js$/,
-      include: [paths.ui.js],
+      include: files,
       loader: 'babel',
       query: {
         cacheDirectory: true,
@@ -200,6 +194,13 @@ function server(settings) {
       var isUiModule = /^chiton\//.test(request);
       return callback(null, isNonRelative && !isUiModule);
     },
+    module: {
+      loaders: _.flatten([
+        imageLoaders(settings.assets.optimize),
+        jsLoaders([paths.server.views]),
+        sassLoaders()
+      ])
+    },
     output: {
       filename: '[name].js',
       libraryTarget: 'commonjs2',
@@ -231,6 +232,11 @@ function ui(settings) {
     devtool: 'source-map',
     entry: entries,
     module: {
+      loaders: _.flatten([
+        imageLoaders(settings.assets.optimize),
+        jsLoaders([paths.ui.js]),
+        sassLoaders()
+      ]),
       preLoaders: [
         {
           test: /\.js$/,

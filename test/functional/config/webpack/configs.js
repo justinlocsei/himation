@@ -113,29 +113,6 @@ describe('config/webpack/configs', function() {
 
     });
 
-    describe('JS loaders', function() {
-
-      function getLoader(config) {
-        var loaders = config.module.loaders.filter(function(loader) {
-          return /\.js/.test(loader.test.source);
-        });
-
-        assert.equal(loaders.length, 1);
-        return loaders[0];
-      }
-
-      it('runs UI JS through the Babel loader', function() {
-        var config = makeConfig(settings.base);
-        var loader = getLoader(config);
-
-        assert.equal(loader.loader, 'babel');
-        loader.include.forEach(function(include) {
-          assert.isChildOf(include, paths.ui.root);
-        });
-      });
-
-    });
-
     describe('Sass loaders', function() {
 
       function getLoader(config) {
@@ -304,6 +281,29 @@ describe('config/webpack/configs', function() {
 
     });
 
+    describe('JS loaders', function() {
+
+      function getLoader(config) {
+        var loaders = config.module.loaders.filter(function(loader) {
+          return /\.js/.test(loader.test.source);
+        });
+
+        assert.equal(loaders.length, 1);
+        return loaders[0];
+      }
+
+      it('runs views through the Babel loader', function() {
+        var config = configs.server(settings.base);
+        var loader = getLoader(config);
+
+        assert.equal(loader.loader, 'babel');
+        loader.include.forEach(function(include) {
+          assert.isChildOf(include, paths.server.root);
+        });
+      });
+
+    });
+
   });
 
   describe('.ui', function() {
@@ -351,6 +351,29 @@ describe('config/webpack/configs', function() {
       linter.include.forEach(function(include) {
         assert.isChildOf(include, paths.ui.root);
       });
+    });
+
+    describe('JS loaders', function() {
+
+      function getLoader(config) {
+        var loaders = config.module.loaders.filter(function(loader) {
+          return /\.js/.test(loader.test.source);
+        });
+
+        assert.equal(loaders.length, 1);
+        return loaders[0];
+      }
+
+      it('runs UI JS through the Babel loader', function() {
+        var config = configs.ui(settings.base);
+        var loader = getLoader(config);
+
+        assert.equal(loader.loader, 'babel');
+        loader.include.forEach(function(include) {
+          assert.isChildOf(include, paths.ui.root);
+        });
+      });
+
     });
 
   });
