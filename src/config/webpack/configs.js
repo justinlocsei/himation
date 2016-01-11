@@ -186,12 +186,15 @@ function postCssPlugins(optimize) {
  * @returns {object} A server-appropriate webpack configuration
  */
 function server(settings) {
+  var entries = sources.routesToEntryPoints(routes, {
+    modules: ['views'],
+    root: 'chiton'
+  });
+
   return create(settings, {
     context: paths.server,
     devtool: false,
-    entry: {
-      pages: './pages'
-    },
+    entry: entries,
     externals: function(context, request, callback) {
       var isNonRelative = /^[^\.]/.test(request);
       var isUiModule = /^chiton\//.test(request);

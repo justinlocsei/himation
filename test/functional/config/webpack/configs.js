@@ -257,14 +257,16 @@ describe('config/webpack/configs', function() {
 
     baselineAssertions(configs.server);
 
-    it('points to a single existing entry point', function() {
+    it('defines an entry point for each view', function() {
       var config = configs.server(settings.base);
       var entries = Object.keys(config.entry);
 
-      assert.equal(entries.length, 1);
+      assert.isAbove(entries.length, 1);
 
-      var entry = config.entry[entries[0]] + '.js';
-      assert.fileExists(path.join(config.context, entry));
+      entries.forEach(function(entry) {
+        var file = config.entry[entry] + '.js';
+        assert.fileExists(path.join(config.context, file));
+      });
     });
 
     describe('externals', function() {
