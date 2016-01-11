@@ -292,14 +292,13 @@ describe('config/webpack/configs', function() {
         return loaders[0];
       }
 
-      it('runs views through the Babel loader', function() {
+      it('runs server-side views and UI code through the Babel loader', function() {
         var config = configs.server(settings.base);
         var loader = getLoader(config);
 
         assert.equal(loader.loader, 'babel');
-        loader.include.forEach(function(include) {
-          assert.isChildOf(include, paths.server.root);
-        });
+        assert.include(loader.include, paths.server.views);
+        assert.include(loader.include, paths.ui.js);
       });
 
     });

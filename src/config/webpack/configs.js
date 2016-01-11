@@ -197,7 +197,7 @@ function server(settings) {
     module: {
       loaders: _.flatten([
         imageLoaders(settings.assets.optimize),
-        jsLoaders([paths.server.views]),
+        jsLoaders([paths.server.views, paths.ui.js]),
         sassLoaders()
       ])
     },
