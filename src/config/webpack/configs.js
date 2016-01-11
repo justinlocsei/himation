@@ -41,7 +41,7 @@ function create(settings, custom) {
     resolve: {
       extensions: ['', '.js', '.scss'],
       alias: {
-        'chiton/server': paths.server,
+        'chiton/server': paths.server.root,
         'chiton/ui': paths.ui.root
       }
     },
@@ -192,7 +192,7 @@ function server(settings) {
   });
 
   return create(settings, {
-    context: paths.server,
+    context: paths.server.root,
     devtool: false,
     entry: entries,
     externals: function(context, request, callback) {

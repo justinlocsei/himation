@@ -9,6 +9,7 @@ var modules = path.join(root, 'node_modules');
 var src = path.join(root, 'src');
 var test = path.join(root, 'test');
 
+var server = path.join(src, 'server');
 var ui = path.join(src, 'ui');
 
 module.exports = {
@@ -23,7 +24,10 @@ module.exports = {
     root: modules
   },
   root: root,
-  server: path.join(src, 'server'),
+  server: {
+    root: server,
+    views: path.join(server, 'views')
+  },
   src: src,
   test: {
     functional: path.join(test, 'functional'),

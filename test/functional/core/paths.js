@@ -63,13 +63,22 @@ describe('core/paths', function() {
     });
 
     it('contains a directory for server code', function() {
-      assert.isChildOf(paths.server, paths.src);
-      assert.isDirectory(paths.server);
+      assert.isChildOf(paths.server.root, paths.src);
+      assert.isDirectory(paths.server.root);
     });
 
     it('contains a directory for UI code', function() {
       assert.isChildOf(paths.ui.root, paths.src);
       assert.isDirectory(paths.ui.root);
+    });
+
+    describe('the server directory', function() {
+
+      it('contains a directory for view files', function() {
+        assert.isChildOf(paths.server.views, paths.server.root);
+        assert.isDirectory(paths.server.views);
+      });
+
     });
 
     describe('the UI directory', function() {
