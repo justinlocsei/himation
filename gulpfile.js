@@ -1,5 +1,6 @@
 'use strict';
 
+var fs = require('fs');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var loadPlugins = require('gulp-load-plugins');
@@ -44,9 +45,13 @@ webpackBuildTask('bundle-server', serverConfig);
 
 // Clear the build directory
 gulp.task('clear', function clear(done) {
-  rimraf(paths.build.root, function(err) {
-    if (err) { throw new gutil.PluginError('clear', err); }
-    done();
+  rimraf(paths.build.root, function(rmrfErr) {
+    if (rmrfErr) { throw new gutil.PluginError('clear', rmrfErr); }
+
+    fs.mkdir(paths.build.root, function(mkdirErr) {
+      if (mkdirErr) { throw new gutil.PluginError('clear', mkdirErr); }
+      done();
+    });
   });
 });
 
