@@ -2,12 +2,10 @@ import React from 'react';
 
 import 'chiton/ui/scss/index.scss';
 
-const Index = React.createClass({
-  render: function() {
+export default class Index extends React.Component {
+  render() {
     return (
       <h1>Index</h1>
     );
   }
-});
-
-module.exports = Index;
+}
