@@ -2,6 +2,7 @@
 
 var http = require('http');
 var https = require('https');
+var morgan = require('morgan');
 var Promise = require('bluebird');
 
 var addRouteAssets = require('chiton/server/middleware/add-route-assets');
@@ -110,6 +111,7 @@ Server.prototype._getApplication = function() {
     templatesDirectory: paths.ui.templates
   });
 
+  app.use(this._createLogger());
   app.use(this._createAssetMiddleware());
   app.use('/', router.create());
 
@@ -117,6 +119,16 @@ Server.prototype._getApplication = function() {
   this._app = factory.createServer(app);
 
   return this._app;
+};
+
+/**
+ * Create the logger for the application
+ *
+ * @returns {morgan} The morgan logger instance
+ */
+Server.prototype._createLogger = function() {
+  var format = this.settings.debug ? 'dev' : 'combined';
+  return morgan(format);
 };
 
 /**
