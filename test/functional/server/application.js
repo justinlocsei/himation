@@ -8,7 +8,7 @@ var tmp = require('tmp');
 var application = require('chiton/server/application');
 var errors = require('chiton/core/errors');
 
-describe('chiton/server/application', function() {
+describe('server/application', function() {
 
   function options() {
     return {

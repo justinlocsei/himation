@@ -7,7 +7,7 @@ var factories = require('chiton-test/support/factories');
 
 var addRouteAssets = require('chiton/server/middleware/add-route-assets');
 
-describe('chiton/server/middleware/add-route-assets', function() {
+describe('server/middleware/add-route-assets', function() {
 
   function buildManifest() {
     return factories.buildManifest();
