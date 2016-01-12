@@ -2,12 +2,10 @@
 
 var express = require('express');
 var request = require('supertest');
-var sinon = require('sinon');
 
 var factories = require('chiton-test/support/factories');
 
 var addRouteAssets = require('chiton/server/middleware/add-route-assets');
-var routing = require('chiton/core/routing');
 
 describe('chiton/server/middleware/add-route-assets', function() {
 
@@ -21,12 +19,6 @@ describe('chiton/server/middleware/add-route-assets', function() {
       {guid: 'lacks-assets', path: '/lacks-assets', method: 'get'}
     ];
   }
-
-  var sandbox = sinon.sandbox.create();
-
-  afterEach(function() {
-    sandbox.restore();
-  });
 
   describe('.create', function() {
 
@@ -58,13 +50,8 @@ describe('chiton/server/middleware/add-route-assets', function() {
         manifest.assets['has-assets'] = assets;
         manifest.url = assetUrl || '/';
 
-        var routes = makeRoutes();
-        var pathToRoute = sandbox.stub(routing, 'pathToRoute');
-        pathToRoute.withArgs(routes, '/has-assets').returns('has-assets');
-        pathToRoute.withArgs(routes, '/lacks-assets').returns('lacks-assets');
-
         var app = express();
-        app.use(addRouteAssets.create(manifest, host, routes));
+        app.use(addRouteAssets.create(manifest, host, makeRoutes()));
 
         app.get('/has-assets', (req, res) => res.json(res.locals));
         app.get('/lacks-assets', (req, res) => res.json(res.locals));

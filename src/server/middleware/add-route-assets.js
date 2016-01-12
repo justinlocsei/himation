@@ -32,7 +32,7 @@ function create(manifest, host, routes) {
       var matches = ASSET_GROUPS[group].map(extension => _.escapeRegExp(extension) + '$');
       var extensionMatcher = new RegExp(matches.join('|'));
 
-      var assets = (manifest.assets[route] || []).filter(file => extensionMatcher.test(file));
+      var assets = (manifest.assets[route.guid] || []).filter(file => extensionMatcher.test(file));
       var paths = assets.map(asset => urls.joinPaths([manifest.url, asset]));
       groups[group] = paths.map(path => urls.relativeToAbsolute(path, host));
 
