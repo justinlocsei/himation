@@ -27,6 +27,11 @@ describe('config/settings', function() {
       assert.isTrue(options.assets.custom);
     });
 
+    it('disables debugging by default', function() {
+      var options = settings.customize();
+      assert.isFalse(options.debug);
+    });
+
     it('defines partial defaults for the server addresses', function() {
       var servers = settings.customize().servers;
       assert.equal(servers.app.port, 80);

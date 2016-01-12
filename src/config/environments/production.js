@@ -5,6 +5,7 @@ module.exports = {
     debug: false,
     optimize: true
   },
+  debug: false,
   servers: {
     app: {
       host: 'localhost',
