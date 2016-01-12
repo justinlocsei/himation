@@ -10,7 +10,7 @@ var application = require('chiton/server/application');
 var build = require('chiton/config/webpack/build');
 var builds = require('chiton/config/webpack/configs');
 var paths = require('chiton/core/paths');
-var router = require('chiton/server/router');
+var routers = require('chiton/server/routers');
 var routes = require('chiton/config/routes');
 var urls = require('chiton/core/urls');
 
@@ -113,7 +113,7 @@ Server.prototype._getApplication = function() {
 
   app.use(this._createLogger());
   app.use(this._createAssetMiddleware());
-  app.use('/', router.create());
+  app.use('/', this._createRouter());
 
   var factory = this.settings.servers.app.protocol === 'https' ? https : http;
   this._app = factory.createServer(app);
@@ -147,6 +147,18 @@ Server.prototype._createAssetMiddleware = function() {
   });
 
   return addRouteAssets.create(buildManifest, assetHost, routes);
+};
+
+/**
+ * Create the router used for handling requests
+ *
+ * @returns {express.Router}
+ */
+Server.prototype._createRouter = function() {
+  var serverBuild = builds.server(this.settings);
+  var buildManifest = build.loadManifest(serverBuild);
+
+  return routers.create(buildManifest, routes);
 };
 
 module.exports = Server;

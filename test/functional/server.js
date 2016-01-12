@@ -10,7 +10,7 @@ var application = require('chiton/server/application');
 var addRouteAssets = require('chiton/server/middleware/add-route-assets');
 var paths = require('chiton/core/paths');
 var routes = require('chiton/config/routes');
-var router = require('chiton/server/router');
+var routers = require('chiton/server/routers');
 var Server = require('chiton/server');
 var webpackBuild = require('chiton/config/webpack/build');
 var webpackConfigs = require('chiton/config/webpack/configs');
@@ -92,7 +92,7 @@ describe('Server', function() {
     });
 
     it('creates a router for the application', function() {
-      var create = sandbox.spy(router, 'create');
+      var create = sandbox.spy(routers, 'create');
 
       return server.start().then(function() {
         assert.isTrue(create.called);
