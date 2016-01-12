@@ -2,6 +2,7 @@
 
 var factories = {
   buildManifest: 'build-manifest',
+  routes: 'routes',
   settings: 'settings'
 };
 
