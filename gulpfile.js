@@ -40,8 +40,8 @@ gulp.task('lint', ['lint-js', 'lint-scss']);
 gulp.task('serve', ['serve-app', 'serve-assets']);
 
 // Create webpack tasks for client and server builds
-webpackBuildTask('build-assets', uiConfig);
-webpackBuildTask('build-server', serverConfig);
+createWebpackTask('build-assets', uiConfig);
+createWebpackTask('build-server', serverConfig);
 
 // Clear the build directory
 gulp.task('clear', function clear(done) {
@@ -136,7 +136,7 @@ function runTests(reporter) {
  * @param {string} task The name of the gulp task
  * @param {object} config A webpack configuration
  */
-function webpackBuildTask(task, config) {
+function createWebpackTask(task, config) {
   gulp.task(task, function(done) {
     var logLabel = 'Webpack (' + config.target + ')';
 
