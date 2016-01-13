@@ -6,8 +6,8 @@
   "license": "UNLICENSED",
   "main": "index.js",
   "scripts": {
+    "build": "gulp clear && gulp build",
     "lint": "gulp lint",
-    "rebuild": "gulp clear && gulp build",
     "serve": "gulp serve",
     "serve:app": "gulp serve-app",
     "serve:assets": "gulp serve-assets",
