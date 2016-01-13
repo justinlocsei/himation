@@ -32,6 +32,18 @@ describe('core/paths', function() {
 
   });
 
+  describe('the config directory', function() {
+
+    it('is below the root directory', function() {
+      assert.isChildOf(paths.config.root, paths.root);
+    });
+
+    it('contains a settings file', function() {
+      assert.isChildOf(paths.config.settings, paths.config.root);
+    });
+
+  });
+
   describe('the module directories', function() {
 
     it('is below the root directory', function() {

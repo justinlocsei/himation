@@ -4,6 +4,7 @@ var path = require('path');
 
 var root = path.normalize(path.join(__dirname, '..', '..'));
 
+var config = path.join(root, 'config');
 var build = path.join(root, 'build');
 var modules = path.join(root, 'node_modules');
 var src = path.join(root, 'src');
@@ -17,6 +18,10 @@ module.exports = {
     root: build,
     server: path.join(build, 'server'),
     ui: path.join(build, 'ui')
+  },
+  config: {
+    root: config,
+    settings: path.join(config, 'settings.json')
   },
   modules: {
     bin: path.join(modules, '.bin'),
