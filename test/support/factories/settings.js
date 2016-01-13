@@ -7,7 +7,9 @@ var defaults = {
     debug: false,
     optimize: false
   },
-  debug: false,
+  server: {
+    debugLogging: false
+  },
   servers: {
     app: {
       host: '127.0.0.1',

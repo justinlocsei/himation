@@ -127,7 +127,7 @@ Server.prototype._getApplication = function() {
  * @returns {morgan} The morgan logger instance
  */
 Server.prototype._createLogger = function() {
-  var format = this.settings.debug ? 'dev' : 'combined';
+  var format = this.settings.server.debugLogging ? 'dev' : 'combined';
   return morgan(format);
 };
 

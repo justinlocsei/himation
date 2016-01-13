@@ -19,6 +19,8 @@ var extend = require('extend');
  * @property {boolean} assets.debug Whether to bundle assets in debug mode
  * @property {boolean} assets.optimize Whether to optimize all bundled assets
  * @property {boolean} debug Whether to run in debugging mode
+ * @property {object} server Settings for the server
+ * @property {boolean} server.debugLogging Whether to use a debugging-friendly log format
  * @property {object} servers Addresses for all known servers
  * @property {ChitonServerSettings} servers.app Address components for the application server
  * @property {ChitonServerSettings} servers.assets Address components for the assets server
@@ -28,7 +30,9 @@ var defaults = {
     debug: false,
     optimize: false
   },
-  debug: false,
+  server: {
+    debugLogging: false
+  },
   servers: {
     app: {
       port: 80,
