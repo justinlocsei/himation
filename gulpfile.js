@@ -43,6 +43,11 @@ gulp.task('serve', ['serve-app', 'serve-assets']);
 createWebpackTask('build-assets', uiConfig);
 createWebpackTask('build-server', serverConfig);
 
+// Watch source files and rebuild them via webpack in response to changes
+gulp.task('build-watch', ['serve-assets'], function() {
+  gulp.watch(files.matchDeep(paths.src, 'js'), ['build-server']);
+});
+
 // Clear the build directory
 gulp.task('clear', function clear(done) {
   rimraf(paths.build.root, function(rmrfErr) {
