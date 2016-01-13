@@ -32,7 +32,7 @@ function load(environment) {
   }
 
   var config = require('chiton/config/environments/' + name);
-  return settings.customize(config);
+  return settings.build(config);
 }
 
 module.exports = {

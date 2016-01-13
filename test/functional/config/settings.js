@@ -1,30 +1,39 @@
 'use strict';
 
+var errors = require('chiton/core/errors');
 var settings = require('chiton/config/settings');
 
 describe('config/settings', function() {
 
-  describe('.customize', function() {
+  describe('.build', function() {
 
-    it('returns a settings object by default', function() {
-      var options = settings.customize();
+    it('returns valid settings by default', function() {
+      var options = settings.build();
       assert.isObject(options);
-      assert.isObject(options.assets);
     });
 
-    it('combines a user-provided object with the defaults', function() {
-      var options = settings.customize({custom: true});
-      assert.isTrue(options.custom);
+    it('returns valid settings when given an empty customizations object', function() {
+      var options = settings.build({});
+      assert.isObject(options);
     });
 
-    it('deeply merges the user settings', function() {
-      var options = settings.customize({
-        assets: {
-          custom: true
-        }
-      });
-      assert.isBoolean(options.assets.debug);
-      assert.isTrue(options.assets.custom);
+    it('deeply merges user settings with the defaults', function() {
+      var defaults = settings.build();
+      var custom = settings.build({assets: {debug: true}});
+
+      assert.isBoolean(defaults.assets.optimize);
+      assert.isBoolean(custom.assets.optimize);
+      assert.isTrue(custom.assets.debug);
+    });
+
+    it('does not cast boolean values', function() {
+      var options = {assets: {debug: 'true'}};
+      assert.throws(() => settings.build(options), errors.ConfigurationError, 'boolean');
+    });
+
+    it('does not cast numeric values', function() {
+      var options = {servers: {app: {port: '80'}}};
+      assert.throws(() => settings.build(options), errors.ConfigurationError, 'number');
     });
 
   });
