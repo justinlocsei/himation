@@ -34,14 +34,14 @@ var assetsByType = {
   ]
 };
 
-gulp.task('build', ['bundle-assets', 'bundle-server']);
+gulp.task('build', ['build-assets', 'build-server']);
 gulp.task('default', ['serve-assets']);
 gulp.task('lint', ['lint-js', 'lint-scss']);
 gulp.task('serve', ['serve-app', 'serve-assets']);
 
 // Create webpack tasks for client and server builds
-webpackBuildTask('bundle-assets', uiConfig);
-webpackBuildTask('bundle-server', serverConfig);
+webpackBuildTask('build-assets', uiConfig);
+webpackBuildTask('build-server', serverConfig);
 
 // Clear the build directory
 gulp.task('clear', function clear(done) {
