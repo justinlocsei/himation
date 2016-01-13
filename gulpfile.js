@@ -9,16 +9,14 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var WebpackProgressPlugin = require('webpack/lib/ProgressPlugin');
 
-var environments = require('chiton/config/environments');
+var environment = require('chiton/config/environment');
 var files = require('chiton/core/files');
 var paths = require('chiton/core/paths');
 var Server = require('chiton/server');
 var webpackConfigs = require('chiton/config/webpack/configs');
 
-var environment = process.env.CHITON_ENV;
 var plugins = loadPlugins();
-
-var settings = environments.load(environment);
+var settings = environment.load(paths.config.settings);
 
 // Globs for matching all known files of a type
 var filesByType = {
