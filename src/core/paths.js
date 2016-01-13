@@ -18,7 +18,6 @@ module.exports = {
     server: path.join(build, 'server'),
     ui: path.join(build, 'ui')
   },
-  docs: path.join(root, 'docs'),
   modules: {
     bin: path.join(modules, '.bin'),
     root: modules
