@@ -19,8 +19,6 @@ var environment = process.env.CHITON_ENV;
 var plugins = loadPlugins();
 
 var settings = environments.load(environment);
-var serverConfig = webpackConfigs.server(settings);
-var uiConfig = webpackConfigs.ui(settings);
 
 // Globs for matching all known files of a type
 var filesByType = {
@@ -40,8 +38,8 @@ gulp.task('lint', ['lint-js', 'lint-scss']);
 gulp.task('serve', ['serve-app', 'serve-assets']);
 
 // Create webpack tasks for client and server builds
-createWebpackTask('build-assets', uiConfig);
-createWebpackTask('build-server', serverConfig);
+createWebpackTask('build-assets', webpackConfigs.ui(settings));
+createWebpackTask('build-server', webpackConfigs.server(settings));
 
 // Watch source files and rebuild them via webpack in response to changes
 gulp.task('build-watch', ['serve-assets'], function() {
@@ -91,9 +89,11 @@ gulp.task('serve-app', function serveApplication() {
 
 // Run the webpack development server to serve assets
 gulp.task('serve-assets', function serveAssets() {
-  var assetServer = new WebpackDevServer(webpack(uiConfig), {
+  var config = webpackConfigs.ui(settings);
+
+  var assetServer = new WebpackDevServer(webpack(config), {
     contentBase: paths.build.root,
-    publicPath: uiConfig.output.publicPath,
+    publicPath: config.output.publicPath,
     stats: {colors: true}
   });
 
