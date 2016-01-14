@@ -3,7 +3,7 @@
 var parse5 = require('parse5');
 var React = require('react');
 
-var views = require('chiton/server/views');
+var views = require('himation/server/views');
 
 describe('server/views', function() {
 

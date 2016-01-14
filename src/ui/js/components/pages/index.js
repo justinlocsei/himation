@@ -1,6 +1,6 @@
 import React from 'react';
 
-import 'chiton/ui/scss/index.scss';
+import 'himation/ui/scss/index.scss';
 
 export default class Index extends React.Component {
   render() {

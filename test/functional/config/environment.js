@@ -3,9 +3,9 @@
 var mockFs = require('mock-fs');
 var sinon = require('sinon');
 
-var environment = require('chiton/config/environment');
-var errors = require('chiton/core/errors');
-var settings = require('chiton/config/settings');
+var environment = require('himation/config/environment');
+var errors = require('himation/core/errors');
+var settings = require('himation/config/settings');
 
 describe('config/environment', function() {
 

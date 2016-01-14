@@ -28,7 +28,7 @@ var defaults = {
  * Produce a valid settings object
  *
  * @param {object} extensions Data that will be applied to the defaults
- * @returns {ChitonSettings}
+ * @returns {HimationSettings}
  */
 function settings(extensions) {
   return extend(true, {}, defaults, extensions || {});

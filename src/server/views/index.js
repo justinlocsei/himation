@@ -1,5 +1,5 @@
-import Index from 'chiton/ui/js/components/pages/index';
-import { render } from 'chiton/server/views';
+import Index from 'himation/ui/js/components/pages/index';
+import { render } from 'himation/server/views';
 
 export function renderResponse(req, res) {
   res.render('pages/index', {

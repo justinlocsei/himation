@@ -3,9 +3,9 @@
 var express = require('express');
 var request = require('supertest');
 
-var factories = require('chiton-test/support/factories');
+var factories = require('himation-test/support/factories');
 
-var addRouteAssets = require('chiton/server/middleware/add-route-assets');
+var addRouteAssets = require('himation/server/middleware/add-route-assets');
 
 describe('server/middleware/add-route-assets', function() {
 

@@ -5,19 +5,19 @@ var https = require('https');
 var morgan = require('morgan');
 var Promise = require('bluebird');
 
-var addRouteAssets = require('chiton/server/middleware/add-route-assets');
-var application = require('chiton/server/application');
-var build = require('chiton/config/webpack/build');
-var builds = require('chiton/config/webpack/configs');
-var paths = require('chiton/core/paths');
-var routers = require('chiton/server/routers');
-var routes = require('chiton/config/routes');
-var urls = require('chiton/core/urls');
+var addRouteAssets = require('himation/server/middleware/add-route-assets');
+var application = require('himation/server/application');
+var build = require('himation/config/webpack/build');
+var builds = require('himation/config/webpack/configs');
+var paths = require('himation/core/paths');
+var routers = require('himation/server/routers');
+var routes = require('himation/config/routes');
+var urls = require('himation/core/urls');
 
 /**
  * An application server
  *
- * @param {ChitonSettings} settings Environment settings for the server
+ * @param {HimationSettings} settings Environment settings for the server
  */
 function Server(settings) {
   this.settings = settings;

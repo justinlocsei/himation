@@ -3,7 +3,7 @@
 var _ = require('lodash');
 var extend = require('extend');
 
-var routing = require('chiton/core/routing');
+var routing = require('himation/core/routing');
 
 /**
  * Create a series of definitions for commons chunks for entry points
@@ -56,7 +56,7 @@ function entryPointsToCommonsChunks(points) {
  * a reference to the root directory for the modules.  The entry-point IDs
  * created by this function will be route GUIDs.
  *
- * @param {ChitonRoute[]} routes All available routes
+ * @param {HimationRoute[]} routes All available routes
  * @param {object} [options] Options for generating the map of entries
  * @param {string[]} options.modules The hierarchy to use for each module
  * @param {string} options.root The name of the root route

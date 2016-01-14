@@ -4,7 +4,7 @@ var express = require('express');
 var helmet = require('helmet');
 var nunjucks = require('nunjucks');
 
-var errors = require('chiton/core/errors');
+var errors = require('himation/core/errors');
 
 /**
  * Configure the app's template engine

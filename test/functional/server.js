@@ -4,16 +4,16 @@ var http = require('http');
 var https = require('https');
 var sinon = require('sinon');
 
-var factories = require('chiton-test/support/factories');
+var factories = require('himation-test/support/factories');
 
-var application = require('chiton/server/application');
-var addRouteAssets = require('chiton/server/middleware/add-route-assets');
-var paths = require('chiton/core/paths');
-var routes = require('chiton/config/routes');
-var routers = require('chiton/server/routers');
-var Server = require('chiton/server');
-var webpackBuild = require('chiton/config/webpack/build');
-var webpackConfigs = require('chiton/config/webpack/configs');
+var application = require('himation/server/application');
+var addRouteAssets = require('himation/server/middleware/add-route-assets');
+var paths = require('himation/core/paths');
+var routes = require('himation/config/routes');
+var routers = require('himation/server/routers');
+var Server = require('himation/server');
+var webpackBuild = require('himation/config/webpack/build');
+var webpackConfigs = require('himation/config/webpack/configs');
 
 describe('Server', function() {
 
@@ -46,7 +46,7 @@ describe('Server', function() {
     });
   }
 
-  it('accepts a Chiton settings object', function() {
+  it('accepts a Himation settings object', function() {
     var server = new Server(options());
     assert.isObject(server);
   });

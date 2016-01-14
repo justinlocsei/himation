@@ -1,6 +1,6 @@
 'use strict';
 
-var sources = require('chiton/config/webpack/sources');
+var sources = require('himation/config/webpack/sources');
 
 describe('config/webpack/sources', function() {
 

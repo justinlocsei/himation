@@ -2,9 +2,9 @@
 
 var sinon = require('sinon');
 
-var build = require('chiton/config/webpack/build');
-var errors = require('chiton/core/errors');
-var BuildManifestPlugin = require('chiton/config/webpack/plugins/build-manifest');
+var build = require('himation/config/webpack/build');
+var errors = require('himation/core/errors');
+var BuildManifestPlugin = require('himation/config/webpack/plugins/build-manifest');
 
 describe('config/webpack/build', function() {
 

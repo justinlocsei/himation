@@ -4,7 +4,7 @@
  * Produce a series of valid routes
  *
  * @param {object} extensions Data that will be applied to the defaults
- * @returns {ChitonRoute[]}
+ * @returns {HimationRoute[]}
  */
 function routes() {
   return [

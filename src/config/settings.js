@@ -3,21 +3,21 @@
 var extend = require('extend');
 var Joi = require('Joi');
 
-var errors = require('chiton/core/errors');
+var errors = require('himation/core/errors');
 
 /**
- * Chiton server settings
+ * Himation server settings
  *
- * @typedef {object} ChitonServerSettings
+ * @typedef {object} HimationServerSettings
  * @property {string} host The hostname for the server
  * @property {number} port The port for the server
  * @property {string} protocol The protocol for the server
  */
 
 /**
- * Chiton environment settings
+ * Himation environment settings
  *
- * @typedef {object} ChitonSettings
+ * @typedef {object} HimationSettings
  * @property {object} assets Asset configuration information
  * @property {boolean} assets.debug Whether to bundle assets in debug mode
  * @property {boolean} assets.optimize Whether to optimize all bundled assets
@@ -25,8 +25,8 @@ var errors = require('chiton/core/errors');
  * @property {object} server Settings for the server
  * @property {boolean} server.debugLogging Whether to use a debugging-friendly log format
  * @property {object} servers Addresses for all known servers
- * @property {ChitonServerSettings} servers.app Address components for the application server
- * @property {ChitonServerSettings} servers.assets Address components for the assets server
+ * @property {HimationServerSettings} servers.app Address components for the application server
+ * @property {HimationServerSettings} servers.assets Address components for the assets server
  */
 var defaults = {
   assets: {
@@ -76,7 +76,7 @@ var schema = Joi.object().keys({
  * Create custom settings by merging the given settings with the defaults
  *
  * @param {object} custom Custom settings to merge with the default settings
- * @returns {ChitonSettings} The custom settings
+ * @returns {HimationSettings} The custom settings
  * @throws {ConfigurationError} If the settings are invalid
  */
 function build(custom) {

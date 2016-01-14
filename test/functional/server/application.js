@@ -5,8 +5,8 @@ var path = require('path');
 var request = require('supertest');
 var tmp = require('tmp');
 
-var application = require('chiton/server/application');
-var errors = require('chiton/core/errors');
+var application = require('himation/server/application');
+var errors = require('himation/core/errors');
 
 describe('server/application', function() {
 

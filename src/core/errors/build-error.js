@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * An error thrown when the Chiton build is incorrect
+ * An error thrown when the Himation build is incorrect
  *
  * @param {string} message The description of the build error
  */

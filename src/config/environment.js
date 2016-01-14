@@ -2,14 +2,14 @@
 
 var fs = require('fs');
 
-var errors = require('chiton/core/errors');
-var settings = require('chiton/config/settings');
+var errors = require('himation/core/errors');
+var settings = require('himation/config/settings');
 
 /**
  * Load the current environment's settings from a JSON file
  *
  * @param {string} file The path to the settings file
- * @returns {ChitonSettings}
+ * @returns {HimationSettings}
  * @throws {ConfigurationError} If the environment cannot be loaded
  */
 function load(file) {

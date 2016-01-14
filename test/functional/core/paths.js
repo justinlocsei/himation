@@ -1,6 +1,6 @@
 'use strict';
 
-var paths = require('chiton/core/paths');
+var paths = require('himation/core/paths');
 
 describe('core/paths', function() {
 

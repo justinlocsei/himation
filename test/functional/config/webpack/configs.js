@@ -4,10 +4,10 @@ var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 var glob = require('glob');
 var path = require('path');
 
-var factories = require('chiton-test/support/factories');
+var factories = require('himation-test/support/factories');
 
-var configs = require('chiton/config/webpack/configs');
-var paths = require('chiton/core/paths');
+var configs = require('himation/config/webpack/configs');
+var paths = require('himation/core/paths');
 
 describe('config/webpack/configs', function() {
 
@@ -263,9 +263,9 @@ describe('config/webpack/configs', function() {
         });
       });
 
-      it('does not treat a Chiton module as an external', function(done) {
+      it('does not treat a Himation module as an external', function(done) {
         var config = configs.server(settings.base);
-        checkExternal(config, 'chiton/path', function(result) {
+        checkExternal(config, 'himation/path', function(result) {
           assert.isFalse(result);
           done();
         });

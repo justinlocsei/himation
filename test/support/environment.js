@@ -5,7 +5,7 @@ var chaiAsPromised = require('chai-as-promised');
 
 var assertionModules = [
   'fs'
-].map(name => require('chiton-test/support/assertions/' + name));
+].map(name => require('himation-test/support/assertions/' + name));
 
 chai.use(chaiAsPromised);
 

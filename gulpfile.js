@@ -9,11 +9,11 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var WebpackProgressPlugin = require('webpack/lib/ProgressPlugin');
 
-var environment = require('chiton/config/environment');
-var files = require('chiton/core/files');
-var paths = require('chiton/core/paths');
-var Server = require('chiton/server');
-var webpackConfigs = require('chiton/config/webpack/configs');
+var environment = require('himation/config/environment');
+var files = require('himation/core/files');
+var paths = require('himation/core/paths');
+var Server = require('himation/server');
+var webpackConfigs = require('himation/config/webpack/configs');
 
 var plugins = loadPlugins();
 var settings = environment.load(paths.config.settings);
@@ -128,7 +128,7 @@ function runTests(reporter) {
   return gulp.src(files.matchDeep(paths.test.functional), {read: false})
     .pipe(plugins.mocha({
       reporter: reporter,
-      require: ['chiton-test/support/environment'],
+      require: ['himation-test/support/environment'],
       ui: 'bdd'
     }));
 }

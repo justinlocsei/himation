@@ -1,8 +1,8 @@
 'use strict';
 
-var paths = require('chiton/core/paths');
-var environment = require('chiton/config/environment');
-var Server = require('chiton/server');
+var paths = require('himation/core/paths');
+var environment = require('himation/config/environment');
+var Server = require('himation/server');
 
 var settings = environment.load(paths.config.settings);
 

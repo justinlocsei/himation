@@ -1,6 +1,6 @@
 'use strict';
 
-var files = require('chiton/core/files');
+var files = require('himation/core/files');
 
 /**
  * Assert that a path describes a nonexistent file

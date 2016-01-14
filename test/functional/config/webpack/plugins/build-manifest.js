@@ -6,7 +6,7 @@ var path = require('path');
 var tmp = require('tmp');
 var webpack = require('webpack');
 
-var BuildManifestPlugin = require('chiton/config/webpack/plugins/build-manifest');
+var BuildManifestPlugin = require('himation/config/webpack/plugins/build-manifest');
 
 describe('config/webpack/plugins/build-manifest', function() {
 

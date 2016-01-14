@@ -1,7 +1,7 @@
 'use strict';
 
-var errors = require('chiton/core/errors');
-var settings = require('chiton/config/settings');
+var errors = require('himation/core/errors');
+var settings = require('himation/config/settings');
 
 describe('config/settings', function() {
 

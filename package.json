@@ -1,8 +1,8 @@
 {
-  "name": "chiton-site",
+  "name": "himation",
   "version": "0.1.0",
-  "description": "The front-end code for Cover Your Basics",
-  "repository": "git://github.com/justinlocsei/chiton-site.git",
+  "description": "The user-facing code for Cover Your Basics",
+  "repository": "git://github.com/justinlocsei/himation.git",
   "license": "UNLICENSED",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,7 @@
     "babel-register": "^6.3.13",
     "babel-runtime": "^6.3.19",
     "bluebird": "^3.1.1",
-    "chiton": "file:./src",
+    "himation": "file:./src",
     "css-loader": "^0.23.0",
     "cssnano": "^3.4.0",
     "eslint": "^1.10.3",
@@ -69,7 +69,7 @@
   "devDependencies": {
     "chai": "^3.4.1",
     "chai-as-promised": "^5.2.0",
-    "chiton-test": "file:./test",
+    "himation-test": "file:./test",
     "gulp-mocha": "^2.2.0",
     "mocha": "^2.3.4",
     "mock-fs": "^3.6.0",

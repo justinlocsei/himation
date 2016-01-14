@@ -10,8 +10,8 @@ var express = require('express');
  * defined in the build manifest, and these entry files are lazily loaded when
  * the route is requested.
  *
- * @param {ChitonBuildManifest} build The build manifest for the server's files
- * @param {ChitonRoute[]} routes All available routes
+ * @param {HimationBuildManifest} build The build manifest for the server's files
+ * @param {HimationRoute[]} routes All available routes
  * @returns {express.Router}
  */
 function create(build, routes) {

@@ -2,8 +2,8 @@
 
 var _ = require('lodash');
 
-var routing = require('chiton/core/routing');
-var urls = require('chiton/core/urls');
+var routing = require('himation/core/routing');
+var urls = require('himation/core/urls');
 
 // A map between named asset groups and their file extensions
 var ASSET_GROUPS = {
@@ -18,9 +18,9 @@ var ASSET_GROUPS = {
  * route, that route's assets are fetched from the build manifest, and
  * transformed into absolute URLs rooted in the asset host.
  *
- * @param {ChitonBuildManifest} manifest The build manifest for the assets
+ * @param {HimationBuildManifest} manifest The build manifest for the assets
  * @param {string} host The URL at which assets are hosted
- * @param {ChitonRoute[]} routes The server's route definitions
+ * @param {HimationRoute[]} routes The server's route definitions
  * @returns {function} The asset-injector middleware
  */
 function create(manifest, host, routes) {

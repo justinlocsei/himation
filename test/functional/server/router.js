@@ -5,9 +5,9 @@ var fs = require('fs');
 var request = require('supertest');
 var tmp = require('tmp');
 
-var factories = require('chiton-test/support/factories');
+var factories = require('himation-test/support/factories');
 
-var routers = require('chiton/server/routers');
+var routers = require('himation/server/routers');
 
 describe('server/router', function() {
 

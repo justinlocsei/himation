@@ -8,10 +8,10 @@ var extend = require('extend');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
 
-var paths = require('chiton/core/paths');
-var routes = require('chiton/config/routes');
-var sources = require('chiton/config/webpack/sources');
-var BuildManifestPlugin = require('chiton/config/webpack/plugins/build-manifest');
+var paths = require('himation/core/paths');
+var routes = require('himation/config/routes');
+var sources = require('himation/config/webpack/sources');
+var BuildManifestPlugin = require('himation/config/webpack/plugins/build-manifest');
 
 // The IDs of each build
 var BUILD_IDS = {
@@ -22,7 +22,7 @@ var BUILD_IDS = {
 /**
  * Create a webpack config by applying settings on top of a baseline
  *
- * @param {ChitonSettings} settings The settings to use for creating the config
+ * @param {HimationSettings} settings The settings to use for creating the config
  * @param {object} custom Custom settings to add to the baseline
  * @returns {object}
  * @private
@@ -34,8 +34,8 @@ function create(settings, custom) {
     resolve: {
       extensions: ['', '.js', '.scss'],
       alias: {
-        'chiton/server': paths.server.root,
-        'chiton/ui': paths.ui.root
+        'himation/server': paths.server.root,
+        'himation/ui': paths.ui.root
       }
     },
     postcss: postCssPlugins(settings.assets.optimize),
@@ -176,13 +176,13 @@ function postCssPlugins(optimize) {
 /**
  * Create a webpack configuration for use on the server
  *
- * @param {ChitonSettings} settings The current settings
+ * @param {HimationSettings} settings The current settings
  * @returns {object} A server-appropriate webpack configuration
  */
 function server(settings) {
   var entries = sources.routesToEntryPoints(routes, {
     modules: ['views'],
-    root: 'chiton'
+    root: 'himation'
   });
 
   return create(settings, {
@@ -191,7 +191,7 @@ function server(settings) {
     entry: entries,
     externals: function(context, request, callback) {
       var isNonRelative = /^[^\.]/.test(request);
-      var isUiModule = /^chiton\//.test(request);
+      var isUiModule = /^himation\//.test(request);
       return callback(null, isNonRelative && !isUiModule);
     },
     module: {
@@ -215,13 +215,13 @@ function server(settings) {
 /**
  * Create a webpack configuration for rendering the UI in the browser
  *
- * @param {ChitonSettings} settings The current settings
+ * @param {HimationSettings} settings The current settings
  * @returns {object} A browser-appropriate webpack configuration
  */
 function ui(settings) {
   var entries = sources.routesToEntryPoints(routes, {
     modules: ['components', 'pages'],
-    root: 'chiton'
+    root: 'himation'
   });
 
   var commonsOptions = sources.entryPointsToCommonsChunks(entries);

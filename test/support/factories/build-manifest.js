@@ -7,7 +7,7 @@ var tmp = require('tmp');
  * Produce a valid build-manifest object
  *
  * @param {object} extensions Data that will be applied to the defaults
- * @returns {ChitonBuildManifest}
+ * @returns {HimationBuildManifest}
  */
 function buildManifest(extensions) {
   var directory = tmp.dirSync().name;

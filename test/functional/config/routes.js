@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 
-var routes = require('chiton/config/routes');
+var routes = require('himation/config/routes');
 
 describe('config/routes', function() {
 

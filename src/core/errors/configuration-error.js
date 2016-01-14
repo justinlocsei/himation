@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * An error thrown when the Chiton configuration is incorrect
+ * An error thrown when the Himation configuration is incorrect
  *
  * @param {string} message The description of the configuration error
  */

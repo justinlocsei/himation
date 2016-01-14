@@ -2,7 +2,7 @@
 
 var mockFs = require('mock-fs');
 
-var files = require('chiton/core/files');
+var files = require('himation/core/files');
 
 describe('core/files', function() {
 

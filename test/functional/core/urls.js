@@ -1,6 +1,6 @@
 'use strict';
 
-var urls = require('chiton/core/urls');
+var urls = require('himation/core/urls');
 
 describe('core/urls', function() {
 

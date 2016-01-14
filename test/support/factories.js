@@ -7,6 +7,6 @@ var factories = {
 };
 
 module.exports = Object.keys(factories).reduce(function(modules, name) {
-  modules[name] = require('chiton-test/support/factories/' + factories[name]);
+  modules[name] = require('himation-test/support/factories/' + factories[name]);
   return modules;
 }, {});

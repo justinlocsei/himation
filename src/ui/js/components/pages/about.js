@@ -1,6 +1,6 @@
 import React from 'react';
 
-import 'chiton/ui/scss/about.scss';
+import 'himation/ui/scss/about.scss';
 
 export default class About extends React.Component {
   render() {

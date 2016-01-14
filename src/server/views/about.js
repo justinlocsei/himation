@@ -1,5 +1,5 @@
-import About from 'chiton/ui/js/components/pages/about';
-import { render } from 'chiton/server/views';
+import About from 'himation/ui/js/components/pages/about';
+import { render } from 'himation/server/views';
 
 export function renderResponse(req, res) {
   res.render('pages/about', {

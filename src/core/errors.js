@@ -1,7 +1,7 @@
 'use strict';
 
-var BuildError = require('chiton/core/errors/build-error');
-var ConfigurationError = require('chiton/core/errors/configuration-error');
+var BuildError = require('himation/core/errors/build-error');
+var ConfigurationError = require('himation/core/errors/configuration-error');
 
 module.exports = {
   BuildError: BuildError,

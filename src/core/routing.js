@@ -3,46 +3,46 @@
 var _ = require('lodash');
 var extend = require('extend');
 
-var errors = require('chiton/core/errors');
-var urls = require('chiton/core/urls');
+var errors = require('himation/core/errors');
+var urls = require('himation/core/urls');
 
 var DEFAULT_METHOD = 'get';
 var GUID_SEPARATOR = '.';
 var INDEX_ROUTE = 'index';
 
 /**
- * A Chiton route definition
+ * A Himation route definition
  *
- * @typedef {object} ChitonRouteDefinition
+ * @typedef {object} HimationRouteDefinition
  * @property {string} [method] The HTTP method to use for accessing the URL
  * @property {string} name The internal ID for the route
  * @property {string} path The path to the route
- * @property {ChitonRouteDefinition[]} paths Child paths within the route's namespace
+ * @property {HimationRouteDefinition[]} paths Child paths within the route's namespace
  */
 
 /**
- * A Chiton route
+ * A Himation route
  *
- * @typedef {object} ChitonRoute
- * @property {ChitonRouteGUID} guid The route's GUID
+ * @typedef {object} HimationRoute
+ * @property {HimationRouteGUID} guid The route's GUID
  * @property {string} method The HTTP method to use for accessing the URL
  * @property {string} path The full path to the route
  */
 
 /**
- * A GUID for a Chiton route
+ * A GUID for a Himation route
  *
  * Route GUIDS are guaranteed to not conflict with any other routes, and define
  * their hierarchy as a string separated by dots.
  *
- * @typedef {string} ChitonRouteGUID
+ * @typedef {string} HimationRouteGUID
  */
 
  /**
   * Transform route definitions into routes
   *
-  * @param {ChitonRouteDefinition[]} routes Route definitions
-  * @returns {ChitonRoute[]} A flat list of routes
+  * @param {HimationRouteDefinition[]} routes Route definitions
+  * @returns {HimationRoute[]} A flat list of routes
   */
 function defineRoutes(routes) {
   var conflicts = {};
@@ -87,7 +87,7 @@ function defineRoutes(routes) {
 /**
  * Transform a route definition into a map between GUIDs and namespaces
  *
- * @param {ChitonRouteDefinition[]} routes A route definition
+ * @param {HimationRouteDefinition[]} routes A route definition
  * @returns {object} A map of route GUIDs to their namespace hierarchies
  */
 function routesToGuids(routes) {
@@ -113,10 +113,10 @@ function routesToGuids(routes) {
 /**
  * Determine the name of the route described by a path
  *
- * @param {ChitonRoute[]} routes All available routes
+ * @param {HimationRoute[]} routes All available routes
  * @param {string} path The path component of a URL
  * @param {string} [method] The request method used to get the path
- * @returns {?ChitonRoute} The matching route
+ * @returns {?HimationRoute} The matching route
  */
 function pathToRoute(routes, path, method) {
   var basePath = path.replace(/\/+$/, '');
@@ -131,8 +131,8 @@ function pathToRoute(routes, path, method) {
 /**
  * Produce the path for accessing a named route
  *
- * @param {ChitonRouteDefinition[]} routes A route definition
- * @param {ChitonRouteGUID} guid The unique identifier for the route
+ * @param {HimationRouteDefinition[]} routes A route definition
+ * @param {HimationRouteGUID} guid The unique identifier for the route
  * @returns {string} The path for the route
  * @throws {ConfigurationError} If no path for the route was found
  */
@@ -167,7 +167,7 @@ function routeToPath(routes, guid) {
 /**
  * Extract the ordered namespaces described by a route GUID
  *
- * @param {ChitonRouteGUID} guid A route GUID
+ * @param {HimationRouteGUID} guid A route GUID
  * @returns {string[]} The hierarchy defined by the GUID
  */
 function guidToNamespaces(guid) {
@@ -178,7 +178,7 @@ function guidToNamespaces(guid) {
  * Convert a series of namespaces to a route GUID
  *
  * @param {string[]} namespaces The namespace hierarchy for a route
- * @returns {ChitonRouteGUID} The GUID for the hierarchy
+ * @returns {HimationRouteGUID} The GUID for the hierarchy
  */
 function namespacesToGuid(namespaces) {
   return namespaces.join(GUID_SEPARATOR);

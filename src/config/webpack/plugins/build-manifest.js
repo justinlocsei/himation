@@ -6,9 +6,9 @@ var fs = require('fs');
 var path = require('path');
 
 /**
- * Stats on a Chiton webpack build
+ * Stats on a Himation webpack build
  *
- * @typedef {object} ChitonBuildManifest
+ * @typedef {object} HimationBuildManifest
  * @property {object} assets A mapping of chunk names to relative asset paths
  * @property {object} entries A mapping of entry point names to output paths
  * @property {string} root The directory containing the assets
@@ -69,7 +69,7 @@ function entryPointDependencies(entry, config, stats) {
  *
  * @param {object} config The webpack configuration file that produced the build
  * @param {webpack.Stats} stats A webpack build-manifest object
- * @returns {ChitonBuildManifest} The final build manifest
+ * @returns {HimationBuildManifest} The final build manifest
  * @private
  */
 function webpackStatsToManifest(config, stats) {
@@ -138,7 +138,7 @@ BuildManifestPlugin.prototype.apply = function(compiler) {
 /**
  * Load the manifest from the plugin's file
  *
- * @returns {ChitonBuildManifest} Information on the build
+ * @returns {HimationBuildManifest} Information on the build
  */
 BuildManifestPlugin.prototype.loadManifest = function() {
   return JSON.parse(fs.readFileSync(this.manifestFile));

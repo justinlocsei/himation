@@ -1,7 +1,7 @@
 'use strict';
 
-var errors = require('chiton/core/errors');
-var routing = require('chiton/core/routing');
+var errors = require('himation/core/errors');
+var routing = require('himation/core/routing');
 
 describe('core/routing', function() {
 
