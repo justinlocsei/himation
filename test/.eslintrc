@@ -1,5 +1,5 @@
 {
-  "extends": "chiton/configurations/mocha",
+  "extends": "justinlocsei/configurations/mocha",
   "globals": {
     "assert": true
   },

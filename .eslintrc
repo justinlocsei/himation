@@ -1,5 +1,5 @@
 {
-  "extends": "chiton/configurations/node",
+  "extends": "justinlocsei/configurations/node",
   "rules": {
     "strict": [2, "global"]
   }
