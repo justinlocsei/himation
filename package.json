@@ -8,6 +8,7 @@
   "scripts": {
     "build": "gulp clear && gulp build",
     "build:watch": "gulp build-watch",
+    "link": "linklocal",
     "lint": "gulp lint",
     "serve": "gulp serve",
     "serve:app": "gulp serve-app",
