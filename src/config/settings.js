@@ -1,7 +1,7 @@
 'use strict';
 
 var extend = require('extend');
-var Joi = require('Joi');
+var Joi = require('joi');
 
 var errors = require('himation/core/errors');
 
