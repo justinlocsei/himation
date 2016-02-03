@@ -13,11 +13,13 @@ var defaults = {
   servers: {
     app: {
       host: '127.0.0.1',
+      path: '/',
       port: 3000,
       protocol: 'http'
     },
     assets: {
       host: '127.0.0.1',
+      path: '/',
       port: 3000,
       protocol: 'http'
     }
