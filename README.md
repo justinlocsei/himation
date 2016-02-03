@@ -23,42 +23,31 @@ With the dependencies installed, you can now define the environment settings.
 ## Settings
 
 In order to work on Himation in development, you will need to create a settings
-file at `config/settings.json`.  The following settings are available, with
-the dot-based hierarchy converted to nested JSON data.
+file at `config/settings.json`.  The available settings and their defaults,
+expressed as JavaScript that maps directly to JSON, are as follows:
 
-### `assets.debug`
-
-Setting this to `true` will add debugging information to asset builds.
-
-### `assets.optimize`
-
-Setting this to `true` will compress and optimize all built assets.
-
-### `server.debugLogging`
-
-Setting this to `true` will show log messages when development server requests
-are received.
-
-### `server.app.host`
-
-The host of the application server.
-
-### `server.app.port`
-
-The numerical port for the application server.
-
-### `server.app.protocol`
-
-The network protocol for the application server.
-
-### `server.assets.host`
-
-The host for the asset server.
-
-### `server.assets.port`
-
-The numerical port for the asset server.
-
-### `server.assets.protocol`
-
-The network protocol for the asset server.
+```javascript
+{
+  "assets": {
+    "debug": false,   // Setting this to true will add debugging information to asset builds
+    "optimize": false // Setting this to true will compress and optimize all assets during build
+  },
+  "server": {
+    "debugLogging": false // Setting this to true will log all requests made to the app server
+  },
+  "servers": {
+    "app": {
+      "host": "localhost", // The hostname on which the app server will listen
+      "path": "/",         // The root URL for the app server
+      "port": 80,          // The port on which the app server will listen
+      "protocol": "http"   // The protocol used to handle application requests
+    },
+    "assets": {
+      "host": "localhost", // The hostname for the asset server
+      "path": "/",         // The root URL for the asset server
+      "port": 80,          // The port for the asset server
+      "protocol": "http"   // The protocol used for the asset server
+    }
+  }
+}
+```
