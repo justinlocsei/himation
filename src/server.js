@@ -35,13 +35,17 @@ function Server(settings) {
  */
 Server.prototype.start = function() {
   var that = this;
-  var app = this._getApplication();
+  var address = this.settings.servers.app;
+
+  var app = this._app;
+  if (!app) {
+    app = this._createApplication(address.path);
+    this._app = app;
+  }
 
   if (this._isBound) {
     return Promise.resolve(app);
   }
-
-  var address = this.settings.servers.app;
 
   return new Promise(function(resolve, reject) {
     function handleError(err) {
@@ -75,9 +79,9 @@ Server.prototype.start = function() {
  */
 Server.prototype.stop = function() {
   var that = this;
-  var app = this._getApplication();
+  var app = this._app;
 
-  if (!this._isBound) {
+  if (!this._isBound || !app) {
     return Promise.resolve(app);
   }
 
@@ -95,30 +99,22 @@ Server.prototype.stop = function() {
 };
 
 /**
- * Get an instance of the application
+ * Create an instance of the application
  *
- * If the application has not yet been created, this will create it.  Otherwise,
- * it will return the existing copy.
- *
+ * @param {string} root The root path for the server
  * @returns {net.Server}
  */
-Server.prototype._getApplication = function() {
-  if (this._app) {
-    return this._app;
-  }
-
+Server.prototype._createApplication = function(root) {
   var app = application.create({
     templatesDirectory: paths.ui.templates
   });
 
   app.use(this._createLogger());
   app.use(this._createAssetMiddleware());
-  app.use('/', this._createRouter());
+  app.use(root, this._createRouter());
 
   var factory = this.settings.servers.app.protocol === 'https' ? https : http;
-  this._app = factory.createServer(app);
-
-  return this._app;
+  return factory.createServer(app);
 };
 
 /**
