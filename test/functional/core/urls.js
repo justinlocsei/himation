@@ -58,6 +58,16 @@ describe('core/urls', function() {
       assert.equal(host, '//example.com');
     });
 
+    it('allows a path to be specified', function() {
+      var host = urls.expandHostname('example.com', {path: 'sub/path'});
+      assert.equal(host, 'http://example.com/sub/path');
+    });
+
+    it('ignores leading slashes in the path', function() {
+      var host = urls.expandHostname('example.com', {path: '/path'});
+      assert.equal(host, 'http://example.com/path');
+    });
+
   });
 
   describe('.joinPaths', function() {

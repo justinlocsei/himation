@@ -16,6 +16,7 @@ var PORTS = {
  *
  * @param {string} hostname A hostname
  * @param {object} options Information on how to expand the hostname
+ * @param {string} options.path The path to use
  * @param {number} options.port The port to use
  * @param {string} options.protocol The protocol to use
  * @returns {string} The hostname with a protocol and port
@@ -25,14 +26,16 @@ function expandHostname(hostname, options) {
 
   var protocol = settings.protocol || 'http';
   var port = settings.port !== PORTS[protocol] ? settings.port : null;
+  var path = settings.path || '/';
 
   var url = URL.format({
     hostname: hostname,
+    pathname: path,
     protocol: protocol,
     port: port
   });
 
-  return url.replace(/^\/{2}:/, '//');
+  return url.replace(/^\/{2}:/, '//').replace(/\/$/, '');
 }
 
 /**
