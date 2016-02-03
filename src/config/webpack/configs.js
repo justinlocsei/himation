@@ -248,7 +248,7 @@ function ui(settings) {
     output: {
       filename: '[name]-[hash].js',
       path: paths.build.ui,
-      publicPath: '/'
+      publicPath: settings.servers.assets.path
     },
     plugins: commons.concat(globalPlugins(BUILD_IDS.ui, settings.assets.optimize)),
     target: 'web'

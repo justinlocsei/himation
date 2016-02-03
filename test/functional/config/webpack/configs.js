@@ -1,5 +1,6 @@
 'use strict';
 
+var clone = require('clone');
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 var glob = require('glob');
 var path = require('path');
@@ -246,6 +247,11 @@ describe('config/webpack/configs', function() {
       });
     });
 
+    it('uses a static root public path', function() {
+      var config = configs.server(settings.base);
+      assert.equal(config.output.publicPath, '/');
+    });
+
     describe('externals', function() {
 
       function checkExternal(config, file, callback) {
@@ -350,6 +356,19 @@ describe('config/webpack/configs', function() {
       linter.include.forEach(function(include) {
         assert.isChildOf(include, paths.ui.root);
       });
+    });
+
+    it('defaults to the root path for its public path', function() {
+      var config = configs.ui(settings.base);
+      assert.equal(config.output.publicPath, '/');
+    });
+
+    it('uses a custom path for the asset server as its public path', function() {
+      var options = clone(settings.base);
+      options.servers.assets.path = '/custom/path';
+
+      var config = configs.ui(options);
+      assert.equal(config.output.publicPath, '/custom/path');
     });
 
     describe('JS loaders', function() {
