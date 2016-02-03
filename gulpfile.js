@@ -102,19 +102,19 @@ gulp.task('serve-assets', function serveAssets() {
   });
 });
 
-// Run all tests with terse output
-gulp.task('test-terse', function testTerse() {
-  return runTests('dot');
-});
-
 // Run all tests with verbose output
 gulp.task('test-verbose', function testVerbose() {
   return runTests('spec');
 });
 
+// Run all tests with terse output
+gulp.task('test-watch', ['lint-js'], function testWatch() {
+  return runTests('dot');
+});
+
 // Verify all verifiable source code in reaction to a change
 gulp.task('watch', function watch() {
-  gulp.watch(filesByType.js, ['lint-js']);
+  gulp.watch(filesByType.js, ['test-watch']);
   gulp.watch(filesByType.scss, ['lint-scss']);
 });
 
