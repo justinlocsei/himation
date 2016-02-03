@@ -40,6 +40,7 @@ describe('Server', function() {
         },
         assets: {
           host: '127.0.0.1',
+          path: '/assets',
           port: 3001
         }
       }
@@ -86,7 +87,7 @@ describe('Server', function() {
         assert.isTrue(createMiddleware.called);
         var middlewareArgs = createMiddleware.args[0];
         assert.equal(middlewareArgs[0], buildManifest);
-        assert.equal(middlewareArgs[1], 'http://127.0.0.1:3001');
+        assert.equal(middlewareArgs[1], 'http://127.0.0.1:3001/assets');
         assert.equal(middlewareArgs[2], routes);
       });
     });

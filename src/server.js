@@ -136,10 +136,11 @@ Server.prototype._createAssetMiddleware = function() {
   var uiBuild = builds.ui(this.settings);
   var buildManifest = build.loadManifest(uiBuild);
 
-  var uiServer = this.settings.servers.assets;
-  var assetHost = urls.expandHostname(uiServer.host, {
-    port: uiServer.port,
-    protocol: uiServer.protocol
+  var assetServer = this.settings.servers.assets;
+  var assetHost = urls.expandHostname(assetServer.host, {
+    path: assetServer.path,
+    port: assetServer.port,
+    protocol: assetServer.protocol
   });
 
   return addRouteAssets.create(buildManifest, assetHost, routes);
