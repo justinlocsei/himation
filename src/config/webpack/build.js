@@ -24,7 +24,7 @@ function loadManifest(config) {
   try {
     return manifestPlugin.loadManifest();
   } catch (e) {
-    throw new errors.BuildError('The build manifest could not be loaded');
+    throw new errors.BuildError('The build manifest could not be loaded: ' + e);
   }
 }
 
