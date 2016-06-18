@@ -66,8 +66,11 @@ gulp.task('lint-js', function lintJs() {
 // Lint all Sass files
 gulp.task('lint-scss', function lintScss() {
   return gulp.src(filesByType.scss)
-    .pipe(plugins.scssLint({
-      bundleExec: true
+    .pipe(plugins.stylelint({
+      failAfterError: false,
+      reporters: [
+        {formatter: 'string', console: true}
+      ]
     }));
 });
 
