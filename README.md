@@ -5,21 +5,6 @@ Basics.  This includes a simple express server that communicates with the Chiton
 API, React-based UI code, and a webpack build process, managed by gulp, that
 ties the two together.
 
-# Development
-
-To create the development environment for Himation, you will need a working
-installation of Ruby and Node.js that match the versions defined in
-`.ruby-version` and `.nvmrc`, respectively.
-
-Once these programs are installed, run the following commands to install all
-dependencies:
-
-* `bundle install`
-* `npm install`
-* `npm run link`
-
-With the dependencies installed, you can now define the environment settings.
-
 ## Settings
 
 In order to work on Himation in development, you will need to create a settings
