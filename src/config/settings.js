@@ -14,6 +14,12 @@ var errors = require('himation/core/errors');
  * @property {number} port The port for the server
  * @property {string} protocol The protocol for the server
  */
+var serverSchema = Joi.object().keys({
+  host: Joi.string(),
+  path: Joi.string(),
+  port: Joi.number(),
+  protocol: Joi.string()
+});
 
 /**
  * Himation environment settings
@@ -29,6 +35,20 @@ var errors = require('himation/core/errors');
  * @property {HimationServerSettings} servers.app Address components for the application server
  * @property {HimationServerSettings} servers.assets Address components for the assets server
  */
+var schema = Joi.object().keys({
+  assets: Joi.object().keys({
+    debug: Joi.boolean(),
+    optimize: Joi.boolean()
+  }),
+  server: Joi.object().keys({
+    debugLogging: Joi.boolean()
+  }),
+  servers: Joi.object().keys({
+    app: serverSchema,
+    assets: serverSchema
+  })
+});
+
 var defaults = {
   assets: {
     debug: false,
@@ -52,29 +72,6 @@ var defaults = {
     }
   }
 };
-
-// The schema for server settings
-var serverSchema = Joi.object().keys({
-  host: Joi.string(),
-  path: Joi.string(),
-  port: Joi.number(),
-  protocol: Joi.string()
-});
-
-// The schema for the settings
-var schema = Joi.object().keys({
-  assets: Joi.object().keys({
-    debug: Joi.boolean(),
-    optimize: Joi.boolean()
-  }),
-  server: Joi.object().keys({
-    debugLogging: Joi.boolean()
-  }),
-  servers: Joi.object().keys({
-    app: serverSchema,
-    assets: serverSchema
-  })
-});
 
 /**
  * Create custom settings by merging the given settings with the defaults
