@@ -40,7 +40,7 @@ createWebpackTask('build-assets', webpackConfigs.ui(settings));
 createWebpackTask('build-server', webpackConfigs.server(settings));
 
 // Watch source files and rebuild them via webpack in response to changes
-gulp.task('build-watch', ['serve-assets'], function() {
+gulp.task('build-watch', ['serve-assets'], function buildWatch() {
   gulp.watch(files.matchDeep(paths.src, 'js'), ['build-server']);
 });
 
@@ -75,7 +75,7 @@ gulp.task('lint-scss', function lintScss() {
 });
 
 // Run the application server
-gulp.task('serve-app', function serveApplication() {
+gulp.task('serve-app', function serveApp() {
   var server = new Server(settings);
 
   server.start()
