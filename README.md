@@ -7,9 +7,8 @@ ties the two together.
 
 ## Settings
 
-In order to work on Himation in development, you will need to create a settings
-file at `config/settings.json`.  The available settings and their defaults,
-expressed as JavaScript that maps directly to JSON, are as follows:
+In order to run Himation, you will need to create a settings file at
+`config/settings.json`.  The available settings and their defaults are below:
 
 ```javascript
 {
