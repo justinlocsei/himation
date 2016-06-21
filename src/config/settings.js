@@ -55,9 +55,9 @@ var schema = Joi.object().keys({
 
 var defaults = {
   assets: {
-    buildDir: null,
+    buildDir: undefined,
     debug: false,
-    distDir: null,
+    distDir: undefined,
     optimize: false,
   },
   server: {
@@ -89,10 +89,7 @@ var defaults = {
 function build(custom) {
   var settings = extend(true, {}, defaults, custom || {});
 
-  var validation = Joi.validate(settings, schema, {
-    convert: false,
-    presence: 'required'
-  });
+  var validation = Joi.validate(settings, schema, {convert: false});
 
   if (validation.error) {
     throw new errors.ConfigurationError(validation.error.annotate());

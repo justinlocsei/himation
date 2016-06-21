@@ -10,6 +10,15 @@ describe('core/paths', function() {
 
   var sandbox = sinon.sandbox.create()
 
+  beforeEach(function() {
+    sandbox.stub(environment, 'load').returns({
+      assets: {
+        buildDir: '/tmp/build',
+        distDir: '/tmp/dist'
+      }
+    });
+  });
+
   afterEach(function() {
     sandbox.restore();
   });
@@ -25,30 +34,12 @@ describe('core/paths', function() {
   describe('the assets directory', function () {
 
     it('is provided via a setting value', function() {
-      sandbox.stub(environment.load, function() {
-        return {
-          assets: {
-            distDir: '/tmp/dist'
-          }
-        }
-      });
-
       assert.equal(paths.resolve().assets, '/tmp/dist');
     });
 
   });
 
   describe('the build directory', function() {
-
-    beforeEach(function() {
-      sandbox.stub(environment.load, function() {
-        return {
-          assets: {
-            buildDir: '/tmp/build',
-          }
-        }
-      });
-    });
 
     it('is provided via a setting value', function() {
       assert.equal(paths.resolve().build.root, '/tmp/build');
