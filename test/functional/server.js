@@ -124,7 +124,7 @@ describe('Server', function() {
     });
 
     it('returns a promise that is rejected if the server cannot be bound', function() {
-      server.settings.servers.app.host = '1.1.1.1';
+      server.settings.servers.app.binding = '1.1.1.1';
       return assert.isRejected(server.start());
     });
 
