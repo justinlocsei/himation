@@ -46,13 +46,20 @@ gulp.task('build-watch', ['serve-assets'], function buildWatch() {
 
 // Clear the build directories
 gulp.task('clear', function clear(done) {
-  [paths.build.root, paths.assets].forEach(function(buildDir) {
+  var cleared = 0;
+  var buildDirs = [paths.build.root, paths.assets];
+
+  buildDirs.forEach(function(buildDir) {
     rimraf(buildDir, function(rmrfErr) {
       if (rmrfErr) { throw new gutil.PluginError('clear', rmrfErr); }
 
       fs.mkdir(buildDir, function(mkdirErr) {
         if (mkdirErr) { throw new gutil.PluginError('clear', mkdirErr); }
-        done();
+        cleared++;
+
+        if (cleared === buildDirs.length) {
+          done();
+        }
       });
     });
   });
