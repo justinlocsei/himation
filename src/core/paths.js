@@ -33,7 +33,6 @@ function resolve() {
     assets: settings.assets.distDir,
     build: {
       assets: path.join(build, 'assets'),
-      manifests: path.join(build, 'manifests'),
       root: build,
     },
     modules: {

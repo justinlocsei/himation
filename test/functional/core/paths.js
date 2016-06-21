@@ -45,10 +45,6 @@ describe('core/paths', function() {
       assert.equal(paths.resolve().build.root, '/tmp/build');
     });
 
-    it('contains a directory for build manifests', function() {
-      assert.isChildOf(paths.resolve().build.manifests, paths.resolve().build.root);
-    });
-
     it('contains a directory for build assets', function() {
       assert.isChildOf(paths.resolve().build.assets, paths.resolve().build.root);
     });
