@@ -35,11 +35,11 @@ describe('Server', function() {
     return factories.settings({
       servers: {
         app: {
-          host: '127.0.0.1',
+          binding: '127.0.0.1',
           port: 3000
         },
         assets: {
-          host: '127.0.0.1',
+          binding: '127.0.0.1',
           path: '/assets',
           port: 3001
         }
