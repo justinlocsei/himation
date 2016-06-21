@@ -32,14 +32,31 @@ describe('core/paths', function() {
 
   });
 
-  describe('the config directory', function() {
+  describe('the config file', function() {
 
-    it('is below the root directory', function() {
-      assert.isChildOf(paths.config.root, paths.root);
+    var previousConfig;
+
+    beforeEach(function() {
+      previousConfig = process.env.HIMATION_CONFIG_FILE;
     });
 
-    it('contains a settings file', function() {
-      assert.isChildOf(paths.config.settings, paths.config.root);
+    afterEach(function() {
+      process.env.HIMATION_CONFIG_FILE = previousConfig;
+    });
+
+    it('is set from an environment variable', function() {
+      process.env.HIMATION_CONFIG_FILE = '/tmp/config.json';
+      assert.equal(paths.resolve().settings, '/tmp/config.json');
+    });
+
+    it('causes path resolution to fail if the environment variable is unset', function() {
+      delete process.env.HIMATION_CONFIG_FILE;
+      assert.throws(() => paths.resolve(), errors.ConfigurationError);
+    });
+
+    it('causes path resolution to fail if the environment variable is blank', function() {
+      process.env.HIMATION_CONFIG_FILE = '';
+      assert.throws(() => paths.resolve(), errors.ConfigurationError);
     });
 
   });

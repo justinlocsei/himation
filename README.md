@@ -7,8 +7,8 @@ ties the two together.
 
 ## Settings
 
-In order to run Himation, you will need to create a settings file at
-`config/settings.json`.  The available settings and their defaults are below:
+In order to run Himation, you will need to create a settings file with the
+structure below, which shows the available settings and their defaults:
 
 ```javascript
 {
@@ -35,3 +35,6 @@ In order to run Himation, you will need to create a settings file at
   }
 }
 ```
+
+Once you have created this file, set its absolute path as the value of the
+`HIMATION_CONFIG_FILE` environment variable.

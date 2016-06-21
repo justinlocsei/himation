@@ -16,7 +16,7 @@ var Server = require('himation/server');
 var webpackConfigs = require('himation/config/webpack/configs');
 
 var plugins = loadPlugins();
-var settings = environment.load(paths.config.settings);
+var settings = environment.load(paths.settings);
 
 // Globs for matching all known files of a type
 var filesByType = {
