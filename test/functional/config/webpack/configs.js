@@ -61,7 +61,7 @@ describe('config/webpack/configs', function() {
 
     it('targets a build directory for output', function() {
       var config = makeConfig(settings.base);
-      assert.isChildOf(config.output.path, paths.build.root);
+      assert.isChildOf(config.output.path, paths.resolve().build.root);
     });
 
     describe('image loaders', function() {
@@ -301,10 +301,11 @@ describe('config/webpack/configs', function() {
       it('runs server-side views and UI code through the Babel loader', function() {
         var config = configs.server(settings.base);
         var loader = getLoader(config);
+        var allPaths = paths.resolve();
 
         assert.equal(loader.loader, 'babel');
-        assert.include(loader.include, paths.server.views);
-        assert.include(loader.include, paths.ui.js);
+        assert.include(loader.include, allPaths.server.views);
+        assert.include(loader.include, allPaths.ui.js);
       });
 
     });
@@ -354,7 +355,7 @@ describe('config/webpack/configs', function() {
       var linter = linters[0];
       assert.equal(linter.loader, 'eslint');
       linter.include.forEach(function(include) {
-        assert.isChildOf(include, paths.ui.root);
+        assert.isChildOf(include, paths.resolve().ui.root);
       });
     });
 
@@ -388,7 +389,7 @@ describe('config/webpack/configs', function() {
 
         assert.equal(loader.loader, 'babel');
         loader.include.forEach(function(include) {
-          assert.isChildOf(include, paths.ui.root);
+          assert.isChildOf(include, paths.resolve().ui.root);
         });
       });
 

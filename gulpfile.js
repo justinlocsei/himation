@@ -11,7 +11,7 @@ var WebpackProgressPlugin = require('webpack/lib/ProgressPlugin');
 
 var environment = require('himation/config/environment');
 var files = require('himation/core/files');
-var paths = require('himation/core/paths');
+var paths = require('himation/core/paths').resolve();
 var Server = require('himation/server');
 var webpackConfigs = require('himation/config/webpack/configs');
 

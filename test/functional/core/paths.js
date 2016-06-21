@@ -1,5 +1,6 @@
 'use strict';
 
+var errors = require('himation/core/errors');
 var paths = require('himation/core/paths');
 
 describe('core/paths', function() {
@@ -7,7 +8,7 @@ describe('core/paths', function() {
   describe('the root directory', function() {
 
     it('exists', function() {
-      assert.isDirectory(paths.root);
+      assert.isDirectory(paths.resolve().root);
     });
 
   });
@@ -15,19 +16,19 @@ describe('core/paths', function() {
   describe('the build directory', function() {
 
     it('is below the root directory', function() {
-      assert.isChildOf(paths.build.root, paths.root);
+      assert.isChildOf(paths.resolve().build.root, paths.resolve().root);
     });
 
     it('is not the source directory', function() {
-      assert.notEqual(paths.build.root, paths.src);
+      assert.notEqual(paths.resolve().build.root, paths.resolve().src);
     });
 
     it('contains a directory for server builds', function() {
-      assert.isChildOf(paths.build.server, paths.build.root);
+      assert.isChildOf(paths.resolve().build.server, paths.resolve().build.root);
     });
 
     it('contains a directory for UI builds', function() {
-      assert.isChildOf(paths.build.ui, paths.build.root);
+      assert.isChildOf(paths.resolve().build.ui, paths.resolve().build.root);
     });
 
   });
@@ -64,11 +65,11 @@ describe('core/paths', function() {
   describe('the module directories', function() {
 
     it('is below the root directory', function() {
-      assert.isChildOf(paths.modules.root, paths.root);
+      assert.isChildOf(paths.resolve().modules.root, paths.resolve().root);
     });
 
     it('contains a binary directory', function() {
-      assert.isChildOf(paths.modules.bin, paths.modules.root);
+      assert.isChildOf(paths.resolve().modules.bin, paths.resolve().modules.root);
     });
 
   });
@@ -76,28 +77,28 @@ describe('core/paths', function() {
   describe('the source directory', function() {
 
     it('exists', function() {
-      assert.isDirectory(paths.src);
+      assert.isDirectory(paths.resolve().src);
     });
 
     it('is below the root directory', function() {
-      assert.isChildOf(paths.src, paths.root);
+      assert.isChildOf(paths.resolve().src, paths.resolve().root);
     });
 
     it('contains a directory for server code', function() {
-      assert.isChildOf(paths.server.root, paths.src);
-      assert.isDirectory(paths.server.root);
+      assert.isChildOf(paths.resolve().server.root, paths.resolve().src);
+      assert.isDirectory(paths.resolve().server.root);
     });
 
     it('contains a directory for UI code', function() {
-      assert.isChildOf(paths.ui.root, paths.src);
-      assert.isDirectory(paths.ui.root);
+      assert.isChildOf(paths.resolve().ui.root, paths.resolve().src);
+      assert.isDirectory(paths.resolve().ui.root);
     });
 
     describe('the server directory', function() {
 
       it('contains a directory for view files', function() {
-        assert.isChildOf(paths.server.views, paths.server.root);
-        assert.isDirectory(paths.server.views);
+        assert.isChildOf(paths.resolve().server.views, paths.resolve().server.root);
+        assert.isDirectory(paths.resolve().server.views);
       });
 
     });
@@ -105,18 +106,18 @@ describe('core/paths', function() {
     describe('the UI directory', function() {
 
       it('contains a directory for JS files', function() {
-        assert.isChildOf(paths.ui.js, paths.ui.root);
-        assert.isDirectory(paths.ui.js);
+        assert.isChildOf(paths.resolve().ui.js, paths.resolve().ui.root);
+        assert.isDirectory(paths.resolve().ui.js);
       });
 
       it('contains a directory for Sass files', function() {
-        assert.isChildOf(paths.ui.scss, paths.ui.root);
-        assert.isDirectory(paths.ui.scss);
+        assert.isChildOf(paths.resolve().ui.scss, paths.resolve().ui.root);
+        assert.isDirectory(paths.resolve().ui.scss);
       });
 
       it('contains a directory for templates', function() {
-        assert.isChildOf(paths.ui.templates, paths.ui.root);
-        assert.isDirectory(paths.ui.templates);
+        assert.isChildOf(paths.resolve().ui.templates, paths.resolve().ui.root);
+        assert.isDirectory(paths.resolve().ui.templates);
       });
 
     });
@@ -126,16 +127,16 @@ describe('core/paths', function() {
   describe('the test directory', function() {
 
     it('exists', function() {
-      assert.isDirectory(paths.test.root);
+      assert.isDirectory(paths.resolve().test.root);
     });
 
     it('is below the root directory', function() {
-      assert.isChildOf(paths.test.root, paths.root);
+      assert.isChildOf(paths.resolve().test.root, paths.resolve().root);
     });
 
     it('contains a directory for functional tests', function() {
-      assert.isChildOf(paths.test.functional, paths.test.root);
-      assert.isDirectory(paths.test.functional);
+      assert.isChildOf(paths.resolve().test.functional, paths.resolve().test.root);
+      assert.isDirectory(paths.resolve().test.functional);
     });
 
   });

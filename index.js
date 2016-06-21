@@ -1,7 +1,7 @@
 'use strict';
 
-var paths = require('himation/core/paths');
 var environment = require('himation/config/environment');
+var paths = require('himation/core/paths').resolve();
 var Server = require('himation/server');
 
 var settings = environment.load(paths.settings);

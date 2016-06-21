@@ -8,7 +8,7 @@ var extend = require('extend');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
 
-var paths = require('himation/core/paths');
+var resolvePaths = require('himation/core/paths').resolve;
 var routes = require('himation/config/routes');
 var sources = require('himation/config/webpack/sources');
 var BuildManifestPlugin = require('himation/config/webpack/plugins/build-manifest');
@@ -28,6 +28,8 @@ var BUILD_IDS = {
  * @private
  */
 function create(settings, custom) {
+  var paths = resolvePaths();
+
   return extend(true, {
     cache: true,
     debug: settings.assets.debug,
@@ -142,7 +144,7 @@ function globalPlugins(label, optimize) {
     }));
   }
 
-  plugins.push(new BuildManifestPlugin(label, paths.build.root));
+  plugins.push(new BuildManifestPlugin(label, resolvePaths().build.root));
   plugins.push(new webpack.NoErrorsPlugin());
 
   return plugins;
@@ -180,6 +182,7 @@ function postCssPlugins(optimize) {
  * @returns {object} A server-appropriate webpack configuration
  */
 function server(settings) {
+  var paths = resolvePaths();
   var entries = sources.routesToEntryPoints(routes, {
     modules: ['views'],
     root: 'himation'
@@ -219,6 +222,7 @@ function server(settings) {
  * @returns {object} A browser-appropriate webpack configuration
  */
 function ui(settings) {
+  var paths = resolvePaths();
   var entries = sources.routesToEntryPoints(routes, {
     modules: ['components', 'pages'],
     root: 'himation'

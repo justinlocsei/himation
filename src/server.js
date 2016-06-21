@@ -106,7 +106,7 @@ Server.prototype.stop = function() {
  */
 Server.prototype._createApplication = function(root) {
   var app = application.create({
-    templatesDirectory: paths.ui.templates
+    templatesDirectory: paths.resolve().ui.templates
   });
 
   app.use(this._createLogger());

@@ -69,7 +69,7 @@ describe('Server', function() {
 
       return server.start().then(function() {
         var params = create.args[0][0];
-        assert.equal(params.templatesDirectory, paths.ui.templates);
+        assert.equal(params.templatesDirectory, paths.resolve().ui.templates);
       });
     });
 
