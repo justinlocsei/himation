@@ -8,7 +8,7 @@ var paths = require('himation/core/paths');
 
 describe('core/paths', function() {
 
-  var sandbox = sinon.sandbox.create()
+  var sandbox = sinon.sandbox.create();
 
   beforeEach(function() {
     sandbox.stub(environment, 'load').returns({
@@ -31,7 +31,7 @@ describe('core/paths', function() {
 
   });
 
-  describe('the assets directory', function () {
+  describe('the assets directory', function() {
 
     it('is provided via a setting value', function() {
       assert.equal(paths.resolve().assets, '/tmp/dist');

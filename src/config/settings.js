@@ -58,7 +58,7 @@ var defaults = {
     buildDir: undefined,
     debug: false,
     distDir: undefined,
-    optimize: false,
+    optimize: false
   },
   server: {
     debugLogging: false

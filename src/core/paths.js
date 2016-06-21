@@ -33,7 +33,7 @@ function resolve() {
     assets: settings.assets.distDir,
     build: {
       assets: path.join(build, 'assets'),
-      root: build,
+      root: build
     },
     modules: {
       bin: path.join(modules, '.bin'),
