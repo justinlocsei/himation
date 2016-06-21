@@ -67,15 +67,15 @@ var defaults = {
   },
   servers: {
     app: {
-      binding: 'localhost',
-      host: 'localhost',
+      binding: '127.0.0.1',
+      host: '127.0.0.1',
       path: '/',
       port: 80,
       protocol: 'http'
     },
     assets: {
-      binding: 'localhost',
-      host: 'localhost',
+      binding: '127.0.0.1',
+      host: '127.0.0.1',
       path: '/',
       port: 80,
       protocol: 'http'
