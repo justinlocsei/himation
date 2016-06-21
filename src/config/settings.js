@@ -55,10 +55,10 @@ var schema = Joi.object().keys({
 
 var defaults = {
   assets: {
-    debug: false,
     buildDir: null,
+    debug: false,
+    distDir: null,
     optimize: false,
-    manifestsDir: null
   },
   server: {
     debugLogging: false
