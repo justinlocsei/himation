@@ -50,7 +50,7 @@
     "helmet": "^0.15.0",
     "himation": "file:./src",
     "image-webpack-loader": "^1.6.2",
-    "joi": "^7.1.0",
+    "joi": "^8.0.0",
     "linklocal": "^2.5.2",
     "lodash": "^3.10.1",
     "morgan": "^1.6.1",

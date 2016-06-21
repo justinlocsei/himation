@@ -25247,26 +25247,19 @@
       }
     },
     "joi": {
-      "version": "7.3.0",
-      "from": "joi@>=7.1.0 <8.0.0",
-      "resolved": "https://registry.npmjs.org/joi/-/joi-7.3.0.tgz",
+      "version": "8.4.2",
+      "from": "joi@8.4.2",
+      "resolved": "https://registry.npmjs.org/joi/-/joi-8.4.2.tgz",
       "dependencies": {
         "hoek": {
-          "version": "3.0.4",
-          "from": "hoek@>=3.0.0 <4.0.0",
-          "resolved": "https://registry.npmjs.org/hoek/-/hoek-3.0.4.tgz"
+          "version": "4.0.1",
+          "from": "hoek@>=4.0.0 <5.0.0",
+          "resolved": "https://registry.npmjs.org/hoek/-/hoek-4.0.1.tgz"
         },
         "topo": {
           "version": "2.0.1",
           "from": "topo@>=2.0.0 <3.0.0",
-          "resolved": "https://registry.npmjs.org/topo/-/topo-2.0.1.tgz",
-          "dependencies": {
-            "hoek": {
-              "version": "4.0.1",
-              "from": "hoek@>=4.0.0 <5.0.0",
-              "resolved": "https://registry.npmjs.org/hoek/-/hoek-4.0.1.tgz"
-            }
-          }
+          "resolved": "https://registry.npmjs.org/topo/-/topo-2.0.1.tgz"
         },
         "isemail": {
           "version": "2.1.2",
