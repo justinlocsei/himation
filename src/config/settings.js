@@ -26,7 +26,9 @@ var serverSchema = Joi.object().keys({
  *
  * @typedef {object} HimationSettings
  * @property {object} assets Asset configuration information
+ * @property {string} assets.buildDir The absolute path to the directory containing transient build files
  * @property {boolean} assets.debug Whether to bundle assets in debug mode
+ * @property {string} assets.distDir The absolute path to the directory containing optimized assets
  * @property {boolean} assets.optimize Whether to optimize all bundled assets
  * @property {boolean} debug Whether to run in debugging mode
  * @property {object} server Settings for the server
@@ -37,7 +39,9 @@ var serverSchema = Joi.object().keys({
  */
 var schema = Joi.object().keys({
   assets: Joi.object().keys({
+    buildDir: Joi.string(),
     debug: Joi.boolean(),
+    distDir: Joi.string(),
     optimize: Joi.boolean()
   }),
   server: Joi.object().keys({
@@ -52,7 +56,9 @@ var schema = Joi.object().keys({
 var defaults = {
   assets: {
     debug: false,
-    optimize: false
+    buildDir: null,
+    optimize: false,
+    manifestsDir: null
   },
   server: {
     debugLogging: false

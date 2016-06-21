@@ -1,9 +1,18 @@
 'use strict';
 
+var sinon = require('sinon');
+
+var environment = require('himation/config/environment');
 var errors = require('himation/core/errors');
 var paths = require('himation/core/paths');
 
 describe('core/paths', function() {
+
+  var sandbox = sinon.sandbox.create()
+
+  afterEach(function() {
+    sandbox.restore();
+  });
 
   describe('the root directory', function() {
 
@@ -13,22 +22,44 @@ describe('core/paths', function() {
 
   });
 
+  describe('the assets directory', function () {
+
+    it('is provided via a setting value', function() {
+      sandbox.stub(environment.load, function() {
+        return {
+          assets: {
+            distDir: '/tmp/dist'
+          }
+        }
+      });
+
+      assert.equal(paths.resolve().assets, '/tmp/dist');
+    });
+
+  });
+
   describe('the build directory', function() {
 
-    it('is below the root directory', function() {
-      assert.isChildOf(paths.resolve().build.root, paths.resolve().root);
+    beforeEach(function() {
+      sandbox.stub(environment.load, function() {
+        return {
+          assets: {
+            buildDir: '/tmp/build',
+          }
+        }
+      });
     });
 
-    it('is not the source directory', function() {
-      assert.notEqual(paths.resolve().build.root, paths.resolve().src);
+    it('is provided via a setting value', function() {
+      assert.equal(paths.resolve().build.root, '/tmp/build');
     });
 
-    it('contains a directory for server builds', function() {
-      assert.isChildOf(paths.resolve().build.server, paths.resolve().build.root);
+    it('contains a directory for build manifests', function() {
+      assert.isChildOf(paths.resolve().build.manifests, paths.resolve().build.root);
     });
 
-    it('contains a directory for UI builds', function() {
-      assert.isChildOf(paths.resolve().build.ui, paths.resolve().build.root);
+    it('contains a directory for build assets', function() {
+      assert.isChildOf(paths.resolve().build.assets, paths.resolve().build.root);
     });
 
   });

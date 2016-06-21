@@ -44,14 +44,16 @@ gulp.task('build-watch', ['serve-assets'], function buildWatch() {
   gulp.watch(files.matchDeep(paths.src, 'js'), ['build-server']);
 });
 
-// Clear the build directory
+// Clear the build directories
 gulp.task('clear', function clear(done) {
-  rimraf(paths.build.root, function(rmrfErr) {
-    if (rmrfErr) { throw new gutil.PluginError('clear', rmrfErr); }
+  [paths.build.root, paths.assets].forEach(function(buildDir) {
+    rimraf(buildDir, function(rmrfErr) {
+      if (rmrfErr) { throw new gutil.PluginError('clear', rmrfErr); }
 
-    fs.mkdir(paths.build.root, function(mkdirErr) {
-      if (mkdirErr) { throw new gutil.PluginError('clear', mkdirErr); }
-      done();
+      fs.mkdir(buildDir, function(mkdirErr) {
+        if (mkdirErr) { throw new gutil.PluginError('clear', mkdirErr); }
+        done();
+      });
     });
   });
 });
@@ -93,7 +95,7 @@ gulp.task('serve-assets', function serveAssets() {
   var config = webpackConfigs.ui(settings);
 
   var assetServer = new WebpackDevServer(webpack(config), {
-    contentBase: paths.build.root,
+    contentBase: paths.assets,
     publicPath: config.output.publicPath,
     stats: {colors: true}
   });
