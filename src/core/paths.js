@@ -18,6 +18,7 @@ var ui = path.join(src, 'ui');
  * Resolve all application paths
  *
  * @returns {object}
+ * @throws {ConfigurationError} If the path to the configuration file is undefined
  */
 function resolve() {
   var settingsPath = process.env.HIMATION_CONFIG_FILE;
