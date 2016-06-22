@@ -35,11 +35,11 @@ describe('Server', function() {
     return factories.settings({
       servers: {
         app: {
-          host: '127.0.0.1',
+          address: '127.0.0.1',
           port: 3000
         },
         assets: {
-          host: '127.0.0.1',
+          address: '127.0.0.1',
           path: '/assets',
           port: 3001
         }
@@ -124,7 +124,7 @@ describe('Server', function() {
     });
 
     it('returns a promise that is rejected if the server cannot be bound', function() {
-      server.settings.servers.app.host = '1.1.1.1';
+      server.settings.servers.app.address = '1.1.1.1';
       return assert.isRejected(server.start());
     });
 

@@ -66,7 +66,7 @@ Server.prototype.start = function() {
     app.on('error', handleError);
     app.on('listening', handleListening);
 
-    app.listen(address.port, address.host);
+    app.listen(address.port, address.address);
   });
 };
 
@@ -137,7 +137,7 @@ Server.prototype._createAssetMiddleware = function() {
   var buildManifest = build.loadManifest(uiBuild);
 
   var assetServer = this.settings.servers.assets;
-  var assetHost = urls.expandHostname(assetServer.host, {
+  var assetHost = urls.expandHostname(assetServer.address, {
     path: assetServer.path,
     port: assetServer.port,
     protocol: assetServer.protocol

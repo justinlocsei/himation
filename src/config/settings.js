@@ -9,13 +9,13 @@ var errors = require('himation/core/errors');
  * Himation server settings
  *
  * @typedef {object} HimationServerSettings
- * @property {string} host The address on which to bind the server
+ * @property {string} address The address on which to bind the server
  * @property {string} path The path for the server's root URL
  * @property {number} port The port for the server
  * @property {string} protocol The protocol for the server
  */
 var serverSchema = Joi.object().keys({
-  host: Joi.string(),
+  address: Joi.string(),
   path: Joi.string(),
   port: Joi.number(),
   protocol: Joi.string()
@@ -62,13 +62,13 @@ var defaults = {
   },
   servers: {
     app: {
-      host: '127.0.0.1',
+      address: '127.0.0.1',
       path: '/',
       port: 80,
       protocol: 'http'
     },
     assets: {
-      host: '127.0.0.1',
+      address: '127.0.0.1',
       path: '/',
       port: 80,
       protocol: 'http'
