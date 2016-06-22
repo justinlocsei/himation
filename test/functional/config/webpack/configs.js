@@ -369,6 +369,19 @@ describe('config/webpack/configs', function() {
       });
     });
 
+    it('uses predictable paths for commons chunks when not optimizing', function() {
+      var optimized = configs.ui(settings.optimized);
+      var unoptimized = configs.ui(settings.base);
+
+      function extractor(plugin) { return plugin.constructor === CommonsChunkPlugin; }
+
+      var optimizedCommons = optimized.plugins.filter(extractor)[0];
+      var unoptimizedCommons = unoptimized.plugins.filter(extractor)[0];
+
+      assert.include(optimizedCommons.filenameTemplate, '[hash]');
+      assert.notInclude(unoptimizedCommons.filenameTemplate, '[hash]');
+    });
+
     it('lints all UI JS before processing', function() {
       var config = configs.ui(settings.base);
       var linters = config.module.preLoaders.filter(function(loader) {

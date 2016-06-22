@@ -231,7 +231,7 @@ function ui(settings) {
     root: 'himation'
   });
 
-  var commonsOptions = sources.entryPointsToCommonsChunks(entries, optimizeAssets);
+  var commonsOptions = sources.entryPointsToCommonsChunks(entries, {optimize: optimizeAssets});
   var commons = commonsOptions.map(options => new CommonsChunkPlugin(options));
 
   return create(settings, {
