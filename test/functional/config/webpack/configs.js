@@ -215,7 +215,14 @@ describe('config/webpack/configs', function() {
         var aborter = namedPlugin(config, 'NoErrorsPlugin');
 
         assert.isDefined(aborter);
-        assert.equal(config.plugins.indexOf(aborter), config.plugins.length - 1);
+        assert.include(config.plugins, aborter);
+        assert.notEqual(config.plugins.indexOf(aborter), 0);
+      });
+
+      it('syncs the output paths of the dev server and main config', function() {
+        var config = makeConfig(settings.base);
+
+        assert.equal(config.devServer.outputPath, config.output.path);
       });
 
       it('minifies all JS code when optimizing', function() {

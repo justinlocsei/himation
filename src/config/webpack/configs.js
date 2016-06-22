@@ -7,6 +7,7 @@ var cssnano = require('cssnano');
 var extend = require('extend');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
+var WriteFilePlugin = require('write-file-webpack-plugin');
 
 var resolvePaths = require('himation/core/paths').resolve;
 var routes = require('himation/config/routes');
@@ -178,6 +179,22 @@ function postCssPlugins(optimize) {
 }
 
 /**
+ * Modify a webpack configuration to ensure that files are written to disk
+ *
+ * @param {object} config A webpack configuration
+ * @returns {object} The updated configuration file
+ */
+function forceFileWriting(config) {
+  config.devServer = config.devServer || {};
+  config.devServer.outputPath = config.output.path;
+
+  config.plugins = config.plugins || [];
+  config.plugins.push(new WriteFilePlugin());
+
+  return config;
+}
+
+/**
  * Create a webpack configuration for use on the server
  *
  * @param {HimationSettings} settings The current settings
@@ -190,7 +207,7 @@ function server(settings) {
     root: 'himation'
   });
 
-  return create(settings, {
+  var config = create(settings, {
     context: paths.server.root,
     devtool: false,
     entry: entries,
@@ -215,6 +232,8 @@ function server(settings) {
     plugins: globalPlugins(BUILD_IDS.server, settings.assets.optimize),
     target: 'node'
   });
+
+  return forceFileWriting(config);
 }
 
 /**
@@ -234,7 +253,7 @@ function ui(settings) {
   var commonsOptions = sources.entryPointsToCommonsChunks(entries, {optimize: optimizeAssets});
   var commons = commonsOptions.map(options => new CommonsChunkPlugin(options));
 
-  return create(settings, {
+  var config = create(settings, {
     context: paths.ui.js,
     devtool: 'source-map',
     entry: entries,
@@ -260,6 +279,8 @@ function ui(settings) {
     plugins: commons.concat(globalPlugins(BUILD_IDS.ui, optimizeAssets)),
     target: 'web'
   });
+
+  return forceFileWriting(config);
 }
 
 module.exports = {};
