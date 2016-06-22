@@ -36,12 +36,14 @@ describe('Server', function() {
       servers: {
         app: {
           address: '127.0.0.1',
-          port: 3000
+          port: 3000,
+          publicURL: 'http://example.com/'
         },
         assets: {
           address: '127.0.0.1',
           path: '/assets',
-          port: 3001
+          port: 3001,
+          publicURL: 'http://example.com/assets/'
         }
       }
     });
@@ -87,7 +89,7 @@ describe('Server', function() {
         assert.isTrue(createMiddleware.called);
         var middlewareArgs = createMiddleware.args[0];
         assert.equal(middlewareArgs[0], buildManifest);
-        assert.equal(middlewareArgs[1], 'http://127.0.0.1:3001/assets');
+        assert.equal(middlewareArgs[1], 'http://example.com/assets/');
         assert.equal(middlewareArgs[2], routes);
       });
     });
