@@ -82,14 +82,17 @@ describe('config/webpack/configs', function() {
         })[0];
       }
 
+      function urlLoaders(subloader) {
+        return subloader.loaders.filter(function(loader) {
+          return /^url\??/.test(loader);
+        });
+      }
+
       it('uses a URL loader', function() {
         var config = makeConfig(settings.base);
         var loader = getLoader(config);
 
-        var url = loader.loaders.filter(function(subloader) {
-          return /^url\??/.test(subloader);
-        });
-        assert.equal(url.length, 1);
+        assert.equal(urlLoaders(loader).length, 1);
       });
 
       it('compresses images when optimizing', function() {
@@ -110,6 +113,17 @@ describe('config/webpack/configs', function() {
         var options = JSON.parse(json[1]);
 
         assert.isObject(options);
+      });
+
+      it('uses predictable file names when not optimizing', function() {
+        var optimized = makeConfig(settings.optimized);
+        var unoptimized = makeConfig(settings.base);
+
+        var optimizedLoader = urlLoaders(getLoader(optimized))[0];
+        var unoptimizedLoader = urlLoaders(getLoader(unoptimized))[0];
+
+        assert.include(optimizedLoader, '[hash]');
+        assert.notInclude(unoptimizedLoader, '[hash]');
       });
 
     });
@@ -175,6 +189,17 @@ describe('config/webpack/configs', function() {
 
         assert.isDefined(extractor);
         assert.match(extractor.filename, /\.css$/);
+      });
+
+      it('uses predictable names for CSS files when not optimizing', function() {
+        var optimized = makeConfig(settings.optimized);
+        var unoptimized = makeConfig(settings.base);
+
+        var optimizedExtractor = namedPlugin(optimized, 'ExtractTextPlugin');
+        var unoptimizedExtractor = namedPlugin(unoptimized, 'ExtractTextPlugin');
+
+        assert.include(optimizedExtractor.filename, '[contenthash]');
+        assert.notInclude(unoptimizedExtractor.filename, '[contenthash]');
       });
 
       it('exports a build manifest to a JSON file', function() {
@@ -357,6 +382,14 @@ describe('config/webpack/configs', function() {
       linter.include.forEach(function(include) {
         assert.isChildOf(include, paths.resolve().ui.root);
       });
+    });
+
+    it('uses predictable output paths when not optimizing', function() {
+      var optimized = configs.ui(settings.optimized);
+      var unoptimized = configs.ui(settings.base);
+
+      assert.include(optimized.output.filename, '[hash]');
+      assert.notInclude(unoptimized.output.filename, '[hash]');
     });
 
     it('defaults to the root path for its public path', function() {

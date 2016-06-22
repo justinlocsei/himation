@@ -106,9 +106,10 @@ function jsLoaders(files) {
  * @private
  */
 function imageLoaders(optimize) {
+  var name = optimize ? '[hash].[ext]' : '[path][name].[ext]';
   var rasterLoader = {
     test: /\.(jpg|png)$/,
-    loaders: ['url?limit=2500&name=images/[hash].[ext]']
+    loaders: ['url?limit=2500&name=' + name]
   };
 
   if (optimize) {
@@ -136,7 +137,8 @@ function imageLoaders(optimize) {
  * @private
  */
 function globalPlugins(label, optimize) {
-  var plugins = [new ExtractTextPlugin('[name]-[hash].css')];
+  var extractTo = optimize ? '[name]-[contenthash].css' : '[name]-[id].css';
+  var plugins = [new ExtractTextPlugin(extractTo)];
 
   if (optimize) {
     plugins.push(new webpack.optimize.UglifyJsPlugin({
@@ -223,12 +225,13 @@ function server(settings) {
  */
 function ui(settings) {
   var paths = resolvePaths();
+  var optimizeAssets = settings.assets.optimize;
   var entries = sources.routesToEntryPoints(routes, {
     modules: ['components', 'pages'],
     root: 'himation'
   });
 
-  var commonsOptions = sources.entryPointsToCommonsChunks(entries);
+  var commonsOptions = sources.entryPointsToCommonsChunks(entries, optimizeAssets);
   var commons = commonsOptions.map(options => new CommonsChunkPlugin(options));
 
   return create(settings, {
@@ -237,7 +240,7 @@ function ui(settings) {
     entry: entries,
     module: {
       loaders: _.flatten([
-        imageLoaders(settings.assets.optimize),
+        imageLoaders(optimizeAssets),
         jsLoaders([paths.ui.js]),
         sassLoaders()
       ]),
@@ -250,11 +253,11 @@ function ui(settings) {
       ]
     },
     output: {
-      filename: '[name]-[hash].js',
+      filename: settings.assets.optimize ? '[name]-[hash].js' : '[name].js',
       path: paths.assets,
       publicPath: settings.servers.assets.path
     },
-    plugins: commons.concat(globalPlugins(BUILD_IDS.ui, settings.assets.optimize)),
+    plugins: commons.concat(globalPlugins(BUILD_IDS.ui, optimizeAssets)),
     target: 'web'
   });
 }

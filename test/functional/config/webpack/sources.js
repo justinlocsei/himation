@@ -63,6 +63,16 @@ describe('config/webpack/sources', function() {
       });
     });
 
+    it('omits dynamic filename components when not optimizing assets', function() {
+      var commons = sources.entryPointsToCommonsChunks({
+        'test.one': './test/one',
+        'test.two': './test/two'
+      }, {optimize: false});
+
+      assert.equal(commons.length, 1);
+      assert.equal(commons[0].filename, 'commons.test.js');
+    });
+
     it('does not create commons chunks for routes that do not share a namespace', function() {
       var commons = sources.entryPointsToCommonsChunks({
         'test.one': './test/one',

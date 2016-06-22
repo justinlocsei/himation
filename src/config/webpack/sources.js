@@ -12,10 +12,17 @@ var routing = require('himation/core/routing');
  * which allows entry points that share a namespace to be determined.
  *
  * @param {object} points A mapping of entry-point names to module paths
+ * @param {object} options Options for creating the commons chunks
+ * @param {boolean} [options.optimize] Whether to optimize the chunks or not
  * @returns {object[]} A series of options used to create commons-chunks plugins
  */
-function entryPointsToCommonsChunks(points) {
+function entryPointsToCommonsChunks(points, options) {
   var entries = Object.keys(points);
+
+  var settings = extend({
+    optimize: true
+  }, options || {});
+  var fileSuffix = settings.optimize ? '-[hash].js' : '.js';
 
   function createCommonsChunks(depth) {
     var allNamespaces = entries.map(name => routing.guidToNamespaces(name).slice(0, depth));
@@ -35,7 +42,7 @@ function entryPointsToCommonsChunks(points) {
         var nameParts = ['commons'].concat(namespace);
         result.push({
           chunks: matches,
-          filename: nameParts.join('.') + '-[hash].js',
+          filename: nameParts.join('.') + fileSuffix,
           name: nameParts.join('.')
         });
       }
