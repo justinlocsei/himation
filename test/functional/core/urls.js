@@ -11,6 +11,11 @@ describe('core/urls', function() {
       assert.equal(url, 'http://example.com/relative');
     });
 
+    it('respects paths in absolute roots', function() {
+      var url = urls.relativeToAbsolute('leaf', 'http://example.com/branch');
+      assert.equal(url, 'http://example.com/branch/leaf');
+    });
+
     it('requires a protocol in order to treat the URL as absolute', function() {
       var url = urls.relativeToAbsolute('/root', 'http://example.com');
       assert.equal(url, 'http://example.com/root');

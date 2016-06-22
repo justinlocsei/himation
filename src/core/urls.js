@@ -57,12 +57,14 @@ function joinPaths(paths) {
  * @returns {string} An absolute URL
  */
 function relativeToAbsolute(url, root) {
-  var parts = URL.parse(url, false, true);
+  var rootParts = URL.parse(root, false, true);
+  var relativeParts = URL.parse(url, false, true);
 
-  if (parts.host) {
+  if (relativeParts.host) {
     return url;
   } else {
-    return URL.resolve(root, url);
+    rootParts.pathname = joinPaths([rootParts.pathname, url]);
+    return URL.format(rootParts);
   }
 }
 
