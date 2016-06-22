@@ -13,12 +13,14 @@ var errors = require('himation/core/errors');
  * @property {string} path The path for the server's root URL
  * @property {number} port The port for the server
  * @property {string} protocol The protocol for the server
+ * @property {string} publicURL The public absolute URL by which the server is accessed
  */
 var serverSchema = Joi.object().keys({
   address: Joi.string(),
   path: Joi.string(),
   port: Joi.number(),
-  protocol: Joi.string()
+  protocol: Joi.string(),
+  publicURL: Joi.string()
 });
 
 /**
@@ -65,13 +67,15 @@ var defaults = {
       address: '127.0.0.1',
       path: '/',
       port: 80,
-      protocol: 'http'
+      protocol: 'http',
+      publicURL: undefined
     },
     assets: {
       address: '127.0.0.1',
       path: '/',
       port: 80,
-      protocol: 'http'
+      protocol: 'http',
+      publicURL: undefined
     }
   }
 };
