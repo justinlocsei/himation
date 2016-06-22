@@ -12,7 +12,6 @@ var builds = require('himation/config/webpack/configs');
 var paths = require('himation/core/paths');
 var routers = require('himation/server/routers');
 var routes = require('himation/config/routes');
-var urls = require('himation/core/urls');
 
 /**
  * An application server
