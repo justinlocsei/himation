@@ -13,7 +13,6 @@ describe('core/paths', function() {
   beforeEach(function() {
     sandbox.stub(environment, 'load').returns({
       assets: {
-        buildDir: '/tmp/build',
         distDir: '/tmp/dist'
       }
     });
@@ -41,8 +40,8 @@ describe('core/paths', function() {
 
   describe('the build directory', function() {
 
-    it('is provided via a setting value', function() {
-      assert.equal(paths.resolve().build.root, '/tmp/build');
+    it('is part of the application', function() {
+      assert.isChildOf(paths.resolve().build.root, paths.resolve().root);
     });
 
     it('contains a directory for build assets', function() {

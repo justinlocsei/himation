@@ -13,7 +13,6 @@ structure below, which shows the available settings and their defaults:
 ```javascript
 {
   "assets": {
-    "buildDir": null, // The absolute path to the directory for transient build files
     "debug": false,   // Setting this to true will add debugging information to asset builds
     "distDir": null,  // The absolute path to the directory for final build assets
     "optimize": false // Setting this to true will compress and optimize all assets during build

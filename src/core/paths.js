@@ -7,6 +7,7 @@ var environment = require('himation/config/environment');
 
 var root = path.normalize(path.join(__dirname, '..', '..'));
 
+var build = path.join(root, 'build');
 var modules = path.join(root, 'node_modules');
 var src = path.join(root, 'src');
 var test = path.join(root, 'test');
@@ -27,7 +28,6 @@ function resolve() {
   }
 
   var settings = environment.load(settingsPath);
-  var build = settings.assets.buildDir;
 
   return {
     assets: settings.assets.distDir,
