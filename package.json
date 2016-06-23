@@ -10,6 +10,7 @@
     "build:watch": "gulp build-watch",
     "link": "linklocal",
     "lint": "gulp lint",
+    "postinstall": "linklocal link",
     "serve": "gulp serve",
     "serve:app": "gulp serve-app",
     "serve:assets": "gulp serve-assets",
