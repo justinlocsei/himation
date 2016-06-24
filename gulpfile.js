@@ -35,9 +35,15 @@ gulp.task('default', ['serve-assets']);
 gulp.task('lint', ['lint-js', 'lint-scss']);
 gulp.task('serve', ['serve-app', 'serve-assets']);
 
-// Create webpack tasks for client and server builds
-createWebpackTask('build-assets', webpackConfigs.ui);
-createWebpackTask('build-server', webpackConfigs.server);
+// Perform a webpack build for the front-end assets
+gulp.task('build-assets', function buildAssets(done) {
+  runWebpackBuild(webpackConfigs.ui, done);
+});
+
+// Perform a webpack build for the server's assets
+gulp.task('build-server', function buildServer(done) {
+  runWebpackBuild(webpackConfigs.server, done);
+});
 
 // Clear the build directories
 gulp.task('clear', function clear(done) {
@@ -153,25 +159,23 @@ function runTests(reporter) {
 }
 
 /**
- * Create a gulp task for building a webpack bundle
+ * Run a webpack build for a given configuration
  *
- * @param {string} task The name of the gulp task
  * @param {function} configFactory A webpack configuration factory
+ * @param {function} done A function to call when the build completes
  */
-function createWebpackTask(task, configFactory) {
-  gulp.task(task, function(done) {
-    var config = configFactory(settings);
-    var logLabel = 'Webpack (' + config.target + ')';
+function runWebpackBuild(configFactory, done) {
+  var config = configFactory(settings);
+  var logLabel = 'Webpack (' + config.target + ')';
 
-    var builder = webpack(config, function(err, stats) {
-      if (err) { throw new gutil.PluginError(task, err); }
-      gutil.log(logLabel, stats.toString({colors: true}));
-      done();
-    });
-
-    builder.apply(new WebpackProgressPlugin(function(percentage, message) {
-      var rounded = Math.floor(percentage * 100);
-      gutil.log(logLabel, rounded + '% ' + message);
-    }));
+  var builder = webpack(config, function(err, stats) {
+    if (err) { throw new gutil.PluginError('webpack (' + config.target + ')', err); }
+    gutil.log(logLabel, stats.toString({colors: true}));
+    done();
   });
+
+  builder.apply(new WebpackProgressPlugin(function(percentage, message) {
+    var rounded = Math.floor(percentage * 100);
+    gutil.log(logLabel, rounded + '% ' + message);
+  }));
 }
