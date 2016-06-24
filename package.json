@@ -7,15 +7,13 @@
   "main": "index.js",
   "scripts": {
     "build": "gulp clear && gulp build",
-    "build:watch": "gulp build-watch",
     "link": "linklocal",
     "lint": "gulp lint",
     "postinstall": "linklocal link",
     "serve": "gulp serve",
     "serve:app": "gulp serve-app",
     "serve:assets": "gulp serve-assets",
-    "test": "gulp test-verbose; exit 0",
-    "watch": "gulp watch"
+    "test": "gulp test; exit 0"
   },
   "dependencies": {
     "autoprefixer": "^6.1.2",

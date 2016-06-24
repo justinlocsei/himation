@@ -127,36 +127,14 @@ gulp.task('serve-assets', function serveAssets() {
   });
 });
 
-// Run all tests with verbose output
-gulp.task('test-verbose', function testVerbose() {
-  return runTests('spec');
-});
-
-// Run all tests with terse output
-gulp.task('test-watch', ['lint-js'], function testWatch() {
-  return runTests('dot');
-});
-
-// Verify all verifiable source code in reaction to a change
-gulp.task('watch', function watch() {
-  gulp.watch(filesByType.js, ['test-watch']);
-  gulp.watch(filesByType.scss, ['lint-scss']);
-});
-
-/**
- * Run Mocha tests with a custom configuration
- *
- * @param {string} reporter An identifier for the Mocha reporter
- * @returns {Stream}
- */
-function runTests(reporter) {
+// Run all tests
+gulp.task('test', function testVerbose() {
   return gulp.src(files.matchDeep(paths.test.functional), {read: false})
     .pipe(plugins.mocha({
-      reporter: reporter,
-      require: ['himation-test/support/environment'],
-      ui: 'bdd'
+      reporter: 'dot',
+      require: ['himation-test/support/environment']
     }));
-}
+});
 
 /**
  * Run a webpack build for a given configuration
