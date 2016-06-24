@@ -1,6 +1,5 @@
 'use strict';
 
-var extend = require('extend');
 var Joi = require('joi');
 
 var errors = require('himation/core/errors');
@@ -16,12 +15,12 @@ var errors = require('himation/core/errors');
  * @property {string} publicURL The public absolute URL by which the server is accessed
  */
 var serverSchema = Joi.object().keys({
-  address: Joi.string(),
-  path: Joi.string(),
-  port: Joi.number(),
-  protocol: Joi.string(),
+  address: Joi.string().default('127.0.0.1'),
+  path: Joi.string().default('/'),
+  port: Joi.number().default(80),
+  protocol: Joi.string().default('http'),
   publicURL: Joi.string()
-});
+}).default();
 
 /**
  * Himation environment settings
@@ -40,63 +39,33 @@ var serverSchema = Joi.object().keys({
  */
 var schema = Joi.object().keys({
   assets: Joi.object().keys({
-    debug: Joi.boolean(),
+    debug: Joi.boolean().default(false),
     distDir: Joi.string(),
-    optimize: Joi.boolean()
-  }),
+    optimize: Joi.boolean().default(false)
+  }).default(),
   server: Joi.object().keys({
-    debugLogging: Joi.boolean()
-  }),
+    debugLogging: Joi.boolean().default(false)
+  }).default(),
   servers: Joi.object().keys({
     app: serverSchema,
     assets: serverSchema
-  })
-});
-
-var defaults = {
-  assets: {
-    debug: false,
-    distDir: undefined,
-    optimize: false
-  },
-  server: {
-    debugLogging: false
-  },
-  servers: {
-    app: {
-      address: '127.0.0.1',
-      path: '/',
-      port: 80,
-      protocol: 'http',
-      publicURL: undefined
-    },
-    assets: {
-      address: '127.0.0.1',
-      path: '/',
-      port: 80,
-      protocol: 'http',
-      publicURL: undefined
-    }
-  }
-};
+  }).default()
+}).default();
 
 /**
  * Create custom settings by merging the given settings with the defaults
  *
- * @param {object} custom Custom settings to merge with the default settings
+ * @param {object} settings Custom settings to merge with the default settings
  * @returns {HimationSettings} The custom settings
  * @throws {ConfigurationError} If the settings are invalid
  */
-function build(custom) {
-  var settings = extend(true, {}, defaults, custom || {});
-
+function build(settings) {
   var validation = Joi.validate(settings, schema, {convert: false});
-
   if (validation.error) {
     throw new errors.ConfigurationError(validation.error.annotate());
   }
 
-  return settings;
+  return validation.value;
 }
 
 module.exports = {
