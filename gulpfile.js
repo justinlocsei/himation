@@ -128,7 +128,7 @@ gulp.task('serve-assets', function serveAssets() {
 });
 
 // Run all tests
-gulp.task('test', function testVerbose() {
+gulp.task('test', function test() {
   return gulp.src(files.matchDeep(paths.test.functional), {read: false})
     .pipe(plugins.mocha({
       reporter: 'dot',
