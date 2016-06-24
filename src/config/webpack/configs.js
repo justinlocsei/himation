@@ -189,7 +189,7 @@ function forceFileWriting(config) {
   config.devServer.outputPath = config.output.path;
 
   config.plugins = config.plugins || [];
-  config.plugins.push(new WriteFilePlugin());
+  config.plugins.push(new WriteFilePlugin({log: false}));
 
   return config;
 }
