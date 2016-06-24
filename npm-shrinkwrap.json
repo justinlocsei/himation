@@ -6050,67 +6050,6 @@
       "resolved": "https://registry.npmjs.org/gulp/-/gulp-3.9.1.tgz",
       "version": "3.9.1"
     },
-    "gulp-data": {
-      "dependencies": {
-        "through2": {
-          "dependencies": {
-            "readable-stream": {
-              "dependencies": {
-                "core-util-is": {
-                  "from": "core-util-is@>=1.0.0 <1.1.0",
-                  "resolved": "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz",
-                  "version": "1.0.2"
-                },
-                "inherits": {
-                  "from": "inherits@2.0.1",
-                  "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz",
-                  "version": "2.0.1"
-                },
-                "isarray": {
-                  "from": "isarray@>=1.0.0 <1.1.0",
-                  "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz",
-                  "version": "1.0.0"
-                },
-                "process-nextick-args": {
-                  "from": "process-nextick-args@>=1.0.6 <1.1.0",
-                  "resolved": "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-1.0.7.tgz",
-                  "version": "1.0.7"
-                },
-                "string_decoder": {
-                  "from": "string_decoder@>=0.10.0 <0.11.0",
-                  "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.31.tgz",
-                  "version": "0.10.31"
-                },
-                "util-deprecate": {
-                  "from": "util-deprecate@>=1.0.1 <1.1.0",
-                  "resolved": "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz",
-                  "version": "1.0.2"
-                }
-              },
-              "from": "readable-stream@>=2.0.0 <2.1.0",
-              "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.0.6.tgz",
-              "version": "2.0.6"
-            },
-            "xtend": {
-              "from": "xtend@>=4.0.0 <4.1.0",
-              "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.1.tgz",
-              "version": "4.0.1"
-            }
-          },
-          "from": "through2@>=2.0.0 <3.0.0",
-          "resolved": "https://registry.npmjs.org/through2/-/through2-2.0.1.tgz",
-          "version": "2.0.1"
-        },
-        "util-extend": {
-          "from": "util-extend@>=1.0.1 <2.0.0",
-          "resolved": "https://registry.npmjs.org/util-extend/-/util-extend-1.0.3.tgz",
-          "version": "1.0.3"
-        }
-      },
-      "from": "gulp-data@>=1.2.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/gulp-data/-/gulp-data-1.2.1.tgz",
-      "version": "1.2.1"
-    },
     "gulp-eslint": {
       "dependencies": {
         "bufferstreams": {
