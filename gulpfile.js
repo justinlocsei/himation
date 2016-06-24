@@ -95,6 +95,18 @@ gulp.task('serve-app', function serveApp() {
     .catch(function(err) {
       throw new gutil.PluginError('serve-app', err);
     });
+
+  var compiler = webpack(webpackConfigs.server(settings));
+  compiler.watch({
+    aggregateTimeout: 250,
+    poll: false
+  }, function(err) {
+    if (err) {
+      throw new gutil.PluginError('server-app', err);
+    } else {
+      gutil.log('Recompiled webpack assets');
+    }
+  });
 });
 
 // Run the webpack development server to serve assets
