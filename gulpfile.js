@@ -3,7 +3,6 @@
 var fs = require('fs');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var loadPlugins = require('gulp-load-plugins');
 var rimraf = require('rimraf');
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
@@ -15,7 +14,12 @@ var paths = require('himation/core/paths').resolve();
 var Server = require('himation/server');
 var webpackConfigs = require('himation/config/webpack/configs');
 
-var plugins = loadPlugins();
+var plugins = {
+  eslint: require('gulp-eslint'),
+  mocha: require('gulp-mocha'),
+  stylelint: require('gulp-stylelint')
+};
+
 var settings = environment.load(paths.settings);
 
 // Globs for matching all known files of a type
