@@ -9,7 +9,7 @@ describe('server/views', function() {
 
   describe('.render', function() {
 
-    function component() {
+    function createComponent() {
       return React.createClass({
         render: function() {
           var value = this.props.name ? 'Hello ' + this.props.name : 'Hello';
@@ -19,7 +19,7 @@ describe('server/views', function() {
     }
 
     it('renders a React component to a string', function() {
-      var markup = views.render(component());
+      var markup = views.render(createComponent());
       var result = parse5.parseFragment(markup).childNodes[0];
 
       assert.equal(result.tagName, 'h1');
@@ -30,7 +30,7 @@ describe('server/views', function() {
     });
 
     it('passes props to the component', function() {
-      var markup = views.render(component(), {name: 'Tester'});
+      var markup = views.render(createComponent(), {name: 'Tester'});
       var result = parse5.parseFragment(markup).childNodes[0];
 
       assert.equal(result.tagName, 'h1');

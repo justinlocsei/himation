@@ -32,7 +32,7 @@ describe('config/webpack/plugins/build-manifest', function() {
 
     describe('#apply', function() {
 
-      function configure(directory, id) {
+      function createConfiguration(directory, id) {
         return {
           output: {
             path: directory,
@@ -50,7 +50,7 @@ describe('config/webpack/plugins/build-manifest', function() {
 
         assert.fileDoesNotExist(manifest);
 
-        webpack(configure(directory, 'build'), function() {
+        webpack(createConfiguration(directory, 'build'), function() {
           assert.fileExists(manifest);
           done();
         });
@@ -60,7 +60,7 @@ describe('config/webpack/plugins/build-manifest', function() {
         var directory = tmp.dirSync().name;
         var manifest = path.join(directory, 'build.json');
 
-        webpack(configure(directory, 'build'), function() {
+        webpack(createConfiguration(directory, 'build'), function() {
           var output = JSON.parse(fs.readFileSync(manifest));
 
           assert.isObject(output.assets);
@@ -227,7 +227,7 @@ describe('config/webpack/plugins/build-manifest', function() {
 
     describe('#loadManifest', function() {
 
-      function configure(directory, id, plugins) {
+      function createConfiguration(directory, id, plugins) {
         return {
           output: {
             path: directory,
@@ -240,7 +240,7 @@ describe('config/webpack/plugins/build-manifest', function() {
       it('loads the manifest file', function(done) {
         var directory = tmp.dirSync().name;
         var plugin = new BuildManifestPlugin('build', directory);
-        var config = configure(directory, 'build', [plugin]);
+        var config = createConfiguration(directory, 'build', [plugin]);
 
         webpack(config, function() {
           var output = plugin.loadManifest();

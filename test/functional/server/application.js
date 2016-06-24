@@ -10,7 +10,7 @@ var errors = require('himation/core/errors');
 
 describe('server/application', function() {
 
-  function options() {
+  function buildOptions() {
     return {
       templatesDirectory: tmp.dirSync().name
     };
@@ -19,14 +19,14 @@ describe('server/application', function() {
   describe('.create', function() {
 
     function assertRequiresOption(setting) {
-      var settings = options();
+      var settings = buildOptions();
       delete settings[setting];
 
       assert.throws(function() { application.create(settings); }, errors.ConfigurationError);
     }
 
     it('creates an instance of an Express app', function() {
-      var app = application.create(options());
+      var app = application.create(buildOptions());
       assert.isFunction(app.use);
     });
 
@@ -39,7 +39,7 @@ describe('server/application', function() {
       describe('template output', function() {
 
         function getOutput(context) {
-          var settings = options();
+          var settings = buildOptions();
           var app = application.create(settings);
           var directory = settings.templatesDirectory;
 
@@ -75,7 +75,7 @@ describe('server/application', function() {
       describe('security', function() {
 
         function checkHeaders() {
-          var app = application.create(options());
+          var app = application.create(buildOptions());
 
           app.get('/', function(req, res) {
             res.send('response');

@@ -76,13 +76,13 @@ describe('config/webpack/configs', function() {
         return loaders[0];
       }
 
-      function compressor(subloader) {
+      function extractCompressor(subloader) {
         return subloader.loaders.filter(function(loader) {
           return /^image-webpack\??/.test(loader);
         })[0];
       }
 
-      function urlLoaders(subloader) {
+      function extractURLLoaders(subloader) {
         return subloader.loaders.filter(function(loader) {
           return /^url\??/.test(loader);
         });
@@ -92,15 +92,15 @@ describe('config/webpack/configs', function() {
         var config = makeConfig(settings.base);
         var loader = getLoader(config);
 
-        assert.equal(urlLoaders(loader).length, 1);
+        assert.equal(extractURLLoaders(loader).length, 1);
       });
 
       it('compresses images when optimizing', function() {
         var optimized = makeConfig(settings.optimized);
         var unoptimized = makeConfig(settings.base);
 
-        var optimizedCompressor = compressor(getLoader(optimized));
-        var unoptimizedCompressor = compressor(getLoader(unoptimized));
+        var optimizedCompressor = extractCompressor(getLoader(optimized));
+        var unoptimizedCompressor = extractCompressor(getLoader(unoptimized));
 
         assert.isDefined(optimizedCompressor);
         assert.isUndefined(unoptimizedCompressor);
@@ -109,7 +109,7 @@ describe('config/webpack/configs', function() {
       it('creates valid JSON options for the image optimizer', function() {
         var config = makeConfig(settings.optimized);
 
-        var json = compressor(getLoader(config)).split('?');
+        var json = extractCompressor(getLoader(config)).split('?');
         var options = JSON.parse(json[1]);
 
         assert.isObject(options);
@@ -119,8 +119,8 @@ describe('config/webpack/configs', function() {
         var optimized = makeConfig(settings.optimized);
         var unoptimized = makeConfig(settings.base);
 
-        var optimizedLoader = urlLoaders(getLoader(optimized))[0];
-        var unoptimizedLoader = urlLoaders(getLoader(unoptimized))[0];
+        var optimizedLoader = extractURLLoaders(getLoader(optimized))[0];
+        var unoptimizedLoader = extractURLLoaders(getLoader(unoptimized))[0];
 
         assert.include(optimizedLoader, '[hash]');
         assert.notInclude(unoptimizedLoader, '[hash]');
@@ -177,7 +177,7 @@ describe('config/webpack/configs', function() {
 
     describe('plugins', function() {
 
-      function namedPlugin(config, name) {
+      function getNamedPlugin(config, name) {
         return config.plugins.filter(function(plugin) {
           return plugin.constructor.name === name;
         })[0];
@@ -185,7 +185,7 @@ describe('config/webpack/configs', function() {
 
       it('extracts text into CSS files', function() {
         var config = makeConfig(settings.base);
-        var extractor = namedPlugin(config, 'ExtractTextPlugin');
+        var extractor = getNamedPlugin(config, 'ExtractTextPlugin');
 
         assert.isDefined(extractor);
         assert.match(extractor.filename, /\.css$/);
@@ -195,8 +195,8 @@ describe('config/webpack/configs', function() {
         var optimized = makeConfig(settings.optimized);
         var unoptimized = makeConfig(settings.base);
 
-        var optimizedExtractor = namedPlugin(optimized, 'ExtractTextPlugin');
-        var unoptimizedExtractor = namedPlugin(unoptimized, 'ExtractTextPlugin');
+        var optimizedExtractor = getNamedPlugin(optimized, 'ExtractTextPlugin');
+        var unoptimizedExtractor = getNamedPlugin(unoptimized, 'ExtractTextPlugin');
 
         assert.include(optimizedExtractor.filename, '[contenthash]');
         assert.notInclude(unoptimizedExtractor.filename, '[contenthash]');
@@ -204,7 +204,7 @@ describe('config/webpack/configs', function() {
 
       it('exports a build manifest to a JSON file', function() {
         var config = makeConfig(settings.base);
-        var manifest = namedPlugin(config, 'BuildManifestPlugin');
+        var manifest = getNamedPlugin(config, 'BuildManifestPlugin');
 
         assert.isDefined(manifest);
         assert.match(manifest.manifestFile, /\.json$/);
@@ -212,7 +212,7 @@ describe('config/webpack/configs', function() {
 
       it('aborts when the build has errors', function() {
         var config = makeConfig(settings.base);
-        var aborter = namedPlugin(config, 'NoErrorsPlugin');
+        var aborter = getNamedPlugin(config, 'NoErrorsPlugin');
 
         assert.isDefined(aborter);
         assert.include(config.plugins, aborter);
@@ -229,8 +229,8 @@ describe('config/webpack/configs', function() {
         var optimized = makeConfig(settings.optimized);
         var unoptimized = makeConfig(settings.base);
 
-        var optimizedCompressor = namedPlugin(optimized, 'UglifyJsPlugin');
-        var unoptimizedCompressor = namedPlugin(unoptimized, 'UglifyJsPlugin');
+        var optimizedCompressor = getNamedPlugin(optimized, 'UglifyJsPlugin');
+        var unoptimizedCompressor = getNamedPlugin(unoptimized, 'UglifyJsPlugin');
 
         assert.isDefined(optimizedCompressor);
         assert.isUndefined(unoptimizedCompressor);
@@ -240,7 +240,7 @@ describe('config/webpack/configs', function() {
 
     describe('PostCSS configuration', function() {
 
-      function plugins(config) {
+      function extractPostCssPlugins(config) {
         return config.postcss.map(function(plugin) {
           return plugin.postcssPlugin;
         });
@@ -248,15 +248,15 @@ describe('config/webpack/configs', function() {
 
       it('runs autoprefixer', function() {
         var config = makeConfig(settings.base);
-        assert.include(plugins(config), 'autoprefixer');
+        assert.include(extractPostCssPlugins(config), 'autoprefixer');
       });
 
       it('runs cssnano when optimizing assets', function() {
         var optimized = makeConfig(settings.optimized);
         var unoptimized = makeConfig(settings.base);
 
-        assert.notInclude(plugins(unoptimized), 'cssnano');
-        assert.include(plugins(optimized), 'cssnano');
+        assert.notInclude(extractPostCssPlugins(unoptimized), 'cssnano');
+        assert.include(extractPostCssPlugins(optimized), 'cssnano');
       });
 
     });
@@ -380,10 +380,10 @@ describe('config/webpack/configs', function() {
       var optimized = configs.ui(settings.optimized);
       var unoptimized = configs.ui(settings.base);
 
-      function extractor(plugin) { return plugin.constructor === CommonsChunkPlugin; }
+      function extractCommonsChunk(plugin) { return plugin.constructor === CommonsChunkPlugin; }
 
-      var optimizedCommons = optimized.plugins.filter(extractor)[0];
-      var unoptimizedCommons = unoptimized.plugins.filter(extractor)[0];
+      var optimizedCommons = optimized.plugins.find(extractCommonsChunk);
+      var unoptimizedCommons = unoptimized.plugins.find(extractCommonsChunk);
 
       assert.include(optimizedCommons.filenameTemplate, '[hash]');
       assert.notInclude(unoptimizedCommons.filenameTemplate, '[hash]');

@@ -31,7 +31,7 @@ describe('Server', function() {
     sandbox.restore();
   });
 
-  function options() {
+  function createOptions() {
     return factories.settings({
       servers: {
         app: {
@@ -50,7 +50,7 @@ describe('Server', function() {
   }
 
   it('accepts a Himation settings object', function() {
-    var server = new Server(options());
+    var server = new Server(createOptions());
     assert.isObject(server);
   });
 
@@ -59,7 +59,7 @@ describe('Server', function() {
     var server;
 
     beforeEach(function() {
-      server = new Server(options());
+      server = new Server(createOptions());
     });
 
     afterEach(function() {
@@ -141,7 +141,7 @@ describe('Server', function() {
     var server;
 
     beforeEach(function() {
-      server = new Server(options());
+      server = new Server(createOptions());
     });
 
     afterEach(function() {

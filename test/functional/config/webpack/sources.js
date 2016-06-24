@@ -91,7 +91,7 @@ describe('config/webpack/sources', function() {
 
     describe('with a single root route', function() {
 
-      function routes() {
+      function createRoutes() {
         return [
           {guid: 'test.index', path: '/', method: 'get'},
           {guid: 'test.about', path: '/about', method: 'get'},
@@ -101,12 +101,12 @@ describe('config/webpack/sources', function() {
       }
 
       it('maps the root route for a namespace to an index module', function() {
-        var entries = sources.routesToEntryPoints(routes());
+        var entries = sources.routesToEntryPoints(createRoutes());
         assert.equal(entries['test.index'], './test/index');
       });
 
       it('creates a flat map of entry-point names to relative module paths', function() {
-        var entries = sources.routesToEntryPoints(routes());
+        var entries = sources.routesToEntryPoints(createRoutes());
 
         assert.deepEqual(entries, {
           'test.index': './test/index',
@@ -117,7 +117,7 @@ describe('config/webpack/sources', function() {
       });
 
       it('accepts a root route that is removed from the module path', function() {
-        var entries = sources.routesToEntryPoints(routes(), {root: 'test'});
+        var entries = sources.routesToEntryPoints(createRoutes(), {root: 'test'});
 
         assert.deepEqual(entries, {
           'test.index': './index',
@@ -128,7 +128,7 @@ describe('config/webpack/sources', function() {
       });
 
       it('accepts a module namespace that is added to each entry point', function() {
-        var entries = sources.routesToEntryPoints(routes(), {modules: ['one', 'two']});
+        var entries = sources.routesToEntryPoints(createRoutes(), {modules: ['one', 'two']});
 
         assert.deepEqual(entries, {
           'test.index': './one/two/test/index',
@@ -139,7 +139,7 @@ describe('config/webpack/sources', function() {
       });
 
       it('can combine a root route with a module path', function() {
-        var entries = sources.routesToEntryPoints(routes(), {root: 'test', modules: ['module']});
+        var entries = sources.routesToEntryPoints(createRoutes(), {root: 'test', modules: ['module']});
 
         assert.deepEqual(entries, {
           'test.index': './module/index',
@@ -153,7 +153,7 @@ describe('config/webpack/sources', function() {
 
     describe('with multiple root routes', function() {
 
-      function routes() {
+      function createRoutes() {
         return [
           {guid: 'one.index', path: '/one', method: 'get'},
           {guid: 'one.one', path: '/one/one', method: 'get'},
@@ -162,7 +162,7 @@ describe('config/webpack/sources', function() {
       }
 
       it('uses a flat structure', function() {
-        var entries = sources.routesToEntryPoints(routes());
+        var entries = sources.routesToEntryPoints(createRoutes());
 
         assert.deepEqual(entries, {
           'one.index': './one/index',
@@ -172,7 +172,7 @@ describe('config/webpack/sources', function() {
       });
 
       it('applies the root route to the top of a single route group', function() {
-        var entries = sources.routesToEntryPoints(routes(), {root: 'one'});
+        var entries = sources.routesToEntryPoints(createRoutes(), {root: 'one'});
 
         assert.deepEqual(entries, {
           'one.index': './index',
@@ -182,7 +182,7 @@ describe('config/webpack/sources', function() {
       });
 
       it('applies the module path to each route', function() {
-        var entries = sources.routesToEntryPoints(routes(), {modules: ['prefix']});
+        var entries = sources.routesToEntryPoints(createRoutes(), {modules: ['prefix']});
 
         assert.deepEqual(entries, {
           'one.index': './prefix/one/index',

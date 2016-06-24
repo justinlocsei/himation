@@ -10,7 +10,7 @@ describe('config/webpack/build', function() {
 
   var sandbox = sinon.sandbox.create();
 
-  function configure() {
+  function createConfiguration() {
     return {
       context: '/context',
       entry: {
@@ -35,7 +35,7 @@ describe('config/webpack/build', function() {
       var loader = sandbox.stub(plugin, 'loadManifest');
       loader.returns({});
 
-      var config = configure();
+      var config = createConfiguration();
       config.plugins = [plugin];
 
       var manifest = build.loadManifest(config);
@@ -45,7 +45,7 @@ describe('config/webpack/build', function() {
     });
 
     it('throws an error if the configuration does not export a build manifest', function() {
-      var config = configure();
+      var config = createConfiguration();
       config.plugins = [];
 
       assert.throws(function() { build.loadManifest(config); }, errors.ConfigurationError);
@@ -57,7 +57,7 @@ describe('config/webpack/build', function() {
       var loader = sandbox.stub(plugin, 'loadManifest');
       loader.throws();
 
-      var config = configure();
+      var config = createConfiguration();
       config.plugins = [plugin];
 
       assert.throws(function() { build.loadManifest(config); }, errors.BuildError);
