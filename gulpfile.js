@@ -36,8 +36,8 @@ gulp.task('lint', ['lint-js', 'lint-scss']);
 gulp.task('serve', ['serve-app', 'serve-assets']);
 
 // Create webpack tasks for client and server builds
-createWebpackTask('build-assets', webpackConfigs.ui(settings));
-createWebpackTask('build-server', webpackConfigs.server(settings));
+createWebpackTask('build-assets', webpackConfigs.ui);
+createWebpackTask('build-server', webpackConfigs.server);
 
 // Watch source files and rebuild them via webpack in response to changes
 gulp.task('build-watch', ['serve-assets'], function buildWatch() {
@@ -149,10 +149,11 @@ function runTests(reporter) {
  * Create a gulp task for building a webpack bundle
  *
  * @param {string} task The name of the gulp task
- * @param {object} config A webpack configuration
+ * @param {function} configFactory A webpack configuration factory
  */
-function createWebpackTask(task, config) {
+function createWebpackTask(task, configFactory) {
   gulp.task(task, function(done) {
+    var config = configFactory(settings);
     var logLabel = 'Webpack (' + config.target + ')';
 
     var builder = webpack(config, function(err, stats) {
