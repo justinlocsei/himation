@@ -39,3 +39,28 @@ structure below, which shows the available settings and their defaults:
 
 Once you have created this file, set its absolute path as the value of the
 `HIMATION_CONFIG_FILE` environment variable.
+
+## Development
+
+Himation is controlled via Gulp tasks exposed as NPM scripts.  In order to work
+on Himation, you must first generate asset manifests for a build by running the
+following command:
+
+```sh
+$ npm run build
+```
+
+Once a build has been performed, you can start a development server by running:
+
+```sh
+$ npm run serve
+```
+
+This runs the application and asset server in the same window.  If you would
+prefer to view the output of each server in a separate window, you can run the
+following commands in separate windows:
+
+```sh
+$ npm run serve:app
+$ npm run serve:assets
+```
