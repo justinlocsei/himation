@@ -7,7 +7,6 @@
   "main": "index.js",
   "scripts": {
     "build": "gulp clear && gulp build",
-    "link": "linklocal",
     "lint": "gulp lint",
     "postinstall": "linklocal link",
     "serve": "gulp serve",
