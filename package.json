@@ -40,7 +40,6 @@
     "gulp": "^3.9.0",
     "gulp-eslint": "^1.1.1",
     "gulp-postcss": "^6.0.1",
-    "gulp-scss-lint": "^0.3.8",
     "gulp-stylelint": "^2.0.2",
     "gulp-util": "^3.0.7",
     "helmet": "^0.15.0",
