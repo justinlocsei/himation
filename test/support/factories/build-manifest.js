@@ -9,7 +9,7 @@ var tmp = require('tmp');
  * @param {object} extensions Data that will be applied to the defaults
  * @returns {HimationBuildManifest}
  */
-function buildManifest(extensions) {
+function buildManifestFactory(extensions) {
   var directory = tmp.dirSync().name;
 
   var defaults = {
@@ -22,4 +22,4 @@ function buildManifest(extensions) {
   return extend(true, {}, defaults, extensions || {});
 }
 
-module.exports = buildManifest;
+module.exports = buildManifestFactory;

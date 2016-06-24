@@ -6,10 +6,10 @@
  * @param {object} extensions Data that will be applied to the defaults
  * @returns {HimationRoute[]}
  */
-function routes() {
+function routesFactory() {
   return [
     {guid: 'test', path: '/', method: 'get'}
   ];
 }
 
-module.exports = routes;
+module.exports = routesFactory;

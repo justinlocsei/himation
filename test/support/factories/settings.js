@@ -32,8 +32,8 @@ var defaults = {
  * @param {object} extensions Data that will be applied to the defaults
  * @returns {HimationSettings}
  */
-function settings(extensions) {
+function settingsFactory(extensions) {
   return extend(true, {}, defaults, extensions || {});
 }
 
-module.exports = settings;
+module.exports = settingsFactory;
