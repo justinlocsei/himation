@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-import 'himation/ui/scss/index.scss';
+const Page = React.createClass({
 
-export default class Index extends React.Component {
-  render() {
+  propTypes: {
+    children: PropTypes.element,
+    title: PropTypes.string.isRequired
+  },
+
+  render: function() {
+    const { children, title } = this.props;
+
     return (
-      <h1>Index</h1>
+      <div className="l--page">
+
+        <h2 className="l--page__title">{title}</h2>
+
+        <div className="l--page__content">
+          {children}
+        </div>
+      </div>
     );
   }
-}
+
+});
+
+export default Page;

@@ -246,7 +246,7 @@ function ui(settings) {
   var paths = resolvePaths();
   var optimizeAssets = settings.assets.optimize;
   var entries = sources.routesToEntryPoints(routes, {
-    modules: ['components', 'pages'],
+    modules: ['containers', 'pages'],
     root: 'himation'
   });
 

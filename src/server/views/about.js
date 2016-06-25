@@ -1,8 +1,8 @@
-import About from 'himation/ui/js/components/pages/about';
-import { render } from 'himation/server/views';
+import AboutPage from 'himation/ui/js/containers/pages/about';
+import { renderReactComponent } from 'himation/server/views';
 
 export function renderResponse(req, res) {
   res.render('pages/about', {
-    content: renderReactComponent(About)
+    content: renderReactComponent(AboutPage)
   });
 }
