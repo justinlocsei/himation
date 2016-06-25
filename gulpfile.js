@@ -121,7 +121,15 @@ gulp.task('serve-assets', function serveAssets() {
   var assetServer = new WebpackDevServer(webpack(config), {
     contentBase: paths.assets,
     publicPath: config.output.publicPath,
-    stats: {colors: true}
+    stats: {
+      assets: false,
+      chunkModules: false,
+      chunks: true,
+      colors: true,
+      hash: false,
+      timings: false,
+      version: false
+    }
   });
 
   var binding = settings.servers.assets;
