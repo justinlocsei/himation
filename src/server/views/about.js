@@ -3,6 +3,6 @@ import { render } from 'himation/server/views';
 
 export function renderResponse(req, res) {
   res.render('pages/about', {
-    content: render(About)
+    content: renderReactComponent(About)
   });
 }
