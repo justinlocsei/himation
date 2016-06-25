@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NavigationPage from 'himation/ui/js/components/navigation/page';
+import NavigationPage from './page';
 
 const Navigation = React.createClass({
 
