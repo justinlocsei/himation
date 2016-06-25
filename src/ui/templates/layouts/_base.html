@@ -6,7 +6,9 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Cover Your Basics</title>
+    {% set page_title %}{% block page_title %}{% endblock %}{% endset %}
+
+    <title>{% if page_title %}{{ page_title }} - {% endif %}{% block title %}Cover Your Basics{% endblock %}</title>
 
     {% for stylesheet in assets.stylesheets %}
       <link rel="stylesheet" href="{{ stylesheet }}">
