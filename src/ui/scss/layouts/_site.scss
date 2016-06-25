@@ -1,0 +1,41 @@
+$_site--gutter: 5%;
+
+.l--site {
+  background-color: #f9f9f9;
+  color: #333;
+  min-height: 100vh;
+}
+
+.l--site__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 $_site--gutter;
+  padding: 2em 0;
+}
+
+.l--site__header__title {
+  font-size: 2em;
+  font-weight: 300;
+}
+
+.l--site__header__link {
+  color: inherit;
+}
+
+.l--site__header__navigation {
+
+}
+
+.l--site__body {
+  background-color: #fff;
+  padding: 0 $_site--gutter;
+}
+
+.l--site__body__content {
+  padding: 2em 0;
+}
+
+.l--site__footer {
+
+}

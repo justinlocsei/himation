@@ -1,0 +1,19 @@
+.c--navigation {
+
+}
+
+.c--navigation__pages {
+
+}
+
+.c--navigation__page {
+  display: inline-block;
+
+  & + & {
+    margin-left: 3em;
+  }
+}
+
+.c--navigation__page__link {
+  color: inherit;
+}
