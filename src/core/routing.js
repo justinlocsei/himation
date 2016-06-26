@@ -41,14 +41,14 @@ var INDEX_ROUTE = 'index';
  /**
   * Transform route definitions into routes
   *
-  * @param {HimationRouteDefinition[]} routes Route definitions
+  * @param {HimationRouteDefinition[]} definitions Route definitions
   * @returns {HimationRoute[]} A flat list of routes
   */
-function defineRoutes(routes) {
+function defineRoutes(definitions) {
   var conflicts = {};
 
-  function resolveRoutes(subroutes, namespace) {
-    return subroutes.reduce(function(resolved, route) {
+  function resolveRoutes(branch, namespace) {
+    return branch.reduce(function(resolved, route) {
       if (!route.name) { throw new errors.ConfigurationError('All routes require a name'); }
       if (!route.path) { throw new errors.ConfigurationError('All routes require a path'); }
 
@@ -64,7 +64,7 @@ function defineRoutes(routes) {
       var data = {
         guid: guid,
         method: (route.method || DEFAULT_METHOD).toLowerCase(),
-        path: resolveRouteDefinitionPath(routes, guid)
+        path: resolveRouteDefinitionPath(definitions, guid)
       };
 
       conflicts[data.method] = conflicts[data.method] || {};
@@ -81,18 +81,18 @@ function defineRoutes(routes) {
     }, []);
   }
 
-  return resolveRoutes(routes, []);
+  return resolveRoutes(definitions, []);
 }
 
 /**
  * Transform a route definition into a map between GUIDs and namespaces
  *
- * @param {HimationRouteDefinition[]} routes A route definition
+ * @param {HimationRouteDefinition[]} definitions Route definitions
  * @returns {object} A map of route GUIDs to their namespace hierarchies
  */
-function routesToGuids(routes) {
-  function createGuids(subroutes, namespace) {
-    return subroutes.reduce(function(guids, route) {
+function routesToGuids(definitions) {
+  function createGuids(nestedDefinitions, namespace) {
+    return nestedDefinitions.reduce(function(guids, route) {
       var levels = namespace.concat([route.name]);
 
       if (route.paths) {
@@ -107,7 +107,7 @@ function routesToGuids(routes) {
     }, {});
   }
 
-  return createGuids(routes, []);
+  return createGuids(definitions, []);
 }
 
 /**
@@ -129,7 +129,7 @@ function pathToRoute(routes, path, method) {
 }
 
 /**
- * Resolve the full path by which a define route can be accessed
+ * Resolve the full path by which a defined route can be accessed
  *
  * @param {HimationRouteDefinition[]} definitions Routes definitions
  * @param {HimationRouteGUID} guid The unique identifier for the route
@@ -137,9 +137,9 @@ function pathToRoute(routes, path, method) {
  * @throws {ConfigurationError} If no path for the route was found
  */
 function resolveRouteDefinitionPath(definitions, guid) {
-  function resolvePath(subroutes, namespaces) {
+  function resolvePath(nestedDefinitions, namespaces) {
     var rootName = _.first(namespaces);
-    var matches = subroutes.filter(route => route.name === rootName);
+    var matches = nestedDefinitions.filter(route => route.name === rootName);
 
     if (!matches.length) { throw new errors.ConfigurationError('No route named "' + guid + '" was found'); }
     if (matches.length > 1) { throw new errors.ConfigurationError('Multiple routes named "' + guid + '" were found'); }
