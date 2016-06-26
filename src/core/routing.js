@@ -1,7 +1,6 @@
 'use strict';
 
 var _ = require('lodash');
-var extend = require('extend');
 
 var errors = require('himation/core/errors');
 var urls = require('himation/core/urls');
@@ -85,32 +84,6 @@ function defineRoutes(definitions) {
 }
 
 /**
- * Transform a route definition into a map between GUIDs and namespaces
- *
- * @param {HimationRouteDefinition[]} definitions Route definitions
- * @returns {object} A map of route GUIDs to their namespace hierarchies
- */
-function routesToGuids(definitions) {
-  function createGuids(nestedDefinitions, namespace) {
-    return nestedDefinitions.reduce(function(guids, route) {
-      var levels = namespace.concat([route.name]);
-
-      if (route.paths) {
-        extend(guids, createGuids(route.paths, levels));
-        levels.push(INDEX_ROUTE);
-      }
-
-      var guid = namespacesToGuid(levels);
-      guids[guid] = levels;
-
-      return guids;
-    }, {});
-  }
-
-  return createGuids(definitions, []);
-}
-
-/**
  * Determine the name of the route described by a path
  *
  * @param {HimationRoute[]} routes All available routes
@@ -188,7 +161,6 @@ module.exports = {
   defineRoutes: defineRoutes,
   guidToNamespaces: guidToNamespaces,
   namespacesToGuid: namespacesToGuid,
-  routesToGuids: routesToGuids,
   pathToRoute: pathToRoute,
   resolveRouteDefinitionPath: resolveRouteDefinitionPath
 };

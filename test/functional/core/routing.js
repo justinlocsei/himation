@@ -100,56 +100,6 @@ describe('core/routing', function() {
 
   });
 
-  describe('.routesToGuids', function() {
-
-    function buildNestedDefinitions() {
-      return [
-        {
-          name: 'one',
-          path: '/',
-          paths: [
-            {path: 'two', name: 'two'},
-            {path: 'three', name: 'three', paths: [
-              {path: 'four', name: 'four'}
-            ]},
-            {path: 'five', name: 'five'}
-          ]
-        }
-      ];
-    }
-
-    it('creates a flat map of GUIDs', function() {
-      var guids = routing.routesToGuids(buildNestedDefinitions());
-      assert.equal(Object.keys(guids).length, 5);
-    });
-
-    it('generates GUIDs for each route based upon its level', function() {
-      var guids = routing.routesToGuids(buildNestedDefinitions());
-
-      assert.deepEqual(guids, {
-        'one.index': ['one', 'index'],
-        'one.two': ['one', 'two'],
-        'one.three.index': ['one', 'three', 'index'],
-        'one.three.four': ['one', 'three', 'four'],
-        'one.five': ['one', 'five']
-      });
-    });
-
-    it('can use the GUIDs to look up route URLs', function() {
-      var guids = routing.routesToGuids(buildNestedDefinitions());
-      var urls = Object.keys(guids).map(route => routing.resolveRouteDefinitionPath(buildNestedDefinitions(), route));
-
-      assert.deepEqual(urls.sort(), [
-        '/',
-        '/five',
-        '/three',
-        '/three/four',
-        '/two'
-      ]);
-    });
-
-  });
-
   describe('.pathToRoute', function() {
 
     function buildRoutes() {
