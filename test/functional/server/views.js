@@ -7,7 +7,7 @@ var views = require('himation/server/views');
 
 describe('server/views', function() {
 
-  describe('.render', function() {
+  describe('.renderReactComponent', function() {
 
     function createComponent() {
       return React.createClass({
@@ -19,7 +19,7 @@ describe('server/views', function() {
     }
 
     it('renders a React component to a string', function() {
-      var markup = views.render(createComponent());
+      var markup = views.renderReactComponent(createComponent());
       var result = parse5.parseFragment(markup).childNodes[0];
 
       assert.equal(result.tagName, 'h1');
@@ -30,7 +30,7 @@ describe('server/views', function() {
     });
 
     it('passes props to the component', function() {
-      var markup = views.render(createComponent(), {name: 'Tester'});
+      var markup = views.renderReactComponent(createComponent(), {name: 'Tester'});
       var result = parse5.parseFragment(markup).childNodes[0];
 
       assert.equal(result.tagName, 'h1');
