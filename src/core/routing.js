@@ -102,6 +102,23 @@ function pathToRoute(routes, path, method) {
 }
 
 /**
+ * Resolve a route GUID to a route
+ *
+ * @param {HimationRoute[]} routes All available routes
+ * @param {HimationRouteGUID} guid A route GUID
+ * @returns {HimationRoute} The route matching the GUID
+ * @throws {ConfigurationError} If the route is not defined
+ */
+function guidToRoute(routes, guid) {
+  var resolved = _.find(routes, route => route.guid === guid);
+  if (!resolved) {
+    throw new errors.ConfigurationError('The ' + guid + ' route is not defined');
+  }
+
+  return resolved;
+}
+
+/**
  * Resolve the full path by which a defined route can be accessed
  *
  * @param {HimationRouteDefinition[]} definitions Routes definitions
@@ -160,6 +177,7 @@ function namespacesToGuid(namespaces) {
 module.exports = {
   defineRoutes: defineRoutes,
   guidToNamespaces: guidToNamespaces,
+  guidToRoute: guidToRoute,
   namespacesToGuid: namespacesToGuid,
   pathToRoute: pathToRoute,
   resolveRouteDefinitionPath: resolveRouteDefinitionPath

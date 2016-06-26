@@ -178,6 +178,37 @@ describe('core/routing', function() {
 
   });
 
+  describe('.guidToRoute', function() {
+
+    function buildRoutes() {
+      return [
+        {path: '/', guid: 'root.index', method: 'get'},
+        {path: '/admin', guid: 'root.admin.index', method: 'post'}
+      ];
+    }
+
+    it('handles root paths', function() {
+      assert.deepEqual(routing.guidToRoute(buildRoutes(), 'root.index'), {
+        path: '/',
+        guid: 'root.index',
+        method: 'get'
+      });
+    });
+
+    it('handles nested paths', function() {
+      assert.deepEqual(routing.guidToRoute(buildRoutes(), 'root.admin.index'), {
+        path: '/admin',
+        guid: 'root.admin.index',
+        method: 'post'
+      });
+    });
+
+    it('raises an error when a route is undefined', function() {
+      assert.throws(function() { routing.guidToRoute(buildRoutes(), 'root.missing'); }, errors.ConfigurationError);
+    });
+
+  });
+
   describe('.resolveRouteDefinitionPath', function() {
 
     it('returns the URL for the index route', function() {
