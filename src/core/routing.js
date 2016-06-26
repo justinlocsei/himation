@@ -64,7 +64,7 @@ function defineRoutes(routes) {
       var data = {
         guid: guid,
         method: (route.method || DEFAULT_METHOD).toLowerCase(),
-        path: routeToPath(routes, guid)
+        path: resolveRouteDefinitionPath(routes, guid)
       };
 
       conflicts[data.method] = conflicts[data.method] || {};
@@ -129,14 +129,14 @@ function pathToRoute(routes, path, method) {
 }
 
 /**
- * Produce the path for accessing a named route
+ * Resolve the full path by which a define route can be accessed
  *
- * @param {HimationRouteDefinition[]} routes A route definition
+ * @param {HimationRouteDefinition[]} definitions Routes definitions
  * @param {HimationRouteGUID} guid The unique identifier for the route
  * @returns {string} The path for the route
  * @throws {ConfigurationError} If no path for the route was found
  */
-function routeToPath(routes, guid) {
+function resolveRouteDefinitionPath(definitions, guid) {
   function resolvePath(subroutes, namespaces) {
     var rootName = _.first(namespaces);
     var matches = subroutes.filter(route => route.name === rootName);
@@ -160,7 +160,7 @@ function routeToPath(routes, guid) {
     return levels;
   }
 
-  var paths = resolvePath(routes, guidToNamespaces(guid));
+  var paths = resolvePath(definitions, guidToNamespaces(guid));
   return urls.joinPaths(paths);
 }
 
@@ -190,5 +190,5 @@ module.exports = {
   namespacesToGuid: namespacesToGuid,
   routesToGuids: routesToGuids,
   pathToRoute: pathToRoute,
-  routeToPath: routeToPath
+  resolveRouteDefinitionPath: resolveRouteDefinitionPath
 };

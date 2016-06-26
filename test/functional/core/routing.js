@@ -137,7 +137,7 @@ describe('core/routing', function() {
 
     it('can use the GUIDs to look up route URLs', function() {
       var guids = routing.routesToGuids(buildNestedDefinitions());
-      var urls = Object.keys(guids).map(route => routing.routeToPath(buildNestedDefinitions(), route));
+      var urls = Object.keys(guids).map(route => routing.resolveRouteDefinitionPath(buildNestedDefinitions(), route));
 
       assert.deepEqual(urls.sort(), [
         '/',
@@ -228,45 +228,45 @@ describe('core/routing', function() {
 
   });
 
-  describe('.routeToPath', function() {
+  describe('.resolveRouteDefinitionPath', function() {
 
     it('returns the URL for the index route', function() {
-      assert.equal(routing.routeToPath(buildDefinitions(), 'root.index'), '/');
+      assert.equal(routing.resolveRouteDefinitionPath(buildDefinitions(), 'root.index'), '/');
     });
 
     it('returns the URL for a top-level route', function() {
-      assert.equal(routing.routeToPath(buildDefinitions(), 'root.about'), '/about');
+      assert.equal(routing.resolveRouteDefinitionPath(buildDefinitions(), 'root.about'), '/about');
     });
 
     it('returns the URL for a nested index route', function() {
-      assert.equal(routing.routeToPath(buildDefinitions(), 'root.admin.index'), '/admin');
+      assert.equal(routing.resolveRouteDefinitionPath(buildDefinitions(), 'root.admin.index'), '/admin');
     });
 
     it('returns the URL for a nested route', function() {
-      assert.equal(routing.routeToPath(buildDefinitions(), 'root.admin.view-account'), '/admin/account');
+      assert.equal(routing.resolveRouteDefinitionPath(buildDefinitions(), 'root.admin.view-account'), '/admin/account');
     });
 
     it('returns the URL for an index route not mounted at the root URL', function() {
-      assert.equal(routing.routeToPath(buildDefinitions(), 'sub'), '/sub');
+      assert.equal(routing.resolveRouteDefinitionPath(buildDefinitions(), 'sub'), '/sub');
     });
 
     it('throws an error when a named route is not defined', function() {
-      assert.throws(function() { routing.routeToPath(buildDefinitions(), 'home'); }, errors.ConfigurationError);
+      assert.throws(function() { routing.resolveRouteDefinitionPath(buildDefinitions(), 'home'); }, errors.ConfigurationError);
     });
 
     it('throws an error when any component of a named route is not defined', function() {
-      assert.throws(function() { routing.routeToPath(buildDefinitions(), 'root.posts'); }, errors.ConfigurationError);
-      assert.throws(function() { routing.routeToPath(buildDefinitions(), 'root.admin.posts'); }, errors.ConfigurationError);
+      assert.throws(function() { routing.resolveRouteDefinitionPath(buildDefinitions(), 'root.posts'); }, errors.ConfigurationError);
+      assert.throws(function() { routing.resolveRouteDefinitionPath(buildDefinitions(), 'root.admin.posts'); }, errors.ConfigurationError);
     });
 
     it('throws an error when there are multiple routes with the same name', function() {
       var ambiguous = buildDefinitions().concat(buildDefinitions());
-      assert.throws(function() { routing.routeToPath(ambiguous, 'root'); }, errors.ConfigurationError);
+      assert.throws(function() { routing.resolveRouteDefinitionPath(ambiguous, 'root'); }, errors.ConfigurationError);
     });
 
     it('throws an error when a route is missing a URL', function() {
       var missing = [{name: 'root', path: '/'}, {name: 'missing'}];
-      assert.throws(function() { routing.routeToPath(missing, 'missing'); }, errors.ConfigurationError);
+      assert.throws(function() { routing.resolveRouteDefinitionPath(missing, 'missing'); }, errors.ConfigurationError);
     });
 
   });
