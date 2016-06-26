@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import AgeInput from './fields/age-input';
 import BodyShapePicker from './fields/body-shape-picker';
@@ -10,9 +10,16 @@ import StylePicker from './fields/style-picker';
 
 const Survey = React.createClass({
 
+  propTypes: {
+    formAction: PropTypes.string.isRequired,
+    formMethod: PropTypes.string.isRequired
+  },
+
   render: function() {
+    const { formAction, formMethod } = this.props;
+
     return (
-      <form className="c--survey">
+      <form className="c--survey" action={formAction} method={formMethod}>
 
         <Section name="Formality">
           <div className="c--survey__formalities">
