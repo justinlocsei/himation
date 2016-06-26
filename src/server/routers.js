@@ -12,15 +12,16 @@ var express = require('express');
  *
  * @param {HimationBuildManifest} build The build manifest for the server's files
  * @param {HimationRoute[]} routes All available routes
+ * @param {HimationSettings} settings The current settings
  * @returns {express.Router}
  */
-function create(build, routes) {
+function create(build, routes, settings) {
   var router = express.Router(); // eslint-disable-line new-cap
 
   routes.forEach(function(route) {
     router[route.method](route.path, function(req, res) {
       var handler = require(build.entries[route.guid]);
-      handler.renderResponse(req, res);
+      handler.renderResponse(req, res, settings);
     });
   });
 

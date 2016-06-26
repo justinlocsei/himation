@@ -148,7 +148,7 @@ Server.prototype._createRouter = function() {
   var serverBuild = builds.server(this.settings);
   var buildManifest = build.loadManifest(serverBuild);
 
-  return routers.create(buildManifest, routes);
+  return routers.create(buildManifest, routes, this.settings);
 };
 
 module.exports = Server;
