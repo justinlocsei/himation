@@ -16,7 +16,9 @@ describe('server/middleware/add-route-assets', function() {
   function makeRoutes() {
     return [
       {guid: 'has-assets', path: '/has-assets', method: 'get'},
-      {guid: 'lacks-assets', path: '/lacks-assets', method: 'get'}
+      {guid: 'lacks-assets', path: '/lacks-assets', method: 'get'},
+      {guid: 'lacks-get-assets', path: '/method-assets', method: 'get'},
+      {guid: 'has-post-assets', path: '/method-assets', method: 'post'}
     ];
   }
 
@@ -45,16 +47,20 @@ describe('server/middleware/add-route-assets', function() {
 
     describe('asset matching', function() {
 
-      function makeApp(assets, host, assetUrl) {
+      function makeApp(assets, host, assetUrl, assetGuid) {
         var manifest = buildManifest();
-        manifest.assets['has-assets'] = assets;
+        manifest.assets[assetGuid || 'has-assets'] = assets;
         manifest.url = assetUrl || '/';
 
         var app = express();
-        app.use(addRouteAssets.create(manifest, host, makeRoutes()));
+        var routes = makeRoutes();
+        app.use(addRouteAssets.create(manifest, host, routes));
 
-        app.get('/has-assets', (req, res) => res.json(res.locals));
-        app.get('/lacks-assets', (req, res) => res.json(res.locals));
+        function exposeLocals(req, res) { return res.json(res.locals); }
+        app.get('/has-assets', exposeLocals);
+        app.get('/lacks-assets', exposeLocals);
+        app.get('/method-assets', exposeLocals);
+        app.post('/method-assets', exposeLocals);
 
         return app;
       }
@@ -63,6 +69,32 @@ describe('server/middleware/add-route-assets', function() {
         var app = makeApp(['test.js', 'test.css'], 'http://example.com');
 
         request(app).get('/has-assets')
+          .expect({
+            assets: {
+              javascripts: ['http://example.com/test.js'],
+              stylesheets: ['http://example.com/test.css']
+            }
+          })
+          .end(done);
+      });
+
+      it('excludes path matches that do not match on the request method', function(done) {
+        var app = makeApp(['test.js', 'test.css'], 'http://example.com', null, 'has-post-assets');
+
+        request(app).get('/method-assets')
+          .expect({
+            assets: {
+              javascripts: [],
+              stylesheets: []
+            }
+          })
+          .end(done);
+      });
+
+      it('includes matches that match on both the path and request method', function(done) {
+        var app = makeApp(['test.js', 'test.css'], 'http://example.com', null, 'has-post-assets');
+
+        request(app).post('/method-assets')
           .expect({
             assets: {
               javascripts: ['http://example.com/test.js'],
