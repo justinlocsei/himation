@@ -2,6 +2,7 @@ import React from 'react';
 
 import Page from 'himation/ui/js/components/pages';
 import Site from 'himation/ui/js/containers/site';
+import Survey from 'himation/ui/js/components/survey';
 
 const HomePage = React.createClass({
 
@@ -9,7 +10,7 @@ const HomePage = React.createClass({
     return (
       <Site>
         <Page title="Home">
-          <p>Home page</p>
+          <Survey />
         </Page>
       </Site>
     );
