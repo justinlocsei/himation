@@ -1,5 +1,6 @@
 'use strict';
 
+var bodyParser = require('body-parser');
 var express = require('express');
 var helmet = require('helmet');
 var nunjucks = require('nunjucks');
@@ -41,6 +42,18 @@ function configureSecurity(app) {
 }
 
 /**
+ * Configure body parsing for the application
+ *
+ * @param {express.Application} app An application instance
+ * @private
+ */
+function configureBodyParsing(app) {
+  app.use(bodyParser.urlencoded({
+    extended: false
+  }));
+}
+
+/**
  * Create an instance of an application server
  *
  * @param {object} options Configuration for the server
@@ -58,6 +71,7 @@ function create(options) {
 
   configureTemplates(app, settings.templatesDirectory);
   configureSecurity(app);
+  configureBodyParsing(app);
 
   return app;
 }
