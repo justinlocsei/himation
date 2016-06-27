@@ -12,7 +12,7 @@ var urls = require('himation/core/urls');
  * @param {string} endpoint The URL for the root API endpoint
  * @param {string} token The token used to authenticate API requests
  */
-function Client(endpoint, token) {
+function ApiClient(endpoint, token) {
   this.endpoint = endpoint;
   this.token = token;
 }
@@ -25,38 +25,47 @@ function Client(endpoint, token) {
  * @fulfill {object} The generated recommendation data
  * @reject {Error} A request or parsing error
  */
-Client.prototype.requestRecommendations = function(profile) {
+ApiClient.prototype.requestRecommendations = function(profile) {
   var endpoint = this.endpoint;
   var token = this.token;
 
   return new Promise(function(resolve, reject) {
     request({
-      url: urls.joinPaths(endpoint, 'recommendations'),
+      url: urls.relativeToAbsolute('recommendations', endpoint) + '/',
       method: 'POST',
-      form: profile,
+      body: profile,
+      json: true,
       headers: {
         'Authorization': 'Token ' + token
       }
     }, function(error, response, body) {
-      if (error) {
-        reject(error);
-      } else if (response.statusCode === 200) {
-        resolve(JSON.parse(body));
-      } else {
-        reject(new errors.DataError('Unknown API error: ' + body + ' (' + response.statuCode + ')'));
+      var fieldErrors;
+
+      if (error) { reject(new errors.DataError('Request error: ' + error)); }
+      if (response.statusCode === 200) { resolve(body); }
+
+      if (response.statusCode === 400) {
+        fieldErrors = Object.keys(body.errors).reduce(function(previous, field) {
+          previous.push(field + ': ' + body.errors[field]);
+          return previous;
+        }, []);
+
+        reject(new errors.DataError('API error: ' + fieldErrors.join(' | ')));
       }
+
+      reject(new errors.DataError('Unknown error: ' + response.statusCode));
     });
   });
 };
 
 /**
- * Establish a connection with the Chiton API
+ * Create a Chiton API client
  *
  * @param {string} endpoint The URL for the root API endpoint
  * @param {string} token The token used to authenticate API requests
- * @returns {Client} An API client
+ * @returns {ApiClient} An API client
  */
-function connect(endpoint, token) {
+function createApiClient(endpoint, token) {
   if (!endpoint) {
     throw new errors.ConfigurationError('You must provide the root API endpoint');
   }
@@ -65,9 +74,9 @@ function connect(endpoint, token) {
     throw new errors.ConfigurationError('You must provide the API token');
   }
 
-  return new Client(endpoint, token);
+  return new ApiClient(endpoint, token);
 }
 
 module.exports = {
-  connect: connect
+  createApiClient: createApiClient
 };
