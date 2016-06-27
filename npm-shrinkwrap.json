@@ -27090,6 +27090,74 @@
       "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-0.14.8.tgz",
       "version": "0.14.8"
     },
+    "react-redux": {
+      "dependencies": {
+        "hoist-non-react-statics": {
+          "from": "hoist-non-react-statics@>=1.0.3 <2.0.0",
+          "resolved": "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz",
+          "version": "1.2.0"
+        },
+        "invariant": {
+          "from": "invariant@>=2.0.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/invariant/-/invariant-2.2.1.tgz",
+          "version": "2.2.1"
+        },
+        "lodash": {
+          "from": "lodash@>=4.2.0 <5.0.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.13.1.tgz",
+          "version": "4.13.1"
+        },
+        "loose-envify": {
+          "dependencies": {
+            "js-tokens": {
+              "from": "js-tokens@>=1.0.1 <2.0.0",
+              "resolved": "https://registry.npmjs.org/js-tokens/-/js-tokens-1.0.3.tgz",
+              "version": "1.0.3"
+            }
+          },
+          "from": "loose-envify@>=1.1.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/loose-envify/-/loose-envify-1.2.0.tgz",
+          "version": "1.2.0"
+        }
+      },
+      "from": "react-redux@latest",
+      "resolved": "https://registry.npmjs.org/react-redux/-/react-redux-4.4.5.tgz",
+      "version": "4.4.5"
+    },
+    "redux": {
+      "dependencies": {
+        "lodash": {
+          "from": "lodash@>=4.2.1 <5.0.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.13.1.tgz",
+          "version": "4.13.1"
+        },
+        "lodash-es": {
+          "from": "lodash-es@>=4.2.1 <5.0.0",
+          "resolved": "https://registry.npmjs.org/lodash-es/-/lodash-es-4.13.1.tgz",
+          "version": "4.13.1"
+        },
+        "loose-envify": {
+          "dependencies": {
+            "js-tokens": {
+              "from": "js-tokens@>=1.0.1 <2.0.0",
+              "resolved": "https://registry.npmjs.org/js-tokens/-/js-tokens-1.0.3.tgz",
+              "version": "1.0.3"
+            }
+          },
+          "from": "loose-envify@>=1.1.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/loose-envify/-/loose-envify-1.2.0.tgz",
+          "version": "1.2.0"
+        },
+        "symbol-observable": {
+          "from": "symbol-observable@>=0.2.3 <0.3.0",
+          "resolved": "https://registry.npmjs.org/symbol-observable/-/symbol-observable-0.2.4.tgz",
+          "version": "0.2.4"
+        }
+      },
+      "from": "redux@>=2.0.0 <3.0.0||>=3.0.0 <4.0.0",
+      "resolved": "https://registry.npmjs.org/redux/-/redux-3.5.2.tgz",
+      "version": "3.5.2"
+    },
     "request": {
       "dependencies": {
         "aws-sign2": {
