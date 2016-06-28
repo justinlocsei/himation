@@ -4,10 +4,17 @@ import { reduxForm } from 'redux-form';
 import BirthYearPicker from './fields/birth-year-picker';
 import BodyShapePicker from './fields/body-shape-picker';
 import CareTypePicker from './fields/care-type-picker';
-import FormalityPicker from './fields/formality-picker';
+import FormalityPicker, { FORMALITIES } from './fields/formality-picker';
 import Section from './section';
 import SizePicker from './fields/size-picker';
 import StylePicker from './fields/style-picker';
+
+const initialFormalities = FORMALITIES.map(function(formality) {
+  return {
+    formality: formality.slug,
+    frequency: null
+  };
+});
 
 let Survey = React.createClass({
 
@@ -26,7 +33,10 @@ let Survey = React.createClass({
 
         <Section name="Formality">
           <div className="c--survey__formalities">
-            <FormalityPicker fieldID="survey-formality" fieldName="formalities" />
+            <FormalityPicker
+              fields={fields.formalities}
+              id="survey-formality"
+            />
           </div>
         </Section>
 
@@ -77,10 +87,15 @@ Survey = reduxForm({
     'birthYear',
     'bodyShape',
     'careTypes',
-    'formalities',
+    'formalities[]',
+    'formalities[].formality',
+    'formalities[].frequency',
     'sizes',
     'styles'
   ],
+  initialValues: {
+    formalities: initialFormalities
+  },
   propNamespace: 'form'
 })(Survey);
 

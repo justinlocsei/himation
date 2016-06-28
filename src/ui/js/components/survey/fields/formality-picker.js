@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 import Formality from './formality';
 
-const FORMALITIES = [
+export const FORMALITIES = [
   {name: 'Casual', slug: 'casual'},
   {name: 'Dressy casual', slug: 'dressy-casual'},
   {name: 'Business casual', slug: 'business-casual'},
@@ -14,19 +14,21 @@ const FORMALITIES = [
 const FormalityPicker = React.createClass({
 
   propTypes: {
-    fieldID: PropTypes.string.isRequired,
-    fieldName: PropTypes.string.isRequired
+    fields: PropTypes.array.isRequired,
+    id: PropTypes.string.isRequired
   },
 
   render: function() {
-    const { fieldID, fieldName } = this.props;
+    const { fields, id } = this.props;
 
-    const formalityTags = FORMALITIES.map(function(formality, index) {
+    const formalityTags = fields.map(function(field, index) {
+      const formality = FORMALITIES[index];
+
       return (
         <li className="c--formality-picker__formality" key={index}>
           <Formality
-            fieldID={fieldID}
-            fieldName={fieldName}
+            field={field}
+            id={id}
             name={formality.name}
             slug={formality.slug}
           />

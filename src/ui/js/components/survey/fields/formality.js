@@ -11,31 +11,22 @@ const FREQUENCIES = [
 const Formality = React.createClass({
 
   propTypes: {
-    fieldID: PropTypes.string.isRequired,
-    fieldName: PropTypes.string.isRequired,
-    frequency: PropTypes.string,
+    field: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired
   },
 
-  getDefaultProps: function() {
-    return {
-      frequency: 'never'
-    };
-  },
-
   render: function() {
-    const { fieldID, fieldName, name, slug } = this.props;
-    const selectedFrequency = this.props.frequency;
+    const { field, id, name, slug } = this.props;
 
     const frequencyTags = FREQUENCIES.map(function(frequency, index) {
-      const id = `${fieldID}-${slug}-${frequency.slug}`;
-      const inputName = `${fieldName}[${slug}]`;
+      const inputID = `${id}-${slug}-${frequency.slug}`;
 
       return (
         <li className="c--formality__frequency" key={index}>
-          <input className="c--formality__frequency__input" id={id} type="radio" name={inputName} value={frequency.slug} selected={frequency.slug === selectedFrequency} />
-          <label className="c--formality__frequency__label" htmlFor={id}>{frequency.name}</label>
+          <input className="c--formality__frequency__input" id={inputID} type="radio" {...field.frequency} value={frequency.slug} checked={field.frequency.value === frequency.slug} />
+          <label className="c--formality__frequency__label" htmlFor={inputID}>{frequency.name}</label>
         </li>
       );
     });
@@ -50,6 +41,8 @@ const Formality = React.createClass({
         <ul className="c--formality__frequencies">
           {frequencyTags}
         </ul>
+
+        <input type="hidden" {...field.formality} />
       </div>
     );
   }
