@@ -1,6 +1,8 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 
+import Site from 'himation/ui/js/containers/site';
+
 /**
  * Pre-render a page component to a string
  *
@@ -9,7 +11,9 @@ import { renderToString } from 'react-dom/server';
  */
 function prerenderPage(Page) {
   const page = React.createElement(Page);
-  return renderToString(page);
+  const site = React.createElement(Site, null, page);
+
+  return renderToString(site);
 }
 
 module.exports = {
