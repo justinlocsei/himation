@@ -1,8 +1,9 @@
 import React from 'react';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
+import { reducer as formReducer } from 'redux-form';
 
-import reducers from 'himation/ui/js/reducers';
+import appReducers from 'himation/ui/js/reducers';
 
 /**
  * Bind an instantiated React component to the Redux store
@@ -12,6 +13,11 @@ import reducers from 'himation/ui/js/reducers';
  * @returns {React.Component} The initial component, wrapped in a provider
  */
 export function bindAppToStore(component, initialState) {
+  const reducers = combineReducers({
+    ...appReducers,
+    form: formReducer
+  });
+
   const store = createStore(reducers, initialState);
   return React.createElement(Provider, {store: store}, component);
 }
