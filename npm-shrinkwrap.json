@@ -27368,6 +27368,33 @@
       "resolved": "https://registry.npmjs.org/redux/-/redux-3.5.2.tgz",
       "version": "3.5.2"
     },
+    "redux-form": {
+      "dependencies": {
+        "deep-equal": {
+          "from": "deep-equal@>=1.0.1 <2.0.0",
+          "resolved": "https://registry.npmjs.org/deep-equal/-/deep-equal-1.0.1.tgz",
+          "version": "1.0.1"
+        },
+        "hoist-non-react-statics": {
+          "from": "hoist-non-react-statics@>=1.0.5 <2.0.0",
+          "resolved": "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz",
+          "version": "1.2.0"
+        },
+        "is-promise": {
+          "from": "is-promise@>=2.1.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/is-promise/-/is-promise-2.1.0.tgz",
+          "version": "2.1.0"
+        },
+        "react-lazy-cache": {
+          "from": "react-lazy-cache@>=3.0.1 <4.0.0",
+          "resolved": "https://registry.npmjs.org/react-lazy-cache/-/react-lazy-cache-3.0.1.tgz",
+          "version": "3.0.1"
+        }
+      },
+      "from": "redux-form@latest",
+      "resolved": "https://registry.npmjs.org/redux-form/-/redux-form-5.2.5.tgz",
+      "version": "5.2.5"
+    },
     "request": {
       "dependencies": {
         "aws-sign2": {
