@@ -7,7 +7,7 @@ export function renderResponse(req, res, settings) {
   const apiRequest = apiClient.requestRecommendations(req.body);
 
   apiRequest
-    .then(function(recommendations) {
+    .then(function() {
       res.render('pages/recommendations', {
         content: prerenderPage(RecommendationsPage)
       });
@@ -15,6 +15,6 @@ export function renderResponse(req, res, settings) {
     .catch(function(error) {
       res.render('pages/recommendations', {
         content: error.message
-      })
+      });
     });
 }
