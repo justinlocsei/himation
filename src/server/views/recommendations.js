@@ -1,6 +1,6 @@
 import { createApiClient } from 'himation/server/api';
 import RecommendationsPage from 'himation/ui/js/containers/pages/recommendations';
-import { renderReactComponent } from 'himation/server/views';
+import { prerenderPage } from 'himation/ui/js/server';
 
 export function renderResponse(req, res, settings) {
   const apiClient = createApiClient(settings.chiton.endpoint, settings.chiton.token);
@@ -9,7 +9,7 @@ export function renderResponse(req, res, settings) {
   apiRequest
     .then(function(recommendations) {
       res.render('pages/recommendations', {
-        content: renderReactComponent(RecommendationsPage)
+        content: prerenderPage(RecommendationsPage)
       });
     })
     .catch(function(error) {
