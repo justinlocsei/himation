@@ -51,7 +51,10 @@ let Survey = React.createClass({
           </div>
 
           <div className="c--survey__shape">
-            <BodyShapePicker fieldID="survey-body-shape" fieldName="body-shape" />
+            <BodyShapePicker
+              field={fields.bodyShape}
+              id="survey-body-shape"
+            />
           </div>
         </Section>
 
