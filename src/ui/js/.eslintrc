@@ -3,7 +3,17 @@
   "env": {
     "commonjs": true
   },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    },
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
   "rules": {
+    "indent": [2, 2, {"SwitchCase": 1}],
     "object-shorthand": 0,
     "strict": [2, "never"]
   }
