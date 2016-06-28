@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import AgeInput from './fields/age-input';
+import BirthYearPicker from './fields/birth-year-picker';
 import BodyShapePicker from './fields/body-shape-picker';
 import CareTypePicker from './fields/care-type-picker';
 import FormalityPicker from './fields/formality-picker';
@@ -28,8 +28,13 @@ const Survey = React.createClass({
         </Section>
 
         <Section name="Personal Information">
-          <div className="c--survey__age">
-            <AgeInput fieldID="survey-age" fieldName="age" />
+          <div className="c--survey__birth-year">
+            <BirthYearPicker
+              fieldID="survey-birth-year"
+              fieldName="birth-year"
+              rangeStart={1950}
+              rangeEnd={new Date().getFullYear()}
+            />
           </div>
 
           <div className="c--survey__shape">

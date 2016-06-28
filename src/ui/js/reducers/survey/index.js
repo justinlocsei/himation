@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import age from './age';
+import birthYear from './birth-year';
 import bodyShape from './body-shape';
 import careTypes from './care-types';
 import formalities from './formalities';
@@ -8,7 +8,7 @@ import sizes from './sizes';
 import styles from './styles';
 
 export default combineReducers({
-  age: age,
+  birthYear: birthYear,
   bodyShape: bodyShape,
   careTypes: careTypes,
   formalities: formalities,
