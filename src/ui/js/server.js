@@ -19,7 +19,11 @@ export function prerenderPage(Page, state) {
   const site = React.createElement(Site, null, page);
   const connectedSite = bindAppToStore(site, state);
 
-  const markup = renderToString(connectedSite);
+  // Double-render the page to fix initial-value issues with redux-form
+  // See: https://github.com/erikras/redux-form/issues/621
+  let markup = renderToString(connectedSite);
+  markup = renderToString(connectedSite);
+
   return `
     <div class="l--app__content" id="${DOM_CONTAINER_ID}">${markup}</div>
     <script>
