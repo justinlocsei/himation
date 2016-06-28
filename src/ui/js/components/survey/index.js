@@ -33,10 +33,10 @@ let Survey = React.createClass({
         <Section name="Personal Information">
           <div className="c--survey__birth-year">
             <BirthYearPicker
-              fieldID="survey-birth-year"
-              fieldName="birth-year"
-              rangeStart={1950}
+              field={fields.birthYear}
+              id="survey-birth-year"
               rangeEnd={new Date().getFullYear()}
+              rangeStart={1950}
             />
           </div>
 
