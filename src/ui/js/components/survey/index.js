@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { reduxForm } from 'redux-form';
 
 import BirthYearPicker from './fields/birth-year-picker';
 import BodyShapePicker from './fields/body-shape-picker';
@@ -8,15 +9,17 @@ import Section from './section';
 import SizePicker from './fields/size-picker';
 import StylePicker from './fields/style-picker';
 
-const Survey = React.createClass({
+let Survey = React.createClass({
 
   propTypes: {
+    form: PropTypes.object.isRequired,
     formAction: PropTypes.string.isRequired,
     formMethod: PropTypes.string.isRequired
   },
 
   render: function() {
-    const { formAction, formMethod } = this.props;
+    const { form, formAction, formMethod } = this.props;
+    const { fields } = form;
 
     return (
       <form className="c--survey" action={formAction} method={formMethod}>
@@ -67,5 +70,18 @@ const Survey = React.createClass({
   }
 
 });
+
+Survey = reduxForm({
+  form: 'survey',
+  fields: [
+    'birthYear',
+    'bodyShape',
+    'careTypes',
+    'formalities',
+    'sizes',
+    'styles'
+  ],
+  propNamespace: 'form'
+})(Survey);
 
 export default Survey;
