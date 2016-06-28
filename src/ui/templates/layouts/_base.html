@@ -16,7 +16,7 @@
   </head>
 
   <body class="l--app">
-    <div class="l--app__content" id="app-content">{{ content | safe }}</div>
+    {{ content | safe }}
 
     {% for javascript in assets.javascripts %}
       <script src="{{ javascript }}"></script>

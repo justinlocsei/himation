@@ -2,6 +2,8 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import Site from 'himation/ui/js/containers/site';
+import { bindAppToStore } from 'himation/ui/js/store';
+import { DOM_CONTAINER_ID, STATE_VARIABLE_NAME } from 'himation/ui/js/server';
 
 /**
  * Initialize the client-site React application for a given page
@@ -12,5 +14,8 @@ export function syncClientApp(Page) {
   const page = React.createElement(Page);
   const site = React.createElement(Site, null, page);
 
-  render(site, document.getElementById('app-content'));
+  const initialState = window[STATE_VARIABLE_NAME] || {};
+  const connectedSite = bindAppToStore(site, initialState);
+
+  render(connectedSite, document.getElementById(DOM_CONTAINER_ID));
 }
