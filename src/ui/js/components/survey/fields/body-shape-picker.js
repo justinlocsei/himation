@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import BodyShape from './body-shape';
+
 const BODY_SHAPES = [
   {name: 'Pear', slug: 'pear'},
   {name: 'Hourglass', slug: 'hourglass'},
@@ -11,23 +13,35 @@ const BODY_SHAPES = [
 const BodyShapePicker = React.createClass({
 
   propTypes: {
-    fieldID: PropTypes.string.isRequired,
-    fieldName: PropTypes.string.isRequired
+    field: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired
   },
 
   render: function() {
-    const { fieldID, fieldName } = this.props;
+    const { field, id } = this.props;
 
-    const options = BODY_SHAPES.map(function(shape, index) {
+    const bodyShapeTags = BODY_SHAPES.map(function(bodyShape, index) {
       return (
-        <option value={shape.slug} key={index}>{shape.name}</option>
+        <li className="c--body-shape-picker__body-shape" key={index}>
+          <BodyShape
+            field={field}
+            id={id}
+            name={bodyShape.name}
+            slug={bodyShape.slug}
+          />
+        </li>
       );
     });
 
     return (
       <div className="c--body-shape-picker">
-        <label className="c--body-shape-picker__label" htmlFor={fieldID}>Body Shape</label>
-        <select className="c--body-shape-picker__choices" name={fieldName} id={fieldID}>{options}</select>
+        <fieldset className="c--body-shape-picker__choices">
+          <legend className="c--body-shape-picker__choices__title">Body Shape</legend>
+
+          <ul className="c--body-shape-picker__body-shapes">
+            {bodyShapeTags}
+          </ul>
+        </fieldset>
       </div>
     );
   }
