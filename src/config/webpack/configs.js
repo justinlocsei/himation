@@ -92,7 +92,10 @@ function jsLoaders(files) {
       loader: 'babel',
       query: {
         cacheDirectory: true,
-        plugins: ['transform-runtime'],
+        plugins: [
+          'transform-runtime',
+          'transform-object-rest-spread'
+        ],
         presets: ['es2015', 'react']
       }
     }
