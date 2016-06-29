@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const STYLES = [
+export const STYLES = [
   {name: 'Caring, Empathetic', slug: 'caring-empathetic'},
   {name: 'Responsible, Trustworthy', slug: 'responsible-trustworthy'},
   {name: 'Classy, Elegant', slug: 'classy-elegant'},
@@ -13,20 +13,22 @@ const STYLES = [
 const StylePicker = React.createClass({
 
   propTypes: {
-    fieldID: PropTypes.string.isRequired,
-    fieldName: PropTypes.string.isRequired
+    fields: PropTypes.array.isRequired,
+    id: PropTypes.string.isRequired
   },
 
   render: function() {
-    const { fieldID, fieldName } = this.props;
+    const { fields, id } = this.props;
 
-    const styleTags = STYLES.map(function(style, index) {
-      const id = `${fieldID}-${style.slug}`;
+    const styleTags = fields.map(function(field, index) {
+      const style = STYLES[index];
+      const inputID = `${id}-${style.slug}`;
 
       return (
         <li className="c--style-picker__style" key={index}>
-          <input className="c--style-picker__style__input" id={id} type="checkbox" name={fieldName} value={style.slug} />
-          <label className="c--style-picker__style__label" htmlFor={id}>{style.name}</label>
+          <input className="c--style-picker__style__input" id={inputID} type="checkbox" {...field.isSelected} value={null} checked={field.isSelected.value} />
+          <label className="c--style-picker__style__label" htmlFor={inputID}>{style.name}</label>
+          <input type="hidden" {...field.style} />
         </li>
       );
     });

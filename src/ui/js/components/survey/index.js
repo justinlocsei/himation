@@ -7,12 +7,19 @@ import CareTypePicker from './fields/care-type-picker';
 import FormalityPicker, { FORMALITIES } from './fields/formality-picker';
 import Section from './section';
 import SizePicker from './fields/size-picker';
-import StylePicker from './fields/style-picker';
+import StylePicker, { STYLES } from './fields/style-picker';
 
 const initialFormalities = FORMALITIES.map(function(formality) {
   return {
     formality: formality.slug,
     frequency: null
+  };
+});
+
+const initialStyles = STYLES.map(function(style) {
+  return {
+    isSelected: false,
+    style: style.slug
   };
 });
 
@@ -60,7 +67,10 @@ let Survey = React.createClass({
 
         <Section name="Styles">
           <div className="c--survey__styles">
-            <StylePicker fieldID="survey-style" fieldName="styles" />
+            <StylePicker
+              fields={fields.styles}
+              id="survey-style"
+            />
           </div>
         </Section>
 
@@ -94,10 +104,13 @@ Survey = reduxForm({
     'formalities[].formality',
     'formalities[].frequency',
     'sizes',
-    'styles'
+    'styles[]',
+    'styles[].isSelected',
+    'styles[].style'
   ],
   initialValues: {
-    formalities: initialFormalities
+    formalities: initialFormalities,
+    styles: initialStyles
   },
   propNamespace: 'form'
 })(Survey);
