@@ -50,7 +50,7 @@ let Survey = React.createClass({
     const { fields } = form;
 
     return (
-      <form className="c--survey" action={formAction} method={formMethod}>
+      <form className="c--survey" action={formAction} method={formMethod} onSubmit={form.handleSubmit}>
 
         <Section name="Formality">
           <div className="c--survey__formalities">
@@ -105,7 +105,7 @@ let Survey = React.createClass({
         </Section>
 
         <fieldset className="c--survey__buttons">
-          <input className="c--survey__submit-button" type="submit" value="Make Recommendations" />
+          <button className="c--survey__submit-button" type="submit" disabled={form.submitting}>Make Recommendations</button>
         </fieldset>
 
       </form>
@@ -113,6 +113,19 @@ let Survey = React.createClass({
   }
 
 });
+
+function mapDispatchToProps() {
+  return {
+    onSubmit: function() {
+
+    }
+  };
+}
+
+function validate(values) {
+  const errors = {};
+  return errors;
+}
 
 Survey = reduxForm({
   form: 'survey',
@@ -138,7 +151,8 @@ Survey = reduxForm({
     sizes: initialSizes,
     styles: initialStyles
   },
-  propNamespace: 'form'
-})(Survey);
+  propNamespace: 'form',
+  validate: validate
+}, null, mapDispatchToProps)(Survey);
 
 export default Survey;
