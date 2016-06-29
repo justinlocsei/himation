@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const SIZES = [
+export const SIZES = [
   {name: 'XXS (0)', slug: 'xxs', rangeMin: 0, rangeMax: 0},
   {name: 'XS (2)', slug: 'xs', rangeMin: 2, rangeMax: 2},
   {name: 'S (4-6)', slug: 's', rangeMin: 4, rangeMax: 6},
@@ -32,20 +32,22 @@ const SIZES = [
 const SizePicker = React.createClass({
 
   propTypes: {
-    fieldID: PropTypes.string.isRequired,
-    fieldName: PropTypes.string.isRequired
+    fields: PropTypes.array.isRequired,
+    id: PropTypes.string.isRequired
   },
 
   render: function() {
-    const { fieldID, fieldName } = this.props;
+    const { fields, id } = this.props;
 
-    const sizeTags = SIZES.map(function(size, index) {
-      const id = `${fieldID}-${size.slug}`;
+    const sizeTags = fields.map(function(field, index) {
+      const size = SIZES[index];
+      const inputID = `${id}-${size.slug}`;
 
       return (
         <li className="c--size-picker__size" key={index}>
-          <input className="c--size-picker__size__input" id={id} type="checkbox" name={fieldName} value={size.slug} />
-          <label className="c--size-picker__size__label" htmlFor={id}>{size.name}</label>
+          <input className="c--size-picker__size__input" id={inputID} type="checkbox" {...field.isSelected} value={null} checked={field.isSelected.value} />
+          <label className="c--size-picker__size__label" htmlFor={inputID}>{size.name}</label>
+          <input type="hidden" {...field.size} />
         </li>
       );
     });
