@@ -15,7 +15,13 @@ export function syncClientApp(Page) {
   const site = React.createElement(Site, null, page);
 
   const initialState = window[STATE_VARIABLE_NAME] || {};
-  const connectedSite = bindAppToStore(site, initialState);
+
+  const bindAppArgs = [site, initialState];
+  if (window.devToolsExtension) {
+    bindAppArgs.push(window.devToolsExtension());
+  }
+
+  const connectedSite = bindAppToStore.apply(bindAppToStore, bindAppArgs);
 
   render(connectedSite, document.getElementById(DOM_CONTAINER_ID));
 }
