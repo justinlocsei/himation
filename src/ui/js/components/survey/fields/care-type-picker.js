@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const CARE_TYPES = [
+export const CARE_TYPES = [
   {name: 'Hand wash', slug: 'hand-wash'},
   {name: 'Dry clean', slug: 'dry-clean'}
 ];
@@ -8,20 +8,22 @@ const CARE_TYPES = [
 const CareTypePicker = React.createClass({
 
   propTypes: {
-    fieldID: PropTypes.string.isRequired,
-    fieldName: PropTypes.string.isRequired
+    fields: PropTypes.array.isRequired,
+    id: PropTypes.string.isRequired
   },
 
   render: function() {
-    const { fieldID, fieldName } = this.props;
+    const { fields, id } = this.props;
 
-    const careTags = CARE_TYPES.map(function(careType, index) {
-      const id = `${fieldID}-${careType.slug}`;
+    const careTags = fields.map(function(field, index) {
+      const careType = CARE_TYPES[index];
+      const inputID = `${id}-${careType.slug}`;
 
       return (
         <li className="c--care-type-picker__type" key={index}>
-          <input className="c--care-type-picker__type__input" type="checkbox" name={fieldName} id={id} />
-          <label className="c--care-type-picker__type__label" htmlFor={id}>{careType.name}</label>
+          <input className="c--care-type-picker__type__input" id={inputID} type="checkbox" {...field.isSelected} value={null} checked={field.isSelected.value} />
+          <label className="c--care-type-picker__type__label" htmlFor={inputID}>{careType.name}</label>
+          <input type="hidden" {...field.careType} />
         </li>
       );
     });

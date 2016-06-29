@@ -3,11 +3,18 @@ import { reduxForm } from 'redux-form';
 
 import BirthYearPicker from './fields/birth-year-picker';
 import BodyShapePicker from './fields/body-shape-picker';
-import CareTypePicker from './fields/care-type-picker';
+import CareTypePicker, { CARE_TYPES } from './fields/care-type-picker';
 import FormalityPicker, { FORMALITIES } from './fields/formality-picker';
 import Section from './section';
 import SizePicker, { SIZES } from './fields/size-picker';
 import StylePicker, { STYLES } from './fields/style-picker';
+
+const initialCareTypes = CARE_TYPES.map(function(careType) {
+  return {
+    careType: careType.slug,
+    isSelected: false
+  };
+});
 
 const initialFormalities = FORMALITIES.map(function(formality) {
   return {
@@ -90,7 +97,10 @@ let Survey = React.createClass({
           </div>
 
           <div className="c--survey__care">
-            <CareTypePicker fieldID="survey-care-types" fieldName="care-types" />
+            <CareTypePicker
+              fields={fields.careTypes}
+              id="survey-care-types"
+            />
           </div>
         </Section>
 
@@ -109,7 +119,9 @@ Survey = reduxForm({
   fields: [
     'birthYear',
     'bodyShape',
-    'careTypes',
+    'careTypes[]',
+    'careTypes[].careType',
+    'careTypes[].isSelected',
     'formalities[]',
     'formalities[].formality',
     'formalities[].frequency',
@@ -121,6 +133,7 @@ Survey = reduxForm({
     'styles[].style'
   ],
   initialValues: {
+    careTypes: initialCareTypes,
     formalities: initialFormalities,
     sizes: initialSizes,
     styles: initialStyles
