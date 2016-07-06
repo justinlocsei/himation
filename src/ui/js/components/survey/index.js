@@ -8,6 +8,7 @@ import FormalityPicker, { FORMALITIES } from './fields/formality-picker';
 import Section from './section';
 import SizePicker, { SIZES } from './fields/size-picker';
 import StylePicker, { STYLES } from './fields/style-picker';
+import { submitSurvey } from 'himation/ui/js/actions/survey';
 
 const initialCareTypes = CARE_TYPES.map(function(careType) {
   return {
@@ -42,15 +43,24 @@ let Survey = React.createClass({
   propTypes: {
     form: PropTypes.object.isRequired,
     formAction: PropTypes.string.isRequired,
-    formMethod: PropTypes.string.isRequired
+    formMethod: PropTypes.string.isRequired,
+    isSubmitting: PropTypes.bool,
+    onServerSubmit: PropTypes.func.isRequired
   },
 
   render: function() {
-    const { form, formAction, formMethod } = this.props;
+    const { form, formAction, formMethod, isSubmitting, onServerSubmit } = this.props;
     const { fields } = form;
 
+    const handleSubmit = form.valid ? onServerSubmit : form.handleSubmit;
+
+    const classes = ['c--survey'];
+    if (isSubmitting) {
+      classes.push('is-submitting');
+    }
+
     return (
-      <form className="c--survey" action={formAction} method={formMethod} onSubmit={form.handleSubmit}>
+      <form className={classes.join(' ')} action={formAction} method={formMethod} onSubmit={handleSubmit}>
 
         <Section name="Formality">
           <div className="c--survey__formalities">
@@ -105,7 +115,7 @@ let Survey = React.createClass({
         </Section>
 
         <fieldset className="c--survey__buttons">
-          <button className="c--survey__submit-button" type="submit" disabled={form.submitting}>Make Recommendations</button>
+          <button className="c--survey__submit-button" type="submit" disabled={isSubmitting}>Make Recommendations</button>
         </fieldset>
 
       </form>
@@ -114,11 +124,18 @@ let Survey = React.createClass({
 
 });
 
-function mapDispatchToProps() {
+function mapStateToProps(state) {
   return {
-    onSubmit: function() {
+    isSubmitting: state.survey.isSubmitting
+  };
+}
 
-    }
+function mapDispatchToProps(dispatch) {
+  return {
+    onServerSubmit: function() {
+      dispatch(submitSurvey());
+    },
+    onSubmit: function() {}
   };
 }
 
@@ -191,6 +208,6 @@ Survey = reduxForm({
   },
   propNamespace: 'form',
   validate: validate
-}, null, mapDispatchToProps)(Survey);
+}, mapStateToProps, mapDispatchToProps)(Survey);
 
 export default Survey;
