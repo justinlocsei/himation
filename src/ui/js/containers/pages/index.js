@@ -8,7 +8,7 @@ import { guidToRoute } from 'himation/core/routing';
 const HomePage = React.createClass({
 
   render: function() {
-    const submitSurvey = guidToRoute(routes, 'himation.recommendations');
+    const submitSurvey = guidToRoute(routes, 'himation.survey');
 
     return (
       <Page title="Home">
