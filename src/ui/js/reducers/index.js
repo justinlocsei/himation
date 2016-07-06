@@ -1,5 +1,5 @@
-import survey from './survey';
+import profile from './profile';
 
 export default {
-  survey: survey
+  profile: profile
 };
