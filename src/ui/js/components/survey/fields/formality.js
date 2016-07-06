@@ -31,8 +31,15 @@ const Formality = React.createClass({
       );
     });
 
+    let errorTag;
+    if (field.touched && field.error) {
+      errorTag = <p className="c--formality__error">{field.error}</p>;
+    }
+
     return (
       <div className="c--formality">
+        {errorTag}
+
         <figure className="c--formality__example">
           <img className="c--formality__example__image" src={`https://placehold.it/200x250?text=${name}`} />
           <figcaption className="c--formality__example__caption">{name}</figcaption>

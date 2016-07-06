@@ -24,8 +24,13 @@ const FormalityPicker = React.createClass({
     const formalityTags = fields.map(function(field, index) {
       const formality = FORMALITIES[index];
 
+      const classes = ['c--formality-picker__formality'];
+      if (field.touched && field.error) {
+        classes.push('is-invalid');
+      }
+
       return (
-        <li className="c--formality-picker__formality" key={index}>
+        <li className={classes.join(' ')} key={index}>
           <Formality
             field={field}
             id={id}

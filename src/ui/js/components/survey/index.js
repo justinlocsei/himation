@@ -124,6 +124,44 @@ function mapDispatchToProps() {
 
 function validate(values) {
   const errors = {};
+
+  if (!values.birthYear) {
+    errors.birthYear = 'Please select your birth year';
+  }
+
+  if (!values.bodyShape) {
+    errors.bodyShape = 'Please select your body shape';
+  }
+
+  if (values.formalities) {
+    const formalityErrors = values.formalities.reduce(function(previous, formality, index) {
+      if (!formality.frequency) {
+        previous[index] = 'Please select a frequency';
+      }
+      return previous;
+    }, []);
+
+    if (formalityErrors.length) {
+      errors.formalities = formalityErrors;
+    }
+  }
+
+  if (values.styles) {
+    const selectedStyles = values.styles.filter(style => style.isSelected);
+    if (!selectedStyles.length) {
+      errors.styles = ['Please select at least one style'];
+    } else if (selectedStyles.length > 3) {
+      errors.styles = ['Please select no more than three styles'];
+    }
+  }
+
+  if (values.sizes) {
+    const selectedSizes = values.sizes.filter(size => size.isSelected);
+    if (!selectedSizes.length) {
+      errors.sizes = ['Please select at least one size'];
+    }
+  }
+
   return errors;
 }
 

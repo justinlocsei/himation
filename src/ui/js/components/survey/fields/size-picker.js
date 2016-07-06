@@ -52,10 +52,29 @@ const SizePicker = React.createClass({
       );
     });
 
+    const fieldErrors = fields.reduce(function(previous, field) {
+      if (field.touched && field.error) {
+        previous.push(field.error);
+      }
+      return previous;
+    }, []);
+
+    let errorTag;
+    if (fieldErrors) {
+      errorTag = <p className="c--size-picker__error">{fieldErrors[0]}</p>;
+    }
+
+    const classes = ['c--size-picker'];
+    if (errorTag) {
+      classes.push('is-invalid');
+    }
+
     return (
-      <div className="c--size-picker">
+      <div className={classes.join(' ')}>
         <fieldset className="c--size-picker__fields">
           <legend className="c--size-picker__fields__title">Which sizes do you wear?</legend>
+
+          {errorTag}
 
           <ul className="c--size-picker__sizes">
             {sizeTags}

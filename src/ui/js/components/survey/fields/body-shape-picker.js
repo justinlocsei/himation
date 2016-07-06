@@ -33,10 +33,22 @@ const BodyShapePicker = React.createClass({
       );
     });
 
+    let errorTag;
+    if (field.touched && field.error) {
+      errorTag = <p className="c--body-shape-picker__error">{field.error}</p>;
+    }
+
+    const classes = ['c--body-shape-picker'];
+    if (errorTag) {
+      classes.push('is-invalid');
+    }
+
     return (
-      <div className="c--body-shape-picker">
+      <div className={classes.join(' ')}>
         <fieldset className="c--body-shape-picker__choices">
           <legend className="c--body-shape-picker__choices__title">Body Shape</legend>
+
+          {errorTag}
 
           <ul className="c--body-shape-picker__body-shapes">
             {bodyShapeTags}

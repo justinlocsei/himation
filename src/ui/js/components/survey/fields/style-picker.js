@@ -33,10 +33,29 @@ const StylePicker = React.createClass({
       );
     });
 
+    const fieldErrors = fields.reduce(function(previous, field) {
+      if (field.touched && field.error) {
+        previous.push(field.error);
+      }
+      return previous;
+    }, []);
+
+    let errorTag;
+    if (fieldErrors) {
+      errorTag = <p className="c--style-picker__error">{fieldErrors[0]}</p>;
+    }
+
+    const classes = ['c--style-picker'];
+    if (errorTag) {
+      classes.push('is-invalid');
+    }
+
     return (
-      <div className="c--style-picker">
+      <div className={classes.join(' ')}>
         <fieldset className="c--style-picker__fields">
           <legend className="c--style-picker__fields__title">How do you want to be perceived?</legend>
+
+          {errorTag}
 
           <ul className="c--style-picker__styles">
             {styleTags}
