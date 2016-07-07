@@ -7,7 +7,6 @@ module.exports = routing.defineRoutes([{
   path: '/',
   paths: [
     {path: 'about', name: 'about'},
-    {path: 'recommendations', name: 'recommendations', method: 'post'},
-    {path: 'survey', name: 'survey', method: 'post'}
+    {path: 'recommendations', name: 'recommendations', method: 'post'}
   ]
 }]);
