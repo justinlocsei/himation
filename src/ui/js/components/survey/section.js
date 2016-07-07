@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { childProps } from 'himation/ui/js/extensions/react';
+import { childProps } from 'himation/core/extensions/react';
 
 const SurveySection = React.createClass({
 

@@ -1,4 +1,6 @@
-const ARRAY_FIELD_MATCH = new RegExp(/\[([0-9]+)\]\.(.+)$/);
+'use strict';
+
+var ARRAY_FIELD_MATCH = new RegExp(/\[([0-9]+)\]\.(.+)$/);
 
 /**
  * Pass through a field in a field array
@@ -19,19 +21,25 @@ function passThroughTransformer(field, value) {
  * @param {function} [transformer] An optional function to transform field values
  * @returns {object[]} The parsed array field
  */
-export function parseArrayField(data, fieldName, transformer = passThroughTransformer) {
-  const fields = Object.keys(data).filter(function(field) {
+function parseArrayField(data, fieldName, transformer) {
+  var valueTransformer = transformer || passThroughTransformer;
+
+  var fields = Object.keys(data).filter(function(field) {
     return field.indexOf(fieldName) === 0 && field[fieldName.length] === '[';
   });
 
   return fields.reduce(function(parsed, field) {
-    const arrayFieldMatch = ARRAY_FIELD_MATCH.exec(field);
-    const index = arrayFieldMatch[1];
-    const subfield = arrayFieldMatch[2];
+    var arrayFieldMatch = ARRAY_FIELD_MATCH.exec(field);
+    var index = arrayFieldMatch[1];
+    var subfield = arrayFieldMatch[2];
 
     parsed[index] = parsed[index] || {};
-    parsed[index][subfield] = transformer(subfield, data[field]);
+    parsed[index][subfield] = valueTransformer(subfield, data[field]);
 
     return parsed;
   }, []);
 }
+
+module.exports = {
+  parseArrayField: parseArrayField
+};

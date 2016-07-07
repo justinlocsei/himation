@@ -1,6 +1,8 @@
-import { PropTypes } from 'react';
+'use strict';
 
-const childProps = {
+var PropTypes = require('react').PropTypes;
+
+var childProps = {
   multiple: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.arrayOf(PropTypes.element)
@@ -8,4 +10,6 @@ const childProps = {
   single: PropTypes.element
 };
 
-export { childProps };
+module.exports = {
+  childProps: childProps
+};
