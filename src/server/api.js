@@ -41,19 +41,20 @@ ApiClient.prototype.requestRecommendations = function(profile) {
     }, function(error, response, body) {
       var fieldErrors;
 
-      if (error) { reject(new errors.DataError('Request error: ' + error)); }
-      if (response.statusCode === 200) { resolve(body); }
-
-      if (response.statusCode === 400) {
+      if (error) {
+        reject(new errors.DataError('Request error: ' + error));
+      } else if (response.statusCode === 200) {
+        resolve(body);
+      } else if (response.statusCode === 400) {
         fieldErrors = Object.keys(body.errors).reduce(function(previous, field) {
           previous.push(field + ': ' + body.errors[field]);
           return previous;
         }, []);
 
         reject(new errors.DataError('API error: ' + fieldErrors.join(' | ')));
+      } else {
+        reject(new errors.DataError('Unknown error: ' + response.statusCode));
       }
-
-      reject(new errors.DataError('Unknown error: ' + response.statusCode));
     });
   });
 };
