@@ -1,10 +1,24 @@
-import { createApiClient } from 'himation/server/api';
+import IndexPage from 'himation/ui/js/containers/pages';
 import RecommendationsPage from 'himation/ui/js/containers/pages/recommendations';
+import { convertPostDataToStateShape } from 'himation/ui/js/reducers/survey';
+import { createApiClient } from 'himation/server/api';
 import { prerenderPage } from 'himation/ui/js/server';
+import { validate } from 'himation/ui/js/components/survey';
 
 export function renderResponse(req, res, settings) {
+  const data = convertPostDataToStateShape(req.body);
+  const errors = validate(data);
+
+  if (Object.keys(errors).length) {
+    return res.render('pages/index', {
+      content: prerenderPage(IndexPage, {
+        survey: data
+      })
+    });
+  }
+
   const apiClient = createApiClient(settings.chiton.endpoint, settings.chiton.token);
-  const apiRequest = apiClient.requestRecommendations(req.body);
+  const apiRequest = apiClient.requestRecommendations(data);
 
   apiRequest
     .then(function() {

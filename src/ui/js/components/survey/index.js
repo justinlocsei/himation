@@ -121,7 +121,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function validate(values) {
+export function validate(values) {
   const errors = {};
 
   if (!values.birthYear) {
