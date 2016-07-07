@@ -1,9 +1,11 @@
-export const CARE_TYPES = [
+'use strict';
+
+var CARE_TYPES = [
   {name: 'Hand wash', slug: 'hand-wash'},
   {name: 'Dry clean', slug: 'dry-clean'}
 ];
 
-export const FORMALITIES = [
+var FORMALITIES = [
   {name: 'Casual', slug: 'casual'},
   {name: 'Dressy casual', slug: 'dressy-casual'},
   {name: 'Business casual', slug: 'business-casual'},
@@ -12,7 +14,7 @@ export const FORMALITIES = [
   {name: 'Executive', slug: 'executive'}
 ];
 
-export const FREQUENCIES = [
+var FREQUENCIES = [
   {name: 'Never', slug: 'never'},
   {name: 'Occasionally', slug: 'rarely'},
   {name: '1-2 times per week', slug: 'sometimes'},
@@ -20,7 +22,7 @@ export const FREQUENCIES = [
   {name: '5+ times per week', slug: 'always'}
 ];
 
-export const SIZES = [
+var SIZES = [
   {name: 'XXS (0)', slug: 'xxs', rangeMin: 0, rangeMax: 0},
   {name: 'XS (2)', slug: 'xs', rangeMin: 2, rangeMax: 2},
   {name: 'S (4-6)', slug: 's', rangeMin: 4, rangeMax: 6},
@@ -49,7 +51,7 @@ export const SIZES = [
   {name: 'Tall XXL (20-22)', slug: 'xxl-tall', rangeMin: 20, rangeMax: 22}
 ];
 
-export const STYLES = [
+var STYLES = [
   {name: 'Caring, Empathetic', slug: 'caring-empathetic'},
   {name: 'Responsible, Trustworthy', slug: 'responsible-trustworthy'},
   {name: 'Classy, Elegant', slug: 'classy-elegant'},
@@ -58,3 +60,11 @@ export const STYLES = [
   {name: 'Natural, Comfortable', slug: 'natural-comfortable'},
   {name: 'Sleek, Efficient', slug: 'sleek-efficient'}
 ];
+
+module.exports = {
+  CARE_TYPES: CARE_TYPES,
+  FORMALITIES: FORMALITIES,
+  FREQUENCIES: FREQUENCIES,
+  SIZES: SIZES,
+  STYLES: STYLES
+};

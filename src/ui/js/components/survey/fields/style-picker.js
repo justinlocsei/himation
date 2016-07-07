@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { STYLES } from 'himation/ui/js/data/survey';
+import { STYLES } from 'himation/core/data/survey';
 
 const StylePicker = React.createClass({
 

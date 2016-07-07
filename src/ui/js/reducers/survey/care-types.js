@@ -1,4 +1,4 @@
-import { CARE_TYPES } from 'himation/ui/js/data/survey';
+import { CARE_TYPES } from 'himation/core/data/survey';
 import { parseArrayField } from 'himation/core/extensions/redux-form';
 
 const defaultState = CARE_TYPES.map(function(careType) {

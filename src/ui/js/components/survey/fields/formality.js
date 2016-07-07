@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { FREQUENCIES } from 'himation/ui/js/data/survey';
+import { FREQUENCIES } from 'himation/core/data/survey';
 
 const Formality = React.createClass({
 

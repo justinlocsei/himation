@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import Formality from './formality';
-import { FORMALITIES } from 'himation/ui/js/data/survey';
+import { FORMALITIES } from 'himation/core/data/survey';
 
 const FormalityPicker = React.createClass({
 

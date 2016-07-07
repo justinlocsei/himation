@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { CARE_TYPES } from 'himation/ui/js/data/survey';
+import { CARE_TYPES } from 'himation/core/data/survey';
 
 const CareTypePicker = React.createClass({
 

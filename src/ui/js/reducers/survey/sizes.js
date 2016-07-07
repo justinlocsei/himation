@@ -1,5 +1,5 @@
 import { parseArrayField } from 'himation/core/extensions/redux-form';
-import { SIZES } from 'himation/ui/js/data/survey';
+import { SIZES } from 'himation/core/data/survey';
 
 const defaultState = SIZES.map(function(size) {
   return {

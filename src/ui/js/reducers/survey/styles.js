@@ -1,5 +1,5 @@
 import { parseArrayField } from 'himation/core/extensions/redux-form';
-import { STYLES } from 'himation/ui/js/data/survey';
+import { STYLES } from 'himation/core/data/survey';
 
 const defaultState = STYLES.map(function(style) {
   return {

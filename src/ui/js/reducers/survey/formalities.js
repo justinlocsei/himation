@@ -1,4 +1,4 @@
-import { FORMALITIES } from 'himation/ui/js/data/survey';
+import { FORMALITIES } from 'himation/core/data/survey';
 import { parseArrayField } from 'himation/core/extensions/redux-form';
 
 const defaultState = FORMALITIES.map(function(formality) {

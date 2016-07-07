@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { SIZES } from 'himation/ui/js/data/survey';
+import { SIZES } from 'himation/core/data/survey';
 
 const SizePicker = React.createClass({
 
