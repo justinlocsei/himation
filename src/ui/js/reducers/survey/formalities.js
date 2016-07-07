@@ -1,4 +1,5 @@
 import { FORMALITIES } from 'himation/ui/js/data/survey';
+import { parseArrayField } from 'himation/ui/js/extensions/redux-form';
 
 const defaultState = FORMALITIES.map(function(formality) {
   return {
@@ -6,6 +7,18 @@ const defaultState = FORMALITIES.map(function(formality) {
     slug: formality.slug
   };
 });
+
+export function parseForm(data) {
+  const parsed = parseArrayField(data, 'formalities');
+
+  return defaultState.map(function(formality) {
+    const match = parsed.find(p => p.slug === formality.slug);
+    return {
+      ...formality,
+      ...match
+    };
+  });
+}
 
 export default function formalities(state = defaultState) {
   return state;
