@@ -4,7 +4,7 @@ const defaultState = {
   isSubmitting: false
 };
 
-export default function survey(state = defaultState, action) {
+export default function form(state = defaultState, action) {
   switch (action.type) {
     case SUBMIT_SURVEY:
       return {

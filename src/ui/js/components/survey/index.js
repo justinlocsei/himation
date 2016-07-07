@@ -3,40 +3,12 @@ import { reduxForm } from 'redux-form';
 
 import BirthYearPicker from './fields/birth-year-picker';
 import BodyShapePicker from './fields/body-shape-picker';
-import CareTypePicker, { CARE_TYPES } from './fields/care-type-picker';
-import FormalityPicker, { FORMALITIES } from './fields/formality-picker';
+import CareTypePicker from './fields/care-type-picker';
+import FormalityPicker from './fields/formality-picker';
 import Section from './section';
-import SizePicker, { SIZES } from './fields/size-picker';
-import StylePicker, { STYLES } from './fields/style-picker';
+import SizePicker from './fields/size-picker';
+import StylePicker from './fields/style-picker';
 import { submitSurvey } from 'himation/ui/js/actions/survey';
-
-const initialCareTypes = CARE_TYPES.map(function(careType) {
-  return {
-    careType: careType.slug,
-    isSelected: false
-  };
-});
-
-const initialFormalities = FORMALITIES.map(function(formality) {
-  return {
-    formality: formality.slug,
-    frequency: null
-  };
-});
-
-const initialSizes = SIZES.map(function(size) {
-  return {
-    isSelected: false,
-    size: size.slug
-  };
-});
-
-const initialStyles = STYLES.map(function(style) {
-  return {
-    isSelected: false,
-    style: style.slug
-  };
-});
 
 let Survey = React.createClass({
 
@@ -125,8 +97,18 @@ let Survey = React.createClass({
 });
 
 function mapStateToProps(state) {
+  const { survey } = state;
+
   return {
-    isSubmitting: state.survey.isSubmitting
+    initialValues: {
+      birthYear: survey.birthYear,
+      bodyShape: survey.bodyShape,
+      careTypes: survey.careTypes,
+      formalities: survey.formalities,
+      sizes: survey.sizes,
+      styles: survey.styles
+    },
+    isSubmitting: survey.form.isSubmitting
   };
 }
 
@@ -188,24 +170,18 @@ Survey = reduxForm({
     'birthYear',
     'bodyShape',
     'careTypes[]',
-    'careTypes[].careType',
+    'careTypes[].slug',
     'careTypes[].isSelected',
     'formalities[]',
-    'formalities[].formality',
+    'formalities[].slug',
     'formalities[].frequency',
     'sizes[]',
     'sizes[].isSelected',
-    'sizes[].size',
+    'sizes[].slug',
     'styles[]',
     'styles[].isSelected',
-    'styles[].style'
+    'styles[].slug'
   ],
-  initialValues: {
-    careTypes: initialCareTypes,
-    formalities: initialFormalities,
-    sizes: initialSizes,
-    styles: initialStyles
-  },
   propNamespace: 'form',
   validate: validate
 }, mapStateToProps, mapDispatchToProps)(Survey);

@@ -1,9 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export const CARE_TYPES = [
-  {name: 'Hand wash', slug: 'hand-wash'},
-  {name: 'Dry clean', slug: 'dry-clean'}
-];
+import { CARE_TYPES } from 'himation/ui/js/data/survey';
 
 const CareTypePicker = React.createClass({
 
@@ -16,14 +13,14 @@ const CareTypePicker = React.createClass({
     const { fields, id } = this.props;
 
     const careTags = fields.map(function(field, index) {
-      const careType = CARE_TYPES[index];
+      const careType = CARE_TYPES.find(ct => ct.slug === field.slug.value);
       const inputID = `${id}-${careType.slug}`;
 
       return (
         <li className="c--care-type-picker__type" key={index}>
           <input className="c--care-type-picker__type__input" id={inputID} type="checkbox" {...field.isSelected} value={null} checked={field.isSelected.value} />
           <label className="c--care-type-picker__type__label" htmlFor={inputID}>{careType.name}</label>
-          <input type="hidden" {...field.careType} />
+          <input type="hidden" {...field.slug} />
         </li>
       );
     });

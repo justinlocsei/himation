@@ -1,12 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const FREQUENCIES = [
-  {name: 'Never', slug: 'never'},
-  {name: 'Occasionally', slug: 'rarely'},
-  {name: '1-2 times per week', slug: 'sometimes'},
-  {name: '3-4 times per week', slug: 'often'},
-  {name: '5+ times per week', slug: 'always'}
-];
+import { FREQUENCIES } from 'himation/ui/js/data/survey';
 
 const Formality = React.createClass({
 
@@ -49,7 +43,7 @@ const Formality = React.createClass({
           {frequencyTags}
         </ul>
 
-        <input type="hidden" {...field.formality} />
+        <input type="hidden" {...field.slug} />
       </div>
     );
   }

@@ -1,14 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export const STYLES = [
-  {name: 'Caring, Empathetic', slug: 'caring-empathetic'},
-  {name: 'Responsible, Trustworthy', slug: 'responsible-trustworthy'},
-  {name: 'Classy, Elegant', slug: 'classy-elegant'},
-  {name: 'Bold, Powerful', slug: 'bold-powerful'},
-  {name: 'Creative, Fun', slug: 'creative-fun'},
-  {name: 'Natural, Comfortable', slug: 'natural-comfortable'},
-  {name: 'Sleek, Efficient', slug: 'sleek-efficient'}
-];
+import { STYLES } from 'himation/ui/js/data/survey';
 
 const StylePicker = React.createClass({
 
@@ -21,14 +13,14 @@ const StylePicker = React.createClass({
     const { fields, id } = this.props;
 
     const styleTags = fields.map(function(field, index) {
-      const style = STYLES[index];
+      const style = STYLES.find(s => s.slug === field.slug.value);
       const inputID = `${id}-${style.slug}`;
 
       return (
         <li className="c--style-picker__style" key={index}>
           <input className="c--style-picker__style__input" id={inputID} type="checkbox" {...field.isSelected} value={null} checked={field.isSelected.value} />
           <label className="c--style-picker__style__label" htmlFor={inputID}>{style.name}</label>
-          <input type="hidden" {...field.style} />
+          <input type="hidden" {...field.slug} />
         </li>
       );
     });

@@ -1,15 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import Formality from './formality';
-
-export const FORMALITIES = [
-  {name: 'Casual', slug: 'casual'},
-  {name: 'Dressy casual', slug: 'dressy-casual'},
-  {name: 'Business casual', slug: 'business-casual'},
-  {name: 'Dressy business casual', slug: 'dressy-business-casual'},
-  {name: 'Executive casual', slug: 'executive-casual'},
-  {name: 'Executive', slug: 'executive'}
-];
+import { FORMALITIES } from 'himation/ui/js/data/survey';
 
 const FormalityPicker = React.createClass({
 
@@ -22,7 +14,7 @@ const FormalityPicker = React.createClass({
     const { fields, id } = this.props;
 
     const formalityTags = fields.map(function(field, index) {
-      const formality = FORMALITIES[index];
+      const formality = FORMALITIES.find(f => f.slug === field.slug.value);
 
       const classes = ['c--formality-picker__formality'];
       if (field.touched && field.error) {
