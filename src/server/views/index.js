@@ -1,8 +1,8 @@
 import IndexPage from 'himation/ui/js/containers/pages';
-import { prerenderPage } from 'himation/ui/js/server';
+import { prerenderPageComponent } from 'himation/ui/js/rendering';
 
 export function renderResponse(req, res) {
   res.render('pages/index', {
-    content: prerenderPage(IndexPage)
+    content: prerenderPageComponent(IndexPage)
   });
 }

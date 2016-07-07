@@ -2,7 +2,7 @@ import IndexPage from 'himation/ui/js/containers/pages';
 import RecommendationsPage from 'himation/ui/js/containers/pages/recommendations';
 import { convertPostDataToStateShape } from 'himation/ui/js/reducers/survey';
 import { createApiClient } from 'himation/server/api';
-import { prerenderPage } from 'himation/ui/js/server';
+import { prerenderPageComponent } from 'himation/ui/js/rendering';
 import { validate } from 'himation/ui/js/components/survey';
 
 export function renderResponse(req, res, settings) {
@@ -11,7 +11,7 @@ export function renderResponse(req, res, settings) {
 
   if (Object.keys(errors).length) {
     return res.render('pages/index', {
-      content: prerenderPage(IndexPage, {
+      content: prerenderPageComponent(IndexPage, {
         survey: data
       })
     });
@@ -23,7 +23,7 @@ export function renderResponse(req, res, settings) {
   apiRequest
     .then(function() {
       res.render('pages/recommendations', {
-        content: prerenderPage(RecommendationsPage)
+        content: prerenderPageComponent(RecommendationsPage)
       });
     })
     .catch(function(error) {

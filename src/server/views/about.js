@@ -1,8 +1,8 @@
 import AboutPage from 'himation/ui/js/containers/pages/about';
-import { prerenderPage } from 'himation/ui/js/server';
+import { prerenderPageComponent } from 'himation/ui/js/rendering';
 
 export function renderResponse(req, res) {
   res.render('pages/about', {
-    content: prerenderPage(AboutPage)
+    content: prerenderPageComponent(AboutPage)
   });
 }

@@ -1,4 +1,4 @@
-import { syncClientApp } from 'himation/ui/js/browser';
+import { renderPageComponent } from 'himation/ui/js/rendering';
 import HomePage from 'himation/ui/js/containers/pages';
 
-syncClientApp(HomePage);
+renderPageComponent(HomePage);
