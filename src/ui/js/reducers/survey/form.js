@@ -1,6 +1,7 @@
 import { SUBMIT_SURVEY } from 'himation/ui/js/actions/survey';
 
 const defaultState = {
+  failedValidation: false,
   isSubmitting: false
 };
 
