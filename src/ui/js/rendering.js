@@ -30,6 +30,15 @@ function bindComponentToStore(component, initialState, middleware) {
 }
 
 /**
+ * Return the state used to pre-render the current page
+ *
+ * @returns {object}
+ */
+export function getPrerenderedState() {
+  return window[STATE_VARIABLE_NAME] || {};
+}
+
+/**
  * Pre-render a page component to a string
  *
  * @param {React.Component} Page A React page component
@@ -52,15 +61,6 @@ export function prerenderPageComponent(Page, state) {
       window['${STATE_VARIABLE_NAME}'] = ${JSON.stringify(connectedSite.props.store.getState())};
     </script>
   `;
-}
-
-/**
- * Return the state used to pre-render the current page
- *
- * @returns {object}
- */
-export function getPrerenderedState() {
-  return window[STATE_VARIABLE_NAME] || {};
 }
 
 /**
