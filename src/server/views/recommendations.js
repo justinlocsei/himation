@@ -25,19 +25,16 @@ function renderInvalidSurveyForm(res, data) {
   });
 }
 
-export function renderResponse(req, res, settings) {
-  const surveyData = convertPostDataToStateShape(req.body);
-  const surveyValidationErrors = validate(surveyData);
-
-  if (Object.keys(surveyValidationErrors).length) {
-    return renderInvalidSurveyForm(res, surveyData);
-  }
-
-  const apiClient = createApiClient(settings.chiton.endpoint, settings.chiton.token);
-  const apiRequest = apiClient.requestRecommendations(data);
-
-  apiRequest
-    .then(function() {
+/**
+ * Render recommendations for a survey
+ *
+ * @param {Response} res The server response
+ * @param {object} surveyData The survey state shape
+ * @param {ApiClient} apiClient A himation API client
+ */
+function renderRecommendations(res, surveyData, apiClient) {
+  apiClient.requestRecommendations(surveyData)
+    .then(function(data) {
       res.render('pages/recommendations', {
         content: prerenderPageComponent(RecommendationsPage)
       });
@@ -47,4 +44,16 @@ export function renderResponse(req, res, settings) {
         content: error.message
       });
     });
+}
+
+export function renderResponse(req, res, settings) {
+  const surveyData = convertPostDataToStateShape(req.body);
+  const surveyValidationErrors = validate(surveyData);
+
+  if (Object.keys(surveyValidationErrors).length) {
+    renderInvalidSurveyForm(res, surveyData);
+  } else {
+    const apiClient = createApiClient(settings.chiton.endpoint, settings.chiton.token);
+    renderRecommendations(res, surveyData, apiClient);
+  }
 }
