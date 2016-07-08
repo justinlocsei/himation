@@ -7,6 +7,42 @@ var errors = require('himation/core/errors');
 var urls = require('himation/core/urls');
 
 /**
+ * Convert a survey state shape to data that can be submitted to the API
+ *
+ * @param {object} data A survey state shape
+ * @returns {object} A payload for an API recommendations request
+ */
+function packageSurvey(data) {
+  var careTypes = data.careTypes
+    .filter(careType => careType.isSelected)
+    .map(careType => careType.slug);
+
+  var expectations = data.formalities.map(function(formality) {
+    return {
+      formality: formality.slug,
+      frequency: formality.frequency
+    };
+  });
+
+  var sizes = data.sizes
+    .filter(size => size.isSelected)
+    .map(size => size.slug);
+
+  var styles = data.styles
+    .filter(style => style.isSelected)
+    .map(style => style.slug);
+
+  return {
+    'avoid_care': careTypes,
+    'birth_year': data.birthYear,
+    'body_shape': data.bodyShape,
+    'expectations': expectations,
+    'sizes': sizes,
+    'styles': styles
+  };
+}
+
+/**
  * A Chiton API client
  *
  * @param {string} endpoint The URL for the root API endpoint
@@ -79,5 +115,6 @@ function createApiClient(endpoint, token) {
 }
 
 module.exports = {
-  createApiClient: createApiClient
+  createApiClient: createApiClient,
+  packageSurvey: packageSurvey
 };
