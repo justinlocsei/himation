@@ -3,6 +3,7 @@
   "env": {
     "commonjs": true
   },
+  "parser": "babel-eslint",
   "rules": {
     "strict": [2, "never"]
   }
