@@ -13,11 +13,18 @@ import { submitSurvey } from 'himation/ui/js/actions/survey';
 let Survey = React.createClass({
 
   propTypes: {
+    failedValidation: PropTypes.bool,
     form: PropTypes.object.isRequired,
     formAction: PropTypes.string.isRequired,
     formMethod: PropTypes.string.isRequired,
     isSubmitting: PropTypes.bool,
     onServerSubmit: PropTypes.func.isRequired
+  },
+
+  componentWillMount: function() {
+    if (this.props.failedValidation) {
+      this.props.form.touchAll();
+    }
   },
 
   render: function() {
@@ -100,6 +107,7 @@ function mapStateToProps(state) {
   const { survey } = state;
 
   return {
+    failedValidation: survey.form.failedValidation,
     initialValues: {
       birthYear: survey.birthYear,
       bodyShape: survey.bodyShape,
