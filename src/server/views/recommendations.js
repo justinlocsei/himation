@@ -1,7 +1,7 @@
 import IndexPage from 'himation/ui/js/containers/pages';
 import RecommendationsPage from 'himation/ui/js/containers/pages/recommendations';
 import { convertPostDataToStateShape } from 'himation/ui/js/reducers/survey';
-import { createApiClient } from 'himation/server/api';
+import { createApiClient, packageSurvey } from 'himation/server/api';
 import { prerenderPageComponent } from 'himation/ui/js/rendering';
 import { validate } from 'himation/ui/js/components/survey';
 
@@ -33,8 +33,8 @@ function renderInvalidSurveyForm(res, data) {
  * @param {ApiClient} apiClient A himation API client
  */
 function renderRecommendations(res, surveyData, apiClient) {
-  apiClient.requestRecommendations(surveyData)
-    .then(function(data) {
+  apiClient.requestRecommendations(packageSurvey(surveyData))
+    .then(function() {
       res.render('pages/recommendations', {
         content: prerenderPageComponent(RecommendationsPage)
       });
