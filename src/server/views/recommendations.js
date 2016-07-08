@@ -6,13 +6,19 @@ import { prerenderPageComponent } from 'himation/ui/js/rendering';
 import { validate } from 'himation/ui/js/components/survey';
 
 export function renderResponse(req, res, settings) {
-  const data = convertPostDataToStateShape(req.body);
-  const errors = validate(data);
+  const surveyData = convertPostDataToStateShape(req.body);
+  const surveyValidationErrors = validate(surveyData);
 
-  if (Object.keys(errors).length) {
+  if (Object.keys(surveyValidationErrors).length) {
     return res.render('pages/index', {
       content: prerenderPageComponent(IndexPage, {
-        survey: data
+        survey: {
+          ...surveyData,
+          form: {
+            failedValidation: true,
+            isSubmitting: false
+          }
+        }
       })
     });
   }
