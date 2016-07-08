@@ -23,7 +23,7 @@ const BodyShape = React.createClass({
           </figure>
         </label>
 
-        <input className="c--body-shape__input" id={inputID} type="radio" {...field} value={slug} selected={field.value === slug} />
+        <input className="c--body-shape__input" id={inputID} type="radio" {...field} value={slug} checked={field.value === slug} />
       </div>
     );
   }
