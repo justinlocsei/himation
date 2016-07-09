@@ -75,19 +75,25 @@ ApiClient.prototype.requestRecommendations = function(profile) {
         'Authorization': 'Token ' + token
       }
     }, function(error, response, body) {
-      var fieldErrors;
+      var errorMessage;
 
       if (error) {
         reject(new errors.DataError('Request error: ' + error));
       } else if (response.statusCode === 200) {
         resolve(body);
       } else if (response.statusCode === 400) {
-        fieldErrors = Object.keys(body.errors).reduce(function(previous, field) {
-          previous.push(field + ': ' + body.errors[field]);
-          return previous;
-        }, []);
+        if (body.errors.fields) {
+          errorMessage = Object.keys(body.errors.fields).reduce(function(previous, field) {
+            previous.push(field + ': ' + body.errors.fields[field]);
+            return previous;
+          }, []).join(' | ');
+        } else if (body.errors.server) {
+          errorMessage = body.errors.server;
+        } else {
+          errorMessage = 'Unknown error';
+        }
 
-        reject(new errors.DataError('API error: ' + fieldErrors.join(' | ')));
+        reject(new errors.DataError('API error: ' + errorMessage));
       } else {
         reject(new errors.DataError('Unknown error: ' + response.statusCode));
       }
