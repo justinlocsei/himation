@@ -34,9 +34,11 @@ function renderInvalidSurveyForm(res, data) {
  */
 function renderRecommendations(res, surveyData, apiClient) {
   apiClient.requestRecommendations(packageSurvey(surveyData))
-    .then(function() {
+    .then(function(recommendations) {
       res.render('pages/recommendations', {
-        content: prerenderPageComponent(RecommendationsPage)
+        content: prerenderPageComponent(RecommendationsPage, {
+          recommendations: recommendations.basics
+        })
       });
     })
     .catch(function(error) {
