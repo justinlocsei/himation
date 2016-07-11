@@ -29,7 +29,7 @@ const Basic = React.createClass({
 
             const garmentIds = group.garment_ids;
             const groupGarments = garments.filter(function(garment) {
-              return garmentIds.indexOf(garment.garment.id) !== -1;
+              return garmentIds.indexOf(garment.id) !== -1;
             });
 
             return (

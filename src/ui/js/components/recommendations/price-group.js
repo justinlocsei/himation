@@ -19,10 +19,7 @@ const PriceGroup = React.createClass({
           {garments.map(function(garment, index) {
             return (
               <li className="l--price-group__garment" key={index}>
-                <Garment
-                  brand={garment.garment.brand}
-                  name={garment.garment.name}
-                />
+                <Garment {...garment} />
               </li>
             );
           })}
