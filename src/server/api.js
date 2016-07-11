@@ -1,5 +1,6 @@
 'use strict';
 
+var extend = require('extend');
 var Promise = require('bluebird');
 var request = require('request');
 
@@ -69,7 +70,9 @@ ApiClient.prototype.requestRecommendations = function(profile) {
     request({
       url: urls.relativeToAbsolute('recommendations', endpoint) + '/',
       method: 'POST',
-      body: profile,
+      body: extend({}, profile, {
+        max_garments_per_group: 2
+      }),
       json: true,
       headers: {
         'Authorization': 'Token ' + token
