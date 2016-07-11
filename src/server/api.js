@@ -1,5 +1,6 @@
 'use strict';
 
+var _ = require('lodash');
 var extend = require('extend');
 var Promise = require('bluebird');
 var request = require('request');
@@ -44,6 +45,34 @@ function packageSurvey(data) {
 }
 
 /**
+ * Convert API recommendations into a simplified data shape
+ *
+ * @param {object} original The raw API response
+ * @returns {object} The simplified recommendations
+ * @private
+ */
+function simplifyRecommendations(original) {
+  original.basics.forEach(function(basic) {
+    basic.garments.forEach(function(garment, index) {
+      var offering = _.sortBy(garment.purchase_options, po => po.price)[0];
+
+      basic.garments[index] = {
+        brand: garment.garment.brand,
+        id: garment.garment.id,
+        image: offering.image,
+        name: garment.garment.name,
+        price: offering.price,
+        thumbnail: offering.thumbnail,
+        vendor: offering.network_name,
+        url: offering.url
+      };
+    });
+  });
+
+  return original;
+}
+
+/**
  * A Chiton API client
  *
  * @param {string} endpoint The URL for the root API endpoint
@@ -83,7 +112,7 @@ ApiClient.prototype.requestRecommendations = function(profile) {
       if (error) {
         reject(new errors.DataError('Request error: ' + error));
       } else if (response.statusCode === 200) {
-        resolve(body);
+        resolve(simplifyRecommendations(body));
       } else if (response.statusCode === 400) {
         if (body.errors.fields) {
           errorMessage = Object.keys(body.errors.fields).reduce(function(previous, field) {
