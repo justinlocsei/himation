@@ -4,27 +4,34 @@ const Garment = React.createClass({
 
   propTypes: {
     brand: PropTypes.string.isRequired,
+    images: PropTypes.arrayOf(PropTypes.shape({
+      height: PropTypes.number.isRequired,
+      url: PropTypes.string.isRequired,
+      width: PropTypes.number.isRequired
+    })).isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    thumbnail: PropTypes.string.isRequired,
+    retailer: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired
   },
 
   render: function() {
     const {
       brand,
+      images,
       name,
       price,
-      thumbnail,
+      retailer,
       url
     } = this.props;
 
     const formattedPrice = (price / 100).toFixed(2).replace(/\.0+$/, '');
+    const image = images[images.length - 1];
 
     return (
       <div className="l--garment">
         <button className="l--garment__media">
-          <img src={thumbnail} className="l--garment__image" alt={`${name} by ${brand}`} />
+          <img src={image.url} height={image.height} width={image.width} className="l--garment__image" alt={`${name} by ${brand}`} />
         </button>
 
         <div className="l--garment__details">
@@ -35,7 +42,7 @@ const Garment = React.createClass({
 
           <p className="l--garment__purchase">
             <a href={url} className="l--garment__purchase__link">
-              ${formattedPrice} on Nordstrom
+              ${formattedPrice} from {retailer}
             </a>
           </p>
         </div>
