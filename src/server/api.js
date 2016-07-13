@@ -59,11 +59,10 @@ function simplifyRecommendations(original) {
       basic.garments[index] = {
         brand: garment.garment.brand,
         id: garment.garment.id,
-        image: offering.image,
+        images: offering.images,
         name: garment.garment.name,
         price: offering.price,
-        thumbnail: offering.thumbnail,
-        vendor: offering.network_name,
+        retailer: offering.retailer,
         url: offering.url
       };
     });
