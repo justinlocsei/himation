@@ -1,0 +1,36 @@
+@mixin himation--clearfix {
+  &:after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+}
+
+@mixin himation--fluid-media-container($aspect-ratio, $width: 100%) {
+  display: block;
+  height: 0;
+  overflow: hidden;
+  padding-top: $aspect-ratio * 100%;
+  position: relative;
+  width: $width;
+}
+
+@mixin himation--fluid-media($center: horizontal) {
+  -ms-interpolation-mode: bicubic;
+  bottom: 0;
+  display: block;
+  left: 0;
+  max-height: 100%;
+  max-width: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  @if $center == horizontal {
+    margin: 0 auto;
+  } @else if $center == vertical {
+    margin: auto 0;
+  } @else {
+    margin: auto;
+  }
+}
