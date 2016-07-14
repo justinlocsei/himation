@@ -1,0 +1,61 @@
+@import "mixins/layout";
+
+$_c--garment-image-width: 100% / 3;
+
+.c--garment {
+  @include himation--clearfix;
+  position: relative;
+}
+
+.c--garment__preview {
+  @include himation--fluid-media-container($aspect-ratio: 10 / 25, $width: $_c--garment-image-width);
+}
+
+.c--garment__preview__image {
+  @include himation--fluid-media($center: horizontal);
+}
+
+.c--garment__details {
+  $_padding: 1em;
+  bottom: $_padding;
+  left: $_c--garment-image-width + 3%;
+  position: absolute;
+  right: $_padding;
+  top: $_padding;
+}
+
+.c--garment__description {
+
+}
+
+.c--garment__name {
+  font-weight: 500;
+  font-size: 1.125em;
+  line-height: 1.125;
+  margin-bottom: 0.125em;
+}
+
+.c--garment__brand {
+  color: #777;
+  font-size: 0.7em;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.c--garment__purchase {
+  background-color: #76939c;
+  border-radius: 0.125em;
+  bottom: 0;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 0.85em;
+  font-weight: 500;
+  padding: 1em;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.c--garment__purchase__link {
+  color: inherit;
+}

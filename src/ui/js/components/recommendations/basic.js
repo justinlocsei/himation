@@ -22,9 +22,9 @@ const Basic = React.createClass({
     const priceFacet = facets.find(facet => facet.slug === 'price');
 
     return (
-      <div className="l--basic">
-        <h4 className="l--basic__name">{name}</h4>
-        <ol className="l--basic__price-groups">
+      <div className="c--recommendations">
+        <h4 className="c--recommendations__basic">{name}</h4>
+        <ol className="c--recommendations__price-groups">
           {priceFacet.groups.map(function(group, index) {
 
             const garmentIds = group.garment_ids;
@@ -33,7 +33,7 @@ const Basic = React.createClass({
             });
 
             return (
-              <li className="l--basic__price-group" key={index}>
+              <li className="c--recommendations__price-group" key={index}>
                 <PriceGroup name={PRICE_GROUP_NAMES[group.slug]} garments={groupGarments} />
               </li>
             );

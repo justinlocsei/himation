@@ -29,19 +29,19 @@ const Garment = React.createClass({
     const image = images[images.length - 1];
 
     return (
-      <div className="l--garment">
-        <button className="l--garment__media">
-          <img src={image.url} height={image.height} width={image.width} className="l--garment__image" alt={`${name} by ${brand}`} />
-        </button>
+      <div className="c--garment">
+        <div className="c--garment__preview">
+          <img src={image.url} className="c--garment__preview__image" alt={`${name} by ${brand}`} />
+        </div>
 
-        <div className="l--garment__details">
-          <header className="l--garment__description">
-            <h4 className="l--garment__name">{name}</h4>
-            <h5 className="l--garment__brand">{brand}</h5>
+        <div className="c--garment__details">
+          <header className="c--garment__description">
+            <h4 className="c--garment__name">{name}</h4>
+            <h5 className="c--garment__brand">{brand}</h5>
           </header>
 
-          <p className="l--garment__purchase">
-            <a href={url} className="l--garment__purchase__link">
+          <p className="c--garment__purchase">
+            <a href={url} className="c--garment__purchase__link">
               ${formattedPrice} from {retailer}
             </a>
           </p>

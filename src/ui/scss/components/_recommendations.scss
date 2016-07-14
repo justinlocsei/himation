@@ -1,0 +1,24 @@
+.c--recommendations {
+
+}
+
+.c--recommendations__basic {
+  background-color: #333;
+  color: #fff;
+  font-size: 1.25em;
+  font-weight: 300;
+  margin: 0 -100%;
+  padding: 1em 100%;
+}
+
+.c--recommendations__price-groups {
+  display: flex;
+}
+
+.c--recommendations__price-group {
+  flex: 1;
+
+  & + & {
+    margin-left: 3%;
+  }
+}

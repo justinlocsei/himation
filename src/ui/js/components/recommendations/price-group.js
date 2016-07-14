@@ -13,12 +13,12 @@ const PriceGroup = React.createClass({
     const { garments, name } = this.props;
 
     return (
-      <div className="l--price-group">
-        <h5 className="l--price-group__name">{name}</h5>
-        <ol className="l--price-group__garments">
+      <div className="c--price-group">
+        <h5 className="c--price-group__name">{name}</h5>
+        <ol className="c--price-group__garments">
           {garments.map(function(garment, index) {
             return (
-              <li className="l--price-group__garment" key={index}>
+              <li className="c--price-group__garment" key={index}>
                 <Garment {...garment} />
               </li>
             );

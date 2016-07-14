@@ -1,0 +1,13 @@
+.l--recommendations {
+
+}
+
+.l--recommendations__basics {
+
+}
+
+.l--recommendations__basic {
+  & + & {
+    margin-top: 3em;
+  }
+}

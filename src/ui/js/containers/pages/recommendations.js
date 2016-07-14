@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Page from 'himation/ui/js/components/pages';
 import Recommendations from 'himation/ui/js/components/recommendations';
 
+import 'himation/ui/scss/recommendations';
+
 let RecommendationsPage = React.createClass({
 
   propTypes: {
