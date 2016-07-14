@@ -3,10 +3,10 @@
 }
 
 .c--recommendations__basic {
-  background-color: #333;
-  color: #fff;
-  font-size: 1.25em;
-  font-weight: 300;
+  background-color: $himation--text-color;
+  color: $himation--text-contrasting-color;
+  font-size: 1.5em;
+  font-weight: $himation--font-weight-light;
   margin: 0 -100%;
   padding: 1em 100%;
 }

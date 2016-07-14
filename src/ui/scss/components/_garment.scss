@@ -29,27 +29,27 @@ $_c--garment-image-width: 100% / 3;
 }
 
 .c--garment__name {
-  font-weight: 500;
-  font-size: 1.125em;
+  color: $himation--text-accent-color;
+  font-weight: $himation--font-weight-normal;
+  font-size: 1.25em;
   line-height: 1.125;
   margin-bottom: 0.125em;
 }
 
 .c--garment__brand {
-  color: #777;
-  font-size: 0.7em;
-  font-weight: 300;
-  letter-spacing: 1px;
+  color: $himation--text-muted-color;
+  font-size: 0.75em;
+  font-weight: $himation--font-weight-light;
 }
 
 .c--garment__purchase {
-  background-color: #76939c;
+  background-color: $himation--callout-bg-color;
   border-radius: 0.125em;
   bottom: 0;
   box-sizing: border-box;
-  color: #fff;
+  color: $himation--callout-text-color;
   font-size: 0.85em;
-  font-weight: 500;
+  font-weight: $himation--font-weight-semi-bold;
   padding: 1em;
   position: absolute;
   text-align: center;

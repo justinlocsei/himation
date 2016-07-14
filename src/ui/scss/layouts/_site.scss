@@ -1,7 +1,7 @@
 $_site--gutter: 5%;
 
 .l--site {
-  color: #333;
+  color: $himation--text-color;
   min-height: 100vh;
 }
 
@@ -18,7 +18,7 @@ $_site--gutter: 5%;
 .l--site__header__title {
   color: inherit;
   font-size: 1em;
-  font-weight: 500;
+  font-weight: $himation--font-weight-semi-bold;
   text-transform: uppercase;
 }
 
