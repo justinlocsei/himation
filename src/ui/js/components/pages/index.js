@@ -4,20 +4,24 @@ const Page = React.createClass({
 
   propTypes: {
     children: PropTypes.element,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string
   },
 
   render: function() {
     const { children, title } = this.props;
 
+    let titleTag;
+    if (title) {
+      titleTag = <h1 className="l--page__title">{title}</h1>;
+    }
+
     return (
       <div className="l--page">
+        {titleTag}
 
-        <h2 className="l--page__title">{title}</h2>
-
-        <div className="l--page__content">
+        <main className="l--page__content">
           {children}
-        </div>
+        </main>
       </div>
     );
   }
