@@ -3,9 +3,9 @@ import React, { PropTypes } from 'react';
 import PriceGroup from './price-group';
 
 const PRICE_GROUP_NAMES = {
-  low: 'Low',
-  medium: 'Medium',
-  high: 'High'
+  low: 'Budget',
+  medium: 'Mid-Range',
+  high: 'High-End'
 };
 
 const Basic = React.createClass({
