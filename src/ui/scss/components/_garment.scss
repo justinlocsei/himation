@@ -20,7 +20,10 @@ $_garment--image-width: 100% / 3;
 }
 
 .c--garment__details {
-
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0.5em 1.5em 0.5em 0.75em;
 }
 
 .c--garment__description {
@@ -48,6 +51,7 @@ $_garment--image-width: 100% / 3;
   color: $himation--callout-text-color;
   font-size: 0.85em;
   font-weight: $himation--font-weight-semi-bold;
+  margin-top: 0.5em;
   padding: 1em;
   text-align: center;
   width: 100%;
