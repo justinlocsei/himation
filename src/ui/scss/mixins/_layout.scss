@@ -6,13 +6,12 @@
   }
 }
 
-@mixin himation--fluid-media-container($aspect-ratio, $width: 100%) {
+@mixin himation--fluid-media-container($aspect-ratio) {
   display: block;
   height: 0;
   overflow: hidden;
   padding-top: $aspect-ratio * 100%;
   position: relative;
-  width: $width;
 }
 
 @mixin himation--fluid-media($center: horizontal) {
