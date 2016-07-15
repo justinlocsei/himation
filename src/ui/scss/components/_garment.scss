@@ -16,7 +16,7 @@ $_garment--image-width: 100% / 3;
 }
 
 .c--garment__media__image {
-  @include himation--fluid-media($center: horizontal);
+  @include himation--fluid-media($center: both);
 }
 
 .c--garment__details {

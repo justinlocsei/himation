@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { range } from 'lodash';
+import { range, sortBy, sum } from 'lodash';
 
 import Garment from './garment';
 
@@ -23,6 +23,29 @@ const Basic = React.createClass({
     const priceFacet = facets.find(facet => facet.slug === 'price');
     const maxGarments = Math.max.apply(undefined, priceFacet.groups.map(group => group.garment_ids.length));
 
+    const garmentsByGroup = priceFacet.groups.map(function(group) {
+      const groupGarments = garments.filter(garment => group.garment_ids.indexOf(garment.id) !== -1);
+
+      return groupGarments.map(function(garment) {
+        const largestImage = sortBy(garment.images, image => image.width * -1)[0];
+        return {
+          ...garment,
+          image: largestImage
+        };
+      });
+    });
+
+    const aspectRatios = garmentsByGroup.reduce(function(previous, groupGarments) {
+      return previous.concat(groupGarments.map(function(garment) {
+        return garment.image.height / garment.image.width;
+      }));
+    }, []);
+
+    let aspectRatio = 1;
+    if (aspectRatios.length) {
+      aspectRatio = sum(aspectRatios) / aspectRatios.length;
+    }
+
     return (
       <div className="c--recommendations">
         <h2 className="c--recommendations__basic">{name}</h2>
@@ -42,15 +65,14 @@ const Basic = React.createClass({
             {range(maxGarments).map(function(index) {
               return (
                 <tr key={index}>
-                  {priceFacet.groups.map(function(group, groupIndex) {
-                    const garmentId = group.garment_ids[index];
-                    const garment = garments.find(g => g.id === garmentId);
+                  {garmentsByGroup.map(function(groupGarments, groupIndex) {
+                    const garment = groupGarments[index];
 
                     let garmentTag;
                     if (garment) {
                       garmentTag = (
                         <div className="c--recommendations__garment">
-                          <Garment {...garment} />
+                          <Garment {...garment} aspectRatio={aspectRatio} />
                         </div>
                       );
                     }
