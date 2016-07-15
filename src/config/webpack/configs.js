@@ -6,6 +6,8 @@ var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 var cssnano = require('cssnano');
 var extend = require('extend');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var path = require('path');
+var StyleLintPlugin = require('stylelint-webpack-plugin');
 var webpack = require('webpack');
 var WriteFilePlugin = require('write-file-webpack-plugin');
 
@@ -142,6 +144,7 @@ function imageLoaders(optimize) {
  * @private
  */
 function globalPlugins(label, optimize) {
+  var paths = resolvePaths();
   var extractTo = optimize ? '[name]-[contenthash].css' : '[name]-[id].css';
   var plugins = [new ExtractTextPlugin(extractTo)];
 
@@ -151,7 +154,14 @@ function globalPlugins(label, optimize) {
     }));
   }
 
-  plugins.push(new BuildManifestPlugin(label, resolvePaths().build.root));
+  plugins.push(new StyleLintPlugin({
+    configFile: path.join(paths.root, '.stylelintrc'),
+    context: paths.ui.scss,
+    files: '**/*.scss',
+    syntax: 'scss'
+  }));
+
+  plugins.push(new BuildManifestPlugin(label, paths.build.root));
   plugins.push(new webpack.NoErrorsPlugin());
 
   return plugins;
