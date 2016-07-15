@@ -92,6 +92,7 @@ function jsLoaders(files) {
       loader: 'babel',
       query: {
         cacheDirectory: true,
+        compact: true,
         plugins: [
           'transform-runtime',
           'transform-object-rest-spread'
