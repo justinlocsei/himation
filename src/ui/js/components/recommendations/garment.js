@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 const Garment = React.createClass({
 
   propTypes: {
-    aspectRatio: PropTypes.number.isRequired,
+    averageAspectRatio: PropTypes.number.isRequired,
     brand: PropTypes.string.isRequired,
     image: PropTypes.shape({
       height: PropTypes.number.isRequired,
@@ -18,7 +18,7 @@ const Garment = React.createClass({
 
   render: function() {
     const {
-      aspectRatio,
+      averageAspectRatio,
       brand,
       image,
       name,

@@ -41,9 +41,9 @@ const Basic = React.createClass({
       }));
     }, []);
 
-    let aspectRatio = 1;
+    let averageAspectRatio = 1;
     if (aspectRatios.length) {
-      aspectRatio = sum(aspectRatios) / aspectRatios.length;
+      averageAspectRatio = sum(aspectRatios) / aspectRatios.length;
     }
 
     return (
@@ -72,7 +72,7 @@ const Basic = React.createClass({
                     if (garment) {
                       garmentTag = (
                         <div className="c--recommendations__garment">
-                          <Garment {...garment} aspectRatio={aspectRatio} />
+                          <Garment {...garment} averageAspectRatio={averageAspectRatio} />
                         </div>
                       );
                     }
