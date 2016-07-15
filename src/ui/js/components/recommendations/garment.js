@@ -31,13 +31,15 @@ const Garment = React.createClass({
     return (
       <div className="c--garment">
         <div className="c--garment__preview">
-          <img src={image.url} className="c--garment__preview__image" alt={`${name} by ${brand}`} />
+          <a className="c--garment__media">
+            <img src={image.url} className="c--garment__media__image" alt={`${name} by ${brand}`} />
+          </a>
         </div>
 
         <div className="c--garment__details">
           <header className="c--garment__description">
-            <h4 className="c--garment__name">{name}</h4>
-            <h5 className="c--garment__brand">{brand}</h5>
+            <h3 className="c--garment__name">{name}</h3>
+            <p className="c--garment__brand">{brand}</p>
           </header>
 
           <p className="c--garment__purchase">

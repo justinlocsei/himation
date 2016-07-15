@@ -1,3 +1,5 @@
+$_recommendations--price-group-gutter: 2%;
+
 .c--recommendations {
 
 }
@@ -12,13 +14,43 @@
 }
 
 .c--recommendations__price-groups {
-  display: flex;
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+
+  th, td {
+    padding: 0 $_recommendations--price-group-gutter * 0.5;
+
+    &:first-child {
+      padding-left: 0;
+      padding-right: $_recommendations--price-group-gutter;
+    }
+    &:last-child {
+      padding-left: $_recommendations--price-group-gutter;
+      padding-right: 0;
+    }
+  }
+
+  .for-group {
+    font-size: 0.9em;
+    font-weight: $himation--font-weight-bold;
+    padding-bottom: 2em;
+    padding-top: 2em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .for-garment {
+    vertical-align: top;
+  }
+
+  tr + tr .for-garment {
+    padding-top: 2em;
+  }
+
 }
 
-.c--recommendations__price-group {
-  flex: 1;
-
-  & + & {
-    margin-left: 3%;
-  }
+.c--recommendations__garment {
+  border: 1px solid #ddd;
+  padding: 0.75em;
 }
