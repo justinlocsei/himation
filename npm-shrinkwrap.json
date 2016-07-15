@@ -27041,6 +27041,42 @@
       "resolved": "https://registry.npmjs.org/postcss-loader/-/postcss-loader-0.8.2.tgz",
       "version": "0.8.2"
     },
+    "postcss-scss": {
+      "dependencies": {
+        "postcss": {
+          "dependencies": {
+            "js-base64": {
+              "from": "js-base64@>=2.1.9 <3.0.0",
+              "resolved": "https://registry.npmjs.org/js-base64/-/js-base64-2.1.9.tgz",
+              "version": "2.1.9"
+            },
+            "source-map": {
+              "from": "source-map@>=0.5.6 <0.6.0",
+              "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.5.6.tgz",
+              "version": "0.5.6"
+            },
+            "supports-color": {
+              "dependencies": {
+                "has-flag": {
+                  "from": "has-flag@>=1.0.0 <2.0.0",
+                  "resolved": "https://registry.npmjs.org/has-flag/-/has-flag-1.0.0.tgz",
+                  "version": "1.0.0"
+                }
+              },
+              "from": "supports-color@>=3.1.2 <4.0.0",
+              "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-3.1.2.tgz",
+              "version": "3.1.2"
+            }
+          },
+          "from": "postcss@>=5.0.21 <6.0.0",
+          "resolved": "https://registry.npmjs.org/postcss/-/postcss-5.1.0.tgz",
+          "version": "5.1.0"
+        }
+      },
+      "from": "postcss-scss@latest",
+      "resolved": "https://registry.npmjs.org/postcss-scss/-/postcss-scss-0.1.8.tgz",
+      "version": "0.1.8"
+    },
     "react": {
       "dependencies": {
         "envify": {
@@ -29195,6 +29231,115 @@
       "from": "https://registry.npmjs.org/stylelint/-/stylelint-6.7.0.tgz",
       "resolved": "https://registry.npmjs.org/stylelint/-/stylelint-6.7.0.tgz",
       "version": "6.7.0"
+    },
+    "stylelint-webpack-plugin": {
+      "dependencies": {
+        "chalk": {
+          "dependencies": {
+            "ansi-styles": {
+              "from": "ansi-styles@>=2.2.1 <3.0.0",
+              "resolved": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-2.2.1.tgz",
+              "version": "2.2.1"
+            },
+            "escape-string-regexp": {
+              "from": "escape-string-regexp@>=1.0.2 <2.0.0",
+              "resolved": "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz",
+              "version": "1.0.5"
+            },
+            "has-ansi": {
+              "dependencies": {
+                "ansi-regex": {
+                  "from": "ansi-regex@>=2.0.0 <3.0.0",
+                  "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-2.0.0.tgz",
+                  "version": "2.0.0"
+                }
+              },
+              "from": "has-ansi@>=2.0.0 <3.0.0",
+              "resolved": "https://registry.npmjs.org/has-ansi/-/has-ansi-2.0.0.tgz",
+              "version": "2.0.0"
+            },
+            "strip-ansi": {
+              "dependencies": {
+                "ansi-regex": {
+                  "from": "ansi-regex@>=2.0.0 <3.0.0",
+                  "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-2.0.0.tgz",
+                  "version": "2.0.0"
+                }
+              },
+              "from": "strip-ansi@>=3.0.0 <4.0.0",
+              "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-3.0.1.tgz",
+              "version": "3.0.1"
+            },
+            "supports-color": {
+              "from": "supports-color@>=2.0.0 <3.0.0",
+              "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-2.0.0.tgz",
+              "version": "2.0.0"
+            }
+          },
+          "from": "chalk@>=1.1.1 <2.0.0",
+          "resolved": "https://registry.npmjs.org/chalk/-/chalk-1.1.3.tgz",
+          "version": "1.1.3"
+        },
+        "extract-text-webpack-plugin": {
+          "dependencies": {
+            "async": {
+              "from": "async@>=1.5.0 <2.0.0",
+              "resolved": "https://registry.npmjs.org/async/-/async-1.5.2.tgz",
+              "version": "1.5.2"
+            },
+            "webpack-sources": {
+              "dependencies": {
+                "source-list-map": {
+                  "from": "source-list-map@>=0.1.0 <0.2.0",
+                  "resolved": "https://registry.npmjs.org/source-list-map/-/source-list-map-0.1.6.tgz",
+                  "version": "0.1.6"
+                },
+                "source-map": {
+                  "from": "source-map@>=0.5.3 <0.6.0",
+                  "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.5.6.tgz",
+                  "version": "0.5.6"
+                }
+              },
+              "from": "webpack-sources@>=0.1.0 <0.2.0",
+              "resolved": "https://registry.npmjs.org/webpack-sources/-/webpack-sources-0.1.2.tgz",
+              "version": "0.1.2"
+            }
+          },
+          "from": "extract-text-webpack-plugin@>=1.0.1 <2.0.0",
+          "resolved": "https://registry.npmjs.org/extract-text-webpack-plugin/-/extract-text-webpack-plugin-1.0.1.tgz",
+          "version": "1.0.1"
+        },
+        "loader-utils": {
+          "dependencies": {
+            "big.js": {
+              "from": "big.js@>=3.1.3 <4.0.0",
+              "resolved": "https://registry.npmjs.org/big.js/-/big.js-3.1.3.tgz",
+              "version": "3.1.3"
+            },
+            "emojis-list": {
+              "from": "emojis-list@>=2.0.0 <3.0.0",
+              "resolved": "https://registry.npmjs.org/emojis-list/-/emojis-list-2.0.1.tgz",
+              "version": "2.0.1"
+            },
+            "json5": {
+              "from": "json5@>=0.5.0 <0.6.0",
+              "resolved": "https://registry.npmjs.org/json5/-/json5-0.5.0.tgz",
+              "version": "0.5.0"
+            }
+          },
+          "from": "loader-utils@>=0.2.10 <0.3.0",
+          "resolved": "https://registry.npmjs.org/loader-utils/-/loader-utils-0.2.15.tgz",
+          "version": "0.2.15"
+        },
+        "object-assign": {
+          "from": "object-assign@>=4.0.1 <4.1.0",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.0.1.tgz",
+          "version": "4.0.1"
+        }
+      },
+      "from": "stylelint-webpack-plugin@latest",
+      "resolved": "https://registry.npmjs.org/stylelint-webpack-plugin/-/stylelint-webpack-plugin-0.2.0.tgz",
+      "version": "0.2.0"
     },
     "supertest": {
       "dependencies": {
