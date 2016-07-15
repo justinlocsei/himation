@@ -1,3 +1,4 @@
+// Safely allow the caller to clear any contained floats
 @mixin himation--clearfix {
   &:after {
     clear: both;
@@ -6,6 +7,9 @@
   }
 }
 
+// Make the caller a container for a fluid media item with a known aspect ratio
+//
+// @param <length> $aspect-ratio The aspect ratio expressed as height over width
 @mixin himation--fluid-media-container($aspect-ratio) {
   display: block;
   height: 0;
@@ -14,8 +18,10 @@
   position: relative;
 }
 
+// Make the caller fill the space provided by its media container
+//
+// @param <string> $center The direction in which to center the media
 @mixin himation--fluid-media($center: horizontal) {
-  -ms-interpolation-mode: bicubic;
   bottom: 0;
   display: block;
   left: 0;
