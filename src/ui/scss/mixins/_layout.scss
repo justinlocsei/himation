@@ -1,6 +1,6 @@
 // Safely allow the caller to clear any contained floats
 @mixin himation--clearfix {
-  &:after {
+  &::after {
     clear: both;
     content: "";
     display: block;
