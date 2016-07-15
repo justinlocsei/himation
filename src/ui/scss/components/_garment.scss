@@ -7,16 +7,20 @@ $_garment--image-width: 100% / 3;
 }
 
 .c--garment__preview {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
   flex: 0 0 auto;
   width: $_garment--image-width;
 }
 
 .c--garment__media {
-  @include himation--fluid-media-container($aspect-ratio: 1.5);
+  @include himation--fluid-media-container;
+  visibility: hidden;
 }
 
 .c--garment__media__image {
-  @include himation--fluid-media($center: both);
+  @include himation--fluid-media;
 }
 
 .c--garment__details {

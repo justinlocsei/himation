@@ -29,16 +29,15 @@ const Garment = React.createClass({
 
     const formattedPrice = (price / 100).toFixed(2).replace(/\.0+$/, '');
 
-    const mediaStyle = {
-      paddingTop: `${aspectRatio * 100}%`
-    };
+    const previewStyle = {backgroundImage: `url(${image.url})`};
+    const mediaStyle = {paddingTop: `${averageAspectRatio * 100}%`};
 
     return (
       <div className="c--garment">
-        <div className="c--garment__preview">
-          <a className="c--garment__media" style={mediaStyle}>
-            <img src={image.url} className="c--garment__media__image" alt={`${name} by ${brand}`} />
-          </a>
+        <div className="c--garment__preview" style={previewStyle}>
+          <p className="c--garment__media" style={mediaStyle}>
+            <img className="c--garment__media__image" src={image.url} alt={`${name} by ${brand}`} />
+          </p>
         </div>
 
         <div className="c--garment__details">
