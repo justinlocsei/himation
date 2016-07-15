@@ -84,7 +84,8 @@ gulp.task('lint-scss', function lintScss() {
       failAfterError: false,
       reporters: [
         {formatter: 'string', console: true}
-      ]
+      ],
+      syntax: 'scss'
     }));
 });
 
