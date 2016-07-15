@@ -99,7 +99,7 @@ ApiClient.prototype.requestRecommendations = function(profile) {
       url: urls.relativeToAbsolute('recommendations', endpoint) + '/',
       method: 'POST',
       body: extend({}, profile, {
-        max_garments_per_group: 2
+        'max_garments_per_group': 2
       }),
       json: true,
       headers: {
