@@ -1,4 +1,4 @@
-$_recommendations--price-group-gutter: 2em;
+$_recommendations--price-group-gutter: 8%;
 
 .c--recommendations {
 
@@ -7,49 +7,48 @@ $_recommendations--price-group-gutter: 2em;
 .c--recommendations__basic {
   background-color: $himation--text-color;
   color: $himation--text-contrasting-color;
-  font-size: 1.5em;
+  font-size: 2em;
   font-weight: $himation--font-weight-light;
   margin: 0 -100%;
-  padding: 1em 100%;
-}
-
-.c--recommendations__content {
-  margin: 0 $_recommendations--price-group-gutter * -1;
-}
-
-.c--recommendations__data {
-  border-collapse: separate;
-  border-spacing: $_recommendations--price-group-gutter 1.5em;
-  table-layout: fixed;
-  width: 100%;
-}
-
-.c--recommendations__data__price-groups {
-
-}
-
-.c--recommendations__data__price-group {
-
-}
-
-.c--recommendations__data__garments {
-
-}
-
-.c--recommendations__data__garment {
-
-}
-
-.c--recommendations__price-group {
-  font-size: 0.9em;
-  font-weight: $himation--font-weight-bold;
-  padding: 0;
+  padding: 1.25em 100%;
   text-align: center;
   text-transform: uppercase;
 }
 
-.c--recommendations__garment {
-  border: 1px solid #ddd;
-  padding: 0;
-  vertical-align: top;
+.c--recommendations__price-groups {
+  display: flex;
+}
+
+.c--recommendations__price-group {
+  flex: 1;
+  margin: 0 $_recommendations--price-group-gutter * 0.5;
+
+  &:first-child {
+    margin-left: 0;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.c--recommendations__price-group__name {
+  border: 2px solid currentColor;
+  font-size: 0.75em;
+  font-weight: $himation--font-weight-bold;
+  margin: 2em 0;
+  padding: 1em 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.c--recommendations__price-group__garments {
+  display: flex;
+}
+
+.c--recommendations__price-group__garment {
+  flex: 1;
+
+  & + & {
+    margin-left: $_recommendations--price-group-gutter * 2;
+  }
 }

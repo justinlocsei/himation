@@ -4,14 +4,14 @@ $_garment--image-width: 100% / 3;
 
 .c--garment {
   display: flex;
+  flex-direction: column;
 }
 
 .c--garment__preview {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  flex: 0 0 auto;
-  width: $_garment--image-width;
+  display: block;
 }
 
 .c--garment__media {
@@ -27,40 +27,31 @@ $_garment--image-width: 100% / 3;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 6%;
 }
 
-.c--garment__description {
-
-}
-
-.c--garment__name {
+.c--garment__price {
+  border: 1px solid $himation--text-color;
+  border-left: 0;
+  border-right: 0;
   color: $himation--text-accent-color;
   font-size: 1.25em;
-  font-weight: $himation--font-weight-normal;
-  line-height: 1.125;
-  margin-bottom: 0.125em;
-}
-
-.c--garment__brand {
-  color: $himation--text-muted-color;
-  font-size: 0.75em;
-  font-weight: $himation--font-weight-light;
-}
-
-.c--garment__purchase {
-  background-color: $himation--callout-bg-color;
-  border-radius: 0.125em;
-  box-sizing: border-box;
-  color: $himation--callout-text-color;
-  font-size: 0.85em;
-  font-weight: $himation--font-weight-semi-bold;
-  margin-top: 0.5em;
-  padding: 1em;
+  font-weight: $himation--font-weight-bold;
+  padding: 0.625em;
   text-align: center;
-  width: 100%;
 }
 
-.c--garment__purchase__link {
-  color: inherit;
+.c--garment__branding {
+  margin-top: 0.75em;
+}
+
+.c--garment__branding__brand {
+  font-weight: $himation--font-weight-semi-bold;
+  line-height: 1.125;
+}
+
+.c--garment__branding__name {
+  font-size: 0.8em;
+  font-weight: $himation--font-weight-light;
+  line-height: 1.25;
+  margin-top: 0.25em;
 }

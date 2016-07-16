@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { range, sortBy, sum } from 'lodash';
+import { sortBy, sum } from 'lodash';
 
 import Garment from './garment';
 
@@ -21,7 +21,6 @@ const Basic = React.createClass({
     const { facets, garments, name } = this.props;
 
     const priceFacet = facets.find(facet => facet.slug === 'price');
-    const maxGarments = Math.max.apply(undefined, priceFacet.groups.map(group => group.garment_ids.length));
 
     const garmentsByGroup = priceFacet.groups.map(function(group) {
       const groupGarments = garments.filter(garment => group.garment_ids.indexOf(garment.id) !== -1);
@@ -50,38 +49,23 @@ const Basic = React.createClass({
       <div className="c--recommendations">
         <h2 className="c--recommendations__basic">{name}</h2>
 
-        <div className="c--recommendations__content">
-          <table className="c--recommendations__data">
-            <thead className="c--recommendations__data__price-groups">
-              <tr className="c--recommendations__data__price-group">
-                {priceFacet.groups.map(function(group, index) {
-                  return (
-                    <th key={index} className="c--recommendations__price-group">
-                      {PRICE_GROUP_NAMES[group.slug]}
-                    </th>
-                  );
-                })}
-              </tr>
-            </thead>
-            <tbody className="c--recommendations__data__garments">
-              {range(maxGarments).map(function(index) {
-                return (
-                  <tr key={index} className="c--recommendations__data__garment">
-                    {garmentsByGroup.map(function(groupGarments, groupIndex) {
-                      const garment = groupGarments[index];
-                      const garmentTag = garment ? <Garment {...garment} averageAspectRatio={averageAspectRatio} /> : null;
-
-                      return (
-                        <td key={`${index}-${groupIndex}`} className="c--recommendations__garment">
-                          {garmentTag}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+        <div className="c--recommendations__price-groups">
+          {priceFacet.groups.map(function(group, groupIndex) {
+            return (
+              <section className="c--recommendations__price-group" key={groupIndex}>
+                <h3 className="c--recommendations__price-group__name">{PRICE_GROUP_NAMES[group.slug]}</h3>
+                <ol className="c--recommendations__price-group__garments">
+                  {garmentsByGroup[groupIndex].map(function(garment, garmentIndex) {
+                    return (
+                      <li className="c--recommendations__price-group__garment" key={garmentIndex}>
+                        <Garment {...garment} averageAspectRatio={averageAspectRatio} />
+                      </li>
+                    );
+                  })}
+                </ol>
+              </section>
+            );
+          })}
         </div>
       </div>
     );
