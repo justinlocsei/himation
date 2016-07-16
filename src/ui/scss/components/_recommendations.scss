@@ -4,15 +4,19 @@ $_recommendations--price-group-gutter: 8%;
 
 }
 
-.c--recommendations__basic {
+.c--recommendations__header {
   background-color: $himation--text-color;
   color: $himation--text-contrasting-color;
-  font-size: 2em;
-  font-weight: $himation--font-weight-light;
   margin: 0 -100%;
-  padding: 1.25em 100%;
+  padding: 2.25em 100%;
   text-align: center;
   text-transform: uppercase;
+}
+
+.c--recommendations__header__basic {
+  font-size: 2em;
+  font-weight: $himation--font-weight-light;
+  letter-spacing: 1px;
 }
 
 .c--recommendations__price-groups {

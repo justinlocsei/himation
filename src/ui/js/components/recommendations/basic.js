@@ -47,7 +47,9 @@ const Basic = React.createClass({
 
     return (
       <div className="c--recommendations">
-        <h2 className="c--recommendations__basic">{name}</h2>
+        <header className="c--recommendations__header">
+          <h2 className="c--recommendations__header__basic">{name}</h2>
+        </header>
 
         <div className="c--recommendations__price-groups">
           {priceFacet.groups.map(function(group, groupIndex) {
