@@ -1,0 +1,37 @@
+$himation--breakpoint-tablet-width: 50em;
+$himation--breakpoint-phone-width: 30em;
+
+// Restrict styles to a viewport with a limited resolution
+//
+// @param <length> $max-width The maximum screen width to which to apply the given styles
+// @param <length> $min-width The minimum screen width to which to apply the given styles
+@mixin himation--breakpoint($max-width, $min-width: null) {
+  @if $min-width {
+    @media screen and (min-width: $min-width) and (max-width: $max-width) {
+      @content;
+    }
+  } @else {
+    @media screen and (max-width: $max-width) {
+      @content;
+    }
+  }
+}
+
+// Apply styles for medium-width tablet-like viewports
+@mixin himation--breakpoint-tablet {
+  @include himation--breakpoint($himation--breakpoint-tablet-width) {
+    @content;
+  }
+}
+@mixin himation--breakpoint-tablet-only {
+  @include himation--breakpoint($himation--breakpoint-tablet-width, $himation--breakpoint-phone-width) {
+    @content;
+  }
+}
+
+// Apply styles for low-width phone-like viewports
+@mixin himation--breakpoint-phone {
+  @include himation--breakpoint($himation--breakpoint-phone-width) {
+    @content;
+  }
+}
