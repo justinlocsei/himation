@@ -1,3 +1,5 @@
+@import "mixins/responsive";
+
 $_recommendations--price-group-gutter: 8%;
 
 .c--recommendations {
@@ -53,4 +55,32 @@ $_recommendations--price-group-gutter: 8%;
 
   &:first-child { margin-left: 0; }
   &:last-child { margin-right: 0; }
+}
+
+@include himation--breakpoint-tablet-only {
+
+  .c--recommendations__price-group__garments {
+    flex-direction: column;
+  }
+  .c--recommendations__price-group__garment {
+    margin: $_recommendations--price-group-gutter 0;
+
+    &:first-child { margin-top: 0; }
+    &:last-child { margin-bottom: 0; }
+  }
+
+}
+
+@include himation--breakpoint-phone {
+
+  .c--recommendations__price-groups {
+    flex-direction: column;
+  }
+  .c--recommendations__price-group {
+    margin: $_recommendations--price-group-gutter * 0.5 0;
+
+    &:first-child { margin-top: 0; }
+    &:last-child { margin-bottom: 0; }
+  }
+
 }
