@@ -49,45 +49,40 @@ const Basic = React.createClass({
     return (
       <div className="c--recommendations">
         <h2 className="c--recommendations__basic">{name}</h2>
-        <table className="c--recommendations__price-groups">
-          <thead>
-            <tr>
-              {priceFacet.groups.map(function(group, index) {
+
+        <div className="c--recommendations__content">
+          <table className="c--recommendations__data">
+            <thead className="c--recommendations__data__price-groups">
+              <tr className="c--recommendations__data__price-group">
+                {priceFacet.groups.map(function(group, index) {
+                  return (
+                    <th key={index} className="c--recommendations__price-group">
+                      {PRICE_GROUP_NAMES[group.slug]}
+                    </th>
+                  );
+                })}
+              </tr>
+            </thead>
+            <tbody className="c--recommendations__data__garments">
+              {range(maxGarments).map(function(index) {
                 return (
-                  <th key={index} className="for-group">
-                    {PRICE_GROUP_NAMES[group.slug]}
-                  </th>
+                  <tr key={index} className="c--recommendations__data__garment">
+                    {garmentsByGroup.map(function(groupGarments, groupIndex) {
+                      const garment = groupGarments[index];
+                      const garmentTag = garment ? <Garment {...garment} averageAspectRatio={averageAspectRatio} /> : null;
+
+                      return (
+                        <td key={`${index}-${groupIndex}`} className="c--recommendations__garment">
+                          {garmentTag}
+                        </td>
+                      );
+                    })}
+                  </tr>
                 );
               })}
-            </tr>
-          </thead>
-          <tbody>
-            {range(maxGarments).map(function(index) {
-              return (
-                <tr key={index}>
-                  {garmentsByGroup.map(function(groupGarments, groupIndex) {
-                    const garment = groupGarments[index];
-
-                    let garmentTag;
-                    if (garment) {
-                      garmentTag = (
-                        <div className="c--recommendations__garment">
-                          <Garment {...garment} averageAspectRatio={averageAspectRatio} />
-                        </div>
-                      );
-                    }
-
-                    return (
-                      <td key={`${index}-${groupIndex}`} className="for-garment">
-                        {garmentTag}
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

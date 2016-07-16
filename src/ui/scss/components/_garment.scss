@@ -26,8 +26,8 @@ $_garment--image-width: 100% / 3;
 .c--garment__details {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  padding: 0.5em 1.5em 0.5em 0.75em;
+  justify-content: space-between;
+  padding: 6%;
 }
 
 .c--garment__description {
