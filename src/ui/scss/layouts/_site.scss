@@ -8,7 +8,6 @@ $_site--gutter: 5%;
 .l--site__header {
   $_v-padding: 1em;
   align-items: center;
-  border-bottom: 1px solid currentColor;
   display: flex;
   justify-content: space-between;
   margin: 0 $_site--gutter $_v-padding * 2;
