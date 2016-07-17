@@ -16,10 +16,16 @@ $_site--gutter: 5%;
 
 .l--site__header__title {
   background-color: $himation--branding-bg-color;
+  border: 3px double #fff;
   color: $himation--branding-text-color;
-  font-weight: $himation--font-weight-bold;
-  padding: 1em;
+  font-size: 0.9em;
+  font-weight: $himation--font-weight-normal;
+  padding: 1.25em;
   text-transform: uppercase;
+}
+
+.l--site__header__name {
+  display: inline-block;
 }
 
 .l--site__header__navigation {

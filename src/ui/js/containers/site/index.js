@@ -17,7 +17,9 @@ const Site = React.createClass({
       <div className="l--site">
         <header className="l--site__header">
 
-          <a href="#" className="l--site__header__title">Cover Your Basics</a>
+          <a href="#" className="l--site__header__title">
+            <span className="l--site__header__name">Cover Your Basics</span>
+          </a>
 
           <div className="l--site__header__navigation">
             <Navigation />
