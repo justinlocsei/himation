@@ -8,9 +8,8 @@ const Navigation = React.createClass({
     return (
       <nav className="c--navigation">
         <ul className="c--navigation__pages">
-          <NavigationPage name="About" />
+          <NavigationPage name="About Us" />
           <NavigationPage name="Blog" />
-          <NavigationPage name="Contact" />
         </ul>
       </nav>
     );
