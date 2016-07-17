@@ -3,14 +3,14 @@
 }
 
 .c--navigation__pages {
-
+  display: flex;
 }
 
 .c--navigation__page {
-  display: inline-block;
+  font-weight: $himation--font-weight-semi-bold;
 
   & + & {
-    margin-left: 3em;
+    margin-left: 5em;
   }
 }
 
