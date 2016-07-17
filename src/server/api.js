@@ -59,6 +59,7 @@ function simplifyRecommendations(original) {
       basic.garments[index] = {
         brand: garment.garment.brand,
         brandedName: garment.garment.branded_name,
+        care: garment.garment.care,
         id: garment.garment.id,
         images: offering.images,
         name: garment.garment.name,

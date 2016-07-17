@@ -5,6 +5,7 @@ const Garment = React.createClass({
   propTypes: {
     averageAspectRatio: PropTypes.number.isRequired,
     brandedName: PropTypes.string.isRequired,
+    care: PropTypes.string,
     image: PropTypes.shape({
       height: PropTypes.number.isRequired,
       url: PropTypes.string.isRequired,
@@ -19,6 +20,7 @@ const Garment = React.createClass({
     const {
       averageAspectRatio,
       brandedName,
+      care,
       image,
       price,
       retailer,
@@ -29,6 +31,16 @@ const Garment = React.createClass({
 
     const previewStyle = {backgroundImage: `url(${image.url})`};
     const mediaStyle = {paddingTop: `${averageAspectRatio * 100}%`};
+
+    let metaTag;
+    if (care) {
+      metaTag = (
+        <dl className="c--garment__meta">
+          <dt className="c--garment__meta__key">Care</dt>
+          <dd className="c--garment__meta__value">{care}</dd>
+        </dl>
+      );
+    }
 
     return (
       <div className="c--garment">
@@ -45,6 +57,8 @@ const Garment = React.createClass({
             <p className="c--garment__branding__brand">{retailer}</p>
             <p className="c--garment__branding__name">{brandedName}</p>
           </div>
+
+          {metaTag}
         </div>
       </div>
     );
