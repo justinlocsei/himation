@@ -24,8 +24,9 @@ const Basic = React.createClass({
 
     const garmentsByGroup = priceFacet.groups.map(function(group) {
       const groupGarments = garments.filter(garment => group.garment_ids.indexOf(garment.id) !== -1);
+      const sortedGarments = sortBy(groupGarments, garment => garment.price);
 
-      return groupGarments.map(function(garment) {
+      return sortedGarments.map(function(garment) {
         const largestImage = sortBy(garment.images, image => image.width * -1)[0];
         return {
           ...garment,
