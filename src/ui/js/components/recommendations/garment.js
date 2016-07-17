@@ -4,13 +4,12 @@ const Garment = React.createClass({
 
   propTypes: {
     averageAspectRatio: PropTypes.number.isRequired,
-    brand: PropTypes.string.isRequired,
+    brandedName: PropTypes.string.isRequired,
     image: PropTypes.shape({
       height: PropTypes.number.isRequired,
       url: PropTypes.string.isRequired,
       width: PropTypes.number.isRequired
     }).isRequired,
-    name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     retailer: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired
@@ -19,9 +18,8 @@ const Garment = React.createClass({
   render: function() {
     const {
       averageAspectRatio,
-      brand,
+      brandedName,
       image,
-      name,
       price,
       retailer,
       url
@@ -34,9 +32,9 @@ const Garment = React.createClass({
 
     return (
       <div className="c--garment">
-        <a href={url} rel="external" className="c--garment__preview" style={previewStyle} title={`View on ${retailer}`}>
+        <a href={url} rel="external" className="c--garment__preview" style={previewStyle} title={`Buy for $${formattedPrice} from ${retailer}`}>
           <p className="c--garment__media" style={mediaStyle}>
-            <img className="c--garment__media__image" src={image.url} alt={`${brand} ${name}`} />
+            <img className="c--garment__media__image" src={image.url} alt={`${brandedName}`} />
           </p>
         </a>
 
@@ -44,8 +42,8 @@ const Garment = React.createClass({
           <p className="c--garment__price">${formattedPrice}</p>
 
           <div className="c--garment__branding">
-            <p className="c--garment__branding__brand">{brand}</p>
-            <p className="c--garment__branding__name">{name}</p>
+            <p className="c--garment__branding__brand">{retailer}</p>
+            <p className="c--garment__branding__name">{brandedName}</p>
           </div>
         </div>
       </div>
