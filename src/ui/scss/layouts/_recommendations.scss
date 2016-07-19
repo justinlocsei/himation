@@ -1,5 +1,33 @@
 .l--recommendations {
+  position: relative;
+}
 
+.l--recommendations__categories {
+  display: flex;
+  margin-bottom: 2em;
+}
+
+.l--recommendations__category {
+  flex: 1;
+}
+
+.l--recommendations__category__name {
+  margin-bottom: 0.25em;
+  padding-bottom: 0.25em;
+}
+
+.l--recommendations__category__basics {
+
+}
+
+.l--recommendations__category__basic {
+  & + & {
+    margin-top: 0.5em;
+  }
+}
+
+.l--recommendations__category__basic__name {
+  color: inherit;
 }
 
 .l--recommendations__basics {
