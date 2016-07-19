@@ -1,7 +1,8 @@
 @import "~normalize.css/normalize.css";
+@import "mixins/typography";
 
 body {
-  font-family: Helvetica Neue, Arial, sans-serif;
+  @include himation--font-stack-sans-serif;
 }
 
 h1,
