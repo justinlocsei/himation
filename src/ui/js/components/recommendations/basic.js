@@ -12,13 +12,14 @@ const PRICE_GROUP_NAMES = {
 const Basic = React.createClass({
 
   propTypes: {
+    category: PropTypes.string.isRequired,
     facets: PropTypes.array.isRequired,
     garments: PropTypes.array.isRequired,
     name: PropTypes.string.isRequired
   },
 
   render: function() {
-    const { facets, garments, name } = this.props;
+    const { category, facets, garments, name } = this.props;
 
     const priceFacet = facets.find(facet => facet.slug === 'price');
 
@@ -49,6 +50,7 @@ const Basic = React.createClass({
     return (
       <div className="c--recommendations">
         <header className="c--recommendations__header">
+          <p className="c--recommendations__header__category">{category}</p>
           <h2 className="c--recommendations__header__basic">{name}</h2>
         </header>
 
