@@ -6,17 +6,15 @@ $_site--gutter: 5%;
 }
 
 .l--site__header {
-  $_v-padding: 1em;
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin: 0 $_site--gutter $_v-padding * 2;
-  padding: $_v-padding 0;
+  margin: 0 $_site--gutter;
+  padding-top: 1em;
 }
 
 .l--site__header__title {
   background-color: $himation--branding-bg-color;
-  border: 3px double #fff;
   color: $himation--branding-text-color;
   font-size: 0.9em;
   font-weight: $himation--font-weight-normal;
@@ -39,5 +37,5 @@ $_site--gutter: 5%;
 }
 
 .l--site__body__content {
-  padding-bottom: 2em;
+  padding: 4em 0 2em;
 }
