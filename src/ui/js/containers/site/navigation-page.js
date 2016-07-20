@@ -17,8 +17,8 @@ const NavigationPage = React.createClass({
     const { name, url } = this.props;
 
     return (
-      <li className="c--navigation__page">
-        <a href={url} className="c--navigation__page__link">{name}</a>
+      <li className="l--site__navigation__page">
+        <a href={url} className="l--site__navigation__link">{name}</a>
       </li>
     );
   }

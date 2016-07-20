@@ -1,7 +1,5 @@
 import React, { PropTypes } from 'react';
 
-import Navigation from 'himation/ui/js/components/navigation';
-
 import 'himation/ui/scss/site';
 
 const Site = React.createClass({
@@ -18,12 +16,21 @@ const Site = React.createClass({
         <header className="l--site__header">
 
           <a href="#" className="l--site__header__title">
-            <span className="l--site__header__name">Cover Your Basics</span>
+            <span className="l--site__title for-cover">Cover</span>
+            <span className="l--site__title for-your">Your</span>
+            <span className="l--site__title for-basics">Basics</span>
           </a>
 
-          <div className="l--site__header__navigation">
-            <Navigation />
-          </div>
+          <nav className="l--site__header__navigation">
+            <ul className="l--site__navigation">
+              <li className="l--site__navigation__page">
+                <a href="#" className="l--site__navigation__link">About Us</a>
+              </li>
+              <li className="l--site__navigation__page">
+                <a href="#" className="l--site__navigation__link">Blog</a>
+              </li>
+            </ul>
+          </nav>
 
         </header>
 

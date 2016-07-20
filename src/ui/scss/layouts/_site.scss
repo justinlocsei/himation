@@ -7,35 +7,65 @@ $_site--gutter: 5%;
 
 .l--site__header {
   align-items: center;
+  background-color: $himation--branding-bg-color;
+  color: $himation--branding-text-color;
   display: flex;
+  font-size: 0.8em;
   justify-content: space-between;
-  margin: 0 $_site--gutter;
-  padding-top: 1em;
+  padding: 1em $_site--gutter;
 }
 
 .l--site__header__title {
-  background-color: $himation--branding-bg-color;
-  color: $himation--branding-text-color;
-  font-size: 0.9em;
-  font-weight: $himation--font-weight-normal;
-  padding: 1.25em;
+  background-color: rgba(0, 0, 0, 0.125);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: inherit;
+  font-weight: $himation--font-weight-semi-bold;
+  padding: 1em;
+  text-align: center;
   text-transform: uppercase;
-}
-
-.l--site__header__name {
-  display: inline-block;
+  width: 4em;
 }
 
 .l--site__header__navigation {
-  padding-right: 2em;
+
+}
+
+.l--site__title {
+  display: block;
+
+  &.for-cover {
+
+  }
+  &.for-your {
+
+  }
+  &.for-basics {
+
+  }
+}
+
+.l--site__navigation {
+
+}
+
+.l--site__navigation__page {
+  display: inline-block;
+
+  & + & {
+    margin-left: 3em;
+  }
+}
+
+.l--site__navigation__link {
+  color: inherit;
+  text-transform: uppercase;
 }
 
 .l--site__body {
-  background-color: #fff;
   overflow-x: hidden;
   padding: 0 $_site--gutter;
 }
 
 .l--site__body__content {
-  padding: 4em 0 2em;
+  padding: 2em 0;
 }
