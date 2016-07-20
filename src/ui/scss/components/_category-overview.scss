@@ -1,0 +1,24 @@
+.c--category-overview {
+
+}
+
+.c--category-overview__name {
+  border-bottom: 1px solid $himation--text-muted-color;
+  font-weight: $himation--font-weight-bold;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.c--category-overview__basics {
+
+}
+
+.c--category-overview__basic {
+  & + & {
+    margin-top: 0.25em;
+  }
+}
+
+.c--category-overview__basic__name {
+  color: inherit;
+}

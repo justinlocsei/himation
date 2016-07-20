@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { sortBy } from 'lodash';
 
+import CategoryOverview from './category-overview';
 import Basic from './basic';
 
 const Recommendations = React.createClass({
@@ -20,7 +21,7 @@ const Recommendations = React.createClass({
 
       previous[category].push({
         name: basic.basic.name,
-        slug: basic.basic.slug
+        targetId: basic.basic.slug
       });
 
       return previous;
@@ -32,19 +33,13 @@ const Recommendations = React.createClass({
     return (
       <div className="l--recommendations">
         <div className="l--recommendations__categories">
-          {sortedCategories.map(function(category, categoryIndex) {
+          {sortedCategories.map(function(categoryName, index) {
             return (
-              <section className="l--recommendations__category" key={categoryIndex}>
-                <h2 className="l--recommendations__category__name">{category}</h2>
-                <ul className="l--recommendations__category__basics">
-                  {basicsByCategory[category].map(function(basic, basicIndex) {
-                    return (
-                      <li className="l--recommendations__category__basic" key={basicIndex}>
-                        <a className="l--recommendations__category__basic__name" href={`#${basic.slug}`}>{basic.name}</a>
-                      </li>
-                    );
-                  })}
-                </ul>
+              <section className="l--recommendations__category" key={index}>
+                <CategoryOverview
+                  basics={basicsByCategory[categoryName]}
+                  name={categoryName}
+                />
               </section>
             );
           })}
