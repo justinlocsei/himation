@@ -16,14 +16,13 @@ $_site--gutter: 5%;
 }
 
 .l--site__header__title {
-  background-color: rgba(0, 0, 0, 0.125);
   border: 1px solid rgba(255, 255, 255, 0.5);
   color: inherit;
-  font-weight: $himation--font-weight-semi-bold;
-  padding: 1em;
+  font-weight: $himation--font-weight-bold;
+  padding: 1.25em;
   text-align: center;
   text-transform: uppercase;
-  width: 4em;
+  width: 3.75em;
 }
 
 .l--site__header__navigation {
@@ -58,6 +57,7 @@ $_site--gutter: 5%;
 
 .l--site__navigation__link {
   color: inherit;
+  font-size: 1.125em;
   text-transform: uppercase;
 }
 
