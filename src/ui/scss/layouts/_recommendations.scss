@@ -1,3 +1,5 @@
+@import "mixins/responsive";
+
 $_recommendations--category-h-padding: 2em;
 $_recommendations--category-v-padding: 1em;
 
@@ -26,4 +28,18 @@ $_recommendations--category-v-padding: 1em;
   & + & {
     margin-top: 3.5em;
   }
+}
+
+@include himation--breakpoint-phone-large {
+
+  .l--recommendations__categories {
+    margin-left: $_recommendations--category-h-padding * -0.5;
+    margin-right: $_recommendations--category-h-padding * -0.5;
+  }
+  .l--recommendations__category {
+    flex-basis: 50%;
+    padding-left: $_recommendations--category-h-padding * 0.5;
+    padding-right: $_recommendations--category-h-padding * 0.5;
+  }
+
 }
