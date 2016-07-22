@@ -22,7 +22,8 @@ const Recommendations = React.createClass({
       return previous;
     }, {});
 
-    const sortedBasics = Object.keys(basicsByCategory).sort().reduce(function(previous, category) {
+    const categories = Object.keys(basicsByCategory).sort();
+    const sortedBasics = categories.reduce(function(previous, category) {
       return previous.concat(basicsByCategory[category]);
     }, []);
 
@@ -33,6 +34,7 @@ const Recommendations = React.createClass({
       return {
         anchorId: basic.basic.slug,
         category: basic.basic.category,
+        groupNumber: categories.indexOf(basic.basic.category) + 1,
         image: teaserImage.url,
         name: basic.basic.name
       };

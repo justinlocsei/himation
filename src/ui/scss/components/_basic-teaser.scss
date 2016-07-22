@@ -1,17 +1,32 @@
 @import "mixins/layout";
 
+$_basic-teaser--bg-opacity: 0.6;
+$_basic-teaser--bg-base-color: #1c2d3a;
+$_basic-teaser--current-group: 1;
+$_basic-teaser--total-groups: 6;
+
 .c--basic-teaser {
   display: block;
   position: relative;
 }
 
 .c--basic-teaser__media {
-  background-position: center center;
+  background-position: right;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   filter: grayscale(1);
   height: 100%;
+  position: relative;
   width: 100%;
+
+  &::before {
+    background: linear-gradient(90deg, #fff 25%, transparent);
+    content: "";
+    height: 100%;
+    position: absolute;
+    right: 2.75em;
+    width: 2em;
+  }
 }
 
 .c--basic-teaser__media__image {
@@ -19,7 +34,7 @@
 }
 
 .c--basic-teaser__meta {
-  background-color: rgba($himation--text-color, 0.9);
+  background-color: rgba($himation--text-color, $_basic-teaser--bg-opacity);
   bottom: 0;
   color: $himation--text-contrasting-color;
   display: flex;
@@ -29,7 +44,6 @@
   padding: 0.5em;
   position: absolute;
   right: 0;
-  text-align: center;
   top: 0;
 }
 
@@ -45,4 +59,20 @@
   font-size: 1.25em;
   font-weight: $himation--font-weight-light;
   margin-top: 0.25em;
+}
+
+@while $_basic-teaser--current-group <= $_basic-teaser--total-groups {
+  $_bg-color: adjust-hue($_basic-teaser--bg-base-color, $_basic-teaser--current-group * ($_basic-teaser--current-group / $_basic-teaser--total-groups) * 360deg);
+
+  .c--basic-teaser[data-group-number="#{$_basic-teaser--current-group}"] {
+    .c--basic-teaser__meta {
+      background-color: rgba($_bg-color, $_basic-teaser--bg-opacity);
+    }
+
+    &:hover .c--basic-teaser__meta {
+      background-color: rgba(darken($_bg-color, 10%), $_basic-teaser--bg-opacity);
+    }
+  }
+
+  $_basic-teaser--current-group: $_basic-teaser--current-group + 1;
 }
