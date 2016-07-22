@@ -7,7 +7,7 @@ $_site--gutter: 5%;
 
 .l--site__header {
   align-items: center;
-  background-color: $himation--branding-bg-color;
+  background-color: $himation--branding-primary-color;
   color: $himation--branding-text-color;
   display: flex;
   font-size: 0.8em;
@@ -16,7 +16,7 @@ $_site--gutter: 5%;
 }
 
 .l--site__header__title {
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba($himation--branding-text-color, 0.5);
   color: inherit;
   font-weight: $himation--font-weight-bold;
   padding: 1.25em;
@@ -47,7 +47,6 @@ $_site--gutter: 5%;
 
 .l--site__navigation__link {
   color: inherit;
-  font-size: 1.125em;
   text-transform: uppercase;
 }
 
