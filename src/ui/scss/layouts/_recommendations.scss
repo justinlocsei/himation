@@ -1,7 +1,4 @@
-@import "mixins/responsive";
-
-$_recommendations--category-h-padding: 2em;
-$_recommendations--category-v-padding: 1em;
+$_recommendations--basic-teaser-gutter: 2px;
 
 .l--recommendations {
   position: relative;
@@ -10,18 +7,17 @@ $_recommendations--category-v-padding: 1em;
 .l--recommendations__basic-teasers {
   display: flex;
   flex-wrap: wrap;
-  margin: -0.5em;
+  margin: $_recommendations--basic-teaser-gutter * -1;
 }
 
 .l--recommendations__basic-teaser {
+  border: $_recommendations--basic-teaser-gutter * 0.5 solid $himation--page-bg-color;
   box-sizing: border-box;
   flex: 1 1 auto;
   height: 6em;
-  padding: 0.5em;
-  width: 14em;
+  width: 12em;
 
   .c--basic-teaser {
-    border: 1px solid $himation--text-muted-color;
     height: 100%;
   }
 }

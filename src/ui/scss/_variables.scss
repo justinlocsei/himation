@@ -6,7 +6,13 @@ $himation--text-muted-color: #999;
 $himation--branding-bg-color: #6a99ab;
 $himation--branding-text-color: #fff;
 
+$himation--page-bg-color: #fff;
+$himation--page-text-color: $himation--text-color;
+
 $himation--font-weight-light: 300;
 $himation--font-weight-normal: 400;
 $himation--font-weight-semi-bold: 500;
 $himation--font-weight-bold: 700;
+
+$himation--z-page: 1;
+$himation--z-flat: 2;

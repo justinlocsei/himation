@@ -52,10 +52,12 @@ $_site--gutter: 5%;
 }
 
 .l--site__body {
+  background-color: $himation--page-bg-color;
+  color: $himation--page-text-color;
   overflow-x: hidden;
   padding: 0 $_site--gutter;
 }
 
 .l--site__body__content {
-  padding: 2em 0;
+
 }
