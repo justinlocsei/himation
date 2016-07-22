@@ -65,7 +65,8 @@ function simplifyRecommendations(original) {
         name: garment.garment.name,
         price: offering.price,
         retailer: offering.retailer,
-        url: offering.url
+        url: offering.url,
+        weight: garment.weight
       };
     });
   });
