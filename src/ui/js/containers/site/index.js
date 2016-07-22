@@ -39,6 +39,22 @@ const Site = React.createClass({
             {children}
           </div>
         </div>
+
+        <footer className="l--site__footer">
+          <ul className="l--site__footer__links">
+            <li className="l--site__footer__link">
+              <a href="#" className="l--site__footer__link-name">Home</a>
+            </li>
+             <li className="l--site__footer__link">
+              <a href="#" className="l--site__footer__link-name">About Us</a>
+            </li>
+             <li className="l--site__footer__link">
+              <a href="#" className="l--site__footer__link-name">Blog</a>
+            </li>
+          </ul>
+
+          <p className="l--site__footer__copyright">&copy;{new Date().getFullYear()} Cover Your Basics</p>
+        </footer>
       </div>
     );
   }

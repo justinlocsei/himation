@@ -1,4 +1,7 @@
+@import "mixins/responsive";
+
 $_site--gutter: 5%;
+$_site--footer-v-padding: 4em;
 
 .l--site {
   color: $himation--text-color;
@@ -58,5 +61,48 @@ $_site--gutter: 5%;
 }
 
 .l--site__body__content {
+
+}
+
+.l--site__footer {
+  background-color: $himation--branding-primary-color;
+  color: $himation--branding-text-color;
+  display: flex;
+  font-size: 0.85em;
+  margin-top: 4em;
+  padding: $_site--footer-v-padding $_site--gutter;
+}
+
+.l--site__footer__links {
+  flex: 1;
+}
+
+.l--site__footer__link {
+  display: inline-block;
+
+  & + & {
+    margin-left: 8%;
+  }
+}
+
+.l--site__footer__link-name {
+  color: inherit;
+}
+
+.l--site__footer__copyright {
+  font-size: 0.9em;
+  opacity: 0.75;
+}
+
+@include himation--breakpoint-phone {
+
+  .l--site__footer {
+    flex-direction: column;
+    padding-bottom: $_site--footer-v-padding * 0.5;
+    padding-top: $_site--footer-v-padding * 0.5;
+  }
+  .l--site__footer__links {
+    margin-bottom: 1.5em;
+  }
 
 }
