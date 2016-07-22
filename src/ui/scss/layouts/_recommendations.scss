@@ -7,17 +7,23 @@ $_recommendations--category-v-padding: 1em;
   position: relative;
 }
 
-.l--recommendations__categories {
+.l--recommendations__basic-teasers {
   display: flex;
   flex-wrap: wrap;
-  font-size: 0.9em;
-  margin: $_recommendations--category-v-padding * -1 $_recommendations--category-h-padding * -1;
+  margin: -0.5em;
 }
 
-.l--recommendations__category {
+.l--recommendations__basic-teaser {
   box-sizing: border-box;
-  flex: 1 1 (100% / 3);
-  padding: $_recommendations--category-v-padding $_recommendations--category-h-padding;
+  flex: 1 1 auto;
+  height: 7em;
+  padding: 0.5em;
+  width: 13em;
+
+  .c--basic-teaser {
+    border: 1px solid $himation--text-muted-color;
+    height: 100%;
+  }
 }
 
 .l--recommendations__basics {
@@ -28,18 +34,4 @@ $_recommendations--category-v-padding: 1em;
   & + & {
     margin-top: 3.5em;
   }
-}
-
-@include himation--breakpoint-phone-large {
-
-  .l--recommendations__categories {
-    margin-left: $_recommendations--category-h-padding * -0.5;
-    margin-right: $_recommendations--category-h-padding * -0.5;
-  }
-  .l--recommendations__category {
-    flex-basis: 50%;
-    padding-left: $_recommendations--category-h-padding * 0.5;
-    padding-right: $_recommendations--category-h-padding * 0.5;
-  }
-
 }

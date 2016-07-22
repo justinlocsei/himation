@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import { sortBy } from 'lodash';
 
-import CategoryOverview from './category-overview';
 import Basic from './basic';
+import BasicTeaser from './basic-teaser';
 
 const Recommendations = React.createClass({
 
@@ -15,35 +15,41 @@ const Recommendations = React.createClass({
 
     const basicsByCategory = basics.reduce(function(previous, basic) {
       const category = basic.basic.category;
-      if (!previous[category]) {
-        previous[category] = [];
-      }
 
-      previous[category].push({
-        name: basic.basic.name,
-        targetId: basic.basic.slug
-      });
+      if (!previous[category]) { previous[category] = []; }
+      previous[category].push(basic);
 
       return previous;
     }, {});
 
-    const sortedBasics = sortBy(basics, basic => basic.basic.name);
-    const sortedCategories = Object.keys(basicsByCategory).sort();
+    const sortedBasics = Object.keys(basicsByCategory).sort().reduce(function(previous, category) {
+      return previous.concat(basicsByCategory[category]);
+    }, []);
+
+    const basicTeasers = sortedBasics.map(function(basic) {
+      const bestRecommendation = sortBy(basic.garments, g => g.weight * -1)[0];
+      const teaserImage = sortBy(bestRecommendation.images, i => i.width * -1)[0];
+
+      return {
+        anchorId: basic.basic.slug,
+        category: basic.basic.category,
+        image: teaserImage.url,
+        name: basic.basic.name
+      };
+    });
 
     return (
       <div className="l--recommendations">
-        <div className="l--recommendations__categories">
-          {sortedCategories.map(function(categoryName, index) {
+        <ul className="l--recommendations__basic-teasers">
+          {basicTeasers.map(function(teaser, index) {
+
             return (
-              <section className="l--recommendations__category" key={index}>
-                <CategoryOverview
-                  basics={basicsByCategory[categoryName]}
-                  name={categoryName}
-                />
-              </section>
+              <li className="l--recommendations__basic-teaser" key={index}>
+                <BasicTeaser {...teaser} />
+              </li>
             );
           })}
-        </div>
+        </ul>
 
         <div className="l--recommendations__basics">
           {sortedBasics.map(function(basic, index) {
