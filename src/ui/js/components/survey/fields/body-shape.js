@@ -16,7 +16,7 @@ const BodyShape = React.createClass({
 
     return (
       <div className="c--body-shape">
-        <label htmlFor={inputID}>
+        <label className="c--body-shape__label" htmlFor={inputID}>
           <figure className="c--body-shape__example">
             <img className="c--body-shape__example__image" src={`https://placehold.it/100x150?text=${name}`} />
             <figcaption className="c--body-shape__example__caption">{name}</figcaption>
