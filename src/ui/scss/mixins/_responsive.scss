@@ -1,5 +1,4 @@
 $himation--breakpoint-tablet-width: 50em;
-$himation--breakpoint-phone-large-width: 35em;
 $himation--breakpoint-phone-width: 30em;
 
 // Restrict styles to a viewport with a limited resolution
@@ -26,13 +25,6 @@ $himation--breakpoint-phone-width: 30em;
 }
 @mixin himation--breakpoint-tablet-only {
   @include himation--breakpoint($himation--breakpoint-tablet-width, $himation--breakpoint-phone-width) {
-    @content;
-  }
-}
-
-// Apply styles for medium-width phone-like viewports
-@mixin himation--breakpoint-phone-large {
-  @include himation--breakpoint($himation--breakpoint-phone-large-width) {
     @content;
   }
 }
