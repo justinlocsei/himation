@@ -41,7 +41,7 @@ let Survey = React.createClass({
     return (
       <form className={classes.join(' ')} action={formAction} method={formMethod} onSubmit={handleSubmit}>
 
-        <Section name="Formality">
+        <Section>
           <div className="l--survey__formalities">
             <FormalityPicker
               fields={fields.formalities}
@@ -50,7 +50,7 @@ let Survey = React.createClass({
           </div>
         </Section>
 
-        <Section name="Personal Information">
+        <Section>
           <div className="l--survey__birth-year">
             <BirthYearPicker
               field={fields.birthYear}
@@ -68,7 +68,7 @@ let Survey = React.createClass({
           </div>
         </Section>
 
-        <Section name="Styles">
+        <Section>
           <div className="l--survey__styles">
             <StylePicker
               fields={fields.styles}
@@ -77,7 +77,7 @@ let Survey = React.createClass({
           </div>
         </Section>
 
-        <Section name="Garment Restrictions">
+        <Section>
           <div className="l--survey__sizes">
             <SizePicker
               fields={fields.sizes}

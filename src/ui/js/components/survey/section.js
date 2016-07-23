@@ -6,15 +6,20 @@ const SurveySection = React.createClass({
 
   propTypes: {
     children: childProps.multiple.isRequired,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string
   },
 
   render: function() {
     const { children, name } = this.props;
 
+    let nameTag;
+    if (name) {
+      nameTag = <h3 className="l--survey__section__title">{name}</h3>;
+    }
+
     return (
       <div className="l--survey__section">
-        <h3 className="l--survey__section__title">{name}</h3>
+        {nameTag}
 
         <div className="l--survey__section__fields">
           {children}
