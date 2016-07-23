@@ -62,19 +62,20 @@ $_recommendations--price-group-gutter: 8%;
 .c--recommendations__price-group__garment {
   flex: 1;
   margin: 0 $_recommendations--price-group-gutter;
-  min-width: 25%;
+  max-width: 50% - $_recommendations--price-group-gutter;
 
   &:first-child { margin-left: 0; }
   &:last-child { margin-right: 0; }
 }
 
-@include himation--breakpoint-tablet-only {
+@include himation--breakpoint-tablet {
 
   .c--recommendations__price-group__garments {
     flex-direction: column;
   }
   .c--recommendations__price-group__garment {
     margin: $_recommendations--price-group-gutter 0;
+    max-width: none;
 
     &:first-child { margin-top: 0; }
     &:last-child { margin-bottom: 0; }
@@ -92,6 +93,14 @@ $_recommendations--price-group-gutter: 8%;
 
     &:first-child { margin-top: 0; }
     &:last-child { margin-bottom: 0; }
+  }
+
+  .c--recommendations__price-group__garments {
+    flex-direction: row;
+  }
+  .c--recommendations__price-group__garment {
+    margin: 0 $_recommendations--price-group-gutter;
+    max-width: 50% - $_recommendations--price-group-gutter;
   }
 
 }
