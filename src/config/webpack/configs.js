@@ -41,7 +41,7 @@ function create(settings, custom) {
       alias: {
         'himation/server': paths.server.root,
         'himation/styles': paths.ui.scssFiles,
-        'himation/ui': paths.ui.root
+        'himation/ui': paths.ui.js
       }
     },
     postcss: postCssPlugins(settings.assets.optimize),

@@ -8,7 +8,7 @@ import FormalityPicker from './fields/formality-picker';
 import Section from './section';
 import SizePicker from './fields/size-picker';
 import StylePicker from './fields/style-picker';
-import { submitSurvey } from 'himation/ui/js/actions/survey';
+import { submitSurvey } from 'himation/ui/actions/survey';
 
 let Survey = React.createClass({
 

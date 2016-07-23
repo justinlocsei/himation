@@ -5,8 +5,8 @@ import { reducer as formReducer } from 'redux-form';
 import { render as reactRender } from 'react-dom';
 import { renderToString } from 'react-dom/server';
 
-import appReducers from 'himation/ui/js/reducers';
-import Site from 'himation/ui/js/containers/site';
+import appReducers from 'himation/ui/reducers';
+import Site from 'himation/ui/containers/site';
 
 const APP_CONTAINER_ID = 'app-content';
 const STATE_VARIABLE_NAME = 'HIMATION_STATE';

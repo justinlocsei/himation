@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Page from 'himation/ui/js/components/pages';
+import Page from 'himation/ui/components/pages';
 
 const AboutPage = React.createClass({
 

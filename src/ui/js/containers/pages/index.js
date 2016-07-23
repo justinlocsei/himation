@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Page from 'himation/ui/js/components/pages';
+import Page from 'himation/ui/components/pages';
 import routes from 'himation/config/routes';
-import Survey from 'himation/ui/js/components/survey';
+import Survey from 'himation/ui/components/survey';
 import { guidToRoute } from 'himation/core/routing';
 
 const HomePage = React.createClass({

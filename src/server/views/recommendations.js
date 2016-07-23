@@ -1,9 +1,9 @@
-import IndexPage from 'himation/ui/js/containers/pages';
-import RecommendationsPage from 'himation/ui/js/containers/pages/recommendations';
-import { convertPostDataToStateShape } from 'himation/ui/js/reducers/survey';
+import IndexPage from 'himation/ui/containers/pages';
+import RecommendationsPage from 'himation/ui/containers/pages/recommendations';
+import { convertPostDataToStateShape } from 'himation/ui/reducers/survey';
 import { createApiClient, packageSurvey } from 'himation/server/api';
-import { prerenderPageComponent } from 'himation/ui/js/rendering';
-import { validate } from 'himation/ui/js/components/survey';
+import { prerenderPageComponent } from 'himation/ui/rendering';
+import { validate } from 'himation/ui/components/survey';
 
 /**
  * Render an invalid survey form

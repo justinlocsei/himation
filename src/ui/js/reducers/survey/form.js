@@ -1,4 +1,4 @@
-import { SUBMIT_SURVEY } from 'himation/ui/js/actions/survey';
+import { SUBMIT_SURVEY } from 'himation/ui/actions/survey';
 
 const defaultState = {
   failedValidation: false,
