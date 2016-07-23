@@ -39,6 +39,7 @@ function create(settings, custom) {
     resolve: {
       extensions: ['', '.js', '.scss'],
       alias: {
+        'himation/images': paths.ui.images,
         'himation/server': paths.server.root,
         'himation/styles': paths.ui.scssFiles,
         'himation/ui': paths.ui.js

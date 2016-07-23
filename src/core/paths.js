@@ -51,6 +51,7 @@ function resolve() {
       root: test
     },
     ui: {
+      images: path.join(ui, 'images'),
       js: path.join(ui, 'js'),
       root: ui,
       scss: path.join(ui, 'scss'),
