@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { sortBy } from 'lodash';
+import { flatten, max, sortBy } from 'lodash';
 
 import Basic from './basic';
 import BasicTeaser from './basic-teaser';
@@ -40,6 +40,13 @@ const Recommendations = React.createClass({
       };
     });
 
+    const maxGarmentsPerGroup = sortedBasics.reduce(function(previous, basic) {
+      const garmentsPerGroup = flatten(basic.facets.map(function(facet) {
+        return max(facet.groups.map(group => group.garment_ids.length));
+      }));
+      return Math.max(previous, max(garmentsPerGroup));
+    }, 0);
+
     return (
       <div className="l--recommendations">
         <ul className="l--recommendations__basic-teasers">
@@ -61,6 +68,7 @@ const Recommendations = React.createClass({
                   category={basic.basic.category}
                   facets={basic.facets}
                   garments={basic.garments}
+                  maxGarmentsPerGroup={maxGarmentsPerGroup}
                   name={basic.basic.name}
                 />
               </section>

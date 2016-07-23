@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { sortBy, sum } from 'lodash';
+import { range, sortBy, sum } from 'lodash';
 
 import Garment from './garment';
 
@@ -15,11 +15,12 @@ const Basic = React.createClass({
     category: PropTypes.string.isRequired,
     facets: PropTypes.array.isRequired,
     garments: PropTypes.array.isRequired,
+    maxGarmentsPerGroup: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired
   },
 
   render: function() {
-    const { category, facets, garments, name } = this.props;
+    const { category, facets, garments, maxGarmentsPerGroup, name } = this.props;
 
     const priceFacet = facets.find(facet => facet.slug === 'price');
 
@@ -60,10 +61,19 @@ const Basic = React.createClass({
               <section className="c--recommendations__price-group" key={groupIndex}>
                 <h3 className="c--recommendations__price-group__name">{PRICE_GROUP_NAMES[group.slug]}</h3>
                 <ol className="c--recommendations__price-group__garments">
-                  {garmentsByGroup[groupIndex].map(function(garment, garmentIndex) {
+                  {range(0, maxGarmentsPerGroup).map(function(garmentIndex) {
+                    const garment = garmentsByGroup[groupIndex][garmentIndex];
+
+                    let garmentTag;
+                    if (garment) {
+                      garmentTag = <Garment {...garment} averageAspectRatio={averageAspectRatio} />;
+                    } else {
+                      garmentTag = <p className="c--recommendations__price-group__placeholder">Out of stock</p>;
+                    }
+
                     return (
                       <li className="c--recommendations__price-group__garment" key={garmentIndex}>
-                        <Garment {...garment} averageAspectRatio={averageAspectRatio} />
+                        {garmentTag}
                       </li>
                     );
                   })}
