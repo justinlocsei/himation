@@ -13,10 +13,10 @@ const SurveySection = React.createClass({
     const { children, name } = this.props;
 
     return (
-      <div className="c--survey__section">
-        <h3 className="c--survey__section__title">{name}</h3>
+      <div className="l--survey__section">
+        <h3 className="l--survey__section__title">{name}</h3>
 
-        <div className="c--survey__section__fields">
+        <div className="l--survey__section__fields">
           {children}
         </div>
       </div>

@@ -33,7 +33,7 @@ let Survey = React.createClass({
 
     const handleSubmit = form.valid ? onServerSubmit : form.handleSubmit;
 
-    const classes = ['c--survey'];
+    const classes = ['l--survey'];
     if (isSubmitting) {
       classes.push('is-submitting');
     }
@@ -42,7 +42,7 @@ let Survey = React.createClass({
       <form className={classes.join(' ')} action={formAction} method={formMethod} onSubmit={handleSubmit}>
 
         <Section name="Formality">
-          <div className="c--survey__formalities">
+          <div className="l--survey__formalities">
             <FormalityPicker
               fields={fields.formalities}
               id="survey-formality"
@@ -51,7 +51,7 @@ let Survey = React.createClass({
         </Section>
 
         <Section name="Personal Information">
-          <div className="c--survey__birth-year">
+          <div className="l--survey__birth-year">
             <BirthYearPicker
               field={fields.birthYear}
               id="survey-birth-year"
@@ -60,7 +60,7 @@ let Survey = React.createClass({
             />
           </div>
 
-          <div className="c--survey__shape">
+          <div className="l--survey__shape">
             <BodyShapePicker
               field={fields.bodyShape}
               id="survey-body-shape"
@@ -69,7 +69,7 @@ let Survey = React.createClass({
         </Section>
 
         <Section name="Styles">
-          <div className="c--survey__styles">
+          <div className="l--survey__styles">
             <StylePicker
               fields={fields.styles}
               id="survey-style"
@@ -78,14 +78,14 @@ let Survey = React.createClass({
         </Section>
 
         <Section name="Garment Restrictions">
-          <div className="c--survey__sizes">
+          <div className="l--survey__sizes">
             <SizePicker
               fields={fields.sizes}
               id="survey-sizes"
             />
           </div>
 
-          <div className="c--survey__care">
+          <div className="l--survey__care">
             <CareTypePicker
               fields={fields.careTypes}
               id="survey-care-types"
@@ -93,8 +93,8 @@ let Survey = React.createClass({
           </div>
         </Section>
 
-        <fieldset className="c--survey__buttons">
-          <button className="c--survey__submit-button" type="submit" disabled={isSubmitting}>Make Recommendations</button>
+        <fieldset className="l--survey__buttons">
+          <button className="l--survey__submit-button" type="submit" disabled={isSubmitting}>Make Recommendations</button>
         </fieldset>
 
       </form>
