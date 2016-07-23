@@ -54,6 +54,7 @@ function resolve() {
       js: path.join(ui, 'js'),
       root: ui,
       scss: path.join(ui, 'scss'),
+      scssFiles: path.join(ui, 'scss', 'himation'),
       templates: path.join(ui, 'templates')
     }
   };
