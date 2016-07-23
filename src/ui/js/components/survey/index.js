@@ -41,58 +41,48 @@ let Survey = React.createClass({
     return (
       <form className={classes.join(' ')} action={formAction} method={formMethod} onSubmit={handleSubmit}>
 
-        <Field>
-          <div className="l--survey__formalities">
-            <FormalityPicker
-              fields={fields.formalities}
-              id="survey-formality"
-            />
-          </div>
+        <Field slug="formalities">
+          <FormalityPicker
+            fields={fields.formalities}
+            id="survey-formality"
+          />
         </Field>
 
-        <Field>
-          <div className="l--survey__birth-year">
-            <BirthYearPicker
-              field={fields.birthYear}
-              id="survey-birth-year"
-              rangeEnd={new Date().getFullYear()}
-              rangeStart={1950}
-            />
-          </div>
-
-          <div className="l--survey__shape">
-            <BodyShapePicker
-              field={fields.bodyShape}
-              id="survey-body-shape"
-            />
-          </div>
+        <Field slug="birth-year">
+          <BirthYearPicker
+            field={fields.birthYear}
+            id="survey-birth-year"
+            rangeEnd={new Date().getFullYear()}
+            rangeStart={1950}
+          />
         </Field>
 
-        <Field>
-          <div className="l--survey__styles">
-            <StylePicker
-              fields={fields.styles}
-              id="survey-style"
-            />
-          </div>
+        <Field slug="body-shape">
+          <BodyShapePicker
+            field={fields.bodyShape}
+            id="survey-body-shape"
+          />
         </Field>
 
-        <Field>
-          <div className="l--survey__sizes">
-            <SizePicker
-              fields={fields.sizes}
-              id="survey-sizes"
-            />
-          </div>
+        <Field slug="styles">
+          <StylePicker
+            fields={fields.styles}
+            id="survey-style"
+          />
         </Field>
 
-        <Field>
-          <div className="l--survey__care">
-            <CareTypePicker
-              fields={fields.careTypes}
-              id="survey-care-types"
-            />
-          </div>
+        <Field slug="sizes">
+          <SizePicker
+            fields={fields.sizes}
+            id="survey-sizes"
+          />
+        </Field>
+
+        <Field slug="care-types">
+          <CareTypePicker
+            fields={fields.careTypes}
+            id="survey-care-types"
+          />
         </Field>
 
         <fieldset className="l--survey__buttons">
