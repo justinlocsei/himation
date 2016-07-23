@@ -4,8 +4,8 @@ import { reduxForm } from 'redux-form';
 import BirthYearPicker from './fields/birth-year-picker';
 import BodyShapePicker from './fields/body-shape-picker';
 import CareTypePicker from './fields/care-type-picker';
+import Field from './field';
 import FormalityPicker from './fields/formality-picker';
-import Section from './section';
 import SizePicker from './fields/size-picker';
 import StylePicker from './fields/style-picker';
 import { submitSurvey } from 'himation/ui/actions/survey';
@@ -41,16 +41,16 @@ let Survey = React.createClass({
     return (
       <form className={classes.join(' ')} action={formAction} method={formMethod} onSubmit={handleSubmit}>
 
-        <Section>
+        <Field>
           <div className="l--survey__formalities">
             <FormalityPicker
               fields={fields.formalities}
               id="survey-formality"
             />
           </div>
-        </Section>
+        </Field>
 
-        <Section>
+        <Field>
           <div className="l--survey__birth-year">
             <BirthYearPicker
               field={fields.birthYear}
@@ -66,32 +66,34 @@ let Survey = React.createClass({
               id="survey-body-shape"
             />
           </div>
-        </Section>
+        </Field>
 
-        <Section>
+        <Field>
           <div className="l--survey__styles">
             <StylePicker
               fields={fields.styles}
               id="survey-style"
             />
           </div>
-        </Section>
+        </Field>
 
-        <Section>
+        <Field>
           <div className="l--survey__sizes">
             <SizePicker
               fields={fields.sizes}
               id="survey-sizes"
             />
           </div>
+        </Field>
 
+        <Field>
           <div className="l--survey__care">
             <CareTypePicker
               fields={fields.careTypes}
               id="survey-care-types"
             />
           </div>
-        </Section>
+        </Field>
 
         <fieldset className="l--survey__buttons">
           <button className="l--survey__submit-button" type="submit" disabled={isSubmitting}>Make Recommendations</button>
