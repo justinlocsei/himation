@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import 'himation/ui/scss/site';
+import 'himation/styles/site';
 
 const Site = React.createClass({
 

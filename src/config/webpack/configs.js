@@ -40,6 +40,7 @@ function create(settings, custom) {
       extensions: ['', '.js', '.scss'],
       alias: {
         'himation/server': paths.server.root,
+        'himation/styles': paths.ui.scssFiles,
         'himation/ui': paths.ui.root
       }
     },
