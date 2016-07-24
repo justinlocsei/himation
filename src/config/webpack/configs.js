@@ -115,10 +115,9 @@ function jsLoaders(files) {
  * @private
  */
 function imageLoaders(optimize) {
-  var name = optimize ? '[hash].[ext]' : '[path][name].[ext]';
   var rasterLoader = {
     test: /\.(jpg|png)$/,
-    loaders: ['url?limit=2500&name=' + name]
+    loaders: ['file?name=[hash].[ext]']
   };
 
   if (optimize) {
