@@ -6,11 +6,12 @@ const BodyShape = React.createClass({
     field: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    shape: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired
   },
 
   render: function() {
-    const { field, id, name, slug } = this.props;
+    const { field, id, name, shape, slug } = this.props;
 
     const inputID = `${id}-${slug}`;
 
@@ -18,7 +19,7 @@ const BodyShape = React.createClass({
       <div className="c--body-shape">
         <label className="c--body-shape__label" htmlFor={inputID}>
           <figure className="c--body-shape__example">
-            <img className="c--body-shape__example__image" src={`https://placehold.it/100x150?text=${name}`} />
+            <div className="c--body-shape__example__image" dangerouslySetInnerHTML={{__html: shape }} />
             <figcaption className="c--body-shape__example__caption">{name}</figcaption>
           </figure>
         </label>

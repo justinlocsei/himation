@@ -3,6 +3,11 @@ import React, { PropTypes } from 'react';
 import BodyShape from './body-shape';
 import { BODY_SHAPES } from 'himation/core/data/survey';
 
+const images = BODY_SHAPES.reduce(function(previous, bodyShape) {
+  previous[bodyShape.slug] = require(`himation/images/body-shapes/${bodyShape.slug}.svg`);
+  return previous;
+}, {});
+
 const BodyShapePicker = React.createClass({
 
   propTypes: {
@@ -20,6 +25,7 @@ const BodyShapePicker = React.createClass({
             field={field}
             id={id}
             name={bodyShape.name}
+            shape={images[bodyShape.slug]}
             slug={bodyShape.slug}
           />
         </li>
