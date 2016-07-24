@@ -3,11 +3,13 @@
 }
 
 .l--survey__field {
-
+  & + & {
+    margin-top: 3em;
+  }
 }
 
 .l--survey__buttons {
-
+  margin-top: 3em;
 }
 
 .l--survey__submit-button {
