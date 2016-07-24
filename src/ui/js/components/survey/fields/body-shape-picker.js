@@ -45,7 +45,7 @@ const BodyShapePicker = React.createClass({
     return (
       <div className={classes.join(' ')}>
         <fieldset className="c--body-shape-picker__choices">
-          <legend className="c--body-shape-picker__choices__title">Body Shape</legend>
+          <legend className="c--body-shape-picker__choices__title">What is your body shape?</legend>
 
           {errorTag}
 

@@ -30,7 +30,7 @@ const BirthYearInput = React.createClass({
     return (
       <div className={classes.join(' ')}>
         {errorTag}
-        <label className="c--birth-year-picker__label" htmlFor={id}>Birth Year</label>
+        <label className="c--birth-year-picker__label" htmlFor={id}>When were you born?</label>
         <select className="c--birth-year-picker__years" id={id} {...field} value={field.value || ''}>
           <option></option>
           {options}
