@@ -27077,6 +27077,11 @@
       "resolved": "https://registry.npmjs.org/postcss-scss/-/postcss-scss-0.1.8.tgz",
       "version": "0.1.8"
     },
+    "raw-loader": {
+      "from": "raw-loader@latest",
+      "resolved": "https://registry.npmjs.org/raw-loader/-/raw-loader-0.5.1.tgz",
+      "version": "0.5.1"
+    },
     "react": {
       "dependencies": {
         "envify": {
