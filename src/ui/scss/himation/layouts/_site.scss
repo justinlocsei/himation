@@ -1,6 +1,5 @@
 @import "himation/mixins/responsive";
 
-$_site--gutter: 5%;
 $_site--footer-v-padding: 4em;
 
 .l--site {
@@ -15,7 +14,7 @@ $_site--footer-v-padding: 4em;
   display: flex;
   font-size: 0.8em;
   justify-content: space-between;
-  padding: 1em $_site--gutter;
+  padding: 1em $himation--site-gutter;
 }
 
 .l--site__header__title {
@@ -57,7 +56,6 @@ $_site--footer-v-padding: 4em;
   background-color: $himation--page-bg-color;
   color: $himation--page-text-color;
   overflow-x: hidden;
-  padding: 0 $_site--gutter;
 }
 
 .l--site__body__content {
@@ -70,7 +68,7 @@ $_site--footer-v-padding: 4em;
   display: flex;
   font-size: 0.85em;
   margin-top: 4em;
-  padding: $_site--footer-v-padding $_site--gutter;
+  padding: $_site--footer-v-padding $himation--site-gutter;
 }
 
 .l--site__footer__links {
