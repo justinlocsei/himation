@@ -48,12 +48,10 @@ let Survey = React.createClass({
           />
         </Field>
 
-        <Field slug="birth-year">
-          <BirthYearPicker
-            field={fields.birthYear}
-            id="survey-birth-year"
-            rangeEnd={new Date().getFullYear()}
-            rangeStart={1950}
+        <Field slug="styles">
+          <StylePicker
+            fields={fields.styles}
+            id="survey-style"
           />
         </Field>
 
@@ -61,13 +59,6 @@ let Survey = React.createClass({
           <BodyShapePicker
             field={fields.bodyShape}
             id="survey-body-shape"
-          />
-        </Field>
-
-        <Field slug="styles">
-          <StylePicker
-            fields={fields.styles}
-            id="survey-style"
           />
         </Field>
 
@@ -82,6 +73,15 @@ let Survey = React.createClass({
           <CareTypePicker
             fields={fields.careTypes}
             id="survey-care-types"
+          />
+        </Field>
+
+        <Field slug="birth-year">
+          <BirthYearPicker
+            field={fields.birthYear}
+            id="survey-birth-year"
+            rangeEnd={new Date().getFullYear()}
+            rangeStart={1950}
           />
         </Field>
 
