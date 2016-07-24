@@ -242,7 +242,7 @@ function server(settings) {
       filename: '[name].js',
       libraryTarget: 'commonjs2',
       path: paths.build.assets,
-      publicPath: '/'
+      publicPath: settings.servers.assets.path
     },
     plugins: globalPlugins(BUILD_IDS.server, settings.assets.optimize),
     target: 'node'
