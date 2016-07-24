@@ -1,5 +1,13 @@
 'use strict';
 
+var BODY_SHAPES = [
+  {name: 'Pear', slug: 'pear'},
+  {name: 'Hourglass', slug: 'hourglass'},
+  {name: 'Inverted triangle', slug: 'inverted'},
+  {name: 'Apple', slug: 'apple'},
+  {name: 'Rectangle', slug: 'rectangle'}
+];
+
 var CARE_TYPES = [
   {name: 'Hand wash', slug: 'hand-wash'},
   {name: 'Dry clean', slug: 'dry-clean'}

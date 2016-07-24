@@ -1,14 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import BodyShape from './body-shape';
-
-const BODY_SHAPES = [
-  {name: 'Pear', slug: 'pear'},
-  {name: 'Hourglass', slug: 'hourglass'},
-  {name: 'Inverted triangle', slug: 'inverted'},
-  {name: 'Apple', slug: 'apple'},
-  {name: 'Rectangle', slug: 'rectangle'}
-];
+import { BODY_SHAPES } from 'himation/core/data/survey';
 
 const BodyShapePicker = React.createClass({
 
