@@ -44,15 +44,11 @@ const StylePicker = React.createClass({
 
     return (
       <div className={classes.join(' ')}>
-        <fieldset className="c--style-picker__fields">
-          <legend className="c--style-picker__fields__title">How do you want to be perceived?</legend>
+        {errorTag}
 
-          {errorTag}
-
-          <ul className="c--style-picker__styles">
-            {styleTags}
-          </ul>
-        </fieldset>
+        <ul className="c--style-picker__styles">
+          {styleTags}
+        </ul>
       </div>
     );
   }

@@ -41,42 +41,42 @@ let Survey = React.createClass({
     return (
       <form className={classes.join(' ')} action={formAction} method={formMethod} onSubmit={handleSubmit}>
 
-        <Field slug="formalities">
+        <Field slug="formalities" title="How often do your male colleagues dress like this?">
           <FormalityPicker
             fields={fields.formalities}
             id="survey-formality"
           />
         </Field>
 
-        <Field slug="styles">
+        <Field slug="styles" title="How do you want to be perceived at work?">
           <StylePicker
             fields={fields.styles}
             id="survey-style"
           />
         </Field>
 
-        <Field slug="body-shape">
+        <Field slug="body-shape" title="What is your body shape?">
           <BodyShapePicker
             field={fields.bodyShape}
             id="survey-body-shape"
           />
         </Field>
 
-        <Field slug="sizes">
+        <Field slug="sizes" title="What sizes do you wear?">
           <SizePicker
             fields={fields.sizes}
             id="survey-sizes"
           />
         </Field>
 
-        <Field slug="care-types">
+        <Field slug="care-types" title="Should we avoid any of the following care types?">
           <CareTypePicker
             fields={fields.careTypes}
             id="survey-care-types"
           />
         </Field>
 
-        <Field slug="birth-year">
+        <Field slug="birth-year" title="When were you born?">
           <BirthYearPicker
             field={fields.birthYear}
             id="survey-birth-year"

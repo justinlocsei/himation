@@ -27,13 +27,9 @@ const CareTypePicker = React.createClass({
 
     return (
       <div className="c--care-type-picker">
-        <fieldset className="c--care-type-picker__fields">
-          <legend className="c--care-type-picker__fields__title">Should we avoid any of the following care types?</legend>
-
-          <ul className="c--care-type-picker__types">
-            {careTags}
-          </ul>
-        </fieldset>
+        <ul className="c--care-type-picker__types">
+          {careTags}
+        </ul>
       </div>
     );
   }

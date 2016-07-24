@@ -44,15 +44,11 @@ const SizePicker = React.createClass({
 
     return (
       <div className={classes.join(' ')}>
-        <fieldset className="c--size-picker__fields">
-          <legend className="c--size-picker__fields__title">Which sizes do you wear?</legend>
+        {errorTag}
 
-          {errorTag}
-
-          <ul className="c--size-picker__sizes">
-            {sizeTags}
-          </ul>
-        </fieldset>
+        <ul className="c--size-picker__sizes">
+          {sizeTags}
+        </ul>
       </div>
     );
   }
