@@ -3,6 +3,11 @@ import React, { PropTypes } from 'react';
 import Formality from './formality';
 import { FORMALITIES } from 'himation/core/data/survey';
 
+const images = FORMALITIES.reduce(function(previous, formality) {
+  previous[formality.slug] = require(`himation/images/formalities/${formality.slug}.jpg`);
+  return previous;
+}, {});
+
 const FormalityPicker = React.createClass({
 
   propTypes: {
@@ -26,6 +31,7 @@ const FormalityPicker = React.createClass({
           <Formality
             field={field}
             id={id}
+            image={images[formality.slug]}
             name={formality.name}
             slug={formality.slug}
           />

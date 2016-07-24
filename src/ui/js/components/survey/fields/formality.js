@@ -7,12 +7,13 @@ const Formality = React.createClass({
   propTypes: {
     field: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired
   },
 
   render: function() {
-    const { field, id, name, slug } = this.props;
+    const { field, id, image, name, slug } = this.props;
 
     const frequencyTags = FREQUENCIES.map(function(frequency, index) {
       const inputID = `${id}-${slug}-${frequency.slug}`;
@@ -35,7 +36,7 @@ const Formality = React.createClass({
         {errorTag}
 
         <figure className="c--formality__example">
-          <img className="c--formality__example__image" src={`https://placehold.it/200x250?text=${name}`} />
+          <img className="c--formality__example__image" src={image} alt={`A man wearing ${name}`} />
           <figcaption className="c--formality__example__caption">{name}</figcaption>
         </figure>
 
