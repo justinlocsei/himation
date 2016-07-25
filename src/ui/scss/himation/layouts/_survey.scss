@@ -3,23 +3,37 @@
 }
 
 .l--survey__field {
-  & + & {
-    margin-top: 3em;
-  }
+
 }
 
 .l--survey__field__title {
-
+  background-color: $himation--text-color;
+  color: $himation--text-contrasting-color;
+  display: block;
+  font-size: 1.25em;
+  font-weight: $himation--font-weight-light;
+  padding: 1.5em;
+  text-align: center;
+  width: 100%;
 }
 
 .l--survey__field__content {
-
+  margin-top: 1em;
+  padding: 0 $himation--site-gutter;
 }
 
 .l--survey__buttons {
   margin-top: 3em;
+  text-align: center;
 }
 
 .l--survey__submit-button {
-
+  background-color: $himation--branding-secondary-color;
+  border: 0;
+  color: $himation--branding-text-color;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.5em;
+  font-weight: $himation--font-weight-light;
+  padding: 1em 2em;
 }
