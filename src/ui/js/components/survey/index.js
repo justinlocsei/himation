@@ -86,7 +86,7 @@ let Survey = React.createClass({
         </Field>
 
         <fieldset className="l--survey__buttons">
-          <button className="l--survey__submit-button" type="submit" disabled={isSubmitting}>Make Recommendations</button>
+          <button className="l--survey__submit-button" type="submit" disabled={isSubmitting}>See Recommendations</button>
         </fieldset>
 
       </form>
