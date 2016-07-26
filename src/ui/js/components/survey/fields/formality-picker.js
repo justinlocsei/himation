@@ -4,7 +4,7 @@ import Formality from './formality';
 import { FORMALITIES } from 'himation/core/data/survey';
 
 const images = FORMALITIES.reduce(function(previous, formality) {
-  previous[formality.slug] = require(`himation/images/formalities/${formality.slug}.jpg`);
+  previous[formality.slug] = require(`himation/images/formalities/${formality.slug}-2x.jpg`);
   return previous;
 }, {});
 
