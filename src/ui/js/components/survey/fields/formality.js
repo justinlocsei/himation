@@ -35,14 +35,17 @@ const Formality = React.createClass({
       <div className="c--formality">
         {errorTag}
 
-        <figure className="c--formality__example">
-          <img className="c--formality__example__image" src={image} alt={`A man wearing ${name}`} />
-          <figcaption className="c--formality__example__caption">{name}</figcaption>
-        </figure>
+        <p className="c--formality__name">{name}</p>
 
-        <ul className="c--formality__frequencies">
-          {frequencyTags}
-        </ul>
+        <div className="c--formality__details">
+          <div className="c--formality__example">
+            <img className="c--formality__example__image" src={image} alt={`A man wearing ${name}`} />
+          </div>
+
+          <ul className="c--formality__frequencies">
+            {frequencyTags}
+          </ul>
+        </div>
 
         <input type="hidden" {...field.slug} />
       </div>

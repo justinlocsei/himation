@@ -1,11 +1,47 @@
+@import "himation/mixins/responsive";
+
+$_formality-picker--grid-h-spacing: 1em;
+$_formality-picker--grid-v-spacing: 1em;
+
 .c--formality-picker {
 
 }
 
 .c--formality-picker__formalities {
   display: flex;
+  flex-wrap: wrap;
+  margin: $_formality-picker--grid-v-spacing * -1 $_formality-picker--grid-h-spacing * -1;
 }
 
 .c--formality-picker__formality {
-  flex: 1;
+  box-sizing: border-box;
+  flex: 1 1 (100% / 3);
+  padding: $_formality-picker--grid-v-spacing $_formality-picker--grid-h-spacing;
+}
+
+@include himation--breakpoint-condensed {
+
+  .c--formality-picker__formality {
+    flex-basis: 50%;
+  }
+
+}
+
+@include himation--breakpoint-tablet {
+
+  .c--formality-picker__formality {
+    flex-basis: (100% / 3);
+  }
+
+}
+
+@include himation--breakpoint-phone {
+
+  .c--formality-picker__formalities {
+    flex-direction: column;
+  }
+  .c--formality-picker__formality {
+    flex-basis: auto;
+  }
+
 }
