@@ -1,3 +1,5 @@
+@import "himation/mixins/typography";
+
 .l--survey {
 
 }
@@ -7,23 +9,22 @@
 }
 
 .l--survey__field__title {
+  @include himation--font-stack-serif;
   background-color: $himation--text-color;
   color: $himation--text-contrasting-color;
   display: block;
-  font-size: 1.25em;
+  font-size: 1.5em;
+  font-style: italic;
   font-weight: $himation--font-weight-light;
-  padding: 1.5em;
-  text-align: center;
+  padding: 1.5em $himation--site-gutter;
   width: 100%;
 }
 
 .l--survey__field__content {
-  margin-top: 1em;
-  padding: 0 $himation--site-gutter;
+  padding: 3em $himation--site-gutter;
 }
 
 .l--survey__buttons {
-  margin-top: 3em;
   text-align: center;
 }
 
