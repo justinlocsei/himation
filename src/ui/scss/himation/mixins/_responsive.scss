@@ -23,11 +23,6 @@ $himation--breakpoint-phone-width: 30em;
     @content;
   }
 }
-@mixin himation--breakpoint-tablet-only {
-  @include himation--breakpoint($himation--breakpoint-tablet-width, $himation--breakpoint-phone-width) {
-    @content;
-  }
-}
 
 // Apply styles for low-width phone-like viewports
 @mixin himation--breakpoint-phone {
