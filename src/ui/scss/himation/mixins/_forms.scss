@@ -1,0 +1,99 @@
+@import "himation/mixins/layout";
+
+// Apply form-input styles to a caller that contains an input and a label
+//
+// This expects the caller to be a container for an input tag followed by a
+// label tag.
+//
+// @param <length> $padding The padding to apply to the input
+@mixin himation--input-label-pair($padding) {
+
+  input {
+    @include himation--hide;
+  }
+
+  label {
+    background-color: $himation--input-bg-color;
+    border: 1px solid $himation--input-border-color;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: $himation--font-weight-semi-bold;
+    padding: $padding;
+  }
+
+  label:hover,
+  input:focus + label {
+    background-color: darken($himation--input-bg-color, 5%);
+    border-color: darken($himation--input-border-color, 10%);
+  }
+
+  input:focus + label {
+    border-color: darken($himation--input-border-color, 25%);
+  }
+
+  input:checked + label {
+    background-color: $himation--input-active-bg-color;
+    border-color: $himation--input-active-border-color;
+    box-shadow: 0 0 0 1px $himation--input-active-border-color inset;
+    color: $himation--branding-text-color;
+  }
+
+  input:checked:focus + label {
+    box-shadow: 0 0 0 1px $himation--branding-text-color inset;
+  }
+
+}
+
+// Show a radio input as simple block with a hidden input
+//
+// @param <length> $padding The padding to apply to the input
+@mixin himation--radio-button-container($padding: 1em) {
+  @include himation--input-label-pair($padding);
+}
+
+// Show an checkbox input using a styled, managed checkbox
+//
+// @param <length> $padding The padding to apply to the input
+// @param <length> $checkbox-size The size of the checkbox
+@mixin himation--checkbox-container($padding: 1em, $checkbox-size: 0.75em) {
+  @include himation--input-label-pair($padding);
+
+  label {
+    padding-left: $padding * 2 + $checkbox-size;
+    position: relative;
+
+    &::before {
+      background-color: $himation--page-bg-color;
+      border: 2px solid currentColor;
+      content: "";
+      display: block;
+      height: $checkbox-size;
+      left: $padding;
+      margin-top: -0.5em;
+      position: absolute;
+      top: 50%;
+      width: $checkbox-size;
+    }
+  }
+
+  input:checked + label {
+    &::before {
+      background-color: $himation--input-active-border-color;
+      border-color: $himation--input-active-border-color;
+    }
+
+    &::after {
+      border: 0.125em solid currentColor;
+      border-right: 0;
+      border-top: 0;
+      content: "";
+      height: $checkbox-size * 0.25;
+      left: $padding + $checkbox-size * 0.25;
+      margin-top: -0.25em;
+      position: absolute;
+      top: 50%;
+      transform: rotate(-45deg);
+      width: $checkbox-size * 0.75;
+    }
+  }
+}
