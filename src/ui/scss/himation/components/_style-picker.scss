@@ -18,6 +18,7 @@ $_style-picker--grid-h-spacing: 0.5em;
   box-sizing: border-box;
   flex: 1 1 (100% / 3);
   padding: $_style-picker--grid-v-spacing $_style-picker--grid-h-spacing;
+  white-space: nowrap;
 }
 
 .c--style-picker__style__input {
