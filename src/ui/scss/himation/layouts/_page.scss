@@ -1,3 +1,5 @@
+@import "himation/mixins/responsive";
+
 .l--page {
 
 }
@@ -10,5 +12,14 @@
 }
 
 .l--page__content {
+
+}
+
+@include himation--breakpoint-phone {
+
+  .l--page__title {
+    padding-left: $himation--site-condensed-gutter;
+    padding-right: $himation--site-condensed-gutter;
+  }
 
 }

@@ -94,10 +94,14 @@ $_site--footer-v-padding: 4em;
 
 @include himation--breakpoint-phone {
 
+  .l--site__header {
+    padding-left: $himation--site-condensed-gutter;
+    padding-right: $himation--site-condensed-gutter;
+  }
+
   .l--site__footer {
     flex-direction: column;
-    padding-bottom: $_site--footer-v-padding * 0.5;
-    padding-top: $_site--footer-v-padding * 0.5;
+    padding: $_site--footer-v-padding * 0.5 $himation--site-condensed-gutter;
   }
   .l--site__footer__links {
     margin-bottom: 1.5em;

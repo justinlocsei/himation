@@ -1,3 +1,4 @@
+@import "himation/mixins/responsive";
 @import "himation/mixins/typography";
 
 .l--survey {
@@ -40,4 +41,14 @@
   font-size: 1.5em;
   font-weight: $himation--font-weight-light;
   padding: 1em 2em;
+}
+
+@include himation--breakpoint-phone {
+
+  .l--survey__field__title,
+  .l--survey__field__content {
+    padding-left: $himation--site-condensed-gutter;
+    padding-right: $himation--site-condensed-gutter;
+  }
+
 }
