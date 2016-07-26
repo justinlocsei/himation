@@ -11,6 +11,9 @@
 .l--survey__field__title {
   @include himation--font-stack-serif;
   background-color: $himation--text-color;
+  border: 1px solid darken($himation--text-color, 50%);
+  border-left: 0;
+  border-right: 0;
   color: $himation--text-contrasting-color;
   display: block;
   font-size: 1.5em;
