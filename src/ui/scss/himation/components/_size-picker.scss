@@ -1,3 +1,8 @@
+@import "himation/mixins/forms";
+@import "himation/mixins/responsive";
+
+$_size-picker--gutter: 1em;
+
 .c--size-picker {
 
 }
@@ -6,12 +11,29 @@
 
 }
 
-.c--size-picker__sizes {
+.c--size-picker__groups {
+  display: flex;
+  margin: 0 $_size-picker--gutter * -1;
+}
+
+.c--size-picker__group {
+  flex: 1;
+  padding: 0 $_size-picker--gutter;
+}
+
+.c--size-picker__group__name {
+  font-weight: $himation--font-weight-bold;
+  text-transform: uppercase;
+}
+
+.c--size-picker__group__sizes {
 
 }
 
 .c--size-picker__size {
-
+  @include himation--checkbox-container($padding: 1em);
+  font-size: 0.9em;
+  margin: $_size-picker--gutter 0;
 }
 
 .c--size-picker__size__input {
@@ -19,5 +41,43 @@
 }
 
 .c--size-picker__size__label {
+  display: block;
+}
+
+@include himation--breakpoint-tablet {
+
+  .c--size-picker__groups {
+    flex-direction: column;
+  }
+
+  .c--size-picker__group__name {
+    margin-bottom: $_size-picker--gutter;
+  }
+
+  .c--size-picker__group {
+    & + & {
+      margin-top: $_size-picker--gutter * 2;
+    }
+  }
+
+  .c--size-picker__group__sizes {
+    display: flex;
+    flex-wrap: wrap;
+    margin: $_size-picker--gutter * -0.5;
+  }
+  .c--size-picker__size {
+    flex: 1;
+    margin: 0;
+    padding: $_size-picker--gutter * 0.5;
+    white-space: nowrap;
+  }
+
+}
+
+@include himation--breakpoint-phone {
+
+  .c--size-picker__group__sizes {
+    flex-direction: column;
+  }
 
 }
