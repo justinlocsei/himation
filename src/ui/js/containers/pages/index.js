@@ -13,7 +13,7 @@ const HomePage = React.createClass({
     const submitSurvey = guidToRoute(routes, 'himation.recommendations');
 
     return (
-      <Page title="Home">
+      <Page>
         <Survey formAction={submitSurvey.path} formMethod={submitSurvey.method} />
       </Page>
     );
