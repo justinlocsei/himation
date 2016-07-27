@@ -1,13 +1,20 @@
+@import "himation/mixins/forms";
+
+$_care-type-picker--gutter: 1em;
+
 .c--care-type-picker {
 
 }
 
 .c--care-type-picker__types {
-
+  display: flex;
+  margin: 0 $_care-type-picker--gutter * -1;
 }
 
 .c--care-type-picker__type {
-
+  @include himation--checkbox-container($padding: 1em);
+  flex: 1;
+  padding: 0 $_care-type-picker--gutter;
 }
 
 .c--care-type-picker__type__input {
@@ -15,5 +22,5 @@
 }
 
 .c--care-type-picker__type__label {
-
+  display: block;
 }

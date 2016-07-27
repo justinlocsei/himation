@@ -6,10 +6,18 @@
 
 }
 
-.c--birth-year-picker__label {
-
+.c--birth-year-picker__field {
+  align-items: center;
+  display: flex;
 }
 
-.c--birth-year-picker__years {
+.c--birth-year-picker__label {
+  font-weight: $himation--font-weight-semi-bold;
+  margin-right: 0.5em;
+}
 
+.c--birth-year-picker__input {
+  font-size: 1.25em;
+  padding: 0.25em;
+  width: 3.5em;
 }

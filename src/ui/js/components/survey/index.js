@@ -76,12 +76,10 @@ let Survey = React.createClass({
           />
         </Field>
 
-        <Field slug="birth-year" title="When were you born?">
+        <Field slug="birth-year" title="How old are you?">
           <BirthYearPicker
             field={fields.birthYear}
             id="survey-birth-year"
-            rangeEnd={new Date().getFullYear()}
-            rangeStart={1950}
           />
         </Field>
 
