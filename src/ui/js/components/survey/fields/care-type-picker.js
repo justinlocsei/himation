@@ -12,23 +12,21 @@ const CareTypePicker = React.createClass({
   render: function() {
     const { fields, id } = this.props;
 
-    const careTags = fields.map(function(field, index) {
-      const careType = CARE_TYPES.find(ct => ct.slug === field.slug.value);
-      const inputID = `${id}-${careType.slug}`;
-
-      return (
-        <li className="c--care-type-picker__type" key={index}>
-          <input className="c--care-type-picker__type__input" id={inputID} type="checkbox" {...field.isSelected} value={null} checked={field.isSelected.value} />
-          <label className="c--care-type-picker__type__label" htmlFor={inputID}>{careType.name}</label>
-          <input type="hidden" {...field.slug} />
-        </li>
-      );
-    });
-
     return (
       <div className="c--care-type-picker">
         <ul className="c--care-type-picker__types">
-          {careTags}
+          {fields.map(function(field, index) {
+            const careType = CARE_TYPES.find(ct => ct.slug === field.slug.value);
+            const inputID = `${id}-${careType.slug}`;
+
+            return (
+              <li className="c--care-type-picker__type" key={index}>
+                <input className="c--care-type-picker__type__input" id={inputID} type="checkbox" {...field.isSelected} value={null} checked={field.isSelected.value} />
+                <label className="c--care-type-picker__type__label" htmlFor={inputID}>Avoid {careType.name.toLowerCase()}</label>
+                <input type="hidden" {...field.slug} />
+              </li>
+            );
+          })}
         </ul>
       </div>
     );

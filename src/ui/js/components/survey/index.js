@@ -69,7 +69,7 @@ let Survey = React.createClass({
           />
         </Field>
 
-        <Field slug="care-types" title="Should we avoid any of the following care types?">
+        <Field slug="care-types" title="How do you feel about delicate clothes?">
           <CareTypePicker
             fields={fields.careTypes}
             id="survey-care-types"

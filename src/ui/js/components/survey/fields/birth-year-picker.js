@@ -1,21 +1,14 @@
 import React, { PropTypes } from 'react';
-import { range } from 'lodash';
 
 const BirthYearInput = React.createClass({
 
   propTypes: {
     field: PropTypes.object.isRequired,
-    id: PropTypes.string.isRequired,
-    rangeEnd: PropTypes.number.isRequired,
-    rangeStart: PropTypes.number.isRequired
+    id: PropTypes.string.isRequired
   },
 
   render: function() {
-    const { field, id, rangeEnd, rangeStart } = this.props;
-
-    const options = range(rangeStart, rangeEnd).map(function(year) {
-      return <option value={year} key={year}>{year}</option>;
-    });
+    const { field, id } = this.props;
 
     let errorTag;
     if (field.touched && field.error) {
@@ -30,11 +23,11 @@ const BirthYearInput = React.createClass({
     return (
       <div className={classes.join(' ')}>
         {errorTag}
-        <label className="c--birth-year-picker__label" htmlFor={id}>Select a year</label>
-        <select className="c--birth-year-picker__years" id={id} {...field} value={field.value || ''}>
-          <option></option>
-          {options}
-        </select>
+
+        <div className="c--birth-year-picker__field">
+          <label className="c--birth-year-picker__label" htmlFor={id}>Enter your birth year</label>
+          <input className="c--birth-year-picker__input" type="number" id={id} {...field} value={field.value || ''} placeholder="YYYY" />
+        </div>
       </div>
     );
   }
