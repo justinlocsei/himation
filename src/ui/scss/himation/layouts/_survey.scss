@@ -2,7 +2,7 @@
 @import "himation/mixins/typography";
 
 .l--survey {
-
+  counter-reset: survey;
 }
 
 .l--survey__field {
@@ -10,25 +10,29 @@
 }
 
 .l--survey__field__title {
-  @include himation--font-stack-serif;
-  background-color: $himation--text-color;
-  border: 1px solid darken($himation--text-color, 50%);
-  border-left: 0;
-  border-right: 0;
-  color: $himation--text-contrasting-color;
+  counter-increment: survey;
   display: block;
   font-size: 1.5em;
-  font-style: italic;
   font-weight: $himation--font-weight-light;
-  padding: 1.5em $himation--site-gutter;
+  padding: 3em $himation--site-gutter 0.5em;
   width: 100%;
+
+  &::before {
+    content: counter(survey);
+    font-size: 2em;
+    font-weight: $himation--font-weight-bold;
+    margin-right: 0.5em;
+    vertical-align: sub;
+  }
 }
 
 .l--survey__field__content {
+  background-color: #eee;
   padding: 3em $himation--site-gutter;
 }
 
 .l--survey__buttons {
+  margin-top: 4em;
   text-align: center;
 }
 
