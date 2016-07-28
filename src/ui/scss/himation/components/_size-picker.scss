@@ -31,11 +31,11 @@ $_size-picker--gutter: 1em;
 }
 
 .c--size-picker__group__sizes {
-  @include himation--input-shadow;
+
 }
 
 .c--size-picker__size {
-  @include himation--checkbox-container($padding: 1em, $shadow: false);
+  @include himation--checkbox-container($padding: 1em);
   font-size: 0.85em;
 }
 

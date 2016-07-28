@@ -1,18 +1,12 @@
 @import "himation/mixins/layout";
 
-// Apply a box shadow for use with form elements to the caller
-@mixin himation--input-shadow {
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.125);
-}
-
 // Apply form-input styles to a caller that contains an input and a label
 //
 // This expects the caller to be a container for an input tag followed by a
 // label tag.
 //
 // @param <length> $padding The padding to apply to the input
-// @param <boolean> $shadow Whether to show a shadow
-@mixin himation--input-label-pair($padding, $shadow) {
+@mixin himation--input-label-pair($padding) {
 
   input {
     @include himation--hide;
@@ -25,10 +19,6 @@
     cursor: pointer;
     font-weight: $himation--font-weight-semi-bold;
     padding: $padding;
-
-    @if $shadow {
-      @include himation--input-shadow;
-    }
   }
 
   label:hover,
@@ -56,18 +46,16 @@
 // Show a radio input as simple block with a hidden input
 //
 // @param <length> $padding The padding to apply to the input
-// @param <boolean> $shadow Whether to show a shadow
-@mixin himation--radio-button-container($padding: 1em, $shadow: true) {
-  @include himation--input-label-pair($padding, $shadow);
+@mixin himation--radio-button-container($padding: 1em) {
+  @include himation--input-label-pair($padding);
 }
 
 // Show an checkbox input using a styled, managed checkbox
 //
 // @param <length> $padding The padding to apply to the input
 // @param <length> $checkbox-size The size of the checkbox
-// @param <boolean> $shadow Whether to show a shadow
-@mixin himation--checkbox-container($padding: 1em, $checkbox-size: 0.75em, $shadow: true) {
-  @include himation--input-label-pair($padding, $shadow);
+@mixin himation--checkbox-container($padding: 1em, $checkbox-size: 0.75em) {
+  @include himation--input-label-pair($padding);
 
   label {
     padding-left: $padding * 2 + $checkbox-size;

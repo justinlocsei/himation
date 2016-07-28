@@ -19,7 +19,6 @@
 }
 
 .c--formality__details {
-  @include himation--input-shadow;
   background-color: $himation--page-bg-color;
   display: flex;
 }
@@ -43,7 +42,7 @@
 }
 
 .c--formality__frequency {
-  @include himation--radio-button-container($padding: 1em, $shadow: false);
+  @include himation--radio-button-container($padding: 1em);
   font-size: 0.8em;
 
   & + & {

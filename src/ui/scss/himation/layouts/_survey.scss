@@ -28,6 +28,9 @@
 
 .l--survey__field__content {
   background-color: #eee;
+  border: 1px solid #ddd;
+  border-left: 0;
+  border-right: 0;
   padding: 3em $himation--site-gutter;
 }
 
