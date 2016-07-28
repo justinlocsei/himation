@@ -22,18 +22,21 @@ $_size-picker--gutter: 1em;
 }
 
 .c--size-picker__group__name {
+  color: $himation--text-accent-color;
+  font-size: 0.85em;
   font-weight: $himation--font-weight-bold;
+  margin-bottom: $_size-picker--gutter;
+  padding-left: 1em;
   text-transform: uppercase;
 }
 
 .c--size-picker__group__sizes {
-
+  @include himation--input-shadow;
 }
 
 .c--size-picker__size {
-  @include himation--checkbox-container($padding: 1em);
-  font-size: 0.9em;
-  margin: $_size-picker--gutter 0;
+  @include himation--checkbox-container($padding: 1em, $shadow: false);
+  font-size: 0.85em;
 }
 
 .c--size-picker__size__input {
