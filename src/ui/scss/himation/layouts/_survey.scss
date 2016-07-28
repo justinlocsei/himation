@@ -12,9 +12,9 @@
 .l--survey__field__title {
   counter-increment: survey;
   display: block;
-  font-size: 1.5em;
+  font-size: 1.75em;
   font-weight: $himation--font-weight-light;
-  padding: 3em $himation--site-gutter 0.5em;
+  padding: 3em $himation--site-gutter 0.25em;
   width: 100%;
 
   &::before {
