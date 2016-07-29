@@ -1,5 +1,8 @@
+@import "himation/functions/typography";
 @import "himation/mixins/forms";
 @import "himation/mixins/responsive";
+
+$_formality--text-gutter: 1em;
 
 .c--formality {
 
@@ -9,27 +12,36 @@
 
 }
 
-.c--formality__name {
-  color: $himation--text-accent-color;
-  font-size: 0.8em;
-  font-weight: $himation--font-weight-bold;
-  padding-bottom: 1em;
-  text-align: center;
-  text-transform: uppercase;
-}
-
 .c--formality__details {
-  background-color: $himation--page-bg-color;
+  align-items: center;
   display: flex;
 }
 
-.c--formality__example {
+.c--formality__media {
   flex: 1;
 }
 
-.c--formality__example__image {
+.c--formality__media__image {
   display: block;
-  max-width: 100%;
+  margin: 0 auto;
+  max-width: 9em;
+}
+
+.c--formality__text {
+  flex: 2;
+}
+
+.c--formality__name {
+  $_font-size: 0.75em;
+
+  color: $himation--text-muted-color;
+  font-size: $_font-size;
+  font-weight: $himation--font-weight-normal;
+  letter-spacing: 1px;
+  margin-bottom: 2em;
+  padding-left: himation--relative-em($_formality--text-gutter, $_font-size);
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .c--formality__frequencies {
@@ -37,16 +49,16 @@
   flex: 1;
   flex-direction: column;
   justify-content: center;
-  padding: 0 1em;
+  padding-left: $_formality--text-gutter;
   text-align: center;
 }
 
 .c--formality__frequency {
-  @include himation--radio-button-container($padding: 1em);
+  @include himation--radio-button-container($padding: 0.75em);
   font-size: 0.8em;
 
   & + & {
-    border-top: 1px solid $himation--input-border-color;
+    margin-top: 0.5em;
   }
 }
 
