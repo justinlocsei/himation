@@ -13,7 +13,7 @@
   display: block;
   font-size: 1.75em;
   font-weight: $himation--font-weight-light;
-  padding: 3em $himation--site-gutter 0.5em;
+  padding: 2.5em $himation--site-gutter 0.5em;
   width: 100%;
 }
 
@@ -22,7 +22,7 @@
   border: 1px solid darken($himation--form-field-bg-color, 10%);
   border-left: 0;
   border-right: 0;
-  padding: 3em $himation--site-gutter;
+  padding: 2.5em $himation--site-gutter;
 }
 
 .l--survey__buttons {
