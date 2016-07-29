@@ -1,4 +1,5 @@
 @import "himation/mixins/forms";
+@import "himation/mixins/responsive";
 
 $_care-type-picker--gutter: 1em;
 
@@ -22,5 +23,19 @@ $_care-type-picker--gutter: 1em;
 }
 
 .c--care-type-picker__type__label {
+
+}
+
+@include himation--breakpoint-phone {
+
+  .c--care-type-picker__types {
+    flex-direction: column;
+  }
+
+  .c--care-type-picker__type {
+    & + & {
+      margin-top: $_care-type-picker--gutter;
+    }
+  }
 
 }
