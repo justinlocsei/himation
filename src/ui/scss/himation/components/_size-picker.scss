@@ -24,7 +24,7 @@ $_size-picker--gutter: 1em;
 .c--size-picker__group__name {
   background-color: $himation--text-color;
   color: $himation--text-contrasting-color;
-  font-size: 0.85em;
+  font-size: 0.9em;
   font-weight: $himation--font-weight-light;
   letter-spacing: 1px;
   margin-bottom: 0.5em;
@@ -39,7 +39,6 @@ $_size-picker--gutter: 1em;
 
 .c--size-picker__size {
   @include himation--checkbox-container($padding: 1em, $is-stacked: true);
-  font-size: 0.85em;
 }
 
 .c--size-picker__size__input {

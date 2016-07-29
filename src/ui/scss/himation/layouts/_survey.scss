@@ -11,7 +11,7 @@
 
 .l--survey__field__title {
   display: block;
-  font-size: 1.75em;
+  font-size: 1.5em;
   font-weight: $himation--font-weight-light;
   padding: 2.5em $himation--site-gutter 0.5em;
   width: 100%;
@@ -22,7 +22,8 @@
   border: 1px solid darken($himation--form-field-bg-color, 10%);
   border-left: 0;
   border-right: 0;
-  padding: 2.5em $himation--site-gutter;
+  font-size: 0.85em;
+  padding: 2em $himation--site-gutter;
 }
 
 .l--survey__buttons {
