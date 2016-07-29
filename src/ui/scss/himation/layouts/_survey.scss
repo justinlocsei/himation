@@ -27,8 +27,8 @@
 }
 
 .l--survey__field__content {
-  background-color: #eee;
-  border: 1px solid #ddd;
+  background-color: $himation--form-field-bg-color;
+  border: 1px solid darken($himation--form-field-bg-color, 10%);
   border-left: 0;
   border-right: 0;
   padding: 3em $himation--site-gutter;
