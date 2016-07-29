@@ -51,6 +51,19 @@ $_size-picker--gutter: 1em;
 
 }
 
+.c--size-picker__size__name {
+
+}
+
+.c--size-picker__size__range {
+  font-weight: $himation--font-weight-normal;
+  letter-spacing: 1px;
+  margin-left: 0.375em;
+
+  &::before { content: "("; }
+  &::after { content: ")"; }
+}
+
 @include himation--breakpoint-tablet {
 
   .c--size-picker__groups {

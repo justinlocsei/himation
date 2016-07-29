@@ -45,10 +45,20 @@ const SizePicker = React.createClass({
 
                     if (!field) { return sizes; }
 
+                    let range;
+                    if (size.rangeMin === size.rangeMax) {
+                      range = size.rangeMin;
+                    } else {
+                      range = `${size.rangeMin}${String.fromCharCode(8211)}${size.rangeMax}`;
+                    }
+
                     sizes.push(
                       <li className="c--size-picker__size" key={sizeIndex}>
                         <input className="c--size-picker__size__input" id={inputID} type="checkbox" {...field.isSelected} value={null} checked={field.isSelected.value} />
-                        <label className="c--size-picker__size__label" htmlFor={inputID}>{size.name}</label>
+                        <label className="c--size-picker__size__label" htmlFor={inputID}>
+                          <span className="c--size-picker__size__name">{size.name}</span>
+                          <span className="c--size-picker__size__range">{range}</span>
+                        </label>
                         <input type="hidden" {...field.slug} />
                       </li>
                     );
