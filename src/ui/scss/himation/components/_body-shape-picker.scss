@@ -1,3 +1,5 @@
+$_body-shape-picker--gutter: 1em;
+
 .c--body-shape-picker {
 
 }
@@ -8,9 +10,11 @@
 
 .c--body-shape-picker__body-shapes {
   display: flex;
+  margin: $_body-shape-picker--gutter * -1;
 }
 
 .c--body-shape-picker__body-shape {
   flex: 1;
+  padding: $_body-shape-picker--gutter;
 }
 

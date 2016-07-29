@@ -1,21 +1,26 @@
+@import "himation/mixins/forms";
+
 .c--body-shape {
-
-}
-
-.c--body-shape__label {
-
+  @include himation--radio-button-container;
 }
 
 .c--body-shape__example {
-
+  display: block;
 }
 
-.c--body-shape__example__image {
-  max-width: 10em;
+.c--body-shape__graphic {
+  text-align: center;
 }
 
-.c--body-shape__example__caption {
+.c--body-shape__graphic__image {
+  display: block;
+  margin: 0 auto;
+  max-height: 20em;
+  max-width: 100%;
+}
 
+.c--body-shape__graphic__caption {
+  margin-top: 1em;
 }
 
 .c--body-shape__input {
