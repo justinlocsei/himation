@@ -22,12 +22,14 @@ $_size-picker--gutter: 1em;
 }
 
 .c--size-picker__group__name {
-  color: $himation--text-accent-color;
+  background-color: $himation--text-color;
+  color: $himation--text-contrasting-color;
   font-size: 0.85em;
-  font-weight: $himation--font-weight-bold;
-  margin-bottom: $_size-picker--gutter;
-  padding-left: 1em;
+  font-weight: $himation--font-weight-light;
+  letter-spacing: 1px;
+  padding: 1em;
   text-transform: uppercase;
+  width: 100%;
 }
 
 .c--size-picker__group__sizes {
