@@ -6,16 +6,22 @@ const SurveyField = React.createClass({
 
   propTypes: {
     children: childProps.multiple.isRequired,
+    help: PropTypes.string,
     slug: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
   },
 
   render: function() {
-    const { children, slug, title } = this.props;
+    const { children, help, slug, title } = this.props;
+
+    let helpTag;
+    if (help) {
+      helpTag = <span className="l--survey__field__title__help">{help}</span>;
+    }
 
     return (
       <fieldset className={`l--survey__field for-${slug}`}>
-        <legend className="l--survey__field__title">{title}</legend>
+        <legend className="l--survey__field__title">{title}{helpTag}</legend>
 
         <div className="l--survey__field__content">
           {children}

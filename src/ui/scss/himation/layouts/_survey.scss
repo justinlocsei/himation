@@ -19,6 +19,13 @@ $_survey--button-h-padding: 10%;
   width: 100%;
 }
 
+.l--survey__field__title__help {
+  color: $himation--text-muted-color;
+  display: block;
+  font-size: 0.75em;
+  margin-top: 0.25em;
+}
+
 .l--survey__field__content {
   background-color: $himation--form-field-bg-color;
   border: 1px solid darken($himation--form-field-bg-color, 10%);
