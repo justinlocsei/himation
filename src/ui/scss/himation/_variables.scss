@@ -15,12 +15,11 @@ $himation--font-weight-normal: 400;
 $himation--font-weight-semi-bold: 500;
 $himation--font-weight-bold: 700;
 
+$himation--form-field-bg-color: #eee;
 $himation--input-bg-color: #fff;
-$himation--input-border-color: #ccc;
+$himation--input-border-color: #ddd;
 $himation--input-active-bg-color: $himation--branding-secondary-color;
 $himation--input-active-border-color: darken($himation--input-active-bg-color, 25%);
-
-$himation--form-field-bg-color: #eee;
 
 $himation--z-page: 1;
 $himation--z-flat: 2;

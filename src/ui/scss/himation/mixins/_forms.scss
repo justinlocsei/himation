@@ -6,7 +6,8 @@
 // label tag.
 //
 // @param <length> $padding The padding to apply to the input
-@mixin himation--input-label-pair($padding) {
+// @param <boolean> $is-stacked Whether the input is stacked with others
+@mixin himation--input-label-pair($padding, $is-stacked) {
 
   input {
     @include himation--hide;
@@ -14,31 +15,63 @@
 
   label {
     background-color: $himation--input-bg-color;
-    border: 1px solid $himation--input-bg-color;
     box-sizing: border-box;
     cursor: pointer;
     font-weight: $himation--font-weight-semi-bold;
     padding: $padding;
+
+    @if $is-stacked {
+      border-left: 1px solid $himation--input-bg-color;
+    } @else {
+      border: 1px solid $himation--input-bg-color;
+      border-bottom-color: $himation--input-border-color;
+    }
   }
 
   label:hover,
   input:focus + label {
-    background-color: darken($himation--input-bg-color, 2%);
-    border-color: darken($himation--input-bg-color, 2%);
+    $_bg-color: mix($himation--form-field-bg-color, $himation--input-bg-color, 50%);
+
+    background-color: $_bg-color;
+    border-color: $_bg-color;
+
+    @if not $is-stacked {
+      border-bottom-color: $himation--input-border-color;
+    }
   }
 
   input:focus + label {
-    border-color: darken($himation--input-border-color, 10%);
+    @if $is-stacked {
+      border-left-color: darken($himation--input-border-color, 10%);
+      box-shadow: 1px 0 0 darken($himation--input-border-color, 10%) inset;
+    } @else {
+      border-color: darken($himation--input-border-color, 10%);
+    }
   }
 
   input:checked + label {
     background-color: $himation--input-active-bg-color;
-    border-color: $himation--input-active-bg-color;
     color: $himation--branding-text-color;
+
+    @if $is-stacked {
+      border-color: $himation--input-active-bg-color;
+    } @else {
+      border-color: $himation--input-active-border-color;
+    }
+  }
+
+  input:checked + label:hover,
+  input:checked:focus + label {
+    background-color: darken($himation--input-active-bg-color, 5%);
   }
 
   input:checked:focus + label {
-    border-color: $himation--input-active-border-color;
+    @if $is-stacked {
+      border-color: $himation--input-active-border-color;
+      box-shadow: 1px 0 0 $himation--input-active-border-color inset;
+    } @else {
+      box-shadow: 0 0 0 1px rgba($himation--branding-text-color, 75%) inset;
+    }
   }
 
 }
@@ -46,16 +79,18 @@
 // Show a radio input as simple block with a hidden input
 //
 // @param <length> $padding The padding to apply to the input
-@mixin himation--radio-button-container($padding: 1em) {
-  @include himation--input-label-pair($padding);
+// @param <boolean> $is-stacked Whether the input is stacked with others
+@mixin himation--radio-button-container($padding: 1em, $is-stacked: false) {
+  @include himation--input-label-pair($padding, $is-stacked);
 }
 
 // Show an checkbox input using a styled, managed checkbox
 //
 // @param <length> $padding The padding to apply to the input
 // @param <length> $checkbox-size The size of the checkbox
-@mixin himation--checkbox-container($padding: 1em, $checkbox-size: 0.75em) {
-  @include himation--input-label-pair($padding);
+// @param <boolean> $is-stacked Whether the input is stacked with others
+@mixin himation--checkbox-container($padding: 1em, $checkbox-size: 0.75em, $is-stacked: false) {
+  @include himation--input-label-pair($padding, $is-stacked);
 
   label {
     padding-left: $padding * 2 + $checkbox-size;
