@@ -1,6 +1,8 @@
 @import "himation/mixins/responsive";
 @import "himation/mixins/typography";
 
+$_survey--button-h-padding: 10%;
+
 .l--survey {
 
 }
@@ -41,7 +43,7 @@
   display: inline-block;
   font-size: 1.25em;
   font-weight: $himation--font-weight-semi-bold;
-  padding: 1.25em 10%;
+  padding: 1.25em $_survey--button-h-padding;
   text-transform: uppercase;
 
   &:hover,
@@ -62,6 +64,12 @@
   .l--survey__field__content {
     padding-left: $himation--site-condensed-gutter;
     padding-right: $himation--site-condensed-gutter;
+  }
+
+  .l--survey__submit-button {
+    $_padding: $_survey--button-h-padding * 0.5;
+    padding-left: $_padding;
+    padding-right: $_padding;
   }
 
 }
