@@ -27,19 +27,33 @@
 }
 
 .l--survey__buttons {
-  margin-top: 4em;
+  margin-top: 3em;
   text-align: center;
 }
 
 .l--survey__submit-button {
-  background-color: $himation--branding-secondary-color;
-  border: 0;
-  color: $himation--branding-text-color;
+  background-color: transparent;
+  border: 0.25em solid $himation--branding-primary-color;
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  color: $himation--branding-primary-color;
   cursor: pointer;
   display: inline-block;
-  font-size: 1.5em;
-  font-weight: $himation--font-weight-light;
-  padding: 1em 2em;
+  font-size: 1.25em;
+  font-weight: $himation--font-weight-semi-bold;
+  padding: 1.25em 10%;
+  text-transform: uppercase;
+
+  &:hover,
+  &:focus {
+    background-color: $himation--branding-primary-color;
+    color: $himation--branding-text-color;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 1px $himation--branding-text-color inset;
+    outline: 0;
+  }
 }
 
 @include himation--breakpoint-phone {
