@@ -3,8 +3,15 @@ import React, { PropTypes } from 'react';
 import Formality from './formality';
 import { FORMALITIES } from 'himation/core/data/survey';
 
-const images = FORMALITIES.reduce(function(previous, formality) {
-  previous[formality.slug] = require(`himation/images/formalities/${formality.slug}-2x.jpg`);
+const IMAGE_SIZES = ['1x', '2x'];
+
+const IMAGES = FORMALITIES.reduce(function(previous, formality) {
+  previous[formality.slug] = IMAGE_SIZES.map(function(size) {
+    return {
+      path: require(`himation/images/formalities/${formality.slug}-${size}.jpg`),
+      size: size
+    };
+  });
   return previous;
 }, {});
 
@@ -34,7 +41,7 @@ const FormalityPicker = React.createClass({
                 <Formality
                   field={field}
                   id={id}
-                  image={images[formality.slug]}
+                  images={IMAGES[formality.slug]}
                   name={formality.name}
                   slug={formality.slug}
                 />
