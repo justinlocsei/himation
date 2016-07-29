@@ -1,4 +1,5 @@
 @import "himation/mixins/layout";
+@import "himation/mixins/typography";
 
 // Apply form-input styles to a caller that contains an input and a label
 //
@@ -158,4 +159,41 @@
     }
   }
 
+}
+
+// Show the caller as an absolutely positioned error popover
+//
+// @param <length> $triangle-size The size of the triangle to show below the popover
+// @param <length> $elevation The elevation to use for the popover's shadow
+// @param <color> $shadow-color The color for the popover's shadow
+@mixin himation--error-popover($triangle-size: 0.5em, $elevation: 0.5em, $shadow-color: rgba(0, 0, 0, 0.125)) {
+  @include himation--font-stack-serif;
+  background-color: $himation--text-color;
+  box-shadow: 0 $elevation $elevation $shadow-color;
+  box-sizing: border-box;
+  color: $himation--text-contrasting-color;
+  font-size: 0.9em;
+  font-style: italic;
+  line-height: 1.25;
+  margin-bottom: $triangle-size;
+  padding: 1em;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  z-index: $himation--z-overlay;
+
+  &::after {
+    background-color: $himation--text-color;
+    box-shadow: $elevation $elevation $elevation * 2 $shadow-color;
+    content: "";
+    height: $triangle-size * 2;
+    left: 50%;
+    margin-left: $triangle-size * -1;
+    margin-top: $triangle-size * -1.25;
+    position: absolute;
+    top: 100%;
+    transform: rotateZ(45deg);
+    width: $triangle-size * 2;
+    z-index: -1;
+  }
 }
