@@ -2,7 +2,7 @@
 @import "himation/mixins/typography";
 
 .l--survey {
-  counter-reset: survey;
+
 }
 
 .l--survey__field {
@@ -10,20 +10,11 @@
 }
 
 .l--survey__field__title {
-  counter-increment: survey;
   display: block;
   font-size: 1.75em;
   font-weight: $himation--font-weight-light;
-  padding: 3em $himation--site-gutter 0.25em;
+  padding: 3em $himation--site-gutter 0.5em;
   width: 100%;
-
-  &::before {
-    content: counter(survey);
-    font-size: 2em;
-    font-weight: $himation--font-weight-bold;
-    margin-right: 0.5em;
-    vertical-align: sub;
-  }
 }
 
 .l--survey__field__content {
