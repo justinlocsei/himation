@@ -5,7 +5,12 @@ $_style-picker--grid-v-spacing: 0.25em;
 $_style-picker--grid-h-spacing: 0.25em;
 
 .c--style-picker {
+  position: relative;
+}
 
+.c--style-picker__error {
+  @include himation--error-popover;
+  bottom: 96%;
 }
 
 .c--style-picker__styles {
