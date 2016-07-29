@@ -1,4 +1,5 @@
 @import "himation/mixins/forms";
+@import "himation/mixins/responsive";
 
 $_style-picker--grid-v-spacing: 0.25em;
 $_style-picker--grid-h-spacing: 0.25em;
@@ -29,4 +30,12 @@ $_style-picker--grid-h-spacing: 0.25em;
   align-items: center;
   display: block;
   height: 100%;
+}
+
+@include himation--breakpoint-phone {
+
+  .c--style-picker__styles {
+    flex-direction: column;
+  }
+
 }
