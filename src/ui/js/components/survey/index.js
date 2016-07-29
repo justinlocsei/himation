@@ -148,7 +148,7 @@ export function validate(values) {
     if (!selectedStyles.length) {
       errors.styles = ['Please select at least one style'];
     } else if (selectedStyles.length > 3) {
-      errors.styles = ['Please select no more than three styles'];
+      errors.styles = ['Please select at most three styles'];
     }
   }
 
