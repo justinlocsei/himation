@@ -29,6 +29,7 @@ $_formality--text-gutter: 1em;
 
 .c--formality__text {
   flex: 2;
+  width: 100%;
 }
 
 .c--formality__name {
@@ -38,7 +39,7 @@ $_formality--text-gutter: 1em;
   font-size: $_font-size;
   font-weight: $himation--font-weight-normal;
   letter-spacing: 1px;
-  margin-bottom: 2em;
+  padding-bottom: 2em;
   padding-left: himation--relative-em($_formality--text-gutter, $_font-size);
   text-align: center;
   text-transform: uppercase;
@@ -75,9 +76,12 @@ $_formality--text-gutter: 1em;
   .c--formality__details {
     flex-direction: column;
   }
+
+  .c--formality__name {
+    padding: 2em 0;
+  }
   .c--formality__frequencies {
-    padding: 0;
-    padding-top: 1em;
+    padding-left: 0;
   }
 
 }
@@ -85,14 +89,14 @@ $_formality--text-gutter: 1em;
 @include himation--breakpoint-phone {
 
   .c--formality__details {
-    align-items: center;
     flex-direction: row;
   }
-  .c--formality__frequencies {
-    padding: 1em;
+
+  .c--formality__media {
+    padding-right: $_formality--text-gutter;
   }
-  .c--formality__frequency {
-    font-size: 0.7em;
+  .c--formality__name {
+    padding-top: 0;
   }
 
 }
