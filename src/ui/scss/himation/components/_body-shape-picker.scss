@@ -1,3 +1,5 @@
+@import "himation/mixins/responsive";
+
 $_body-shape-picker--gutter: 1em;
 
 .c--body-shape-picker {
@@ -10,11 +12,28 @@ $_body-shape-picker--gutter: 1em;
 
 .c--body-shape-picker__body-shapes {
   display: flex;
+  flex-wrap: wrap;
   margin: $_body-shape-picker--gutter * -1;
 }
 
 .c--body-shape-picker__body-shape {
-  flex: 1;
+  box-sizing: border-box;
+  flex: 1 1 auto;
   padding: $_body-shape-picker--gutter;
 }
 
+@include himation--breakpoint-tablet {
+
+  .c--body-shape-picker__body-shape {
+    flex-basis: (100% / 3);
+  }
+
+}
+
+@include himation--breakpoint-phone {
+
+  .c--body-shape-picker__body-shape {
+    flex-basis: 50%;
+  }
+
+}
