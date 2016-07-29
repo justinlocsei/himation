@@ -4,7 +4,7 @@ import BodyShape from './body-shape';
 import { BODY_SHAPES } from 'himation/core/data/survey';
 
 const images = BODY_SHAPES.reduce(function(previous, bodyShape) {
-  previous[bodyShape.slug] = require(`himation/images/body-shapes/${bodyShape.slug}.svg`);
+  previous[bodyShape.slug] = require(`himation/images/body-shapes/${bodyShape.slug}-2x.png`);
   return previous;
 }, {});
 
@@ -24,8 +24,8 @@ const BodyShapePicker = React.createClass({
           <BodyShape
             field={field}
             id={id}
+            image={images[bodyShape.slug]}
             name={bodyShape.name}
-            shape={images[bodyShape.slug]}
             slug={bodyShape.slug}
           />
         </li>
