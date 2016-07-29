@@ -7,10 +7,6 @@ $_formality--text-gutter: 1em;
 
 }
 
-.c--formality__error {
-
-}
-
 .c--formality__details {
   align-items: center;
   display: flex;
@@ -29,7 +25,13 @@ $_formality--text-gutter: 1em;
 
 .c--formality__text {
   flex: 2;
+  position: relative;
   width: 100%;
+}
+
+.c--formality__error {
+  @include himation--error-popover;
+  bottom: 85%;
 }
 
 .c--formality__name {

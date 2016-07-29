@@ -37,14 +37,14 @@ const Formality = React.createClass({
 
     return (
       <div className="c--formality">
-        {errorTag}
-
         <div className="c--formality__details">
           <div className="c--formality__media">
             <img className="c--formality__media__image" src={images[0].path} srcSet={imageSizesToSrcset(images)} alt={name} />
           </div>
 
           <fieldset className="c--formality__text">
+            {errorTag}
+
             <legend className="c--formality__name">{name}</legend>
 
             <ul className="c--formality__frequencies">
