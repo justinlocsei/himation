@@ -7,7 +7,8 @@
 //
 // @param <length> $padding The padding to apply to the input
 // @param <boolean> $is-stacked Whether the input is stacked with others
-@mixin himation--input-label-pair($padding, $is-stacked) {
+// @param <string> $label-display The display type to use for the label
+@mixin himation--input-label-pair($padding, $is-stacked, $label-display) {
 
   input {
     @include himation--hide;
@@ -17,6 +18,7 @@
     background-color: $himation--input-bg-color;
     box-sizing: border-box;
     cursor: pointer;
+    display: $label-display;
     font-weight: $himation--font-weight-semi-bold;
     padding: $padding;
 
@@ -80,8 +82,9 @@
 //
 // @param <length> $padding The padding to apply to the input
 // @param <boolean> $is-stacked Whether the input is stacked with others
-@mixin himation--radio-button-container($padding: 1em, $is-stacked: false) {
-  @include himation--input-label-pair($padding, $is-stacked);
+// @param <string> $label-display The display type to use for the label
+@mixin himation--radio-button-container($padding: 1em, $is-stacked: false, $label-display: block) {
+  @include himation--input-label-pair($padding, $is-stacked, $label-display);
 }
 
 // Show an checkbox input using a styled, managed checkbox
@@ -89,8 +92,9 @@
 // @param <length> $padding The padding to apply to the input
 // @param <length> $checkbox-size The size of the checkbox
 // @param <boolean> $is-stacked Whether the input is stacked with others
-@mixin himation--checkbox-container($padding: 1em, $checkbox-size: 0.75em, $is-stacked: false) {
-  @include himation--input-label-pair($padding, $is-stacked);
+// @param <string> $label-display The display type to use for the label
+@mixin himation--checkbox-container($padding: 1em, $checkbox-size: 0.75em, $is-stacked: false, $label-display: block) {
+  @include himation--input-label-pair($padding, $is-stacked, $label-display);
 
   label {
     padding-left: $padding * 2 + $checkbox-size;

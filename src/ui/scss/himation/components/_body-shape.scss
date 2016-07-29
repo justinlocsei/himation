@@ -1,11 +1,11 @@
 @import "himation/mixins/forms";
 
 .c--body-shape {
-  @include himation--radio-button-container;
+  @include himation--radio-button-container($padding: 1em);
 }
 
 .c--body-shape__example {
-  display: block;
+
 }
 
 .c--body-shape__graphic {
