@@ -26,9 +26,6 @@ const Site = React.createClass({
               <li className="l--site__navigation__page">
                 <a href="#" className="l--site__navigation__link">About Us</a>
               </li>
-              <li className="l--site__navigation__page">
-                <a href="#" className="l--site__navigation__link">Blog</a>
-              </li>
             </ul>
           </nav>
 
@@ -47,9 +44,6 @@ const Site = React.createClass({
             </li>
              <li className="l--site__footer__link">
               <a href="#" className="l--site__footer__link-name">About Us</a>
-            </li>
-             <li className="l--site__footer__link">
-              <a href="#" className="l--site__footer__link-name">Blog</a>
             </li>
           </ul>
 

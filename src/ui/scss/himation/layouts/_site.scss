@@ -98,6 +98,9 @@ $_site--footer-v-padding: 4em;
     padding-left: $himation--site-condensed-gutter;
     padding-right: $himation--site-condensed-gutter;
   }
+  .l--site__header__navigation {
+    padding-right: $himation--site-condensed-gutter * 2;
+  }
 
   .l--site__footer {
     flex-direction: column;
