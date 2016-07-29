@@ -1,0 +1,9 @@
+// Adjust an em value relative to a known base
+//
+// @param <string> $value An em value
+// @param <string> $relative-to The value to which the em should be relative
+// @param <string> $container-font-size The font size of the container
+// @return <string> The adjusted em value
+@function himation--relative-em($value, $relative-to: 1em, $container-font-size: 1em) {
+  @return ((($value / $relative-to) * 1em) / $container-font-size) * 1em;
+}
