@@ -13,10 +13,12 @@ $_size-picker--gutter: 1em;
 
 .c--size-picker__groups {
   display: flex;
+  flex-wrap: wrap;
   margin: 0 $_size-picker--gutter * -1;
 }
 
 .c--size-picker__group {
+  box-sizing: border-box;
   flex: 1;
   padding: 0 $_size-picker--gutter;
 }
@@ -52,36 +54,18 @@ $_size-picker--gutter: 1em;
 @include himation--breakpoint-tablet {
 
   .c--size-picker__groups {
-    flex-direction: column;
+    margin-bottom: $_size-picker--gutter * -2;
   }
-
-  .c--size-picker__group__name {
-    margin-bottom: $_size-picker--gutter;
-  }
-
   .c--size-picker__group {
-    & + & {
-      margin-top: $_size-picker--gutter * 2;
-    }
-  }
-
-  .c--size-picker__group__sizes {
-    display: flex;
-    flex-wrap: wrap;
-    margin: $_size-picker--gutter * -0.5;
-  }
-  .c--size-picker__size {
-    flex: 1;
-    margin: 0;
-    padding: $_size-picker--gutter * 0.5;
-    white-space: nowrap;
+    flex-basis: 50%;
+    margin-bottom: $_size-picker--gutter * 2;
   }
 
 }
 
 @include himation--breakpoint-phone {
 
-  .c--size-picker__group__sizes {
+  .c--size-picker__groups {
     flex-direction: column;
   }
 
