@@ -48,7 +48,7 @@ let Survey = React.createClass({
           />
         </Field>
 
-        <Field slug="styles" title="How do you want to be perceived at work?">
+        <Field slug="styles" title="How do you want to be perceived at work?" help="Choose up to three styles">
           <StylePicker
             fields={fields.styles}
             id="survey-style"
@@ -62,7 +62,7 @@ let Survey = React.createClass({
           />
         </Field>
 
-        <Field slug="sizes" title="What sizes do you wear?">
+        <Field slug="sizes" title="What sizes do you wear?" help="Select all sizes that you wear for at least one brand">
           <SizePicker
             fields={fields.sizes}
             id="survey-sizes"
