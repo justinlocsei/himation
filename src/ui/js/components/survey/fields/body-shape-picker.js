@@ -3,8 +3,15 @@ import React, { PropTypes } from 'react';
 import BodyShape from './body-shape';
 import { BODY_SHAPES } from 'himation/core/data/survey';
 
-const images = BODY_SHAPES.reduce(function(previous, bodyShape) {
-  previous[bodyShape.slug] = require(`himation/images/body-shapes/${bodyShape.slug}-2x.png`);
+const IMAGE_SIZES = ['1x', '2x'];
+
+const IMAGES = BODY_SHAPES.reduce(function(previous, bodyShape) {
+  previous[bodyShape.slug] = IMAGE_SIZES.map(function(size) {
+    return {
+      path: require(`himation/images/body-shapes/${bodyShape.slug}-${size}.png`),
+      size: size
+    };
+  });
   return previous;
 }, {});
 
@@ -24,7 +31,7 @@ const BodyShapePicker = React.createClass({
           <BodyShape
             field={field}
             id={id}
-            image={images[bodyShape.slug]}
+            images={IMAGES[bodyShape.slug]}
             name={bodyShape.name}
             slug={bodyShape.slug}
           />
