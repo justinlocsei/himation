@@ -4,11 +4,12 @@
 $_size-picker--gutter: 1em;
 
 .c--size-picker {
-
+  position: relative;
 }
 
 .c--size-picker__error {
-
+  @include himation--error-popover;
+  bottom: 99%;
 }
 
 .c--size-picker__groups {
