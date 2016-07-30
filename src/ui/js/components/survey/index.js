@@ -9,6 +9,7 @@ import FormalityPicker from './fields/formality-picker';
 import SizePicker from './fields/size-picker';
 import StylePicker from './fields/style-picker';
 import { submitSurvey } from 'himation/ui/actions/survey';
+import { FORMALITIES } from 'himation/core/data/survey';
 
 let Survey = React.createClass({
 
@@ -135,7 +136,8 @@ export function validate(values) {
   if (values.formalities) {
     const formalityErrors = values.formalities.reduce(function(previous, formality, index) {
       if (!formality.frequency) {
-        previous[index] = 'Please select a frequency';
+        const name = FORMALITIES.find(f => f.slug === formality.slug).name;
+        previous[index] = `Please select how often your colleagues wear ${name.toLowerCase()}`;
       }
       return previous;
     }, []);
