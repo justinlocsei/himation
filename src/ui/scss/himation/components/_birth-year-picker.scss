@@ -4,10 +4,6 @@
 
 }
 
-.c--birth-year-picker__error {
-
-}
-
 .c--birth-year-picker__field {
   @include himation--input-container;
   align-items: center;
@@ -16,6 +12,18 @@
 
 .c--birth-year-picker__label {
 
+}
+
+.c--birth-year-picker__data {
+  position: relative;
+}
+
+.c--birth-year-picker__error {
+  @include himation--error-popover($size: 0.9em, $is-attached: true);
+  bottom: 100%;
+  left: -75%;
+  margin-bottom: 0.5em;
+  right: -75%;
 }
 
 .c--birth-year-picker__input {

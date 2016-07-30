@@ -22,11 +22,13 @@ const BirthYearInput = React.createClass({
 
     return (
       <div className={classes.join(' ')}>
-        {errorTag}
-
         <div className="c--birth-year-picker__field">
           <label className="c--birth-year-picker__label" htmlFor={id}>Enter your birth year</label>
-          <input className="c--birth-year-picker__input" type="tel" id={id} {...field} value={field.value || ''} placeholder="YYYY" />
+
+          <div className="c--birth-year-picker__data">
+            {errorTag}
+            <input className="c--birth-year-picker__input" type="tel" id={id} {...field} value={field.value || ''} placeholder="YYYY" />
+          </div>
         </div>
       </div>
     );
