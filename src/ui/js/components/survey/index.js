@@ -62,6 +62,7 @@ let Survey = React.createClass({
           <StylePicker
             fields={fields.styles}
             id="survey-style"
+            maxStyles={MAX_STYLES}
           />
         </Field>
 
