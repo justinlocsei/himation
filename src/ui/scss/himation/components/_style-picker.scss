@@ -10,7 +10,7 @@ $_style-picker--grid-h-spacing: 0.25em;
 
 .c--style-picker__error {
   @include himation--error-popover;
-  bottom: 96%;
+  bottom: 100%;
 }
 
 .c--style-picker__styles {

@@ -30,8 +30,8 @@ $_formality--text-gutter: 1em;
 }
 
 .c--formality__error {
-  @include himation--error-popover($size: 0.9em, $is-centered: false);
-  bottom: 85%;
+  @include himation--error-popover($size: 0.9em, $is-attached: true);
+  bottom: 90%;
   width: 100%;
 }
 
@@ -85,6 +85,10 @@ $_formality--text-gutter: 1em;
     padding: 2em 0;
   }
 
+  .c--formality__error {
+    bottom: 83%;
+  }
+
 }
 
 @include himation--breakpoint-phone {
@@ -98,6 +102,10 @@ $_formality--text-gutter: 1em;
   }
   .c--formality__name {
     padding-top: 0;
+  }
+
+  .c--formality__error {
+    bottom: 90%;
   }
 
 }

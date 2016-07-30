@@ -9,7 +9,8 @@ $_size-picker--gutter: 1em;
 
 .c--size-picker__error {
   @include himation--error-popover;
-  bottom: 99%;
+  bottom: 100%;
+  margin-bottom: 0.75em;
 }
 
 .c--size-picker__groups {

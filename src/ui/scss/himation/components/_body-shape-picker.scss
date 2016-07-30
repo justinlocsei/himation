@@ -9,7 +9,7 @@ $_body-shape-picker--gutter: 1em;
 
 .c--body-shape-picker__error {
   @include himation--error-popover;
-  bottom: 95%;
+  bottom: 100%;
 }
 
 .c--body-shape-picker__body-shapes {
