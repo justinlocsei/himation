@@ -1,13 +1,15 @@
+@import "himation/mixins/forms";
 @import "himation/mixins/responsive";
 
 $_body-shape-picker--gutter: 1em;
 
 .c--body-shape-picker {
-
+  position: relative;
 }
 
 .c--body-shape-picker__error {
-
+  @include himation--error-popover;
+  bottom: 95%;
 }
 
 .c--body-shape-picker__body-shapes {
