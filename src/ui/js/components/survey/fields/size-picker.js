@@ -20,7 +20,7 @@ const SizePicker = React.createClass({
     }, []);
 
     let errorTag;
-    if (fieldErrors) {
+    if (fieldErrors.length) {
       errorTag = <p className="c--size-picker__error">{fieldErrors[0]}</p>;
     }
 
