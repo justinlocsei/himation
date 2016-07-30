@@ -1,5 +1,6 @@
 @import "himation/mixins/layout";
 @import "himation/mixins/typography";
+@import "himation/mixins/responsive";
 
 // Apply form-input styles to a caller that contains an input and a label
 //
@@ -163,23 +164,24 @@
 
 // Show the caller as an absolutely positioned error popover
 //
+// @param <length> $size The font size for the popover
 // @param <length> $triangle-size The size of the triangle to show below the popover
 // @param <length> $elevation The elevation to use for the popover's shadow
 // @param <color> $shadow-color The color for the popover's shadow
-@mixin himation--error-popover($triangle-size: 0.5em, $elevation: 0.5em, $shadow-color: rgba(0, 0, 0, 0.125)) {
+// @param <boolean> $is-centered Whether the popover is centered
+@mixin himation--error-popover($size: 1.25em, $triangle-size: 0.5em, $elevation: 0.5em, $shadow-color: rgba(0, 0, 0, 0.125), $is-centered: true) {
   @include himation--font-stack-serif;
   background-color: $himation--text-color;
   box-shadow: 0 $elevation $elevation $shadow-color;
   box-sizing: border-box;
   color: $himation--text-contrasting-color;
-  font-size: 0.9em;
+  font-size: $size;
   font-style: italic;
   line-height: 1.25;
   margin-bottom: $triangle-size;
   padding: 1em;
   position: absolute;
   text-align: center;
-  width: 100%;
   z-index: $himation--z-overlay;
 
   &::after {
@@ -195,5 +197,15 @@
     transform: rotateZ(45deg);
     width: $triangle-size * 2;
     z-index: -1;
+  }
+
+  @if $is-centered {
+    left: 25%;
+    right: 25%;
+
+    @include himation--breakpoint-phone {
+      left: 10%;
+      right: 10%;
+    }
   }
 }
