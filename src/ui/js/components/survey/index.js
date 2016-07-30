@@ -10,6 +10,7 @@ import SizePicker from './fields/size-picker';
 import StylePicker from './fields/style-picker';
 import { dismissSurveyErrors, flagSurveyErrors, submitSurvey } from 'himation/ui/actions/survey';
 import { FORMALITIES, MAX_STYLES, MAX_STYLES_WORD } from 'himation/core/data/survey';
+import { scrollToFirstError } from './error-message';
 
 let Survey = React.createClass({
 
@@ -27,6 +28,12 @@ let Survey = React.createClass({
   componentWillMount: function() {
     if (this.props.failedValidation) {
       this.props.form.touchAll();
+    }
+  },
+
+  componentDidUpdate: function() {
+    if (this.props.flagErrors) {
+      scrollToFirstError(this.props.onFlagErrors);
     }
   },
 
