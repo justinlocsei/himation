@@ -9,7 +9,7 @@ import FormalityPicker from './fields/formality-picker';
 import SizePicker from './fields/size-picker';
 import StylePicker from './fields/style-picker';
 import { dismissSurveyErrors, flagSurveyErrors, submitSurvey } from 'himation/ui/actions/survey';
-import { FORMALITIES, MAX_STYLES, MAX_STYLES_WORD } from 'himation/core/data/survey';
+import { FORMALITIES, MAX_BIRTH_YEAR, MAX_STYLES, MAX_STYLES_WORD, MIN_BIRTH_YEAR } from 'himation/core/data/survey';
 import { scrollToFirstError } from './error-message';
 
 let Survey = React.createClass({
@@ -143,6 +143,11 @@ export function validate(values) {
     errors.birthYear = 'Please provide your birth year';
   } else if (values.birthYear.match(/[^0-9]/)) {
     errors.birthYear = 'Please use a numerical year';
+  } else {
+    const birthYear = parseInt(values.birthYear, 10);
+    if (birthYear > MAX_BIRTH_YEAR || birthYear < MIN_BIRTH_YEAR) {
+      errors.birthYear = 'Please provide a reasonable year';
+    }
   }
 
   if (!values.bodyShape) {
