@@ -8,17 +8,19 @@ import Field from './field';
 import FormalityPicker from './fields/formality-picker';
 import SizePicker from './fields/size-picker';
 import StylePicker from './fields/style-picker';
-import { submitSurvey } from 'himation/ui/actions/survey';
+import { dismissSurveyErrors, flagSurveyErrors, submitSurvey } from 'himation/ui/actions/survey';
 import { FORMALITIES, MAX_STYLES, MAX_STYLES_WORD } from 'himation/core/data/survey';
 
 let Survey = React.createClass({
 
   propTypes: {
     failedValidation: PropTypes.bool,
+    flagErrors: PropTypes.bool,
     form: PropTypes.object.isRequired,
     formAction: PropTypes.string.isRequired,
     formMethod: PropTypes.string.isRequired,
     isSubmitting: PropTypes.bool,
+    onFlagErrors: PropTypes.func.isRequired,
     onServerSubmit: PropTypes.func.isRequired
   },
 
@@ -99,6 +101,7 @@ function mapStateToProps(state) {
 
   return {
     failedValidation: survey.form.failedValidation,
+    flagErrors: survey.form.flagErrors,
     initialValues: {
       birthYear: survey.birthYear,
       bodyShape: survey.bodyShape,
@@ -113,9 +116,15 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    onFlagErrors: function() {
+      dispatch(dismissSurveyErrors());
+    },
     onServerSubmit: function() {
       dispatch(submitSurvey());
     },
+    onSubmitFail: function() {
+      dispatch(flagSurveyErrors());
+    }
   };
 }
 
