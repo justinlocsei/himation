@@ -30,8 +30,9 @@ $_formality--text-gutter: 1em;
 }
 
 .c--formality__error {
-  @include himation--error-popover;
+  @include himation--error-popover($size: 0.9em, $is-centered: false);
   bottom: 85%;
+  width: 100%;
 }
 
 .c--formality__name {
