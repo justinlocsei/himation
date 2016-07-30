@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 
+import ErrorMessage from 'himation/ui/components/survey/error-message';
 import { SIZE_GROUPS } from 'himation/core/data/survey';
 
 const SizePicker = React.createClass({
@@ -21,7 +22,7 @@ const SizePicker = React.createClass({
 
     let errorTag;
     if (fieldErrors.length) {
-      errorTag = <p className="c--size-picker__error">{fieldErrors[0]}</p>;
+      errorTag = <ErrorMessage className="c--size-picker__error">{fieldErrors[0]}</ErrorMessage>;
     }
 
     const classes = ['c--size-picker'];

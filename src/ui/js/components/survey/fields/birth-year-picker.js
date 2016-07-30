@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import ErrorMessage from 'himation/ui/components/survey/error-message';
+
 const BirthYearInput = React.createClass({
 
   propTypes: {
@@ -12,7 +14,7 @@ const BirthYearInput = React.createClass({
 
     let errorTag;
     if (field.touched && field.error) {
-      errorTag = <p className="c--birth-year-picker__error">{field.error}</p>;
+      errorTag = <ErrorMessage className="c--birth-year-picker__error">{field.error}</ErrorMessage>;
     }
 
     const classes = ['c--birth-year-picker'];

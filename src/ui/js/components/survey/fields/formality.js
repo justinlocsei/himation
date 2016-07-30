@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 
+import ErrorMessage from 'himation/ui/components/survey/error-message';
 import { FREQUENCIES } from 'himation/core/data/survey';
 import { imageSizesToSrcset } from 'himation/core/images';
 
@@ -32,7 +33,7 @@ const Formality = React.createClass({
 
     let errorTag;
     if (field.touched && field.error) {
-      errorTag = <p className="c--formality__error">{field.error}</p>;
+      errorTag = <ErrorMessage className="c--formality__error">{field.error}</ErrorMessage>;
     }
 
     return (

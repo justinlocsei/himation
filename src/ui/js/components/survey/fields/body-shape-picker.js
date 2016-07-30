@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import BodyShape from './body-shape';
+import ErrorMessage from 'himation/ui/components/survey/error-message';
 import { BODY_SHAPES } from 'himation/core/data/survey';
 
 const IMAGE_SIZES = ['1x', '2x'];
@@ -41,7 +42,7 @@ const BodyShapePicker = React.createClass({
 
     let errorTag;
     if (field.touched && field.error) {
-      errorTag = <p className="c--body-shape-picker__error">{field.error}</p>;
+      errorTag = <ErrorMessage className="c--body-shape-picker__error">{field.error}</ErrorMessage>;
     }
 
     const classes = ['c--body-shape-picker'];

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 
+import ErrorMessage from 'himation/ui/components/survey/error-message';
 import { STYLES } from 'himation/core/data/survey';
 
 const StylePicker = React.createClass({
@@ -34,7 +35,7 @@ const StylePicker = React.createClass({
 
     let errorTag;
     if (fieldErrors.length) {
-      errorTag = <p className="c--style-picker__error">{fieldErrors[0]}</p>;
+      errorTag = <ErrorMessage className="c--style-picker__error">{fieldErrors[0]}</ErrorMessage>;
     }
 
     const classes = ['c--style-picker'];
