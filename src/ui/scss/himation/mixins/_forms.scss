@@ -172,7 +172,7 @@
 @mixin himation--error-popover($size: 1.25em, $triangle-size: 0.5em, $elevation: 0.5em, $shadow-color: rgba(0, 0, 0, 0.125), $is-attached: false) {
   @include himation--font-stack-serif;
   background-color: $himation--form-error-bg-color;
-  border: 1px solid darken($himation--form-error-bg-color, 37.5%);
+  border: 1px solid currentColor;
   box-shadow: 0 $elevation $elevation $shadow-color;
   box-sizing: border-box;
   font-size: $size;
