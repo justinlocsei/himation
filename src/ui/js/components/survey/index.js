@@ -9,7 +9,7 @@ import FormalityPicker from './fields/formality-picker';
 import SizePicker from './fields/size-picker';
 import StylePicker from './fields/style-picker';
 import { submitSurvey } from 'himation/ui/actions/survey';
-import { FORMALITIES } from 'himation/core/data/survey';
+import { FORMALITIES, MAX_STYLES, MAX_STYLES_WORD } from 'himation/core/data/survey';
 
 let Survey = React.createClass({
 
@@ -151,8 +151,8 @@ export function validate(values) {
     const selectedStyles = values.styles.filter(style => style.isSelected);
     if (!selectedStyles.length) {
       errors.styles = ['Please select at least one style'];
-    } else if (selectedStyles.length > 3) {
-      errors.styles = ['Please select at most three styles'];
+    } else if (selectedStyles.length > MAX_STYLES) {
+      errors.styles = [`Please select at most ${MAX_STYLES_WORD} styles`];
     }
   }
 
