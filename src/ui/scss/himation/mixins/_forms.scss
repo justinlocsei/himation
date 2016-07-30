@@ -64,6 +64,15 @@
     }
   }
 
+  input:disabled + label {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &:hover {
+      background-color: $himation--input-bg-color;
+    }
+  }
+
   input:checked + label:hover,
   input:checked:focus + label {
     background-color: darken($himation--input-active-bg-color, 5%);
