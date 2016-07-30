@@ -125,7 +125,7 @@ export function validate(values) {
   if (!values.birthYear) {
     errors.birthYear = 'Please provide your birth year';
   } else if (values.birthYear.match(/[^0-9]/)) {
-    errors.birthYear = 'Please provide your birth year as a number';
+    errors.birthYear = 'Please use a numerical year';
   }
 
   if (!values.bodyShape) {
