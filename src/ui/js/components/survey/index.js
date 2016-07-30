@@ -116,7 +116,6 @@ function mapDispatchToProps(dispatch) {
     onServerSubmit: function() {
       dispatch(submitSurvey());
     },
-    onSubmit: function() {}
   };
 }
 
@@ -184,6 +183,7 @@ Survey = reduxForm({
     'styles[].isSelected',
     'styles[].slug'
   ],
+  onSubmit: function() {},
   propNamespace: 'form',
   validate: validate
 }, mapStateToProps, mapDispatchToProps)(Survey);
