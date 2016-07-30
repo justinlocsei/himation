@@ -141,7 +141,7 @@ export function validate(values) {
 
   if (!values.birthYear) {
     errors.birthYear = 'Please provide your birth year';
-  } else if (values.birthYear.match(/[^0-9]/)) {
+  } else if (values.birthYear.match && values.birthYear.match(/[^0-9]/)) {
     errors.birthYear = 'Please use a numerical year';
   } else {
     const birthYear = parseInt(values.birthYear, 10);
