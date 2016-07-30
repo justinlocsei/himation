@@ -1,6 +1,9 @@
+@import "himation/mixins/responsive";
+
 $_recommendations--basic-teaser-gutter: 2px;
 
 .l--recommendations {
+  padding: 0 $himation--site-gutter;
   position: relative;
 }
 
@@ -30,4 +33,13 @@ $_recommendations--basic-teaser-gutter: 2px;
   & + & {
     margin-top: 3.5em;
   }
+}
+
+@include himation--breakpoint-phone {
+
+  .l--recommendations {
+    padding-left: $himation--site-condensed-gutter;
+    padding-right: $himation--site-condensed-gutter;
+  }
+
 }
