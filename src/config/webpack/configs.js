@@ -282,7 +282,7 @@ function ui(settings) {
     module: {
       loaders: _.flatten([
         imageLoaders(optimizeAssets),
-        jsLoaders([paths.ui.js]),
+        jsLoaders([paths.src]),
         sassLoaders()
       ]),
       preLoaders: [
