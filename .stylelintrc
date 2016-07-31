@@ -1,4 +1,7 @@
 {
+  "ignoreFiles": [
+    "src/ui/scss/himation/vendor/*"
+  ],
   "rules": {
     "at-rule-name-case": "lower",
     "at-rule-name-space-after": "always",
