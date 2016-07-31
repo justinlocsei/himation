@@ -7,6 +7,7 @@ var rimraf = require('rimraf');
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var WebpackProgressPlugin = require('webpack/lib/ProgressPlugin');
+var yargs = require('yargs');
 
 var environment = require('himation/config/environment');
 var files = require('himation/core/files');
@@ -14,13 +15,27 @@ var paths = require('himation/core/paths').resolve();
 var Server = require('himation/server');
 var webpackConfigs = require('himation/config/webpack/configs');
 
+var options = yargs
+  .option('optimize', {
+    alias: 'o',
+    default: false,
+    describe: 'Optimize all build artifacts'
+  })
+  .argv;
+
 var plugins = {
   eslint: require('gulp-eslint'),
   mocha: require('gulp-mocha'),
   stylelint: require('gulp-stylelint')
 };
 
+// If explicit optimization has been requested, override the config values that
+// control asset builds
 var settings = environment.load(paths.settings);
+if (options.optimize) {
+  settings.assets.debug = false;
+  settings.assets.optimize = true;
+}
 
 // Globs for matching all known files of a type
 var filesByType = {
