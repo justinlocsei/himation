@@ -140,11 +140,13 @@ function imageLoaders(optimize) {
  * Return an array of webpack plugins to use
  *
  * @param {string} label The label for the build
- * @param {boolean} optimize Whether to optimize the assets
+ * @param {HimationSettings} settings Settings for the current build
  * @returns {object[]}
  * @private
  */
-function globalPlugins(label, optimize) {
+function globalPlugins(label, settings) {
+  var optimize = settings.assets.optimize;
+
   var paths = resolvePaths();
   var extractTo = optimize ? '[name]-[contenthash].css' : '[name]-[id].css';
   var plugins = [new ExtractTextPlugin(extractTo)];
@@ -244,7 +246,7 @@ function server(settings) {
       path: paths.build.assets,
       publicPath: settings.servers.assets.path
     },
-    plugins: globalPlugins(BUILD_IDS.server, settings.assets.optimize),
+    plugins: globalPlugins(BUILD_IDS.server, settings),
     target: 'node'
   });
 
@@ -291,7 +293,7 @@ function ui(settings) {
       path: paths.assets,
       publicPath: settings.servers.assets.path
     },
-    plugins: commons.concat(globalPlugins(BUILD_IDS.ui, optimizeAssets)),
+    plugins: commons.concat(globalPlugins(BUILD_IDS.ui, settings)),
     target: 'web'
   });
 
