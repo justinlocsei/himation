@@ -44,7 +44,7 @@ function resolve() {
       root: server,
       views: path.join(server, 'views')
     },
-    settings: process.env.HIMATION_CONFIG_FILE,
+    settings: settingsPath,
     src: src,
     test: {
       functional: path.join(test, 'functional'),
