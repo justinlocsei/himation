@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
 import anime from 'animejs';
+import React, { PropTypes } from 'react';
 
 const ERROR_CLASS = 'js-survey-error';
 
