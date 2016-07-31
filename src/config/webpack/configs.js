@@ -160,11 +160,19 @@ function globalPlugins(label, optimize, settings) {
   plugins.push(new BuildManifestPlugin(label, paths.build.root));
   plugins.push(new webpack.NoErrorsPlugin());
 
-  plugins.push(new webpack.DefinePlugin({
+  var definitions = {
     HIMATION_CONFIG: JSON.stringify({
       rootUrl: settings.servers.app.publicUrl
     })
-  }));
+  };
+
+  if (optimize) {
+    definitions['process.env'] = {
+      NODE_ENV: JSON.stringify('production')
+    };
+  }
+
+  plugins.push(new webpack.DefinePlugin(definitions));
 
   if (optimize) {
     plugins.push(new webpack.optimize.UglifyJsPlugin({
