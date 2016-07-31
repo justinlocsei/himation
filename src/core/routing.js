@@ -1,6 +1,9 @@
 'use strict';
 
-var _ = require('lodash');
+var escapeRegExp = require('lodash/escapeRegExp');
+var find = require('lodash/find');
+var first = require('lodash/first');
+var last = require('lodash/last');
 
 var errors = require('himation/core/errors');
 var urls = require('himation/core/urls');
@@ -93,10 +96,10 @@ function defineRoutes(definitions) {
  */
 function pathToRoute(routes, path, method) {
   var basePath = path.replace(/\/+$/, '');
-  var pathMatch = new RegExp('^' + _.escapeRegExp(basePath) + '/?$', 'i');
+  var pathMatch = new RegExp('^' + escapeRegExp(basePath) + '/?$', 'i');
   var requestMethod = (method || DEFAULT_METHOD).toLowerCase();
 
-  return _.find(routes, function(route) {
+  return find(routes, function(route) {
     return pathMatch.test(route.path) && route.method === requestMethod;
   }) || null;
 }
@@ -110,7 +113,7 @@ function pathToRoute(routes, path, method) {
  * @throws {ConfigurationError} If the route is not defined
  */
 function guidToRoute(routes, guid) {
-  var resolved = _.find(routes, route => route.guid === guid);
+  var resolved = find(routes, route => route.guid === guid);
   if (!resolved) {
     throw new errors.ConfigurationError('The ' + guid + ' route is not defined');
   }
@@ -128,7 +131,7 @@ function guidToRoute(routes, guid) {
  */
 function resolveRouteDefinitionPath(definitions, guid) {
   function resolvePath(nestedDefinitions, namespaces) {
-    var rootName = _.first(namespaces);
+    var rootName = first(namespaces);
     var matches = nestedDefinitions.filter(route => route.name === rootName);
 
     if (!matches.length) { throw new errors.ConfigurationError('No route named "' + guid + '" was found'); }
@@ -140,7 +143,7 @@ function resolveRouteDefinitionPath(definitions, guid) {
     if (!matchedPath) { throw new errors.ConfigurationError('No path was found for the route named "' + guid + '"'); }
 
     var levels = [matchedPath];
-    var endpoint = _.last(namespaces) === INDEX_ROUTE ? -1 : namespaces.length;
+    var endpoint = last(namespaces) === INDEX_ROUTE ? -1 : namespaces.length;
     var childNames = namespaces.slice(1, endpoint);
 
     if (childNames.length) {

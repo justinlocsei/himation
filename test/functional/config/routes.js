@@ -1,13 +1,13 @@
 'use strict';
 
-var _ = require('lodash');
+var pluck = require('lodash/pluck');
 
 var routes = require('himation/config/routes');
 
 describe('config/routes', function() {
 
   it('is a series of unique routes', function() {
-    var guids = _.pluck(routes, 'guid');
+    var guids = pluck(routes, 'guid');
 
     assert.isAbove(routes.length, 0);
     assert.equal(routes.length, guids.length);

@@ -1,5 +1,11 @@
+import debounce from 'lodash/debounce';
+import max from 'lodash/max';
+import range from 'lodash/range';
 import React, { PropTypes } from 'react';
-import { debounce, max, range, some, sortBy, sum, uniq } from 'lodash';
+import some from 'lodash/some';
+import sortBy from 'lodash/sortBy';
+import sum from 'lodash/sum';
+import uniq from 'lodash/uniq';
 
 import Garment from './garment';
 

@@ -1,11 +1,11 @@
 'use strict';
 
-var _ = require('lodash');
 var autoprefixer = require('autoprefixer');
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 var cssnano = require('cssnano');
 var extend = require('extend');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var flatten = require('lodash/flatten');
 var path = require('path');
 var StyleLintPlugin = require('stylelint-webpack-plugin');
 var webpack = require('webpack');
@@ -247,7 +247,7 @@ function server(settings) {
       return callback(null, isNonRelative && !isUiModule);
     },
     module: {
-      loaders: _.flatten([
+      loaders: flatten([
         imageLoaders(settings.assets.optimize),
         jsLoaders([paths.server.views, paths.ui.js]),
         sassLoaders()
@@ -288,7 +288,7 @@ function ui(settings) {
     devtool: 'source-map',
     entry: entries,
     module: {
-      loaders: _.flatten([
+      loaders: flatten([
         imageLoaders(optimizeAssets),
         jsLoaders([paths.src]),
         sassLoaders()

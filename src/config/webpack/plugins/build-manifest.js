@@ -1,8 +1,9 @@
 'use strict';
 
-var _ = require('lodash');
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+var find = require('lodash/find');
 var fs = require('fs');
+var isString = require('lodash/isString');
 var path = require('path');
 
 /**
@@ -29,7 +30,7 @@ function determineEntryFilename(entry, filename, stats) {
     name: entry
   };
 
-  var entryChunk = _.find(stats.chunks, chunk => chunk.names.indexOf(entry) !== -1);
+  var entryChunk = find(stats.chunks, chunk => chunk.names.indexOf(entry) !== -1);
 
   if (entryChunk) {
     subs.chunkhash = entryChunk.hash;
@@ -81,7 +82,7 @@ function webpackStatsToManifest(config, stats) {
 
   var assets = Object.keys(source.assetsByChunkName).reduce(function(chunks, chunk) {
     var files = source.assetsByChunkName[chunk];
-    if (_.isString(files)) { files = [files]; }
+    if (isString(files)) { files = [files]; }
     chunks[chunk] = entryPointDependencies(chunk, config, source).concat(files);
     return chunks;
   }, {});

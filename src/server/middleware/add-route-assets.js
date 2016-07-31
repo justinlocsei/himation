@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('lodash');
+var escapeRegExp = require('lodash/escapeRegExp');
 
 var routing = require('himation/core/routing');
 var urls = require('himation/core/urls');
@@ -29,7 +29,7 @@ function create(manifest, host, routes) {
     if (!route) { return next(); }
 
     res.locals.assets = Object.keys(ASSET_GROUPS).reduce(function(groups, group) {
-      var matches = ASSET_GROUPS[group].map(extension => _.escapeRegExp(extension) + '$');
+      var matches = ASSET_GROUPS[group].map(extension => escapeRegExp(extension) + '$');
       var extensionMatcher = new RegExp(matches.join('|'));
 
       var assets = (manifest.assets[route.guid] || []).filter(file => extensionMatcher.test(file));

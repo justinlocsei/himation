@@ -1,9 +1,9 @@
 'use strict';
 
-var _ = require('lodash');
 var extend = require('extend');
 var Promise = require('bluebird');
 var request = require('request');
+var sortBy = require('lodash/sortBy');
 
 var errors = require('himation/core/errors');
 var urls = require('himation/core/urls');
@@ -54,7 +54,7 @@ function packageSurvey(data) {
 function simplifyRecommendations(original) {
   original.basics.forEach(function(basic) {
     basic.garments.forEach(function(garment, index) {
-      var offering = _.sortBy(garment.purchase_options, po => po.price)[0];
+      var offering = sortBy(garment.purchase_options, po => po.price)[0];
 
       basic.garments[index] = {
         brand: garment.garment.brand,

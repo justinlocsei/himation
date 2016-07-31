@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
-import { flatten, max, sortBy } from 'lodash';
+import flatten from 'lodash/flatten';
+import max from 'lodash/max';
+import sortBy from 'lodash/sortBy';
 
 import Basic from './basic';
 import BasicTeaser from './basic-teaser';

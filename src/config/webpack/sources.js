@@ -1,7 +1,8 @@
 'use strict';
 
-var _ = require('lodash');
 var extend = require('extend');
+var isEqual = require('lodash/isEqual');
+var uniq = require('lodash/uniq');
 
 var routing = require('himation/core/routing');
 
@@ -27,7 +28,7 @@ function entryPointsToCommonsChunks(points, options) {
   function createCommonsChunks(depth) {
     var allNamespaces = entries.map(name => routing.guidToNamespaces(name).slice(0, depth));
     var candidates = allNamespaces.filter(namespace => namespace.length === depth);
-    var prefixes = _.uniq(candidates.map(candidate => routing.namespacesToGuid(candidate)));
+    var prefixes = uniq(candidates.map(candidate => routing.namespacesToGuid(candidate)));
     var namespaces = prefixes.map(search => routing.guidToNamespaces(search));
 
     if (!namespaces.length) { return []; }
@@ -35,7 +36,7 @@ function entryPointsToCommonsChunks(points, options) {
     var chunks = namespaces.reduce(function(result, namespace) {
       var matches = entries.filter(function(entry) {
         var prefix = routing.guidToNamespaces(entry);
-        return _.isEqual(prefix.slice(0, depth), namespace);
+        return isEqual(prefix.slice(0, depth), namespace);
       });
 
       if (matches.length > 1) {

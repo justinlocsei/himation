@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('lodash');
+var find = require('lodash/find');
 
 var BuildManifestPlugin = require('himation/config/webpack/plugins/build-manifest');
 var errors = require('himation/core/errors');
@@ -15,7 +15,7 @@ var errors = require('himation/core/errors');
  */
 function loadManifest(config) {
   var plugins = config.plugins || [];
-  var manifestPlugin = _.find(plugins, plugin => plugin.constructor === BuildManifestPlugin);
+  var manifestPlugin = find(plugins, plugin => plugin.constructor === BuildManifestPlugin);
 
   if (!manifestPlugin) {
     throw new errors.ConfigurationError('The configuration does not use the build-manifest plugin');
