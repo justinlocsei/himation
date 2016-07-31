@@ -7,6 +7,7 @@
   "main": "index.js",
   "scripts": {
     "build": "gulp clear && gulp build",
+    "build:optimize": "gulp clear && gulp build --optimize",
     "lint": "gulp lint",
     "postinstall": "linklocal link",
     "serve": "gulp serve",
