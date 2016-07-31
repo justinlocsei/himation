@@ -167,6 +167,12 @@ function globalPlugins(label, settings) {
   plugins.push(new BuildManifestPlugin(label, paths.build.root));
   plugins.push(new webpack.NoErrorsPlugin());
 
+  plugins.push(new webpack.DefinePlugin({
+    HIMATION_CONFIG: JSON.stringify({
+      rootUrl: settings.servers.app.publicURL
+    })
+  }));
+
   return plugins;
 }
 

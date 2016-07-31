@@ -3,6 +3,9 @@
   "env": {
     "commonjs": true
   },
+  "globals": {
+    "HIMATION_CONFIG": true
+  },
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
