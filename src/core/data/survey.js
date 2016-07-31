@@ -9,8 +9,8 @@ var BODY_SHAPES = [
 ];
 
 var CARE_TYPES = [
-  {name: 'Hand wash', slug: 'hand-wash'},
-  {name: 'Dry clean', slug: 'dry-clean'}
+  {name: 'Hand wash', slug: 'hand_wash'},
+  {name: 'Dry clean', slug: 'dry_clean'}
 ];
 
 var FORMALITIES = [
