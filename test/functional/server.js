@@ -63,7 +63,9 @@ describe('Server', function() {
     });
 
     afterEach(function() {
-      return server.stop().then(() => server = undefined);
+      return server.stop().then(function() {
+        server = undefined;
+      });
     });
 
     it('creates an application instance that uses the template directory', function() {
@@ -145,7 +147,9 @@ describe('Server', function() {
     });
 
     afterEach(function() {
-      return server.stop().then(() => server = undefined);
+      return server.stop().then(function() {
+        server = undefined;
+      });
     });
 
     it('stops the server', function() {

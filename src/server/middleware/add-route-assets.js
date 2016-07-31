@@ -39,7 +39,7 @@ function create(manifest, host, routes) {
       return groups;
     }, {});
 
-    next();
+    return next();
   };
 }
 
