@@ -6,13 +6,12 @@
   "license": "UNLICENSED",
   "main": "index.js",
   "scripts": {
-    "build": "gulp clear && gulp build",
-    "build:optimize": "gulp clear && gulp build --optimize",
+    "bootstrap": "gulp build",
+    "build": "gulp clear && gulp build --optimize",
+    "develop": "gulp develop",
     "lint": "gulp lint",
     "postinstall": "linklocal link",
     "serve": "gulp serve",
-    "serve:app": "gulp serve-app",
-    "serve:assets": "gulp serve-assets",
     "test": "gulp test; exit 0"
   },
   "dependencies": {

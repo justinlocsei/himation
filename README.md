@@ -51,20 +51,11 @@ on Himation, you must first generate asset manifests for a build by running the
 following command:
 
 ```sh
-$ npm run build
+$ npm run bootstrap
 ```
 
 Once a build has been performed, you can start a development server by running:
 
 ```sh
-$ npm run serve
-```
-
-This runs the application and asset server in the same window.  If you would
-prefer to view the output of each server in a separate window, you can run the
-following commands in separate windows:
-
-```sh
-$ npm run serve:app
-$ npm run serve:assets
+$ npm run develop
 ```

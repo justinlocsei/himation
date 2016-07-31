@@ -50,9 +50,8 @@ var filesByType = {
 };
 
 gulp.task('build', ['build-assets', 'build-server']);
-gulp.task('default', ['serve-assets']);
 gulp.task('lint', ['lint-js', 'lint-scss']);
-gulp.task('serve', ['serve-app', 'serve-assets']);
+gulp.task('develop', ['develop-app', 'develop-assets']);
 
 // Perform a webpack build for the front-end assets
 gulp.task('build-assets', function buildAssets(done) {
@@ -104,8 +103,8 @@ gulp.task('lint-scss', function lintScss() {
     }));
 });
 
-// Run the application server
-gulp.task('serve-app', function serveApp() {
+// Run the application server in development mode
+gulp.task('develop-app', function developApp() {
   var server = new Server(settings);
 
   server.start()
@@ -114,7 +113,7 @@ gulp.task('serve-app', function serveApp() {
       gutil.log('Application server available at ' + binding.address + ':' + binding.port);
     })
     .catch(function(err) {
-      throw new gutil.PluginError('serve-app', err);
+      throw new gutil.PluginError('develop-app', err);
     });
 
   var compiler = webpack(webpackConfigs.server(settings));
@@ -123,7 +122,7 @@ gulp.task('serve-app', function serveApp() {
     poll: false
   }, function(err) {
     if (err) {
-      throw new gutil.PluginError('server-app', err);
+      throw new gutil.PluginError('develop-app', err);
     } else {
       gutil.log('Recompiled webpack assets');
     }
@@ -131,7 +130,7 @@ gulp.task('serve-app', function serveApp() {
 });
 
 // Run the webpack development server to serve assets
-gulp.task('serve-assets', function serveAssets() {
+gulp.task('develop-assets', function developAssets() {
   var config = webpackConfigs.ui(settings);
 
   var assetServer = new WebpackDevServer(webpack(config), {
@@ -150,7 +149,7 @@ gulp.task('serve-assets', function serveAssets() {
 
   var binding = settings.servers.assets;
   assetServer.listen(binding.port, binding.address, function(err) {
-    if (err) { throw new gutil.PluginError('serve-assets', err); }
+    if (err) { throw new gutil.PluginError('develop-assets', err); }
     gutil.log('Asset server available at ' + binding.address + ':' + binding.port);
   });
 });
