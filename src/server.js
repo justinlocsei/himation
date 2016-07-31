@@ -134,7 +134,7 @@ Server.prototype._createLogger = function() {
 Server.prototype._createAssetMiddleware = function() {
   var uiBuild = builds.ui(this.settings);
   var buildManifest = build.loadManifest(uiBuild);
-  var assetHost = this.settings.servers.assets.publicURL;
+  var assetHost = this.settings.servers.assets.publicUrl;
 
   return addRouteAssets.create(buildManifest, assetHost, routes);
 };

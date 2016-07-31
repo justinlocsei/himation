@@ -37,13 +37,13 @@ describe('Server', function() {
         app: {
           address: '127.0.0.1',
           port: 3000,
-          publicURL: 'http://example.com/'
+          publicUrl: 'http://example.com/'
         },
         assets: {
           address: '127.0.0.1',
           path: '/assets',
           port: 3001,
-          publicURL: 'http://example.com/assets/'
+          publicUrl: 'http://example.com/assets/'
         }
       }
     });

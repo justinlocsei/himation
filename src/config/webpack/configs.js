@@ -169,7 +169,7 @@ function globalPlugins(label, settings) {
 
   plugins.push(new webpack.DefinePlugin({
     HIMATION_CONFIG: JSON.stringify({
-      rootUrl: settings.servers.app.publicURL
+      rootUrl: settings.servers.app.publicUrl
     })
   }));
 
