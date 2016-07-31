@@ -30,6 +30,7 @@ const Basic = React.createClass({
         return {
           garment: garment,
           height: garment.clientHeight - padding,
+          padding: padding,
           top: garment.offsetTop
         };
       });
@@ -39,8 +40,12 @@ const Basic = React.createClass({
     // differing top offsets
     const garmentsAreStacked = some(groupMetrics, function(metric) {
       const tops = metric.map(garment => garment.top);
-      return uniq(tops).length !== tops;
+      return uniq(tops).length === tops.length;
     });
+
+    // Abort if the garments are not stacked and no padding has been applied
+    const hasPadding = some(groupMetrics, metric => some(metric, garment => garment.padding));
+    if (!garmentsAreStacked && !hasPadding) { return; }
 
     // Cycle through each apparent row of garments and adjust the padding
     range(0, this.props.maxGarmentsPerGroup - 1).forEach(function(garmentIndex) {
