@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * A size for a single image
  *
