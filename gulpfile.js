@@ -50,8 +50,21 @@ var filesByType = {
 };
 
 gulp.task('build', ['build-assets', 'build-server']);
-gulp.task('lint', ['lint-js', 'lint-scss']);
 gulp.task('develop', ['develop-app', 'develop-assets']);
+gulp.task('lint', ['lint-js', 'lint-scss']);
+
+// Serve the app
+gulp.task('serve', function() {
+  var server = new Server(settings);
+
+  server.start()
+    .then(function(app) {
+      gutil.log('Application server started');
+    })
+    .catch(function(err) {
+      throw new gutil.PluginError('serve', err);
+    });
+});
 
 // Perform a webpack build for the front-end assets
 gulp.task('build-assets', function buildAssets(done) {
