@@ -72,6 +72,7 @@ const Basic = React.createClass({
 
   componentDidMount: function() {
     window.addEventListener('resize', this._handleResize);
+    this.handleResize();
   },
 
   componentWillUnmount: function() {
