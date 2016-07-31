@@ -29,13 +29,15 @@ structure below, which shows the available settings and their defaults:
       "host": "localhost", // The hostname on which the app server will listen
       "path": "/",         // The root URL for the app server
       "port": 80,          // The port on which the app server will listen
-      "protocol": "http"   // The protocol used to handle application requests
+      "protocol": "http",  // The protocol used to handle application requests
+      "publicUrl": null    // The public URL by which the app server is accessible
     },
     "assets": {
       "host": "localhost", // The hostname for the asset server
       "path": "/",         // The root URL for the asset server
       "port": 80,          // The port for the asset server
-      "protocol": "http"   // The protocol used for the asset server
+      "protocol": "http",  // The protocol used for the asset server
+      "publicUrl": null    // The public URL by which the asset server is accessible
     }
   }
 }
