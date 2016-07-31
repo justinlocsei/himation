@@ -1,5 +1,9 @@
 import React, { PropTypes } from 'react';
 
+import routes from 'himation/config/routes';
+import { getSetting } from 'himation/ui/config';
+import { guidToRoute } from 'himation/core/routing';
+
 import 'himation/styles/site';
 
 const Site = React.createClass({
@@ -11,11 +15,14 @@ const Site = React.createClass({
   render: function() {
     const { children } = this.props;
 
+    const rootUrl = getSetting('rootUrl');
+    const about = guidToRoute(routes, 'himation.about');
+
     return (
       <div className="l--site">
         <header className="l--site__header">
 
-          <a href="#" className="l--site__header__title">
+          <a href={rootUrl} className="l--site__header__title">
             <span className="l--site__title for-cover">Cover</span>
             <span className="l--site__title for-your">Your</span>
             <span className="l--site__title for-basics">Basics</span>
@@ -24,7 +31,7 @@ const Site = React.createClass({
           <nav className="l--site__header__navigation">
             <ul className="l--site__navigation">
               <li className="l--site__navigation__page">
-                <a href="#" className="l--site__navigation__link">About Us</a>
+                <a href={about.path} className="l--site__navigation__link">About Us</a>
               </li>
             </ul>
           </nav>
@@ -40,10 +47,10 @@ const Site = React.createClass({
         <footer className="l--site__footer">
           <ul className="l--site__footer__links">
             <li className="l--site__footer__link">
-              <a href="#" className="l--site__footer__link-name">Home</a>
+              <a href={rootUrl} className="l--site__footer__link-name">Home</a>
             </li>
              <li className="l--site__footer__link">
-              <a href="#" className="l--site__footer__link-name">About Us</a>
+              <a href={about.path} className="l--site__footer__link-name">About Us</a>
             </li>
           </ul>
 
