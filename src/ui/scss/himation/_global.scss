@@ -1,5 +1,5 @@
-@import "~normalize.css/normalize.css";
 @import "himation/mixins/typography";
+@import "himation/vendor/normalize";
 
 body {
   @include himation--font-stack-sans-serif;
