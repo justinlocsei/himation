@@ -26332,11 +26332,6 @@
       "resolved": "https://registry.npmjs.org/node-sass/-/node-sass-3.8.0.tgz",
       "version": "3.8.0"
     },
-    "normalize.css": {
-      "from": "https://registry.npmjs.org/normalize.css/-/normalize.css-4.1.1.tgz",
-      "resolved": "https://registry.npmjs.org/normalize.css/-/normalize.css-4.1.1.tgz",
-      "version": "4.1.1"
-    },
     "nunjucks": {
       "dependencies": {
         "asap": {
