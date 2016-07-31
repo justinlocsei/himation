@@ -1,5 +1,8 @@
 {
   "extends": "justinlocsei/configurations/node",
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
   "rules": {
     "strict": [2, "global"]
   }
