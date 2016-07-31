@@ -18,7 +18,7 @@ export function scrollToFirstError(done) {
     anime({
       targets: ['body'],
       scrollTop: errorTop - bounding.height * 0.25,
-      duration: 1000,
+      duration: 500,
       easing: 'easeOutCubic',
       complete: done
     });
