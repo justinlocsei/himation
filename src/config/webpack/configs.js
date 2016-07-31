@@ -140,22 +140,15 @@ function imageLoaders(optimize) {
  * Return an array of webpack plugins to use
  *
  * @param {string} label The label for the build
+ * @param {boolean} optimize Whether to optimize assets
  * @param {HimationSettings} settings Settings for the current build
  * @returns {object[]}
  * @private
  */
-function globalPlugins(label, settings) {
-  var optimize = settings.assets.optimize;
-
+function globalPlugins(label, optimize, settings) {
   var paths = resolvePaths();
   var extractTo = optimize ? '[name]-[contenthash].css' : '[name]-[id].css';
   var plugins = [new ExtractTextPlugin(extractTo)];
-
-  if (optimize) {
-    plugins.push(new webpack.optimize.UglifyJsPlugin({
-      compressor: {warnings: false}
-    }));
-  }
 
   plugins.push(new StyleLintPlugin({
     configFile: path.join(paths.root, '.stylelintrc'),
@@ -172,6 +165,12 @@ function globalPlugins(label, settings) {
       rootUrl: settings.servers.app.publicUrl
     })
   }));
+
+  if (optimize) {
+    plugins.push(new webpack.optimize.UglifyJsPlugin({
+      compressor: {warnings: false}
+    }));
+  }
 
   return plugins;
 }
@@ -252,7 +251,7 @@ function server(settings) {
       path: paths.build.assets,
       publicPath: settings.servers.assets.path
     },
-    plugins: globalPlugins(BUILD_IDS.server, settings),
+    plugins: globalPlugins(BUILD_IDS.server, false, settings),
     target: 'node'
   });
 
@@ -299,7 +298,7 @@ function ui(settings) {
       path: paths.assets,
       publicPath: settings.servers.assets.path
     },
-    plugins: commons.concat(globalPlugins(BUILD_IDS.ui, settings)),
+    plugins: commons.concat(globalPlugins(BUILD_IDS.ui, optimizeAssets, settings)),
     target: 'web'
   });
 
