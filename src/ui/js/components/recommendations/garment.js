@@ -44,7 +44,7 @@ const Garment = React.createClass({
 
     return (
       <div className="c--garment">
-        <a href={url} rel="external noopener noreferrer" className="c--garment__preview" style={previewStyle} title={`Buy for $${formattedPrice} from ${retailer}`}>
+        <a href={url} rel="external noopener noreferrer" className="c--garment__preview" style={previewStyle} title={`Buy for $${formattedPrice} from ${retailer}`} target="_blank">
           <p className="c--garment__media" style={mediaStyle}>
             <img className="c--garment__media__image" src={image.url} alt={`${brandedName}`} />
           </p>
