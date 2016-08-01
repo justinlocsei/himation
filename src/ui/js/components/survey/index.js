@@ -9,7 +9,7 @@ import FormalityPicker from './fields/formality-picker';
 import SizePicker from './fields/size-picker';
 import StylePicker from './fields/style-picker';
 import { dismissSurveyErrors, flagSurveyErrors, submitSurvey } from 'himation/ui/actions/survey';
-import { FORMALITIES, MAX_BIRTH_YEAR, MAX_STYLES, MAX_STYLES_WORD, MIN_BIRTH_YEAR } from 'himation/core/data/survey';
+import { MAX_BIRTH_YEAR, MAX_STYLES, MAX_STYLES_WORD, MIN_BIRTH_YEAR } from 'himation/core/data/survey';
 import { scrollToFirstError } from './error-message';
 
 let Survey = React.createClass({
@@ -165,8 +165,7 @@ export function validate(values) {
   if (values.formalities) {
     const formalityErrors = values.formalities.reduce(function(previous, formality, index) {
       if (!formality.frequency) {
-        const name = FORMALITIES.find(f => f.slug === formality.slug).name;
-        previous[index] = `Please select how often your colleagues wear ${name.toLowerCase()}`;
+        previous[index] = 'Please select a frequency';
       }
       return previous;
     }, []);
