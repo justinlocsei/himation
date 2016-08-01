@@ -31,7 +31,7 @@ $_formality--text-gutter: 1em;
 
 .c--formality__error {
   @include himation--error-popover($size: 0.9em, $is-attached: true);
-  bottom: 90%;
+  bottom: 105%;
   width: 100%;
 }
 
