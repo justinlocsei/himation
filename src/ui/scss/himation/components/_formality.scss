@@ -13,7 +13,7 @@ $_formality--text-gutter: 1em;
 }
 
 .c--formality__media {
-  flex: 1;
+  flex: 0 1 auto;
   padding-right: $_formality--text-gutter;
 }
 
@@ -24,7 +24,7 @@ $_formality--text-gutter: 1em;
 }
 
 .c--formality__text {
-  flex: 2;
+  flex: 1;
   position: relative;
   width: 100%;
 }
