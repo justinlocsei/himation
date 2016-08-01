@@ -3,7 +3,6 @@
 var path = require('path');
 
 var errors = require('himation/core/errors');
-var environment = require('himation/config/environment');
 
 var root = path.normalize(path.join(__dirname, '..', '..'));
 
@@ -27,10 +26,7 @@ function resolve() {
     throw new errors.ConfigurationError('You must provide the path to the configuration file via the HIMATION_CONFIG_FILE environment variable');
   }
 
-  var settings = environment.load(settingsPath);
-
   return {
-    assets: settings.assets.distDir,
     build: {
       assets: path.join(build, 'assets'),
       root: build

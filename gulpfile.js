@@ -79,7 +79,7 @@ gulp.task('build-server', function buildServer(done) {
 // Clear the build directories
 gulp.task('clear', function clear(done) {
   var cleared = 0;
-  var buildDirs = [paths.build.root, paths.assets];
+  var buildDirs = [paths.build.root, settings.assets.distDir];
 
   buildDirs.forEach(function(buildDir) {
     rimraf(buildDir, function(rmrfErr) {
@@ -147,7 +147,7 @@ gulp.task('develop-assets', function developAssets() {
   var config = webpackConfigs.ui(settings);
 
   var assetServer = new WebpackDevServer(webpack(config), {
-    contentBase: paths.assets,
+    contentBase: settings.assets.distDir,
     publicPath: config.output.publicPath,
     stats: {
       assets: false,

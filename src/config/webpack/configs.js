@@ -303,7 +303,7 @@ function ui(settings) {
     },
     output: {
       filename: settings.assets.optimize ? '[name]-[hash].js' : '[name].js',
-      path: paths.assets,
+      path: settings.assets.distDir,
       publicPath: settings.servers.assets.path
     },
     plugins: commons.concat(globalPlugins(BUILD_IDS.ui, optimizeAssets, settings)),
