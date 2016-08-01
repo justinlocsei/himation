@@ -25,6 +25,14 @@ let Survey = React.createClass({
     onServerSubmit: PropTypes.func.isRequired
   },
 
+  getDefaultProps: function() {
+    return {
+      failedValidation: false,
+      flagErrors: false,
+      isSubmitting: false
+    };
+  },
+
   componentWillMount: function() {
     if (this.props.failedValidation) {
       this.props.form.touchAll();
