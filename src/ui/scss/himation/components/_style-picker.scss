@@ -42,5 +42,8 @@ $_style-picker--grid-h-spacing: 0.25em;
   .c--style-picker__styles {
     flex-direction: column;
   }
+  .c--style-picker__style {
+    flex: 1;
+  }
 
 }

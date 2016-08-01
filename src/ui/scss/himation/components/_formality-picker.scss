@@ -41,7 +41,7 @@ $_formality-picker--grid-v-spacing: 2em;
     flex-direction: column;
   }
   .c--formality-picker__formality {
-    flex-basis: auto;
+    flex: 1;
   }
 
 }

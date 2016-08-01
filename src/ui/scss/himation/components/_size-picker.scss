@@ -83,5 +83,8 @@ $_size-picker--gutter: 1em;
   .c--size-picker__groups {
     flex-direction: column;
   }
+  .c--size-picker__group {
+    flex: 1;
+  }
 
 }
