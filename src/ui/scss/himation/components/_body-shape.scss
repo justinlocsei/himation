@@ -8,21 +8,18 @@ $_body-shape--image-height: 20em;
 }
 
 .c--body-shape__example {
-
-}
-
-.c--body-shape__graphic {
   text-align: center;
 }
 
-.c--body-shape__graphic__image {
+.c--body-shape__example__image {
   display: block;
   margin: 0 auto;
   max-height: $_body-shape--image-height;
   max-width: 100%;
 }
 
-.c--body-shape__graphic__caption {
+.c--body-shape__example__caption {
+  display: block;
   margin-top: 1em;
 }
 
