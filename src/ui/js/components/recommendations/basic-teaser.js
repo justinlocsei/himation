@@ -19,7 +19,7 @@ const BasicTeaser = React.createClass({
     const basicTop = bounding.top + window.pageYOffset;
 
     anime({
-      targets: ['body'],
+      targets: ['body', 'html'],
       scrollTop: basicTop,
       duration: 1000,
       easing: 'easeOutCubic'

@@ -16,7 +16,7 @@ export function scrollToFirstError(done) {
     const errorTop = bounding.top + window.pageYOffset;
 
     anime({
-      targets: ['body'],
+      targets: ['body', 'html'],
       scrollTop: errorTop - bounding.height * 0.25,
       duration: 500,
       easing: 'easeOutCubic',
