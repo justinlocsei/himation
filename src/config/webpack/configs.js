@@ -193,7 +193,7 @@ function globalPlugins(label, optimize, settings) {
 function postCssPlugins(optimize) {
   var plugins = [
     autoprefixer({
-      browsers: ['last 2 versions'],
+      browsers: ['last 2 versions', 'Safari >= 7', 'iOS >= 7'],
       remove: false
     })
   ];
