@@ -16,9 +16,9 @@ $_basic-teaser--total-groups: 6;
   background-position: right 0 top 25%;
   background-repeat: no-repeat;
   background-size: 100%;
-  filter: grayscale(1);
   height: 100%;
   max-width: 10em;
+  opacity: 0.75;
   position: absolute;
   right: 0;
   width: 75%;
@@ -79,7 +79,7 @@ $_basic-teaser--total-groups: 6;
 .c--basic-teaser:hover {
 
   .c--basic-teaser__media {
-    filter: none;
+    opacity: 1;
   }
   .c--basic-teaser__meta {
     background-color: rgba($_basic-teaser--tile-accent-bg-color, $_basic-teaser--tile-accent-opacity);
