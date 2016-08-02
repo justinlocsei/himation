@@ -187,8 +187,10 @@ function runWebpackBuild(configFactory, done) {
     done();
   });
 
-  builder.apply(new WebpackProgressPlugin(function(percentage, message) {
-    var rounded = Math.floor(percentage * 100);
-    gutil.log(logLabel, rounded + '% ' + message);
-  }));
+  if (settings.assets.debug) {
+    builder.apply(new WebpackProgressPlugin(function(percentage, message) {
+      var rounded = Math.floor(percentage * 100);
+      gutil.log(logLabel, rounded + '% ' + message);
+    }));
+  }
 }
