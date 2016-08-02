@@ -21,6 +21,10 @@ structure below, which shows the available settings and their defaults:
     "endpoint": null, // The URL for the root Chiton API endpoint
     "token": null     // The API token used to authenticate Chiton requests
   },
+  "errors": {
+    "sentryDsn": null, // The Sentry DSN for reporting errors
+    "track": false     // Whether or not to track errors
+  },
   "server": {
     "debugLogging": false // Setting this to true will log all requests made to the app server
   },
