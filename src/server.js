@@ -105,6 +105,8 @@ Server.prototype.stop = function() {
  */
 Server.prototype._createApplication = function(rootPath) {
   var app = application.create({
+    enviroment: this.settings.environment,
+    sentryDsn: this.settings.errors.track && this.settings.errors.sentryDsn,
     templatesDirectory: paths.resolve().ui.templates
   });
 
