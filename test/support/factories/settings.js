@@ -5,7 +5,12 @@ var extend = require('extend');
 var defaults = {
   assets: {
     debug: false,
+    distDir: '/tmp',
     optimize: false
+  },
+  chiton: {
+    endpoint: 'http://127.0.0.1',
+    token: 'token'
   },
   server: {
     debugLogging: false
@@ -15,13 +20,15 @@ var defaults = {
       address: '127.0.0.1',
       path: '/',
       port: 3000,
-      protocol: 'http'
+      protocol: 'http',
+      publicUrl: 'http://127.0.0.1:3000'
     },
     assets: {
       address: '127.0.0.1',
       path: '/',
       port: 3000,
-      protocol: 'http'
+      protocol: 'http',
+      publicUrl: 'http://127.0.0.1:3000'
     }
   }
 };
