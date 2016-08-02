@@ -100,17 +100,17 @@ Server.prototype.stop = function() {
 /**
  * Create an instance of the application
  *
- * @param {string} root The root path for the server
+ * @param {string} rootPath The root path for the server
  * @returns {net.Server}
  */
-Server.prototype._createApplication = function(root) {
+Server.prototype._createApplication = function(rootPath) {
   var app = application.create({
     templatesDirectory: paths.resolve().ui.templates
   });
 
   app.use(this._createLogger());
   app.use(this._createAssetMiddleware());
-  app.use(root, this._createRouter());
+  app.use(rootPath, this._createRouter());
 
   var factory = this.settings.servers.app.protocol === 'https' ? https : http;
   return factory.createServer(app);
