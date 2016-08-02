@@ -12,6 +12,7 @@ var defaults = {
     endpoint: 'http://127.0.0.1',
     token: 'token'
   },
+  environment: 'development',
   errors: {
     track: false,
     sentryDsn: 'DSN'
