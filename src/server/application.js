@@ -64,7 +64,11 @@ function configureBodyParsing(app) {
  */
 function configureErrorTracking(app, environment, sentryDsn) {
   var client = new raven.Client(sentryDsn, {environment: environment});
-  client.patchGlobal();
+
+  client.patchGlobal(function() {
+    console.log('Exiting due to unhandled exception');
+    process.exit(1);
+  });
 
   app.use(raven.middleware.express.requestHandler(client));
   app.use(raven.middleware.express.errorHandler(client));
