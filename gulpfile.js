@@ -54,7 +54,7 @@ gulp.task('develop', ['develop-app', 'develop-assets']);
 gulp.task('lint', ['lint-js', 'lint-scss']);
 
 // Serve the app
-gulp.task('serve', function() {
+gulp.task('serve', function serve() {
   var server = new Server(settings);
 
   server.start()
