@@ -13,6 +13,7 @@ var environment = require('himation/config/environment');
 var files = require('himation/core/files');
 var paths = require('himation/core/paths').resolve();
 var Server = require('himation/server');
+var startServer = require('./index').startServer;
 var webpackConfigs = require('himation/config/webpack/configs');
 
 var options = yargs
@@ -55,15 +56,9 @@ gulp.task('lint', ['lint-js', 'lint-scss']);
 
 // Serve the app
 gulp.task('serve', function serve() {
-  var server = new Server(settings);
-
-  server.start()
-    .then(function(app) {
-      gutil.log('Application server started');
-    })
-    .catch(function(err) {
-      throw new gutil.PluginError('serve', err);
-    });
+  startServer()
+    .then(function() { gutil.log('Application server started'); })
+    .catch(function(err) { throw new gutil.PluginError('serve', err); });
 });
 
 // Perform a webpack build for the front-end assets
