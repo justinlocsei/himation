@@ -36,6 +36,7 @@ var serverSchema = Joi.object().keys({
  * @property {string} environment The name of the application environment
  * @property {object} errors Information on handling errors
  * @property {string} errors.sentryDsn The Sentry DSN to use
+ * @property {string} errors.sentryDsnPublic The public Sentry DSN to use
  * @property {boolean} errors.track Whether or not to track errors
  * @property {boolean} debug Whether to run in debugging mode
  * @property {object} server Settings for the server

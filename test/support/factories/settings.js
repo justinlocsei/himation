@@ -15,7 +15,8 @@ var defaults = {
   environment: 'development',
   errors: {
     track: false,
-    sentryDsn: 'DSN'
+    sentryDsn: 'DSN',
+    sentryPublicDsn: 'DSN'
   },
   server: {
     debugLogging: false

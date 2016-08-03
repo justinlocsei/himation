@@ -23,8 +23,9 @@ structure below, which shows the available settings and their defaults:
   },
   "environment": "development", // The name of the application environment
   "errors": {
-    "sentryDsn": null, // The Sentry DSN for reporting errors
-    "track": false     // Whether or not to track errors
+    "sentryDsn": null,       // The Sentry DSN for reporting errors
+    "sentryDsnPublic": null, // The public Sentry DSN for reporting errors
+    "track": false           // Whether or not to track errors
   },
   "server": {
     "debugLogging": false // Setting this to true will log all requests made to the app server
