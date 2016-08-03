@@ -18,6 +18,7 @@ const STATE_VARIABLE_NAME = 'HIMATION_STATE';
  * @param {object} [initialState] The initial state of the store
  * @param {object[]} [middleware] Middleware to add to the store
  * @returns {React.Component} The initial component, wrapped in a provider
+ * @private
  */
 function bindComponentToStore(component, initialState, middleware) {
   const reducers = combineReducers({
