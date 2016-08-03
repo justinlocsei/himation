@@ -114,6 +114,10 @@ Server.prototype._createApplication = function(rootPath) {
   app.use(this._createAssetMiddleware());
   app.use(rootPath, this._createRouter());
 
+  if (this.settings.errors.track) {
+    app.use(this._createErrorHandler());
+  }
+
   var factory = this.settings.servers.app.protocol === 'https' ? https : http;
   return factory.createServer(app);
 };
@@ -151,6 +155,18 @@ Server.prototype._createRouter = function() {
   var buildManifest = build.loadManifest(serverBuild);
 
   return routers.create(buildManifest, routes, this.settings);
+};
+
+/**
+ * Add a handler to the application that renders a 500 page for errors
+ *
+ * @returns {function} An request handler that renders an error page
+ */
+Server.prototype._createErrorHandler = function() {
+  return function(err, req, res, next) {
+    res.status(500);
+    res.render('pages/error');
+  };
 };
 
 module.exports = Server;
