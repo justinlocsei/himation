@@ -10,17 +10,13 @@
 
     <title>{% if page_title %}{{ page_title }} - {% endif %}{% block title %}Cover Your Basics{% endblock %}</title>
 
-    {% for stylesheet in assets.stylesheets %}
-      <link rel="stylesheet" href="{{ stylesheet }}">
-    {% endfor %}
+    {% block assets_head %}{% endblock %}
   </head>
 
   <body class="l--app">
-    {{ content | safe }}
+    {% block content %}{% endblock %}
 
-    {% for javascript in assets.javascripts %}
-      <script src="{{ javascript }}"></script>
-    {% endfor %}
+    {% block assets_body %}{% endblock %}
   </body>
 
 </html>
