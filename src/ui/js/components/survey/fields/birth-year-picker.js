@@ -29,7 +29,7 @@ const BirthYearInput = React.createClass({
 
           <div className="c--birth-year-picker__data">
             {errorTag}
-            <input className="c--birth-year-picker__input" type="tel" id={id} {...field} value={field.value || ''} placeholder="YYYY" />
+            <input className="c--birth-year-picker__input" type="number" id={id} {...field} value={field.value || ''} placeholder="YYYY" />
           </div>
         </div>
       </div>
