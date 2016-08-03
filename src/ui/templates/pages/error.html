@@ -1,0 +1,72 @@
+{% extends "layouts/error.html" %}
+
+{% block page_title %}Error{% endblock %}
+
+{% block assets_head %}
+
+<style>
+body {
+  background-color: #f5f5f5;
+  color: #333;
+  font-family: Helvetica Neue, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.error {
+  margin: 5% auto 0;
+  text-align: center;
+}
+
+.error__title {
+  background-color: #2d444d;
+  color: #fff;
+  font-size: 2em;
+  font-weight: 300;
+  margin: 0;
+  padding: 6%;
+}
+
+.error__explanation {
+  margin: 5% 5% 0;
+}
+
+.error__message {
+  margin: 0;
+}
+
+.error__message + .error__message {
+  margin-top: 0.25em;
+}
+
+.error__refresh {
+  margin: 0;
+  margin-top: 2em;
+  padding-top: 2em;
+  position: relative;
+}
+
+.error__refresh::before {
+  background-color: #ddd;
+  content: "";
+  height: 1px;
+  left: 5%;
+  position: absolute;
+  right: 5%;
+  top: 0;
+}
+</style>
+
+{% endblock %}
+
+{% block content %}
+  <div class="error">
+    <h1 class="error__title">Hmm&hellip;</h1>
+
+    <div class="error__explanation">
+      <p class="error__message">Something went wrong with our site that we didn't expect.</p>
+      <p class="error__message">We've been about notified it, and are working on fixing it.</p>
+      <p class="error__refresh">You can try refreshing this page to see if we've solved the problem.</p>
+    </div>
+  </div>
+{% endblock %}
