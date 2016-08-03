@@ -72,6 +72,11 @@ function configureErrorTracking(app, environment, sentryDsn) {
 
   app.use(raven.middleware.express.requestHandler(client));
   app.use(raven.middleware.express.errorHandler(client));
+
+  app.use(function(req, res, next) {
+    res.locals.raven = client;
+    next();
+  });
 }
 
 /**

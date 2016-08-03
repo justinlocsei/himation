@@ -164,6 +164,11 @@ Server.prototype._createRouter = function() {
  */
 Server.prototype._createErrorHandler = function() {
   return function(err, req, res, next) {
+    var raven = res.locals.raven;
+    if (raven) {
+      raven.captureException(err);
+    }
+
     res.status(500);
     res.render('pages/error');
   };
