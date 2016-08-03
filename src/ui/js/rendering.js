@@ -1,3 +1,4 @@
+import Raven from 'raven-js';
 import React from 'react';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
@@ -7,6 +8,7 @@ import { renderToString } from 'react-dom/server';
 
 import appReducers from 'himation/ui/reducers';
 import Site from 'himation/ui/containers/site';
+import { getSetting } from 'himation/ui/config';
 
 const APP_CONTAINER_ID = 'app-content';
 const STATE_VARIABLE_NAME = 'HIMATION_STATE';
@@ -28,6 +30,18 @@ function bindComponentToStore(component, initialState, middleware) {
 
   const store = createStore(reducers, initialState, middleware);
   return React.createElement(Provider, {store: store}, component);
+}
+
+/**
+ * Configure error tracking if a Sentry DSN is detected
+ *
+ * @private
+ */
+function configureErrorTracking() {
+  const dsn = getSetting('sentryDsn');
+  if (!dsn) { return; }
+
+  Raven.config(dsn, {environment: getSetting('environment')}).install();
 }
 
 /**
@@ -70,6 +84,8 @@ export function prerenderPageComponent(Page, state) {
  * @param {React.Component} Page A React page component
  */
 export function renderPageComponent(Page) {
+  configureErrorTracking();
+
   const page = React.createElement(Page);
   const site = React.createElement(Site, null, page);
 
