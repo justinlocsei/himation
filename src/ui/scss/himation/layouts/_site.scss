@@ -37,7 +37,6 @@ $_site--footer-v-padding: 4em;
 }
 
 .l--site__header__navigation {
-  font-size: 0.8em;
   letter-spacing: 0.0625em;
   word-spacing: 0.125em;
 }
@@ -71,15 +70,8 @@ $_site--footer-v-padding: 4em;
 }
 
 .l--site__navigation__link {
-  border: 1px solid rgba($himation--page-bg-color, 0.125);
   color: inherit;
-  display: block;
   font-weight: $himation--font-weight-light;
-  padding: 1.5em 3em;
-
-  &:hover {
-    border-color: rgba($himation--page-bg-color, 0.5);
-  }
 }
 
 .l--site__body {
@@ -134,10 +126,6 @@ $_site--footer-v-padding: 4em;
   .l--site__header__navigation {
     flex: 1;
     text-align: center;
-  }
-
-  .l--site__navigation__link {
-    border: 0;
   }
 
   .l--site__footer {
