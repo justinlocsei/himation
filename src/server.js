@@ -165,7 +165,7 @@ Server.prototype._createRouter = function() {
 Server.prototype._createErrorHandler = function() {
   var environment = this.settings.environment;
 
-  return function(err, req, res, next) {
+  return function(err, req, res, next) { // eslint-disable-line no-unused-vars
     var raven = res.locals.raven;
     if (raven) {
       raven.captureException(err, {
