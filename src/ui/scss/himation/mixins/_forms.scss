@@ -83,7 +83,7 @@
       border-color: $himation--input-active-border-color;
       box-shadow: 1px 0 0 $himation--input-active-border-color inset;
     } @else {
-      box-shadow: 0 0 0 1px rgba($himation--branding-text-color, 75%) inset;
+      box-shadow: 0 0 0 1px $himation--branding-text-color inset;
     }
   }
 
