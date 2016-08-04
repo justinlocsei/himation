@@ -32,11 +32,11 @@ function create(build, routes, settings) {
   var router = express.Router(); // eslint-disable-line new-cap
 
   routes.forEach(function(route) {
-    router[route.method](route.path, function(req, res) {
+    router[route.method](route.path, function(req, res, next) {
       mockBrowserEnvironment();
 
       var handler = require(build.entries[route.guid]);
-      handler.renderResponse(req, res, settings);
+      handler.renderResponse(req, res, next, settings);
     });
   });
 

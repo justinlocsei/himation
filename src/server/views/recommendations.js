@@ -29,10 +29,11 @@ function renderInvalidSurveyForm(res, data) {
  * Render recommendations for a survey
  *
  * @param {Response} res The server response
+ * @param {function} next An Express next callback
  * @param {object} surveyData The survey state shape
  * @param {ApiClient} apiClient A himation API client
  */
-function renderRecommendations(res, surveyData, apiClient) {
+function renderRecommendations(res, next, surveyData, apiClient) {
   apiClient.requestRecommendations(packageSurvey(surveyData))
     .then(function(recommendations) {
       res.render('pages/recommendations', {
@@ -48,7 +49,7 @@ function renderRecommendations(res, surveyData, apiClient) {
     });
 }
 
-export function renderResponse(req, res, settings) {
+export function renderResponse(req, res, next, settings) {
   const surveyData = convertPostDataToStateShape(req.body);
   const surveyValidationErrors = validate(surveyData);
 
@@ -56,6 +57,6 @@ export function renderResponse(req, res, settings) {
     renderInvalidSurveyForm(res, surveyData);
   } else {
     const apiClient = createApiClient(settings.chiton.endpoint, settings.chiton.token);
-    renderRecommendations(res, surveyData, apiClient);
+    renderRecommendations(res, next, surveyData, apiClient);
   }
 }
