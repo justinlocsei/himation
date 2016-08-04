@@ -43,9 +43,7 @@ function renderRecommendations(res, next, surveyData, apiClient) {
       });
     })
     .catch(function(error) {
-      res.render('pages/recommendations', {
-        content: error.message
-      });
+      next(error);
     });
 }
 
