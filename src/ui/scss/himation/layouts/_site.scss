@@ -12,23 +12,28 @@ $_site--footer-v-padding: 4em;
   background-color: $himation--branding-primary-color;
   color: $himation--branding-text-color;
   display: flex;
-  font-size: 0.8em;
   justify-content: space-between;
-  padding: 1em $himation--site-gutter;
+  padding: 0 $himation--site-gutter;
 }
 
 .l--site__header__title {
-  border: 1px solid rgba($himation--branding-text-color, 0.5);
+  $_border-size: 2px;
+
+  background-color: $himation--branding-secondary-color;
+  border: $_border-size solid $himation--page-bg-color;
+  border-top: 0;
   color: inherit;
-  font-weight: $himation--font-weight-bold;
+  font-weight: $himation--font-weight-normal;
+  line-height: 1.25;
+  margin-bottom: $_border-size * -2;
   padding: 1.25em;
   text-align: center;
   text-transform: uppercase;
-  width: 3.75em;
+  width: 4em;
 }
 
 .l--site__header__navigation {
-
+  font-size: 0.8em;
 }
 
 .l--site__title {
