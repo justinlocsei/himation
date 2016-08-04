@@ -163,10 +163,14 @@ Server.prototype._createRouter = function() {
  * @returns {function} An request handler that renders an error page
  */
 Server.prototype._createErrorHandler = function() {
+  var environment = this.settings.environment;
+
   return function(err, req, res, next) {
     var raven = res.locals.raven;
     if (raven) {
-      raven.captureException(err);
+      raven.captureException(err, {
+        tags: {environment: environment}
+      });
     }
 
     res.status(500);
