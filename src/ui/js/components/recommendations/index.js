@@ -38,7 +38,7 @@ const Recommendations = React.createClass({
         category: basic.basic.category,
         groupNumber: categories.indexOf(basic.basic.category) + 1,
         image: teaserImage.url,
-        name: basic.basic.name
+        name: basic.basic.plural_name
       };
     });
 
