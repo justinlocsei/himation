@@ -158,9 +158,9 @@ Server.prototype._createRouter = function() {
 };
 
 /**
- * Add a handler to the application that renders a 500 page for errors
+ * Create a handler that renders a 500 page for errors
  *
- * @returns {function} An request handler that renders an error page
+ * @returns {function} A request handler that renders an error page
  */
 Server.prototype._createErrorHandler = function() {
   var environment = this.settings.environment;
