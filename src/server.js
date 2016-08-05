@@ -118,6 +118,8 @@ Server.prototype._createApplication = function(rootPath) {
     app.use(this._createErrorHandler());
   }
 
+  app.use(this._create404Handler());
+
   var factory = this.settings.servers.app.protocol === 'https' ? https : http;
   return factory.createServer(app);
 };
@@ -175,6 +177,22 @@ Server.prototype._createErrorHandler = function() {
 
     res.status(500);
     res.render('pages/error');
+  };
+};
+
+/**
+ * Create a handler that renders a 404 page
+ *
+ * @returns {function} A handler for showing a 404 page
+ */
+Server.prototype._create404Handler = function() {
+  var homePageUrl = this.settings.servers.app.publicUrl;
+
+  return function(req, res) {
+    res.status(404);
+    res.render('pages/404', {
+      homePageUrl: homePageUrl
+    });
   };
 };
 
