@@ -9,11 +9,12 @@ import BasicTeaser from './basic-teaser';
 const Recommendations = React.createClass({
 
   propTypes: {
-    basics: PropTypes.array.isRequired
+    basics: PropTypes.array.isRequired,
+    categories: PropTypes.array.isRequired
   },
 
   render: function() {
-    const { basics } = this.props;
+    const { basics, categories } = this.props;
 
     const basicsByCategory = basics.reduce(function(previous, basic) {
       const category = basic.basic.category;
@@ -24,7 +25,6 @@ const Recommendations = React.createClass({
       return previous;
     }, {});
 
-    const categories = Object.keys(basicsByCategory).sort();
     const sortedBasics = categories.reduce(function(previous, category) {
       return previous.concat(basicsByCategory[category]);
     }, []);

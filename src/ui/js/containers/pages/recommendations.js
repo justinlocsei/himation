@@ -9,13 +9,14 @@ import 'himation/styles/recommendations';
 let RecommendationsPage = React.createClass({
 
   propTypes: {
-    basics: PropTypes.array.isRequired
+    basics: PropTypes.array.isRequired,
+    categories: PropTypes.array.isRequired
   },
 
   render: function() {
     return (
       <Page title="Your Recommendations">
-        <Recommendations basics={this.props.basics} />
+        <Recommendations {...this.props} />
       </Page>
     );
   }
@@ -23,8 +24,11 @@ let RecommendationsPage = React.createClass({
 });
 
 function mapStateToProps(state) {
+  const { recommendations } = state;
+
   return {
-    basics: state.recommendations
+    basics: recommendations.basics,
+    categories: recommendations.categories
   };
 }
 
