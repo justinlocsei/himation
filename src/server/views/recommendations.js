@@ -38,7 +38,7 @@ function renderRecommendations(res, next, surveyData, apiClient) {
     .then(function(recommendations) {
       res.render('pages/recommendations', {
         content: prerenderPageComponent(RecommendationsPage, {
-          recommendations: recommendations.basics
+          recommendations: recommendations
         })
       });
     })
