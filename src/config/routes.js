@@ -6,7 +6,6 @@ module.exports = routing.defineRoutes([{
   name: 'himation',
   path: '/',
   paths: [
-    {path: 'about', name: 'about'},
     {path: 'recommendations', name: 'recommendations', method: 'post'}
   ]
 }]);
