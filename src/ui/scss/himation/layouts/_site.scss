@@ -36,9 +36,8 @@ $_site--footer-v-padding: 4em;
   }
 }
 
-.l--site__header__navigation {
-  letter-spacing: 0.0625em;
-  word-spacing: 0.125em;
+.l--site__header__branding {
+
 }
 
 .l--site__title {
@@ -57,20 +56,8 @@ $_site--footer-v-padding: 4em;
   }
 }
 
-.l--site__navigation {
-
-}
-
-.l--site__navigation__page {
-  display: inline-block;
-
-  & + & {
-    margin-left: 3em;
-  }
-}
-
-.l--site__navigation__link {
-  color: inherit;
+.l--site__slogan {
+  font-size: 1.25em;
   font-weight: $himation--font-weight-light;
 }
 
@@ -114,18 +101,35 @@ $_site--footer-v-padding: 4em;
   opacity: 0.75;
 }
 
+@include himation--breakpoint-tablet {
+
+  .l--site__header__branding {
+    flex: 1;
+    padding-left: $himation--site-gutter * 0.75;
+    text-align: center;
+  }
+  .l--site__slogan {
+    font-size: 1.125em;
+  }
+
+}
+
 @include himation--breakpoint-phone {
 
   .l--site__header {
     padding-left: $himation--site-condensed-gutter;
-    padding-right: 0;
+    padding-right: $himation--site-condensed-gutter;
   }
   .l--site__header__title {
     font-size: 0.8em;
   }
-  .l--site__header__navigation {
-    flex: 1;
-    text-align: center;
+
+  .l--site__header__branding {
+    padding-left: $himation--site-condensed-gutter;
+  }
+  .l--site__slogan {
+    font-size: 0.9em;
+    line-height: 1.375;
   }
 
   .l--site__footer {

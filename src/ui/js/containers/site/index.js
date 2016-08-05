@@ -25,7 +25,9 @@ const Site = React.createClass({
             <span className="l--site__title for-basics">Basics</span>
           </a>
 
-          <nav className="l--site__header__navigation"></nav>
+          <div className="l--site__header__branding">
+            <p className="l--site__slogan">For professional women who have better things to do than shop</p>
+          </div>
 
         </header>
 
