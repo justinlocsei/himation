@@ -4,9 +4,10 @@ import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import { reducer as formReducer } from 'redux-form';
 import { render as reactRender } from 'react-dom';
-import { renderToString } from 'react-dom/server';
+import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 
 import appReducers from 'himation/ui/reducers';
+import Document from 'himation/ui/containers/site/document';
 import Site from 'himation/ui/containers/site';
 import { getSetting } from 'himation/ui/config';
 
@@ -56,30 +57,41 @@ export function getPrerenderedState() {
 /**
  * Pre-render a page component to a string
  *
+ * This renders the entire document using a static-markup document component as
+ * a wrapper for a traditionally rendered site component that contains the given
+ * page component.
+ *
  * @param {React.Component} Page A React page component
  * @param {object} [state] The initial Redux application state
+ * @param {object} [documentProps] Props to pass to the document container
  * @returns {string} The rendered page
  */
-export function prerenderPageComponent(Page, state) {
+export function prerenderPageComponent(Page, state, documentProps) {
   const page = React.createElement(Page);
   const site = React.createElement(Site, null, page);
-  const connectedSite = bindComponentToStore(site, state);
+  const connectedSite = bindComponentToStore(site, state || undefined);
 
   // Double-render the page to fix initial-value issues with redux-form
   // See: https://github.com/erikras/redux-form/issues/621
   let markup = renderToString(connectedSite);
   markup = renderToString(connectedSite);
 
-  return `
-    <div class="l--app__content" id="${APP_CONTAINER_ID}">${markup}</div>
-    <script>
-      window['${STATE_VARIABLE_NAME}'] = ${JSON.stringify(connectedSite.props.store.getState())};
-    </script>
-  `;
+  const container = React.createElement(Document, {
+    ...documentProps,
+    content: markup,
+    contentId: APP_CONTAINER_ID,
+    stateVariableName: STATE_VARIABLE_NAME,
+    store: connectedSite.props.store.getState()
+  });
+
+  return renderToStaticMarkup(container);
 }
 
 /**
  * Render a page component on the client using the pre-rendered state
+ *
+ * This renders the page component within a site component, and extracts the
+ * Redux state used to render the initial document from a global variable.
  *
  * @param {React.Component} Page A React page component
  */
