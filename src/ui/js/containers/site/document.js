@@ -33,10 +33,14 @@ const Document = React.createClass({
 
     let cssTags, jsTags;
     if (assets.stylesheets) {
-      cssTags = assets.stylesheets.map(url => <link rel="stylesheet" href={url} />);
+      cssTags = assets.stylesheets.map(function(url, i) {
+        return <link rel="stylesheet" href={url} key={i} />;
+      });
     }
     if (assets.javascripts) {
-      jsTags = assets.javascripts.map(url => <script src={url} />);
+      jsTags = assets.javascripts.map(function(url, i) {
+        return <script src={url} key={i} />;
+      });
     }
 
     return (
