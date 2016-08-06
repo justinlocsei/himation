@@ -259,7 +259,7 @@ function server(settings) {
       filename: '[name].js',
       libraryTarget: 'commonjs2',
       path: paths.build.assets,
-      publicPath: settings.servers.assets.path
+      publicPath: settings.servers.assets.publicUrl
     },
     plugins: globalPlugins(BUILD_IDS.server, false, settings),
     target: 'node'
@@ -306,7 +306,7 @@ function ui(settings) {
     output: {
       filename: settings.assets.optimize ? '[name]-[hash].js' : '[name].js',
       path: settings.assets.distDir,
-      publicPath: settings.servers.assets.path
+      publicPath: settings.servers.assets.publicUrl
     },
     plugins: commons.concat(globalPlugins(BUILD_IDS.ui, optimizeAssets, settings)),
     target: 'web'
