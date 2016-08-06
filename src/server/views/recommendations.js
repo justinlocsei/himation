@@ -3,6 +3,7 @@ import RecommendationsPage from 'himation/ui/containers/pages/recommendations';
 import { convertPostDataToStateShape } from 'himation/ui/reducers/survey';
 import { createApiClient, packageSurvey } from 'himation/server/api';
 import { prerenderPageComponent } from 'himation/ui/rendering';
+import { renderHtml } from 'himation/server/rendering';
 import { validate } from 'himation/ui/components/survey';
 
 /**
@@ -12,17 +13,16 @@ import { validate } from 'himation/ui/components/survey';
  * @param {object} data The survey state shape
  */
 function renderInvalidSurveyForm(res, data) {
-  res.render('pages/index', {
-    content: prerenderPageComponent(IndexPage, {
-      survey: {
-        ...data,
-        form: {
-          failedValidation: true,
-          isSubmitting: false
-        }
+  const markup = prerenderPageComponent(res, IndexPage, {
+    survey: {
+      ...data,
+      form: {
+        failedValidation: true,
+        isSubmitting: false
       }
-    })
+    }
   });
+  res.send(renderHtml(markup));
 }
 
 /**
@@ -36,11 +36,10 @@ function renderInvalidSurveyForm(res, data) {
 function renderRecommendations(res, next, surveyData, apiClient) {
   apiClient.requestRecommendations(packageSurvey(surveyData))
     .then(function(recommendations) {
-      res.render('pages/recommendations', {
-        content: prerenderPageComponent(RecommendationsPage, {
-          recommendations: recommendations
-        })
+      const markup = prerenderPageComponent(res, RecommendationsPage, {
+        recommendations: recommendations
       });
+      res.send(renderHtml(markup));
     })
     .catch(function(error) {
       next(error);
