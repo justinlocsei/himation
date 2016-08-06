@@ -61,12 +61,13 @@ export function getPrerenderedState() {
  * a wrapper for a traditionally rendered site component that contains the given
  * page component.
  *
+ * @param {express.Response} res An Express response
  * @param {React.Component} Page A React page component
  * @param {object} [state] The initial Redux application state
  * @param {object} [documentProps] Props to pass to the document container
  * @returns {string} The rendered page
  */
-export function prerenderPageComponent(Page, state, documentProps) {
+export function prerenderPageComponent(res, Page, state, documentProps) {
   const page = React.createElement(Page);
   const site = React.createElement(Site, null, page);
   const connectedSite = bindComponentToStore(site, state || undefined);
@@ -78,6 +79,7 @@ export function prerenderPageComponent(Page, state, documentProps) {
 
   const container = React.createElement(Document, {
     ...documentProps,
+    assets: res.locals.assets,
     content: markup,
     contentId: APP_CONTAINER_ID,
     stateVariableName: STATE_VARIABLE_NAME,
