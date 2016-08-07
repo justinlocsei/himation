@@ -166,6 +166,7 @@ Server.prototype._createRouter = function() {
  */
 Server.prototype._createErrorHandler = function() {
   var environment = this.settings.environment;
+  var homePageUrl = this.settings.servers.app.publicUrl;
 
   return function(err, req, res, next) { // eslint-disable-line no-unused-vars
     var raven = res.locals.raven;
@@ -176,7 +177,9 @@ Server.prototype._createErrorHandler = function() {
     }
 
     res.status(500);
-    res.render('pages/error');
+    res.render('pages/error', {
+      homePageUrl: homePageUrl
+    });
   };
 };
 
