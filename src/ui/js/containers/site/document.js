@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import favicon from 'himation/images/branding/favicon.ico';
+
 const Document = React.createClass({
 
   propTypes: {
@@ -54,6 +56,8 @@ const Document = React.createClass({
           <title>{titleParts.join(' - ')}</title>
 
           {cssTags}
+
+          <link rel="shortcut icon" href={favicon} />
         </head>
 
         <body className="l--app">
