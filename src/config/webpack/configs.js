@@ -133,12 +133,12 @@ function imageLoaders(optimize) {
     rasterLoader.loaders.push('image-webpack?' + JSON.stringify(compression));
   }
 
-  var vectorLoader = {
-    test: /\.svg$/,
+  var fallbackLoader = {
+    test: /\.(ico|svg)$/,
     loader: 'file?name=[hash].[ext]'
   };
 
-  return [rasterLoader, vectorLoader];
+  return [rasterLoader, fallbackLoader];
 }
 
 /**
