@@ -33,7 +33,7 @@ const BasicTeaser = React.createClass({
 
     return (
       <a className="c--basic-teaser" href={`#${anchorId}`} data-group-number={groupNumber} onClick={this.handleClick}>
-        <div className="c--basic-teaser__media" style={mediaStyle}></div>
+        <div className="c--basic-teaser__media" style={mediaStyle} />
         <div className="c--basic-teaser__meta">
           <p className="c--basic-teaser__category">{category}</p>
           <p className="c--basic-teaser__name">{name}</p>
