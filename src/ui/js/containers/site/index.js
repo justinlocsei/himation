@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 
+import logo from 'himation/images/branding/logo.svg';
 import { getSetting } from 'himation/ui/config';
 
 import 'himation/styles/site';
@@ -19,10 +20,8 @@ const Site = React.createClass({
       <div className="l--site">
         <header className="l--site__header">
 
-          <a href={rootUrl} className="l--site__header__title">
-            <span className="l--site__title for-cover">Cover</span>
-            <span className="l--site__title for-your">Your</span>
-            <span className="l--site__title for-basics">Basics</span>
+          <a href={rootUrl} className="l--site__header__logo">
+            <img src={logo} className="l--site__logo" alt="Cover Your Basics" />
           </a>
 
           <div className="l--site__header__branding">
