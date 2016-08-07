@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Render HTML with a valid doctype
  *
