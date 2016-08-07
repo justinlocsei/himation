@@ -1,3 +1,4 @@
+import isEmpty from 'lodash/isEmpty';
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 
@@ -201,6 +202,18 @@ export function validate(values) {
   }
 
   return errors;
+}
+
+/**
+ * Determine whether a survey submission appears to be spam
+ *
+ * This uses the presence of a value for the honeypot field as the check.
+ *
+ * @param {object} data The form's raw POST data
+ * @returns {boolean} Whether the submission appears to be spam
+ */
+export function isSpamSubmission(data) {
+  return !isEmpty(data[HONEYPOT_FIELD]);
 }
 
 Survey = reduxForm({

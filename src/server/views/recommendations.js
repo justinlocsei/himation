@@ -4,7 +4,7 @@ import { convertPostDataToStateShape } from 'himation/ui/reducers/survey';
 import { createApiClient, packageSurvey } from 'himation/server/api';
 import { prerenderPageComponent } from 'himation/ui/rendering';
 import { renderHtml } from 'himation/server/rendering';
-import { validate } from 'himation/ui/components/survey';
+import { isSpamSubmission, validate } from 'himation/ui/components/survey';
 
 /**
  * Render an invalid survey form
@@ -47,6 +47,11 @@ function renderRecommendations(res, next, surveyData, apiClient) {
 }
 
 export function renderResponse(req, res, next, settings) {
+  if (isSpamSubmission(req.body)) {
+    renderInvalidSurveyForm(res, {});
+    return;
+  }
+
   const surveyData = convertPostDataToStateShape(req.body);
   const surveyValidationErrors = validate(surveyData);
 
