@@ -21,7 +21,7 @@ const CareTypePicker = React.createClass({
 
             return (
               <li className="c--care-type-picker__type" key={index}>
-                <input className="c--care-type-picker__type__input" id={inputID} type="checkbox" {...field.isSelected} value={null} checked={field.isSelected.value} />
+                <input className="c--care-type-picker__type__input" id={inputID} type="checkbox" {...field.isSelected} checked={field.isSelected.value} />
                 <label className="c--care-type-picker__type__label" htmlFor={inputID}>Avoid {careType.name.toLowerCase()}</label>
                 <input type="hidden" {...field.slug} />
               </li>

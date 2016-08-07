@@ -55,7 +55,7 @@ const SizePicker = React.createClass({
 
                     sizes.push(
                       <li className="c--size-picker__size" key={sizeIndex}>
-                        <input className="c--size-picker__size__input" id={inputID} type="checkbox" {...field.isSelected} value={null} checked={field.isSelected.value} />
+                        <input className="c--size-picker__size__input" id={inputID} type="checkbox" {...field.isSelected} checked={field.isSelected.value} />
                         <label className="c--size-picker__size__label" htmlFor={inputID}>
                           <span className="c--size-picker__size__name">{size.name}</span>
                           <span className="c--size-picker__size__range">{range}</span>
