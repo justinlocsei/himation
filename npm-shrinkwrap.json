@@ -5516,9 +5516,9 @@
       "version": "3.2.2"
     },
     "eslint-config-justinlocsei": {
-      "from": "justinlocsei/eslint-config-justinlocsei#v1.5.0",
-      "resolved": "git://github.com/justinlocsei/eslint-config-justinlocsei.git#365ed07bcbbfda3347d6407c5bac38034b11c717",
-      "version": "1.5.0"
+      "from": "justinlocsei/eslint-config-justinlocsei#v1.6.0",
+      "resolved": "git://github.com/justinlocsei/eslint-config-justinlocsei.git#1aa3c6485e5c6d04480332e64ee848930fcbba70",
+      "version": "1.6.0"
     },
     "eslint-loader": {
       "dependencies": {
