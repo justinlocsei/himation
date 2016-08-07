@@ -25241,6 +25241,11 @@
           "resolved": "https://registry.npmjs.org/isemail/-/isemail-2.2.1.tgz",
           "version": "2.2.1"
         },
+        "items": {
+          "from": "items@>=2.0.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/items/-/items-2.1.1.tgz",
+          "version": "2.1.1"
+        },
         "moment": {
           "from": "moment@>=2.0.0 <3.0.0",
           "resolved": "https://registry.npmjs.org/moment/-/moment-2.14.1.tgz",
@@ -25252,9 +25257,9 @@
           "version": "2.0.2"
         }
       },
-      "from": "joi@>=8.0.0 <9.0.0",
-      "resolved": "https://registry.npmjs.org/joi/-/joi-8.4.2.tgz",
-      "version": "8.4.2"
+      "from": "joi@9.0.4",
+      "resolved": "https://registry.npmjs.org/joi/-/joi-9.0.4.tgz",
+      "version": "9.0.4"
     },
     "json-stable-stringify": {
       "dependencies": {

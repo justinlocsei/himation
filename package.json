@@ -49,7 +49,7 @@
     "helmet": "^0.15.0",
     "himation": "file:./src",
     "image-webpack-loader": "^1.6.2",
-    "joi": "^8.0.0",
+    "joi": "^9.0.0",
     "json-stable-stringify": "^1.0.1",
     "linklocal": "^2.5.2",
     "lodash": "^4.0.0",
