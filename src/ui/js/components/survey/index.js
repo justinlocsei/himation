@@ -12,6 +12,8 @@ import { dismissSurveyErrors, flagSurveyErrors, submitSurvey } from 'himation/ui
 import { MAX_BIRTH_YEAR, MAX_STYLES, MAX_STYLES_WORD, MIN_BIRTH_YEAR } from 'himation/core/data/survey';
 import { scrollToFirstError } from './error-message';
 
+const HONEYPOT_FIELD = 'email';
+
 let Survey = React.createClass({
 
   propTypes: {
@@ -100,6 +102,13 @@ let Survey = React.createClass({
             field={fields.birthYear}
             id="survey-birth-year"
           />
+        </Field>
+
+        <Field slug="email" title="What is your email address?">
+          <p>
+            <label htmlFor="survey-email">Please leave this field blank</label>
+            <input id="survey-email" name={HONEYPOT_FIELD} />
+          </p>
         </Field>
 
         <fieldset className="l--survey__buttons">

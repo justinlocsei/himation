@@ -9,6 +9,11 @@ $_survey--button-h-padding: 10%;
 
 .l--survey__field {
 
+  // Hide the honeypot field
+  &.for-email {
+    display: none;
+  }
+
 }
 
 .l--survey__field__title {
