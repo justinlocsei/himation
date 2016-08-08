@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import { CARE_TYPES } from 'himation/core/data/survey';
+import { extractInputProps } from 'himation/core/extensions/redux-form';
 
 const CareTypePicker = React.createClass({
 
@@ -21,9 +22,9 @@ const CareTypePicker = React.createClass({
 
             return (
               <li className="c--care-type-picker__type" key={index}>
-                <input className="c--care-type-picker__type__input" id={inputID} type="checkbox" {...field.isSelected} checked={field.isSelected.value} />
+                <input className="c--care-type-picker__type__input" id={inputID} type="checkbox" {...extractInputProps(field.isSelected)} checked={field.isSelected.value} />
                 <label className="c--care-type-picker__type__label" htmlFor={inputID}>Avoid {careType.name.toLowerCase()}</label>
-                <input type="hidden" {...field.slug} />
+                <input type="hidden" {...extractInputProps(field.slug)} />
               </li>
             );
           })}

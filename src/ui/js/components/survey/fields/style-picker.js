@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import ErrorMessage from 'himation/ui/components/survey/error-message';
+import { extractInputProps } from 'himation/core/extensions/redux-form';
 import { STYLES } from 'himation/core/data/survey';
 
 const StylePicker = React.createClass({
@@ -23,9 +24,9 @@ const StylePicker = React.createClass({
 
       return (
         <li className="c--style-picker__style" key={index}>
-          <input className="c--style-picker__style__input" id={inputID} type="checkbox" {...field.isSelected} checked={field.isSelected.value} disabled={atQuota && !field.isSelected.value} />
+          <input className="c--style-picker__style__input" id={inputID} type="checkbox" {...extractInputProps(field.isSelected)} checked={field.isSelected.value} disabled={atQuota && !field.isSelected.value} />
           <label className="c--style-picker__style__label" htmlFor={inputID}>{style.name}</label>
-          <input type="hidden" {...field.slug} />
+          <input type="hidden" {...extractInputProps(field.slug)} />
         </li>
       );
     });

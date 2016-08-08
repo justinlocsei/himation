@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import ErrorMessage from 'himation/ui/components/survey/error-message';
+import { extractInputProps } from 'himation/core/extensions/redux-form';
 import { SIZE_GROUPS } from 'himation/core/data/survey';
 
 const SizePicker = React.createClass({
@@ -55,12 +56,12 @@ const SizePicker = React.createClass({
 
                     sizes.push(
                       <li className="c--size-picker__size" key={sizeIndex}>
-                        <input className="c--size-picker__size__input" id={inputID} type="checkbox" {...field.isSelected} checked={field.isSelected.value} />
+                        <input className="c--size-picker__size__input" id={inputID} type="checkbox" {...extractInputProps(field.isSelected)} checked={field.isSelected.value} />
                         <label className="c--size-picker__size__label" htmlFor={inputID}>
                           <span className="c--size-picker__size__name">{size.name}</span>
                           <span className="c--size-picker__size__range">{range}</span>
                         </label>
-                        <input type="hidden" {...field.slug} />
+                        <input type="hidden" {...extractInputProps(field.slug)} />
                       </li>
                     );
 

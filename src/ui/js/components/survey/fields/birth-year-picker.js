@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import ErrorMessage from 'himation/ui/components/survey/error-message';
+import { extractInputProps } from 'himation/core/extensions/redux-form';
 
 const BirthYearInput = React.createClass({
 
@@ -29,7 +30,7 @@ const BirthYearInput = React.createClass({
 
           <div className="c--birth-year-picker__data">
             {errorTag}
-            <input className="c--birth-year-picker__input" type="number" id={id} {...field} value={field.value || ''} placeholder="YYYY" />
+            <input className="c--birth-year-picker__input" type="number" id={id} {...extractInputProps(field)} value={field.value || ''} placeholder="YYYY" />
           </div>
         </div>
       </div>
