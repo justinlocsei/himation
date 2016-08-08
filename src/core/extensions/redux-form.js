@@ -2,6 +2,37 @@
 
 var ARRAY_FIELD_MATCH = new RegExp(/\[([0-9]+)\]\.(.+)$/);
 
+var INPUT_PROPS = [
+  'name',
+  'onBlur',
+  'onChange',
+  'onDragStart',
+  'onDrop',
+  'onFocus',
+  'value'
+];
+
+var INPUT_SPECIFIC_PROPS = {
+  checkbox: ['checked'],
+  radio: ['checked']
+};
+
+/**
+ * Extract props that canb e passed to a React input from a form field
+ *
+ * @param {object} field A Redux form field
+ * @param {string} [fieldType] The type of the input field
+ * @returns {object} The input props
+ */
+function extractInputProps(field, fieldType) {
+  var validProps = INPUT_PROPS.concat(INPUT_SPECIFIC_PROPS[fieldType] || []);
+
+  return validProps.reduce(function(props, propName) {
+    props[propName] = field[propName];
+    return props;
+  }, {});
+}
+
 /**
  * Pass through a field in a field array
  *
@@ -41,5 +72,6 @@ function parseArrayField(data, fieldName, transformer) {
 }
 
 module.exports = {
+  extractInputProps: extractInputProps,
   parseArrayField: parseArrayField
 };
