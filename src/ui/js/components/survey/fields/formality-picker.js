@@ -7,9 +7,12 @@ const IMAGE_SIZES = ['1x', '2x'];
 
 const IMAGES = FORMALITIES.reduce(function(previous, formality) {
   previous[formality.slug] = IMAGE_SIZES.map(function(size) {
+    const image = require(`himation/images/formalities/${formality.slug}-${size}.jpg`);
     return {
-      path: require(`himation/images/formalities/${formality.slug}-${size}.jpg`),
-      size: size
+      height: image.height,
+      path: image.src,
+      size: size,
+      width: image.width
     };
   });
   return previous;
