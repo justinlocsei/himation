@@ -119,7 +119,7 @@ function jsLoaders(files, preserve) {
 function imageLoaders(optimize) {
   var rasterLoader = {
     test: /\.(jpg|png)$/,
-    loaders: ['file?name=[hash].[ext]']
+    loaders: ['image-size?name=[hash].[ext]']
   };
 
   if (optimize) {
