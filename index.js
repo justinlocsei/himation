@@ -21,5 +21,6 @@ module.exports = {
 };
 
 if (require.main === module) {
+  require('newrelic');
   startServer();
 }
