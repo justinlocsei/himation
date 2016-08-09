@@ -85,10 +85,11 @@ function sassLoaders() {
  * Return an array of loaders for JS files
  *
  * @param {string[]} files Paths to JS files that should be processed
+ * @param {boolean} preserve Whether to preserve the original code, if possible
  * @returns {object[]}
  * @private
  */
-function jsLoaders(files) {
+function jsLoaders(files, preserve) {
   return [
     {
       test: /\.js$/,
@@ -96,12 +97,13 @@ function jsLoaders(files) {
       loader: 'babel',
       query: {
         cacheDirectory: true,
-        compact: true,
+        compact: !preserve,
         plugins: [
           'transform-runtime',
           'transform-object-rest-spread'
         ],
-        presets: ['es2015', 'react']
+        presets: ['es2015', 'react'],
+        retainLines: !!preserve
       }
     }
   ];
@@ -250,7 +252,7 @@ function server(settings) {
 
   var config = create(settings, {
     context: paths.server.root,
-    devtool: 'source-map',
+    devtool: false,
     entry: entries,
     externals: function(context, request, callback) {
       var isNonRelative = /^[^\.]/.test(request);
@@ -260,7 +262,7 @@ function server(settings) {
     module: {
       loaders: flatten([
         imageLoaders(settings.assets.optimize),
-        jsLoaders([paths.server.views, paths.ui.js]),
+        jsLoaders([paths.server.views, paths.ui.js], true),
         sassLoaders()
       ])
     },
@@ -303,7 +305,7 @@ function ui(settings) {
     module: {
       loaders: flatten([
         imageLoaders(optimizeAssets),
-        jsLoaders([paths.src]),
+        jsLoaders([paths.src], false),
         sassLoaders()
       ]),
       preLoaders: [
