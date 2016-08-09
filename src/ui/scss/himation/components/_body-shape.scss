@@ -1,7 +1,7 @@
 @import "himation/mixins/forms";
 @import "himation/mixins/responsive";
 
-$_body-shape--image-height: 20em;
+$_body-shape--image-height: 19em;
 
 .c--body-shape {
   @include himation--radio-button-container($padding: 1em);
@@ -16,6 +16,7 @@ $_body-shape--image-height: 20em;
   margin: 0 auto;
   max-height: $_body-shape--image-height;
   max-width: 100%;
+  width: auto;
 }
 
 .c--body-shape__example__caption {
@@ -29,7 +30,7 @@ $_body-shape--image-height: 20em;
 
 @include himation--breakpoint-condensed {
 
-  .c--body-shape__graphic__image {
+  .c--body-shape__example__image {
     max-height: $_body-shape--image-height * 0.75;
   }
 

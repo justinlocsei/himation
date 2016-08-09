@@ -8,9 +8,12 @@ const IMAGE_SIZES = ['1x', '2x'];
 
 const IMAGES = BODY_SHAPES.reduce(function(previous, bodyShape) {
   previous[bodyShape.slug] = IMAGE_SIZES.map(function(size) {
+    const image = require(`himation/images/body-shapes/${bodyShape.slug}-${size}.png`);
     return {
-      path: require(`himation/images/body-shapes/${bodyShape.slug}-${size}.png`),
-      size: size
+      height: image.height,
+      path: image.src,
+      size: size,
+      width: image.width
     };
   });
   return previous;

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import { extractInputProps } from 'himation/core/extensions/redux-form';
-import { imageSizesToSrcset } from 'himation/core/images';
+import { imageSizesToDimensions, imageSizesToSrcset } from 'himation/core/images';
 
 const BodyShape = React.createClass({
 
@@ -9,8 +9,10 @@ const BodyShape = React.createClass({
     field: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     images: PropTypes.arrayOf(PropTypes.shape({
+      height: PropTypes.number.isRequired,
       path: PropTypes.string.isRequired,
-      size: PropTypes.string.isRequired
+      size: PropTypes.string.isRequired,
+      width: PropTypes.number.isRequired
     })).isRequired,
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired
@@ -26,7 +28,7 @@ const BodyShape = React.createClass({
         <input className="c--body-shape__input" id={inputID} type="radio" {...extractInputProps(field)} value={slug} checked={field.value === slug} />
 
         <label className="c--body-shape__example" htmlFor={inputID}>
-          <img className="c--body-shape__example__image" src={images[0].path} srcSet={imageSizesToSrcset(images)} alt={`${name} body shape`} />
+          <img className="c--body-shape__example__image" src={images[0].path} srcSet={imageSizesToSrcset(images)} alt={`${name} body shape`} {...imageSizesToDimensions(images, 120)} />
           <span className="c--body-shape__example__caption">{name}</span>
         </label>
       </div>
