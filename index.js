@@ -1,5 +1,9 @@
 'use strict';
 
+if (require.main === module) {
+  require('newrelic');
+}
+
 var environment = require('himation/config/environment');
 var paths = require('himation/core/paths');
 var Server = require('himation/server');
@@ -21,6 +25,5 @@ module.exports = {
 };
 
 if (require.main === module) {
-  require('newrelic');
   startServer();
 }
