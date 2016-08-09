@@ -147,10 +147,11 @@ function imageLoaders(optimize) {
  * @param {string} label The label for the build
  * @param {boolean} optimize Whether to optimize assets
  * @param {HimationSettings} settings Settings for the current build
+ * @param {boolean} compress Whether to compress the files
  * @returns {object[]}
  * @private
  */
-function globalPlugins(label, optimize, settings) {
+function globalPlugins(label, optimize, settings, compress) {
   var paths = resolvePaths();
   var extractTo = optimize ? '[name]-[contenthash].css' : '[name]-[id].css';
   var plugins = [new ExtractTextPlugin(extractTo)];
@@ -181,7 +182,7 @@ function globalPlugins(label, optimize, settings) {
 
   plugins.push(new webpack.DefinePlugin(definitions));
 
-  if (optimize) {
+  if (compress) {
     plugins.push(new webpack.optimize.UglifyJsPlugin({
       compressor: {warnings: false}
     }));
@@ -234,6 +235,9 @@ function forceFileWriting(config) {
 /**
  * Create a webpack configuration for use on the server
  *
+ * This produces compiled ES3 JS files that are used exclusively for server-side
+ * rendering, allowing us to skip optimization, even for production builds.
+ *
  * @param {HimationSettings} settings The current settings
  * @returns {object} A server-appropriate webpack configuration
  */
@@ -266,7 +270,7 @@ function server(settings) {
       path: paths.build.assets,
       publicPath: settings.servers.assets.publicUrl
     },
-    plugins: globalPlugins(BUILD_IDS.server, false, settings),
+    plugins: globalPlugins(BUILD_IDS.server, false, settings, false),
     target: 'node'
   });
 
@@ -275,6 +279,8 @@ function server(settings) {
 
 /**
  * Create a webpack configuration for rendering the UI in the browser
+ *
+ * This produces the publicy visible assets and client-facing JS code.
  *
  * @param {HimationSettings} settings The current settings
  * @returns {object} A browser-appropriate webpack configuration
@@ -313,7 +319,7 @@ function ui(settings) {
       path: settings.assets.distDir,
       publicPath: settings.servers.assets.publicUrl
     },
-    plugins: commons.concat(globalPlugins(BUILD_IDS.ui, optimizeAssets, settings)),
+    plugins: commons.concat(globalPlugins(BUILD_IDS.ui, optimizeAssets, settings, optimizeAssets)),
     target: 'web'
   });
 
