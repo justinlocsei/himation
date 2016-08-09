@@ -54,6 +54,7 @@
     "linklocal": "^2.5.2",
     "lodash": "^4.0.0",
     "morgan": "^1.6.1",
+    "newrelic": "^1.29.0",
     "node-sass": "^3.4.2",
     "nunjucks": "^2.2.0",
     "parse5": "^2.1.0",
