@@ -5,6 +5,11 @@ import { extractInputProps } from 'himation/core/extensions/redux-form';
 import { FREQUENCIES } from 'himation/core/data/survey';
 import { imageSizesToSrcset } from 'himation/core/images';
 
+// Dimensions for the formality images
+const IMAGE_ASPECT_RATIO = 4 / 9;
+const IMAGE_WIDTH = 120;
+const IMAGE_HEIGHT = 120 / IMAGE_ASPECT_RATIO;
+
 const Formality = React.createClass({
 
   propTypes: {
@@ -41,7 +46,7 @@ const Formality = React.createClass({
       <div className="c--formality">
         <div className="c--formality__details">
           <div className="c--formality__media">
-            <img className="c--formality__media__image" src={images[0].path} srcSet={imageSizesToSrcset(images)} alt={name} />
+            <img className="c--formality__media__image" src={images[0].path} srcSet={imageSizesToSrcset(images)} alt={name} width={IMAGE_WIDTH} height={IMAGE_HEIGHT} />
           </div>
 
           <fieldset className="c--formality__text">
