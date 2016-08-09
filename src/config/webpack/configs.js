@@ -246,7 +246,7 @@ function server(settings) {
 
   var config = create(settings, {
     context: paths.server.root,
-    devtool: false,
+    devtool: 'source-map',
     entry: entries,
     externals: function(context, request, callback) {
       var isNonRelative = /^[^\.]/.test(request);
