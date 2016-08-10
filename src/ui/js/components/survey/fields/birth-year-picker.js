@@ -7,11 +7,13 @@ const BirthYearInput = React.createClass({
 
   propTypes: {
     field: PropTypes.object.isRequired,
+    maxYear: PropTypes.number.isRequired,
+    minYear: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired
   },
 
   render: function() {
-    const { field, id } = this.props;
+    const { field, id, maxYear, minYear } = this.props;
 
     let errorTag;
     if (field.touched && field.error) {
@@ -30,7 +32,7 @@ const BirthYearInput = React.createClass({
 
           <div className="c--birth-year-picker__data">
             {errorTag}
-            <input className="c--birth-year-picker__input" type="number" id={id} {...extractInputProps(field)} value={field.value || ''} placeholder="YYYY" />
+            <input className="c--birth-year-picker__input" type="number" min={minYear} max={maxYear} id={id} {...extractInputProps(field)} value={field.value || ''} placeholder="YYYY" />
           </div>
         </div>
       </div>

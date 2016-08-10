@@ -101,6 +101,8 @@ let Survey = React.createClass({
         <Field slug="birth-year" title="How old are you?">
           <BirthYearPicker
             field={fields.birthYear}
+            maxYear={MAX_BIRTH_YEAR}
+            minYear={MIN_BIRTH_YEAR}
             id="survey-birth-year"
           />
         </Field>
