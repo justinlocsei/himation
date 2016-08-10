@@ -79,15 +79,10 @@ export function prerenderPageComponent(res, Page, options = {}) {
   const site = React.createElement(Site, null, page);
   const connectedSite = bindComponentToStore(site, settings.state);
 
-  // Double-render the page to fix initial-value issues with redux-form
-  // See: https://github.com/erikras/redux-form/issues/621
-  let markup = renderToString(connectedSite);
-  markup = renderToString(connectedSite);
-
   const container = React.createElement(Document, {
     ...settings.documentProps,
     assets: res.locals.assets,
-    content: markup,
+    content: renderToString(connectedSite),
     contentId: APP_CONTAINER_ID,
     stateVariableName: STATE_VARIABLE_NAME,
     store: connectedSite.props.store.getState()
