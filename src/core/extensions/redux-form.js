@@ -1,5 +1,8 @@
 'use strict';
 
+var isArray = require('lodash/isArray');
+
+var ARRAY_DEFINITION_MATCH = new RegExp(/(\w+)\[\]/);
 var ARRAY_FIELD_MATCH = new RegExp(/\[([0-9]+)\]\.(.+)$/);
 
 var INPUT_PROPS = [
@@ -63,7 +66,45 @@ function parseArrayField(data, fieldName, transformer) {
   }, []);
 }
 
+/**
+ * Create seeded field structure from a form schema and a field/value map
+ *
+ * @param {string[]} schema The field definitions for the form
+ * @param {object} values A mapping of field names to initial values
+ * @returns {object} A drop-in replacement for a redux-form field
+ */
+function seedFields(schema, values) {
+  return schema.reduce(function(seeded, fieldDef) {
+    var arrayDefinitionMatch = ARRAY_DEFINITION_MATCH.exec(fieldDef);
+    var fieldName = arrayDefinitionMatch ? arrayDefinitionMatch[1] : fieldDef;
+
+    var fieldValue = values[fieldName];
+    if (fieldValue === undefined) { return seeded; }
+
+    if (isArray(fieldValue)) {
+      seeded[fieldName] = fieldValue.map(function(value, i) {
+        return Object.keys(value).reduce(function(previous, subFieldName) {
+          previous[subFieldName] = {
+            name: fieldName + '[' + i + '].' + subFieldName,
+            value: value[subFieldName]
+          };
+
+          return previous;
+        }, {});
+      });
+    } else {
+      seeded[fieldName] = {
+        name: fieldName,
+        value: fieldValue
+      };
+    }
+
+    return seeded;
+  }, {});
+}
+
 module.exports = {
   extractInputProps: extractInputProps,
-  parseArrayField: parseArrayField
+  parseArrayField: parseArrayField,
+  seedFields: seedFields
 };
