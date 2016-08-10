@@ -1,5 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
 import BirthYearPicker from './fields/birth-year-picker';
@@ -12,8 +13,26 @@ import StylePicker from './fields/style-picker';
 import { dismissSurveyErrors, flagSurveyErrors, submitSurvey } from 'himation/ui/actions/survey';
 import { MAX_BIRTH_YEAR, MAX_STYLES, MAX_STYLES_WORD, MIN_BIRTH_YEAR } from 'himation/core/data/survey';
 import { scrollToFirstError } from './error-message';
+import { seedFields } from 'himation/core/extensions/redux-form';
 
 const HONEYPOT_FIELD = 'email';
+
+const FORM_SCHEMA = [
+  'birthYear',
+  'bodyShape',
+  'careTypes[]',
+  'careTypes[].slug',
+  'careTypes[].isSelected',
+  'formalities[]',
+  'formalities[].slug',
+  'formalities[].frequency',
+  'sizes[]',
+  'sizes[].isSelected',
+  'sizes[].slug',
+  'styles[]',
+  'styles[].isSelected',
+  'styles[].slug'
+];
 
 let Survey = React.createClass({
 
@@ -23,6 +42,7 @@ let Survey = React.createClass({
     form: PropTypes.object.isRequired,
     formAction: PropTypes.string.isRequired,
     formMethod: PropTypes.string.isRequired,
+    initialValues: PropTypes.object.isRequired,
     isSubmitting: PropTypes.bool,
     onFlagErrors: PropTypes.func.isRequired,
     onServerSubmit: PropTypes.func.isRequired
@@ -49,7 +69,7 @@ let Survey = React.createClass({
   },
 
   render: function() {
-    const { form, formAction, formMethod, isSubmitting, onServerSubmit } = this.props;
+    const { form, formAction, formMethod, initialValues, isSubmitting, onServerSubmit } = this.props;
     const { fields } = form;
 
     const handleSubmit = form.valid ? onServerSubmit : form.handleSubmit;
@@ -64,14 +84,14 @@ let Survey = React.createClass({
 
         <Field slug="formalities" title="How often do your male colleagues dress like this?">
           <FormalityPicker
-            fields={fields.formalities}
+            fields={fields.formalities.length ? fields.formalities : initialValues.formalities}
             id="survey-formality"
           />
         </Field>
 
         <Field slug="styles" title="How do you want to be perceived at work?" help="Choose up to three styles">
           <StylePicker
-            fields={fields.styles}
+            fields={fields.styles.length ? fields.styles : initialValues.styles}
             id="survey-style"
             maxStyles={MAX_STYLES}
           />
@@ -86,14 +106,14 @@ let Survey = React.createClass({
 
         <Field slug="sizes" title="What sizes do you wear?" help="Select all sizes that you wear for at least one brand">
           <SizePicker
-            fields={fields.sizes}
+            fields={fields.sizes.length ? fields.sizes : initialValues.sizes}
             id="survey-sizes"
           />
         </Field>
 
         <Field slug="care-types" title="How do you feel about delicate clothes?">
           <CareTypePicker
-            fields={fields.careTypes}
+            fields={fields.careTypes.length ? fields.careTypes : initialValues.careTypes}
             id="survey-care-types"
           />
         </Field>
@@ -124,7 +144,7 @@ let Survey = React.createClass({
 
 });
 
-function mapStateToProps(state) {
+function mapStateToFormProps(state) {
   const { survey } = state;
 
   return {
@@ -142,7 +162,7 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToFormProps(dispatch) {
   return {
     onFlagErrors: function() {
       dispatch(dismissSurveyErrors());
@@ -218,27 +238,20 @@ export function isSpamSubmission(data) {
   return !isEmpty(data[HONEYPOT_FIELD]);
 }
 
+function mapStateToSurveyProps(state) {
+  return {
+    initialValues: seedFields(FORM_SCHEMA, state.survey)
+  };
+}
+
+Survey = connect(mapStateToSurveyProps)(Survey);
+
 Survey = reduxForm({
   form: 'survey',
-  fields: [
-    'birthYear',
-    'bodyShape',
-    'careTypes[]',
-    'careTypes[].slug',
-    'careTypes[].isSelected',
-    'formalities[]',
-    'formalities[].slug',
-    'formalities[].frequency',
-    'sizes[]',
-    'sizes[].isSelected',
-    'sizes[].slug',
-    'styles[]',
-    'styles[].isSelected',
-    'styles[].slug'
-  ],
+  fields: FORM_SCHEMA,
   onSubmit: function() {},
   propNamespace: 'form',
   validate: validate
-}, mapStateToProps, mapDispatchToProps)(Survey);
+}, mapStateToFormProps, mapDispatchToFormProps)(Survey);
 
 export default Survey;
