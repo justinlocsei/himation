@@ -89,6 +89,7 @@
     "himation-test": "file:./test",
     "mocha": "^3.0.0",
     "mock-fs": "^3.6.0",
+    "react-addons-perf": "^15.3.0",
     "sinon": "^1.17.2",
     "supertest": "^2.0.0"
   },

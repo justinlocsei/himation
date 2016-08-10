@@ -22365,6 +22365,9 @@
       },
       "version": "15.3.0"
     },
+    "react-addons-perf": {
+      "version": "15.3.0"
+    },
     "react-dom": {
       "version": "15.3.0"
     },
