@@ -170,6 +170,7 @@ function globalPlugins(label, optimize, settings, compress) {
 
   var definitions = {
     HIMATION_CONFIG: JSON.stringify({
+      debug: settings.debug,
       environment: settings.environment,
       rootUrl: settings.servers.app.publicUrl,
       sentryDsn: settings.errors.track && settings.errors.sentryDsnPublic
