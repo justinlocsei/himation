@@ -1,7 +1,7 @@
 import { ConfigurationError } from 'himation/core/errors';
 
-// This global variable is replaced at build time by Webpack with the full
-// configuration object
+// This global variable is replaced at build time by Webpack with a partial
+// configuration object containing non-sensitive data
 const CONFIG = HIMATION_CONFIG;
 
 /**
