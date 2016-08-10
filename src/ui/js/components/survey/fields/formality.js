@@ -28,7 +28,7 @@ const Formality = React.createClass({
 
       return (
         <li className="c--formality__frequency" key={index}>
-          <input className="c--formality__frequency__input" id={inputID} type="radio" {...extractInputProps(field.frequency, 'radio')} value={frequency.slug} checked={field.frequency.value === frequency.slug} />
+          <input className="c--formality__frequency__input" id={inputID} type="radio" {...extractInputProps(field.frequency)} value={frequency.slug} checked={field.frequency.value === frequency.slug} />
           <label className="c--formality__frequency__label" htmlFor={inputID}>{frequency.name}</label>
         </li>
       );
