@@ -33,12 +33,12 @@ var serverSchema = Joi.object().keys({
  * @property {object} chiton Information on the Chiton API
  * @property {string} chiton.endpoint The absolute URL for the base Chiton endpoint
  * @property {string} chiton.token The token to use for authenticating Chiton requests
+ * @property {boolean} debug Whether to run in debugging mode
  * @property {string} environment The name of the application environment
  * @property {object} errors Information on handling errors
  * @property {string} errors.sentryDsn The Sentry DSN to use
  * @property {string} errors.sentryDsnPublic The public Sentry DSN to use
  * @property {boolean} errors.track Whether or not to track errors
- * @property {boolean} debug Whether to run in debugging mode
  * @property {object} server Settings for the server
  * @property {boolean} server.debugLogging Whether to use a debugging-friendly log format
  * @property {object} servers Addresses for all known servers
