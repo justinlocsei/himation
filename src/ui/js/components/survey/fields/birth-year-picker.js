@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import ErrorMessage from 'himation/ui/components/survey/error-message';
+import { anyPropsChanged } from 'himation/core/extensions/react';
 import { extractInputProps } from 'himation/core/extensions/redux-form';
 
 const BirthYearInput = React.createClass({
@@ -10,6 +11,10 @@ const BirthYearInput = React.createClass({
     maxYear: PropTypes.number.isRequired,
     minYear: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired
+  },
+
+  shouldComponentUpdate: function(nextProps) {
+    return anyPropsChanged(this.props.field, nextProps.field, ['error', 'touched', 'value']);
   },
 
   render: function() {
