@@ -67,34 +67,56 @@ function parseArrayField(data, fieldName, transformer) {
 }
 
 /**
+ * A no-op onChange handler to use when seeding fields
+ */
+function noOpOnChange() {}
+
+/**
  * Create seeded field structure from a form schema and a field/value map
+ *
+ * This is used to create drop-in replacements for fields in a Redux form, which
+ * are either missing or invalid on the first render of a component.  This
+ * defines the minimum set of fields required to make the fields work with
+ * code that expects Redux-form fields, and is intended only to be used for
+ * server-side rendering.
  *
  * @param {string[]} schema The field definitions for the form
  * @param {object} values A mapping of field names to initial values
+ * @param {object} [errors] Possible validation errors
  * @returns {object} A drop-in replacement for a redux-form field
  */
-function seedFields(schema, values) {
+function seedFields(schema, values, validationErrors) {
+  var errors = validationErrors || {};
+  var hasErrors = Object.keys(errors).length > 0;
+
   return schema.reduce(function(seeded, fieldDef) {
     var arrayDefinitionMatch = ARRAY_DEFINITION_MATCH.exec(fieldDef);
     var fieldName = arrayDefinitionMatch ? arrayDefinitionMatch[1] : fieldDef;
-
     var fieldValue = values[fieldName];
-    if (fieldValue === undefined) { return seeded; }
 
     if (isArray(fieldValue)) {
       seeded[fieldName] = fieldValue.map(function(value, i) {
-        return Object.keys(value).reduce(function(previous, subFieldName) {
-          previous[subFieldName] = {
+        var field = {
+          error: (errors[fieldName] || [])[i],
+          touched: hasErrors
+        };
+
+        Object.keys(value).forEach(function(subFieldName) {
+          field[subFieldName] = {
             name: fieldName + '[' + i + '].' + subFieldName,
+            onChange: noOpOnChange,
             value: value[subFieldName]
           };
+        });
 
-          return previous;
-        }, {});
+        return field;
       });
-    } else {
+    } else if (fieldValue !== undefined) {
       seeded[fieldName] = {
+        error: errors[fieldName],
         name: fieldName,
+        onChange: noOpOnChange,
+        touched: hasErrors,
         value: fieldValue
       };
     }
