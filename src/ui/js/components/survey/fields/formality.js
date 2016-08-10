@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import ErrorMessage from 'himation/ui/components/survey/error-message';
+import { anyPropsChanged } from 'himation/core/extensions/react';
 import { extractInputProps } from 'himation/core/extensions/redux-form';
 import { FREQUENCIES } from 'himation/core/data/survey';
 import { imageSizesToDimensions, imageSizesToSrcset } from 'himation/core/images';
@@ -21,7 +22,7 @@ const Formality = React.createClass({
   },
 
   shouldComponentUpdate: function(nextProps) {
-    return this.props.field.frequency.value !== nextProps.field.frequency.value;
+    return anyPropsChanged(this.props.field.frequency, nextProps.field.frequency, ['error', 'touched', 'value']);
   },
 
   render: function() {
