@@ -15,17 +15,22 @@ const BodyShape = React.createClass({
       width: PropTypes.number.isRequired
     })).isRequired,
     name: PropTypes.string.isRequired,
+    selected: PropTypes.bool.isRequired,
     slug: PropTypes.string.isRequired
   },
 
+  shouldComponentUpdate: function(nextProps) {
+    return this.props.selected !== nextProps.selected;
+  },
+
   render: function() {
-    const { field, id, images, name, slug } = this.props;
+    const { field, id, images, name, selected, slug } = this.props;
 
     const inputID = `${id}-${slug}`;
 
     return (
       <div className="c--body-shape">
-        <input className="c--body-shape__input" id={inputID} type="radio" {...extractInputProps(field)} value={slug} checked={field.value === slug} />
+        <input className="c--body-shape__input" id={inputID} type="radio" {...extractInputProps(field)} value={slug} checked={selected} />
 
         <label className="c--body-shape__example" htmlFor={inputID}>
           <img className="c--body-shape__example__image" src={images[0].path} srcSet={imageSizesToSrcset(images)} alt={`${name} body shape`} {...imageSizesToDimensions(images, 120)} />

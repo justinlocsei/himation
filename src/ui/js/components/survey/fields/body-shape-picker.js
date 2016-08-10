@@ -37,6 +37,7 @@ const BodyShapePicker = React.createClass({
             id={id}
             images={IMAGES[bodyShape.slug]}
             name={bodyShape.name}
+            selected={field.value === bodyShape.slug}
             slug={bodyShape.slug}
           />
         </li>
