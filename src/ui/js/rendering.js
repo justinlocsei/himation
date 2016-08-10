@@ -106,7 +106,7 @@ export function renderPageComponent(Page) {
   const site = React.createElement(Site, null, page);
 
   const storeArgs = [site, getPrerenderedState()];
-  if (window.devToolsExtension) {
+  if (getSetting('debug') && window.devToolsExtension) {
     storeArgs.push(window.devToolsExtension());
   }
 
