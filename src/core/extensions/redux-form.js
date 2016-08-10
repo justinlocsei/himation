@@ -82,7 +82,7 @@ function noOpOnChange() {}
  *
  * @param {string[]} schema The field definitions for the form
  * @param {object} values A mapping of field names to initial values
- * @param {object} [errors] Possible validation errors
+ * @param {object} [validationErrors] Possible validation errors
  * @returns {object} A drop-in replacement for a redux-form field
  */
 function seedFields(schema, values, validationErrors) {
