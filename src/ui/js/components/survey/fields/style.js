@@ -21,8 +21,6 @@ const Style = React.createClass({
   render: function() {
     const { disabled, field, id, style } = this.props;
 
-    console.log(`Re-rendering ${style.slug}`); // TODO: delete me
-
     const inputID = `${id}-${style.slug}`;
 
     return (
