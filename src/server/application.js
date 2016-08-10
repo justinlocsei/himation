@@ -9,6 +9,16 @@ var raven = require('raven');
 var errors = require('himation/core/errors');
 
 /**
+ * Simplify the app's configuration by removing and disabling unused settings
+ *
+ * @param {express.application} app An application instance
+ * @private
+ */
+function simplifyConfiguration(app) {
+  app.disable('etag');
+}
+
+/**
  * Configure the app's template engine
  *
  * @param {express.Application} app An application instance
@@ -105,6 +115,7 @@ function create(options) {
     configureErrorTracking(app, settings.environment, settings.sentryDsn);
   }
 
+  simplifyConfiguration(app);
   configureTemplates(app, settings.templatesDirectory);
   configureSecurity(app);
   configureBodyParsing(app);
