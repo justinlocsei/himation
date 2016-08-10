@@ -130,7 +130,7 @@ function imageLoaders(optimize) {
         quality: '65-90',
         speed: 4
       },
-      progressive: false
+      progressive: true
     };
     rasterLoader.loaders.push('image-webpack?' + JSON.stringify(compression));
   }
