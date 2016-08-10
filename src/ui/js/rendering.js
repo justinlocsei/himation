@@ -63,14 +63,21 @@ export function getPrerenderedState() {
  *
  * @param {express.Response} res An Express response
  * @param {React.Component} Page A React page component
- * @param {object} [state] The initial Redux application state
- * @param {object} [documentProps] Props to pass to the document container
+ * @param {object} [options] Options for rendering the page
+ * @param {object} [options.state] The initial Redux application state
+ * @param {object} [options.documentProps] Props to pass to the document container
  * @returns {string} The rendered page
  */
-export function prerenderPageComponent(res, Page, state, documentProps) {
+export function prerenderPageComponent(res, Page, options = {}) {
+  const settings = {
+    documentProps: {},
+    state: undefined,
+    ...options
+  };
+
   const page = React.createElement(Page);
   const site = React.createElement(Site, null, page);
-  const connectedSite = bindComponentToStore(site, state || undefined);
+  const connectedSite = bindComponentToStore(site, settings.state);
 
   // Double-render the page to fix initial-value issues with redux-form
   // See: https://github.com/erikras/redux-form/issues/621
@@ -78,7 +85,7 @@ export function prerenderPageComponent(res, Page, state, documentProps) {
   markup = renderToString(connectedSite);
 
   const container = React.createElement(Document, {
-    ...documentProps,
+    ...settings.documentProps,
     assets: res.locals.assets,
     content: markup,
     contentId: APP_CONTAINER_ID,
