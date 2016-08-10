@@ -85,8 +85,8 @@
   "devDependencies": {
     "chai": "^3.4.1",
     "chai-as-promised": "^5.2.0",
-    "himation-test": "file:./test",
     "gulp-mocha": "^3.0.0",
+    "himation-test": "file:./test",
     "mocha": "^3.0.0",
     "mock-fs": "^3.6.0",
     "sinon": "^1.17.2",
