@@ -20,6 +20,10 @@ const Formality = React.createClass({
     slug: PropTypes.string.isRequired
   },
 
+  shouldComponentUpdate: function(nextProps) {
+    return this.props.field.frequency.value !== nextProps.field.frequency.value;
+  },
+
   render: function() {
     const { field, id, images, name, slug } = this.props;
 
