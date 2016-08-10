@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import ErrorMessage from 'himation/ui/components/survey/error-message';
-import { extractInputProps } from 'himation/core/extensions/redux-form';
+import Size from './size';
 import { SIZE_GROUPS } from 'himation/core/data/survey';
 
 const SizePicker = React.createClass({
@@ -43,28 +43,9 @@ const SizePicker = React.createClass({
                 <ul className="c--size-picker__group__sizes">
                   {group.sizes.reduce(function(sizes, size, sizeIndex) {
                     const field = fields.find(f => f.slug.value === size.slug);
-                    const inputID = `${id}-${size.slug}`;
-
                     if (!field) { return sizes; }
 
-                    let range;
-                    if (size.rangeMin === size.rangeMax) {
-                      range = size.rangeMin;
-                    } else {
-                      range = `${size.rangeMin}${String.fromCharCode(8211)}${size.rangeMax}`;
-                    }
-
-                    sizes.push(
-                      <li className="c--size-picker__size" key={sizeIndex}>
-                        <input className="c--size-picker__size__input" id={inputID} type="checkbox" {...extractInputProps(field.isSelected)} checked={field.isSelected.value} />
-                        <label className="c--size-picker__size__label" htmlFor={inputID}>
-                          <span className="c--size-picker__size__name">{size.name}</span>
-                          <span className="c--size-picker__size__range">{range}</span>
-                        </label>
-                        <input type="hidden" {...extractInputProps(field.slug)} />
-                      </li>
-                    );
-
+                    sizes.push(<Size field={field} id={id} key={sizeIndex} size={size}/>);
                     return sizes;
                   }, [])}
                 </ul>
