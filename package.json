@@ -6,7 +6,7 @@
   "license": "UNLICENSED",
   "main": "index.js",
   "scripts": {
-    "bootstrap": "gulp build",
+    "bootstrap": "gulp clear && gulp build",
     "build": "gulp clear && gulp build --optimize",
     "develop": "gulp develop",
     "lint": "gulp lint",
