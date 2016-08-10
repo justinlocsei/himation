@@ -11,12 +11,14 @@ import { isSpamSubmission, validate } from 'himation/ui/components/survey';
  *
  * @param {Response} res The server response
  * @param {object} data The survey state shape
+ * @param {object} errors Possible validation errors
  */
-function renderInvalidSurveyForm(res, data) {
+function renderInvalidSurveyForm(res, data, errors) {
   const markup = prerenderPageComponent(res, IndexPage, {
     state: {
       survey: {
         ...data,
+        errors: errors,
         form: {
           failedValidation: true,
           isSubmitting: false
@@ -60,7 +62,7 @@ export function renderResponse(req, res, next, settings) {
   const surveyValidationErrors = validate(surveyData);
 
   if (Object.keys(surveyValidationErrors).length) {
-    renderInvalidSurveyForm(res, surveyData);
+    renderInvalidSurveyForm(res, surveyData, surveyValidationErrors);
   } else {
     const apiClient = createApiClient(settings.chiton.endpoint, settings.chiton.token);
     renderRecommendations(res, next, surveyData, apiClient);
