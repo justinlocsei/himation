@@ -21,7 +21,7 @@ const Site = React.createClass({
         <header className="l--site__header">
 
           <a href={rootUrl} className="l--site__header__logo">
-            <img src={logo} className="l--site__logo" alt="Cover Your Basics" />
+            <img src={logo} className="l--site__logo" alt="Cover Your Basics" width={68} height={85} />
           </a>
 
           <div className="l--site__header__branding">
