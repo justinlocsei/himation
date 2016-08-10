@@ -1,6 +1,7 @@
 @import "himation/mixins/responsive";
 
 $_site--footer-v-padding: 4em;
+$_site--slogan-font-size: 1em;
 
 .l--site {
   color: $himation--text-color;
@@ -47,8 +48,9 @@ $_site--footer-v-padding: 4em;
 }
 
 .l--site__slogan {
-  font-size: 1.25em;
+  font-size: $_site--slogan-font-size;
   font-weight: $himation--font-weight-light;
+  letter-spacing: 0.05em;
 }
 
 .l--site__body {
@@ -99,7 +101,7 @@ $_site--footer-v-padding: 4em;
     text-align: center;
   }
   .l--site__slogan {
-    font-size: 1.125em;
+    letter-spacing: 0;
   }
 
 }
@@ -118,7 +120,7 @@ $_site--footer-v-padding: 4em;
     padding-left: $himation--site-condensed-gutter;
   }
   .l--site__slogan {
-    font-size: 0.9em;
+    font-size: $_site--slogan-font-size * 0.8;
     line-height: 1.375;
   }
 
