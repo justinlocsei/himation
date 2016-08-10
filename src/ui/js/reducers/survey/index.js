@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import birthYear, { parseForm as parseBirthYear } from './birth-year';
 import bodyShape, { parseForm as parseBodyShape } from './body-shape';
 import careTypes, { parseForm as parseCareTypes } from './care-types';
+import errors from './errors';
 import form from './form';
 import formalities, { parseForm as parseFormalities } from './formalities';
 import sizes, { parseForm as parseSizes } from './sizes';
@@ -34,6 +35,7 @@ export default combineReducers({
   birthYear: birthYear,
   bodyShape: bodyShape,
   careTypes: careTypes,
+  errors: errors,
   form: form,
   formalities: formalities,
   sizes: sizes,
