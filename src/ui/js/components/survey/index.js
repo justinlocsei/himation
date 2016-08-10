@@ -69,8 +69,7 @@ let Survey = React.createClass({
   },
 
   render: function() {
-    const { form, formAction, formMethod, initialValues, isSubmitting, onServerSubmit } = this.props;
-    const { fields } = form;
+    const { form, formAction, formMethod, isSubmitting, onServerSubmit } = this.props;
 
     const handleSubmit = form.valid ? onServerSubmit : form.handleSubmit;
 
@@ -84,14 +83,14 @@ let Survey = React.createClass({
 
         <Field slug="formalities" title="How often do your male colleagues dress like this?">
           <FormalityPicker
-            fields={fields.formalities.length ? fields.formalities : initialValues.formalities}
+            fields={this._getFieldData('formalities')}
             id="survey-formality"
           />
         </Field>
 
         <Field slug="styles" title="How do you want to be perceived at work?" help="Choose up to three styles">
           <StylePicker
-            fields={fields.styles.length ? fields.styles : initialValues.styles}
+            fields={this._getFieldData('styles')}
             id="survey-style"
             maxStyles={MAX_STYLES}
           />
@@ -99,28 +98,28 @@ let Survey = React.createClass({
 
         <Field slug="body-shape" title="What is your body shape?">
           <BodyShapePicker
-            field={fields.bodyShape}
+            field={this._getFieldData('bodyShape')}
             id="survey-body-shape"
           />
         </Field>
 
         <Field slug="sizes" title="What sizes do you wear?" help="Select all sizes that you wear for at least one brand">
           <SizePicker
-            fields={fields.sizes.length ? fields.sizes : initialValues.sizes}
+            fields={this._getFieldData('sizes')}
             id="survey-sizes"
           />
         </Field>
 
         <Field slug="care-types" title="How do you feel about delicate clothes?">
           <CareTypePicker
-            fields={fields.careTypes.length ? fields.careTypes : initialValues.careTypes}
+            fields={this._getFieldData('careTypes')}
             id="survey-care-types"
           />
         </Field>
 
         <Field slug="birth-year" title="How old are you?">
           <BirthYearPicker
-            field={fields.birthYear}
+            field={this._getFieldData('birthYear')}
             maxYear={MAX_BIRTH_YEAR}
             minYear={MIN_BIRTH_YEAR}
             id="survey-birth-year"
@@ -140,6 +139,14 @@ let Survey = React.createClass({
 
       </form>
     );
+  },
+
+  _getFieldData: function(fieldName) {
+    const fields = this.props.form.fields;
+    const initialValues = this.props.initialValues;
+
+    const hasData = fields.formalities.length > 0;
+    return hasData ? fields[fieldName] : initialValues[fieldName];
   }
 
 });
@@ -239,8 +246,10 @@ export function isSpamSubmission(data) {
 }
 
 function mapStateToSurveyProps(state) {
+  const { survey } = state;
+
   return {
-    initialValues: seedFields(FORM_SCHEMA, state.survey)
+    initialValues: seedFields(FORM_SCHEMA, survey, survey.errors)
   };
 }
 
