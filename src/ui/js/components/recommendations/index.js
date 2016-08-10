@@ -26,7 +26,12 @@ const Recommendations = React.createClass({
     }, {});
 
     const sortedBasics = categories.reduce(function(previous, category) {
-      return previous.concat(basicsByCategory[category]);
+      const categoryBasics = basicsByCategory[category];
+      if (categoryBasics) {
+        return previous.concat(categoryBasics);
+      } else {
+        return previous;
+      }
     }, []);
 
     const basicTeasers = sortedBasics.map(function(basic) {
