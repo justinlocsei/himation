@@ -14,11 +14,13 @@ import { isSpamSubmission, validate } from 'himation/ui/components/survey';
  */
 function renderInvalidSurveyForm(res, data) {
   const markup = prerenderPageComponent(res, IndexPage, {
-    survey: {
-      ...data,
-      form: {
-        failedValidation: true,
-        isSubmitting: false
+    state: {
+      survey: {
+        ...data,
+        form: {
+          failedValidation: true,
+          isSubmitting: false
+        }
       }
     }
   });
@@ -37,7 +39,9 @@ function renderRecommendations(res, next, surveyData, apiClient) {
   apiClient.requestRecommendations(packageSurvey(surveyData))
     .then(function(recommendations) {
       const markup = prerenderPageComponent(res, RecommendationsPage, {
-        recommendations: recommendations
+        state: {
+          recommendations: recommendations
+        }
       });
       res.send(renderHtml(markup));
     })
