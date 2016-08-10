@@ -21,6 +21,7 @@ structure below, which shows the available settings and their defaults:
     "endpoint": null, // The URL for the root Chiton API endpoint
     "token": null     // The API token used to authenticate Chiton requests
   },
+  "debug": false,               // Whether to enable debug tools
   "environment": "development", // The name of the application environment
   "errors": {
     "sentryDsn": null,       // The Sentry DSN for reporting errors

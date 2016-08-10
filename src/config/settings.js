@@ -55,6 +55,7 @@ var schema = Joi.object().keys({
     endpoint: Joi.string(),
     token: Joi.string()
   }).default(),
+  debug: Joi.boolean().default(false),
   environment: Joi.string().default('development'),
   errors: Joi.object().keys({
     sentryDsn: Joi.string(),
