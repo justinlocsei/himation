@@ -12,22 +12,14 @@ var INPUT_PROPS = [
   'value'
 ];
 
-var INPUT_SPECIFIC_PROPS = {
-  checkbox: ['checked'],
-  radio: ['checked']
-};
-
 /**
  * Extract props that canb e passed to a React input from a form field
  *
  * @param {object} field A Redux form field
- * @param {string} [fieldType] The type of the input field
  * @returns {object} The input props
  */
-function extractInputProps(field, fieldType) {
-  var validProps = INPUT_PROPS.concat(INPUT_SPECIFIC_PROPS[fieldType] || []);
-
-  return validProps.reduce(function(props, propName) {
+function extractInputProps(field) {
+  return INPUT_PROPS.reduce(function(props, propName) {
     props[propName] = field[propName];
     return props;
   }, {});
