@@ -31,6 +31,7 @@ var serverSchema = Joi.object().keys({
  * @property {string} assets.distDir The absolute path to the directory containing optimized assets
  * @property {boolean} assets.optimize Whether to optimize all bundled assets
  * @property {object} caching Configuration for the gateway cache
+ * @property {string} caching.gatewayUrl The URL for the gateway caching server
  * @property {number} caching.ttl The number of seconds for which to cache cacheable backend responses
  * @property {object} chiton Information on the Chiton API
  * @property {string} chiton.endpoint The absolute URL for the base Chiton endpoint
@@ -55,6 +56,7 @@ var schema = Joi.object().keys({
     optimize: Joi.boolean().default(false)
   }).default(),
   caching: Joi.object().keys({
+    gatewayUrl: Joi.string(),
     ttl: Joi.number().default(60)
   }).default(),
   chiton: Joi.object().keys({

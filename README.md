@@ -18,7 +18,8 @@ structure below, which shows the available settings and their defaults:
     "optimize": false // Setting this to true will compress and optimize all assets during build
   },
   "caching": {
-    "ttl": 60 // The number of seconds for which to cache cacheable content
+    "gatewayUrl": null, // The URL for the gateway caching server
+    "ttl": 60           // The number of seconds for which to cache cacheable content
   },
   "chiton": {
     "endpoint": null, // The URL for the root Chiton API endpoint
