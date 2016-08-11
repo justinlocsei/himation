@@ -179,28 +179,32 @@ gulp.task('test', function test() {
 gulp.task('refresh-cache', function refreshCache(done) {
   var logLabel = 'refresh-cache';
   var gateway = settings.caching.gatewayUrl;
-  var appServer = settings.servers.app.publicUrl;
+  var appUrl = settings.servers.app.publicUrl;
 
-  var getUrls = routes
-    .filter(route => route.method === 'get')
-    .map(route => urls.relativeToAbsolute(route.path, appServer));
+  var banRoutes = routes.filter(route => route.method === 'get');
+  var primeRoutes = banRoutes.reduce(function(previous, route) {
+    var url = urls.relativeToAbsolute(route.path, appUrl);
+    previous.push({url: url, gzip: true, path: route.path});
+    previous.push({url: url, gzip: false, path: route.path});
+    return previous;
+  }, []);
 
   var requestAsync = Promise.promisify(request);
 
-  Promise.map(getUrls, function(url) {
-    gutil.log(logLabel, 'Banning ' + url);
+  Promise.map(banRoutes, function(route) {
+    gutil.log(logLabel, 'Banning ' + route.path);
     return requestAsync({
       url: gateway,
       method: 'BAN',
-      headers: {'X-Ban': url}
+      headers: {'X-Ban': route.path}
     });
   }).catch(function(error) {
     throw new gutil.PluginError(logLabel, 'Could not ban URLs: ' + error);
   }).then(function() {
     gutil.log(logLabel, 'Banned all URLs');
-    return Promise.map(getUrls, function(url) {
-      gutil.log(logLabel, 'Priming ' + url);
-      return requestAsync(url);
+    return Promise.map(primeRoutes, function(route) {
+      gutil.log(logLabel, 'Priming ' + route.path + ' (gzip ' + route.gzip + ')');
+      return requestAsync({url: route.url, gzip: route.gzip});
     });
   }).catch(function(error) {
     throw new gutil.PluginError(logLabel, 'Could not prime URLs: ' + error);
