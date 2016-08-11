@@ -5,5 +5,5 @@ import { renderHtml } from 'himation/server/rendering';
 
 export function renderResponse(req, res, next, settings) {
   const markup = prerenderPageComponent(res, IndexPage);
-  allowGatewayCaching(res, settings.cacheTtl).send(renderHtml(markup));
+  allowGatewayCaching(res, settings.caching.ttl).send(renderHtml(markup));
 }
