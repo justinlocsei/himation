@@ -11,6 +11,7 @@
     "develop": "gulp develop",
     "lint": "gulp lint",
     "postinstall": "linklocal link",
+    "refresh-cache": "gulp refresh-cache",
     "serve": "gulp serve",
     "test": "gulp test; exit 0"
   },

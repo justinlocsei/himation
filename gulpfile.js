@@ -3,6 +3,8 @@
 var fs = require('fs');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
+var Promise = require('bluebird');
+var request = require('request');
 var rimraf = require('rimraf');
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
@@ -12,8 +14,10 @@ var yargs = require('yargs');
 var environment = require('himation/config/environment');
 var files = require('himation/core/files');
 var paths = require('himation/core/paths').resolve();
+var routes = require('himation/config/routes');
 var Server = require('himation/server');
 var startServer = require('./index').startServer;
+var urls = require('himation/core/urls');
 var webpackConfigs = require('himation/config/webpack/configs');
 
 var options = yargs
@@ -169,6 +173,41 @@ gulp.task('test', function test() {
       reporter: 'dot',
       require: ['himation-test/support/environment']
     }));
+});
+
+// Refresh the gateway cache
+gulp.task('refresh-cache', function refreshCache(done) {
+  var logLabel = 'refresh-cache';
+  var gateway = settings.caching.gatewayUrl;
+  var appServer = settings.servers.app.publicUrl;
+
+  var getUrls = routes
+    .filter(route => route.method === 'get')
+    .map(route => urls.relativeToAbsolute(route.path, appServer));
+
+  var requestAsync = Promise.promisify(request);
+
+  Promise.map(getUrls, function(url) {
+    gutil.log(logLabel, 'Banning ' + url);
+    return requestAsync({
+      url: gateway,
+      method: 'BAN',
+      headers: {'X-Ban': url}
+    });
+  }).catch(function(error) {
+    throw new gutil.PluginError(logLabel, 'Could not ban URLs: ' + error);
+  }).then(function() {
+    gutil.log(logLabel, 'Banned all URLs');
+    return Promise.map(getUrls, function(url) {
+      gutil.log(logLabel, 'Priming ' + url);
+      return requestAsync(url);
+    });
+  }).catch(function(error) {
+    throw new gutil.PluginError(logLabel, 'Could not prime URLs: ' + error);
+  }).then(function() {
+    gutil.log(logLabel, 'Primed all URLs');
+    done();
+  });
 });
 
 /**
