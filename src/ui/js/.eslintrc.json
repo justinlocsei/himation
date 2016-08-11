@@ -4,7 +4,8 @@
     "commonjs": true
   },
   "globals": {
-    "HIMATION_CONFIG": true
+    "HIMATION_CONFIG": true,
+    "HIMATION_GOOGLE_ANALYTICS_ID": true
   },
   "parser": "babel-eslint",
   "parserOptions": {
