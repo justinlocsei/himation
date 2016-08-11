@@ -30,6 +30,7 @@ var serverSchema = Joi.object().keys({
  * @property {boolean} assets.debug Whether to bundle assets in debug mode
  * @property {string} assets.distDir The absolute path to the directory containing optimized assets
  * @property {boolean} assets.optimize Whether to optimize all bundled assets
+ * @property {number} cacheTtl The number of seconds for which to cache cacheable backend responses
  * @property {object} chiton Information on the Chiton API
  * @property {string} chiton.endpoint The absolute URL for the base Chiton endpoint
  * @property {string} chiton.token The token to use for authenticating Chiton requests
@@ -52,6 +53,7 @@ var schema = Joi.object().keys({
     distDir: Joi.string(),
     optimize: Joi.boolean().default(false)
   }).default(),
+  cacheTtl: Joi.number().default(60),
   chiton: Joi.object().keys({
     endpoint: Joi.string(),
     token: Joi.string()
