@@ -39,6 +39,7 @@ var serverSchema = Joi.object().keys({
  * @property {string} errors.sentryDsn The Sentry DSN to use
  * @property {string} errors.sentryDsnPublic The public Sentry DSN to use
  * @property {boolean} errors.track Whether or not to track errors
+ * @property {string} googleAnalyticsId The Google Analytics ID to use
  * @property {object} server Settings for the server
  * @property {boolean} server.debugLogging Whether to use a debugging-friendly log format
  * @property {object} servers Addresses for all known servers
@@ -62,6 +63,7 @@ var schema = Joi.object().keys({
     sentryDsnPublic: Joi.string(),
     track: Joi.boolean().default(false)
   }).default(),
+  googleAnalyticsId: Joi.string(),
   server: Joi.object().keys({
     debugLogging: Joi.boolean().default(false)
   }).default(),

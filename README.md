@@ -28,6 +28,7 @@ structure below, which shows the available settings and their defaults:
     "sentryDsnPublic": null, // The public Sentry DSN for reporting errors
     "track": false           // Whether or not to track errors
   },
+  "googleAnalyticsId": null, // The Google Analytics ID to use for tracking
   "server": {
     "debugLogging": false // Setting this to true will log all requests made to the app server
   },
