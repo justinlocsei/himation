@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import favicon from 'himation/images/branding/favicon.ico';
+import touchIcon from 'himation/images/branding/apple-touch-icon.png';
 
 // This global variable is replaced at build time with the Google Analytics ID
 const GOOGLE_ANALYTICS_ID = HIMATION_GOOGLE_ANALYTICS_ID;
@@ -61,6 +62,7 @@ const Document = React.createClass({
           {cssTags}
 
           <link rel="shortcut icon" href={favicon} />
+          <link rel="apple-touch-icon" href={touchIcon.src} />
         </head>
 
         <body className="l--app">
