@@ -11,12 +11,14 @@ var WebpackDevServer = require('webpack-dev-server');
 var WebpackProgressPlugin = require('webpack/lib/ProgressPlugin');
 var yargs = require('yargs');
 
+var api = require('himation/server/api');
 var environment = require('himation/config/environment');
 var files = require('himation/core/files');
 var paths = require('himation/core/paths').resolve();
 var routes = require('himation/config/routes');
 var Server = require('himation/server');
 var startServer = require('./index').startServer;
+var surveyData = require('himation/server/data/survey');
 var urls = require('himation/core/urls');
 var webpackConfigs = require('himation/config/webpack/configs');
 
@@ -25,6 +27,11 @@ var options = yargs
     alias: 'o',
     default: false,
     describe: 'Optimize all build artifacts'
+  })
+  .option('survey', {
+    alias: 's',
+    default: null,
+    describe: 'The path to a survey dump file'
   })
   .argv;
 
@@ -219,6 +226,39 @@ gulp.task('refresh-cache', function refreshCache(done) {
     gutil.log(logLabel, 'Primed all URLs');
     done();
   });
+});
+
+// View the contents of an API response from a data dump
+//
+// This loads a survey-request data dump, which is a JSON file containing the
+// POST data sent to the survey.  This data is used to generate an API request
+// and display its contents.
+gulp.task('test-api-response', function testApiResponse(done) {
+  var rawPostData;
+  var logLabel = 'test-api-response';
+
+  try {
+    rawPostData = fs.readFileSync(options.survey);
+  } catch (e) {
+    throw new gutil.PluginError(logLabel, 'You must provide the path to a survey-data file via --survey');
+  }
+
+  var postData = surveyData.convertPostDataToProfile(JSON.parse(rawPostData));
+  var apiClient = api.createApiClient(settings.chiton.endpoint, settings.chiton.token);
+  var apiData = api.packageSurvey(postData);
+
+  gutil.log(logLabel, 'Sending API request');
+  gutil.log(logLabel, JSON.stringify(apiData, null, 2));
+
+  apiClient.requestRecommendations(apiData)
+    .catch(function(error) {
+      throw new gutil.PluginError(logLabel, error);
+    })
+    .then(function(response) {
+      gutil.log(logLabel, 'Received API response');
+      gutil.log(logLabel, JSON.stringify(response, null, 2));
+      done();
+    });
 });
 
 /**
