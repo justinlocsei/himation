@@ -1,6 +1,7 @@
 'use strict';
 
 var extend = require('extend');
+var isString = require('lodash/isString');
 var Promise = require('bluebird');
 var request = require('request');
 var sortBy = require('lodash/sortBy');
@@ -116,12 +117,14 @@ ApiClient.prototype.requestRecommendations = function(profile) {
       } else if (response.statusCode === 200) {
         resolve(simplifyRecommendations(body));
       } else if (response.statusCode === 400) {
-        if (body.errors.fields) {
+        if (isString(body)) {
+          errorMessage = body;
+        } else if (body.errors && body.errors.fields) {
           errorMessage = Object.keys(body.errors.fields).reduce(function(previous, field) {
             previous.push(field + ': ' + body.errors.fields[field]);
             return previous;
           }, []).join(' | ');
-        } else if (body.errors.server) {
+        } else if (body.errors && body.errors.server) {
           errorMessage = body.errors.server;
         } else {
           errorMessage = 'Unknown error';
