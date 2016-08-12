@@ -177,9 +177,12 @@ gulp.task('test', function test() {
 
 // Refresh the gateway cache
 gulp.task('refresh-cache', function refreshCache(done) {
+  var requestAsync = Promise.promisify(request);
   var logLabel = 'refresh-cache';
+
   var gateway = settings.caching.gatewayUrl;
   var appUrl = settings.servers.app.publicUrl;
+  var caCertificate = fs.readFileSync(settings.servers.app.caCertificatePath);
 
   var banRoutes = routes.filter(route => route.method === 'get');
   var primeRoutes = banRoutes.reduce(function(previous, route) {
@@ -188,8 +191,6 @@ gulp.task('refresh-cache', function refreshCache(done) {
     previous.push({url: url, gzip: false, path: route.path});
     return previous;
   }, []);
-
-  var requestAsync = Promise.promisify(request);
 
   Promise.map(banRoutes, function(route) {
     gutil.log(logLabel, 'Banning ' + route.path);
@@ -204,7 +205,13 @@ gulp.task('refresh-cache', function refreshCache(done) {
     gutil.log(logLabel, 'Banned all URLs');
     return Promise.map(primeRoutes, function(route) {
       gutil.log(logLabel, 'Priming ' + route.path + ' (gzip ' + route.gzip + ')');
-      return requestAsync({url: route.url, gzip: route.gzip});
+      return requestAsync({
+        url: route.url,
+        gzip: route.gzip,
+        agentOptions: {
+          ca: caCertificate
+        }
+      });
     });
   }).catch(function(error) {
     throw new gutil.PluginError(logLabel, 'Could not prime URLs: ' + error);
