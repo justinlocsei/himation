@@ -173,7 +173,8 @@ Server.prototype._createErrorHandler = function() {
     if (raven) {
       raven.captureException(err, {
         extra: {
-          requestData: req.body
+          requestData: req.body,
+          requestDataJson: JSON.stringify(req.body)
         },
         tags: {environment: environment}
       });
