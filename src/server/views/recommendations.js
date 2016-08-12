@@ -1,6 +1,6 @@
 import IndexPage from 'himation/ui/containers/pages';
 import RecommendationsPage from 'himation/ui/containers/pages/recommendations';
-import { convertPostDataToStateShape } from 'himation/server/data/survey';
+import { convertPostDataToProfile } from 'himation/server/data/survey';
 import { createApiClient, packageSurvey } from 'himation/server/api';
 import { prerenderPageComponent } from 'himation/ui/rendering';
 import { renderHtml } from 'himation/server/rendering';
@@ -10,7 +10,7 @@ import { isSpamSubmission, validate } from 'himation/ui/components/survey';
  * Render an invalid survey form
  *
  * @param {Response} res The server response
- * @param {object} data The survey state shape
+ * @param {HimationSurveyData} data The survey state shape
  * @param {object} errors Possible validation errors
  */
 function renderInvalidSurveyForm(res, data, errors) {
@@ -34,7 +34,7 @@ function renderInvalidSurveyForm(res, data, errors) {
  *
  * @param {Response} res The server response
  * @param {function} next An Express next callback
- * @param {object} surveyData The survey state shape
+ * @param {HimationSurveyData} surveyData The survey data
  * @param {ApiClient} apiClient A himation API client
  */
 function renderRecommendations(res, next, surveyData, apiClient) {
@@ -58,7 +58,7 @@ export function renderResponse(req, res, next, settings) {
     return;
   }
 
-  const surveyData = convertPostDataToStateShape(req.body);
+  const surveyData = convertPostDataToProfile(req.body);
   const surveyValidationErrors = validate(surveyData);
 
   if (Object.keys(surveyValidationErrors).length) {
