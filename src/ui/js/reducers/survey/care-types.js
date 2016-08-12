@@ -1,5 +1,4 @@
 import { CARE_TYPES } from 'himation/core/data/survey';
-import { parseArrayField } from 'himation/core/extensions/redux-form';
 
 const defaultState = CARE_TYPES.map(function(careType) {
   return {
@@ -7,20 +6,6 @@ const defaultState = CARE_TYPES.map(function(careType) {
     isSelected: false
   };
 });
-
-export function parseForm(data) {
-  const parsed = parseArrayField(data, 'careTypes', function(field, value) {
-    return field === 'isSelected' ? !!value : value;
-  });
-
-  return defaultState.map(function(careType) {
-    const match = parsed.find(p => p.slug === careType.slug);
-    return {
-      ...careType,
-      ...match
-    };
-  });
-}
 
 export default function careTypes(state = defaultState) {
   return state;

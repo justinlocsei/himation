@@ -1,6 +1,6 @@
 import IndexPage from 'himation/ui/containers/pages';
 import RecommendationsPage from 'himation/ui/containers/pages/recommendations';
-import { convertPostDataToStateShape } from 'himation/ui/reducers/survey';
+import { convertPostDataToStateShape } from 'himation/server/data/survey';
 import { createApiClient, packageSurvey } from 'himation/server/api';
 import { prerenderPageComponent } from 'himation/ui/rendering';
 import { renderHtml } from 'himation/server/rendering';
