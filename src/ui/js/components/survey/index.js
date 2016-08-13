@@ -76,6 +76,8 @@ let Survey = React.createClass({
     return (
       <form className="l--survey" action={formAction} method={formMethod} onSubmit={handleSubmit}>
 
+        <h2 className="l--survey__title">Tell Us About Yourself</h2>
+
         <Field slug="formalities" title="How often do your male colleagues dress like this?">
           <FormalityPicker
             fields={this._getFieldData('formalities')}
