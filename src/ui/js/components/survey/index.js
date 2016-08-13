@@ -37,6 +37,7 @@ const FORM_SCHEMA = [
 let Survey = React.createClass({
 
   propTypes: {
+    anchorId: PropTypes.string,
     failedValidation: PropTypes.bool,
     flagErrors: PropTypes.bool,
     form: PropTypes.object.isRequired,
@@ -69,12 +70,12 @@ let Survey = React.createClass({
   },
 
   render: function() {
-    const { form, formAction, formMethod, isSubmitting, onServerSubmit } = this.props;
+    const { anchorId, form, formAction, formMethod, isSubmitting, onServerSubmit } = this.props;
 
     const handleSubmit = form.valid ? onServerSubmit : form.handleSubmit;
 
     return (
-      <form className="l--survey" action={formAction} method={formMethod} onSubmit={handleSubmit}>
+      <form className="l--survey" id={anchorId} action={formAction} method={formMethod} onSubmit={handleSubmit}>
 
         <h2 className="l--survey__title">Tell Us About Yourself</h2>
 
