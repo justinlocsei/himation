@@ -2,6 +2,33 @@
 @import "himation/mixins/typography";
 @import "himation/mixins/responsive";
 
+// Apply button styles to a caller
+@mixin himation--button {
+  background-color: $himation--branding-primary-color;
+  border: 1px solid $himation--branding-primary-color;
+  box-sizing: border-box;
+  color: $himation--branding-text-color;
+  cursor: pointer;
+  display: inline-block;
+
+  &:hover,
+  &:focus {
+    background-color: lighten($himation--branding-primary-color, 5%);
+    border-color: lighten($himation--branding-primary-color, 5%);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 1px $himation--branding-text-color inset;
+    outline: 0;
+  }
+
+  &:disabled {
+    background-color: $himation--branding-secondary-color;
+    border-color: $himation--branding-secondary-color;
+    transition: background-color 0.75s;
+  }
+}
+
 // Apply form-input styles to a caller that contains an input and a label
 //
 // This expects the caller to be a container for an checkbox or radio tag that
