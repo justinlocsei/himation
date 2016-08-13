@@ -1,0 +1,36 @@
+@import "himation/mixins/forms";
+
+.l--pitch {
+  background-color: $himation--form-field-bg-color;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2em $himation--site-gutter;
+}
+
+.l--pitch__tagline {
+  font-size: 2.75em;
+  font-weight: $himation--font-weight-bold;
+  line-height: 1.125em;
+  margin-bottom: 0.5em;
+}
+
+.l--pitch__details {
+  font-size: 1.25em;
+  font-weight: 300;
+  line-height: 1.25;
+}
+
+.l--pitch__cta {
+  margin-top: 2em;
+  text-align: center;
+}
+
+.l--pitch__button {
+  @include himation--button;
+  font-size: 1.5em;
+  font-weight: $himation--font-weight-semi-bold;
+  padding: 1em 3em;
+}
