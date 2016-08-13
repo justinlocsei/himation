@@ -64,7 +64,8 @@ $_site--slogan-font-size: 1em;
 }
 
 .l--site__footer {
-  background-color: $himation--branding-primary-color;
+  background-color: $himation--text-color;
+  border-top: 1px solid darken($himation--text-color, 25%);
   color: $himation--branding-text-color;
   display: flex;
   font-size: 0.85em;
