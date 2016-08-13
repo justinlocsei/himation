@@ -1,12 +1,3 @@
-// Safely allow the caller to clear any contained floats
-@mixin himation--clearfix {
-  &::after {
-    clear: both;
-    content: "";
-    display: block;
-  }
-}
-
 // Make the caller a container for a fluid media item with a known aspect ratio
 //
 // @param <length> $aspect-ratio The aspect ratio expressed as height over width
