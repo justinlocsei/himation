@@ -67,6 +67,11 @@ $_survey--button-h-padding: 10%;
     box-shadow: 0 0 0 1px $himation--branding-text-color inset;
     outline: 0;
   }
+
+  &:disabled {
+    background-color: $himation--branding-secondary-color;
+    transition: background-color 0.75s;
+  }
 }
 
 @include himation--breakpoint-phone {

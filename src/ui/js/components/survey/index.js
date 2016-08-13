@@ -73,13 +73,8 @@ let Survey = React.createClass({
 
     const handleSubmit = form.valid ? onServerSubmit : form.handleSubmit;
 
-    const classes = ['l--survey'];
-    if (isSubmitting) {
-      classes.push('is-submitting');
-    }
-
     return (
-      <form className={classes.join(' ')} action={formAction} method={formMethod} onSubmit={handleSubmit}>
+      <form className="l--survey" action={formAction} method={formMethod} onSubmit={handleSubmit}>
 
         <Field slug="formalities" title="How often do your male colleagues dress like this?">
           <FormalityPicker
@@ -134,7 +129,9 @@ let Survey = React.createClass({
         </Field>
 
         <fieldset className="l--survey__buttons">
-          <button className="l--survey__submit-button" type="submit" disabled={isSubmitting}>Show me what I need</button>
+          <button className="l--survey__submit-button" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? `Getting recommendations${String.fromCharCode(8230)}` : 'Show me what I need'}
+          </button>
         </fieldset>
 
       </form>
