@@ -103,7 +103,7 @@ let Survey = React.createClass({
           />
         </Field>
 
-        <Field slug="sizes" title="What sizes do you wear?" help="Select all sizes that you wear for at least one brand">
+        <Field slug="sizes" title="What sizes do you wear?">
           <SizePicker
             fields={this._getFieldData('sizes')}
             id="survey-sizes"
