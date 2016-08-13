@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
 
+import { childProps } from 'himation/core/extensions/react';
+
 const Page = React.createClass({
 
   propTypes: {
-    children: PropTypes.element,
+    children: childProps.multiple,
     title: PropTypes.string
   },
 
