@@ -25,7 +25,7 @@ const Site = React.createClass({
           </a>
 
           <div className="l--site__header__branding">
-            <p className="l--site__slogan">For professional women who have better things to do than shop</p>
+            <p className="l--site__slogan">For professional women with better things to do than shop</p>
           </div>
 
         </header>
