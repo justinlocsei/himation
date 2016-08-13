@@ -46,22 +46,21 @@ $_survey--button-h-padding: 10%;
 }
 
 .l--survey__submit-button {
-  background-color: transparent;
-  border: 0.25em solid $himation--branding-primary-color;
-  border-radius: 0.25em;
+  background-color: $himation--branding-primary-color;
+  border: 0.375em double $himation--page-bg-color;
+  border-radius: 0.375em;
   box-sizing: border-box;
-  color: $himation--branding-primary-color;
+  color: $himation--branding-text-color;
   cursor: pointer;
   display: inline-block;
   font-size: 1.25em;
   font-weight: $himation--font-weight-semi-bold;
-  padding: 1.25em $_survey--button-h-padding;
+  padding: 1.5em $_survey--button-h-padding;
   text-transform: uppercase;
 
   &:hover,
   &:focus {
-    background-color: $himation--branding-primary-color;
-    color: $himation--branding-text-color;
+    background-color: lighten($himation--branding-primary-color, 5%);
   }
 
   &:focus {
