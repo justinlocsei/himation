@@ -25,63 +25,17 @@ const Basic = React.createClass({
     name: PropTypes.string.isRequired
   },
 
-  handleResize: function() {
-
-    // Gather metrics on the height and offset of each group's garments
-    const groupMetrics = this._garmentsByGroup.map(function(garments) {
-      return garments.map(function(garment) {
-        let padding = parseInt(garment.style.paddingBottom, 10);
-        if (isNaN(padding)) { padding = 0; }
-
-        return {
-          garment: garment,
-          height: garment.clientHeight - padding,
-          padding: padding,
-          top: garment.offsetTop
-        };
-      });
-    });
-
-    // Determine whether any group has stacked garments by checking for
-    // differing top offsets
-    const garmentsAreStacked = some(groupMetrics, function(metric) {
-      const tops = metric.map(garment => garment.top);
-      return uniq(tops).length === tops.length;
-    });
-
-    // Abort if the garments are not stacked and no padding has been applied
-    const hasPadding = some(groupMetrics, metric => some(metric, garment => garment.padding));
-    if (!garmentsAreStacked && !hasPadding) { return; }
-
-    // Cycle through each apparent row of garments and adjust the padding
-    range(0, this.props.maxGarmentsPerGroup - 1).forEach(function(garmentIndex) {
-      const maxHeight = max(groupMetrics.map(metric => metric[garmentIndex].height));
-      groupMetrics.forEach(function(metric) {
-        const garment = metric[garmentIndex];
-
-        // If the garments are stacked and the current garment is shorter than
-        // the tallest garment in the row, add padding to equalize the height
-        let padding = 0;
-        if (garmentsAreStacked && garment.height < maxHeight) {
-          padding = maxHeight - garment.height;
-        }
-
-        garment.garment.style.paddingBottom = `${padding}px`;
-      });
-    });
-  },
-
   componentWillMount: function() {
     this._garmentsByGroup = [];
   },
 
   componentDidMount: function() {
-    addResizeHandler(this.handleResize);
-    this.handleResize();
+    addResizeHandler(this._equalizePriceGroupHeight);
+    this._equalizePriceGroupHeight();
   },
 
   componentWillUnmount: function() {
-    removeResizeHandler(this.handleResize);
+    removeResizeHandler(this._equalizePriceGroupHeight);
   },
 
   render: function() {
@@ -153,6 +107,55 @@ const Basic = React.createClass({
         </div>
       </div>
     );
+  },
+
+  /**
+   * Align each row in stacked price-group columns when using a columnar display
+   */
+  _equalizePriceGroupHeight: function() {
+
+    // Gather metrics on the height and offset of each group's garments
+    const groupMetrics = this._garmentsByGroup.map(function(garments) {
+      return garments.map(function(garment) {
+        let padding = parseInt(garment.style.paddingBottom, 10);
+        if (isNaN(padding)) { padding = 0; }
+
+        return {
+          garment: garment,
+          height: garment.clientHeight - padding,
+          padding: padding,
+          top: garment.offsetTop
+        };
+      });
+    });
+
+    // Determine whether any group has stacked garments by checking for
+    // differing top offsets
+    const garmentsAreStacked = some(groupMetrics, function(metric) {
+      const tops = metric.map(garment => garment.top);
+      return uniq(tops).length === tops.length;
+    });
+
+    // Abort if the garments are not stacked and no padding has been applied
+    const hasPadding = some(groupMetrics, metric => some(metric, garment => garment.padding));
+    if (!garmentsAreStacked && !hasPadding) { return; }
+
+    // Cycle through each apparent row of garments and adjust the padding
+    range(0, this.props.maxGarmentsPerGroup - 1).forEach(function(garmentIndex) {
+      const maxHeight = max(groupMetrics.map(metric => metric[garmentIndex].height));
+      groupMetrics.forEach(function(metric) {
+        const garment = metric[garmentIndex];
+
+        // If the garments are stacked and the current garment is shorter than
+        // the tallest garment in the row, add padding to equalize the height
+        let padding = 0;
+        if (garmentsAreStacked && garment.height < maxHeight) {
+          padding = maxHeight - garment.height;
+        }
+
+        garment.garment.style.paddingBottom = `${padding}px`;
+      });
+    });
   }
 
 });
