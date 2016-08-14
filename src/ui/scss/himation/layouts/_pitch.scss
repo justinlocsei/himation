@@ -1,6 +1,10 @@
 @import "himation/mixins/forms";
 @import "himation/mixins/responsive";
 
+$_pitch--content-width: 100% - $himation--site-gutter * 2;
+
+$_pitch--image-width: 33% * ($_pitch--content-width / 100%);
+
 .l--pitch {
   background-color: $himation--form-field-bg-color;
   box-sizing: border-box;
@@ -9,7 +13,16 @@
   justify-content: center;
   margin-bottom: 3em;
   min-height: calc(100vh - #{$himation--site-header-height});
-  padding: 3em $himation--site-gutter;
+  padding: 0 $himation--site-gutter;
+  position: relative;
+  z-index: $himation--z-flat;
+}
+
+.l--pitch__content {
+  padding: 3em 0;
+  padding-right: $_pitch--image-width + 5%;
+  position: relative;
+  z-index: 2;
 }
 
 .l--pitch__tagline {
@@ -33,14 +46,33 @@
 .l--pitch__button {
   @include himation--button;
   font-size: 1.5em;
-  font-weight: $himation--font-weight-semi-bold;
+  font-weight: $himation--font-weight-bold;
   padding: 1em 3em;
+}
+
+.l--pitch__graphic {
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: contain;
+  bottom: 0;
+  position: absolute;
+  right: $himation--site-gutter;
+  top: 2%;
+  width: $_pitch--image-width;
+  z-index: 1;
 }
 
 @include himation--breakpoint-tablet {
 
   .l--pitch {
     font-size: 0.8em;
+  }
+
+  .l--pitch__graphic {
+    right: 1%;
+  }
+  .l--pitch__content {
+    padding-right: $_pitch--image-width;
   }
 
 }
