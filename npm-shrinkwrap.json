@@ -3904,6 +3904,14 @@
       },
       "version": "1.0.1"
     },
+    "fastdom": {
+      "dependencies": {
+        "strictdom": {
+          "version": "1.0.1"
+        }
+      },
+      "version": "1.0.4"
+    },
     "file-loader": {
       "dependencies": {
         "loader-utils": {
