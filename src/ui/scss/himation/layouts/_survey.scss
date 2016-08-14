@@ -68,12 +68,6 @@ $_survey--field-top-padding: 2.5em;
     font-size: 1.5em;
   }
 
-  .l--survey__field__title,
-  .l--survey__field__content {
-    padding-left: $himation--site-condensed-gutter;
-    padding-right: $himation--site-condensed-gutter;
-  }
-
   .l--survey__field__title {
     padding-top: $_survey--field-top-padding * 0.75;
   }

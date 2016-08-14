@@ -112,10 +112,6 @@ $_site--logo-v-padding: 1.25em;
 
 @include himation--breakpoint-phone {
 
-  .l--site__header {
-    padding-left: $himation--site-condensed-gutter;
-    padding-right: $himation--site-condensed-gutter;
-  }
   .l--site__header__logo {
     $_scaling: 0.9;
 
@@ -125,9 +121,6 @@ $_site--logo-v-padding: 1.25em;
     width: $himation--site-condensed-header-height * $_site--logo-aspect-ratio * $_scaling;
   }
 
-  .l--site__header__branding {
-    padding-left: $himation--site-condensed-gutter;
-  }
   .l--site__slogan {
     font-size: $_site--slogan-font-size * 0.65;
     line-height: 1.375;
@@ -135,7 +128,7 @@ $_site--logo-v-padding: 1.25em;
 
   .l--site__footer {
     flex-direction: column;
-    padding: $_site--footer-v-padding * 0.5 $himation--site-condensed-gutter;
+    padding: $_site--footer-v-padding * 0.5 $himation--site-gutter;
   }
   .l--site__footer__links {
     margin-bottom: 1.5em;
