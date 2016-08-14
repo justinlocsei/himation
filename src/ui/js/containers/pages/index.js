@@ -9,12 +9,12 @@ import { guidToRoute } from 'himation/core/routing';
 
 import 'himation/styles/survey';
 
-const SURVEY_ID = 'survey';
+const SURVEY_ANCHOR = 'start-survey';
 
 const HomePage = React.createClass({
 
   handleRequestSurvey: function() {
-    const survey = document.getElementById(SURVEY_ID);
+    const survey = document.getElementById(SURVEY_ANCHOR);
     const bounding = survey.getBoundingClientRect();
     const surveyTop = bounding.top + window.pageYOffset;
 
@@ -31,8 +31,8 @@ const HomePage = React.createClass({
 
     return (
       <Page>
-        <Pitch onRequestSurvey={this.handleRequestSurvey} surveyId={SURVEY_ID} />
-        <Survey formAction={submitSurvey.path} formMethod={submitSurvey.method} anchorId={SURVEY_ID} />
+        <Pitch onRequestSurvey={this.handleRequestSurvey} surveyId={SURVEY_ANCHOR} />
+        <Survey formAction={submitSurvey.path} formMethod={submitSurvey.method} anchorId={SURVEY_ANCHOR} />
       </Page>
     );
   }
