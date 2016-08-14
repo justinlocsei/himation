@@ -11,6 +11,7 @@ $_site--slogan-font-size: 1.25em;
 .l--site__header {
   align-items: center;
   background-color: $himation--branding-primary-color;
+  box-sizing: border-box;
   color: $himation--branding-text-color;
   display: flex;
   justify-content: space-between;
