@@ -6,8 +6,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 3em;
   min-height: calc(100vh - #{$himation--site-header-height});
-  padding: 2em $himation--site-gutter;
+  padding: 3em $himation--site-gutter;
 }
 
 .l--pitch__tagline {

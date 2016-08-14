@@ -11,8 +11,8 @@ $_survey--button-h-padding: 10%;
 .l--survey__title {
   border-bottom: 0.125em solid currentColor;
   font-size: 2.75em;
-  margin-top: 2em;
-  padding: 0 $himation--site-gutter 0.125em;
+  font-weight: $himation--font-weight-bold;
+  padding: 0 $himation--site-gutter 0.25em;
 }
 
 .l--survey__field {
