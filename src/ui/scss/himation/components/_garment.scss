@@ -12,6 +12,10 @@ $_garment--details-v-padding: 0.75em;
   background-repeat: no-repeat;
   background-size: cover;
   display: block;
+
+  &.is-cropped {
+    background-size: contain;
+  }
 }
 
 .c--garment__media {
