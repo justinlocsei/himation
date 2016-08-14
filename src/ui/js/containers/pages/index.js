@@ -1,3 +1,4 @@
+import anime from 'animejs';
 import React from 'react';
 
 import Page from 'himation/ui/components/pages';
@@ -10,6 +11,21 @@ import 'himation/styles/survey';
 const SURVEY_ID = 'survey';
 
 const HomePage = React.createClass({
+
+  handleCtaClick: function(e) {
+    e.preventDefault();
+
+    const survey = document.getElementById(SURVEY_ID);
+    const bounding = survey.getBoundingClientRect();
+    const surveyTop = bounding.top + window.pageYOffset;
+
+    anime({
+      targets: ['body', 'html'],
+      scrollTop: surveyTop,
+      duration: 750,
+      easing: 'easeOutCubic'
+    });
+  },
 
   render: function() {
     const submitSurvey = guidToRoute(routes, 'himation.recommendations');
@@ -30,7 +46,7 @@ const HomePage = React.createClass({
             clothes again.
           </p>
           <div className="l--pitch__cta">
-            <a href={`#${SURVEY_ID}`} className="l--pitch__button">Fill Out Our Survey</a>
+            <a href={`#${SURVEY_ID}`} className="l--pitch__button" onClick={this.handleCtaClick}>Fill Out Our Survey</a>
           </div>
         </div>
 

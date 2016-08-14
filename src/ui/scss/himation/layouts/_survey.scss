@@ -13,7 +13,7 @@ $_survey--field-top-padding: 2.5em;
   border-bottom: 0.125em solid currentColor;
   font-size: 2.75em;
   font-weight: $himation--font-weight-bold;
-  padding: 0 $himation--site-gutter 0.25em;
+  padding: 0.25em $himation--site-gutter;
 }
 
 .l--survey__field {
