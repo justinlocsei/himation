@@ -1,4 +1,3 @@
-import debounce from 'lodash/debounce';
 import max from 'lodash/max';
 import range from 'lodash/range';
 import React, { PropTypes } from 'react';
@@ -8,6 +7,7 @@ import sum from 'lodash/sum';
 import uniq from 'lodash/uniq';
 
 import Garment from './garment';
+import { addResizeHandler, removeResizeHandler } from 'himation/ui/events';
 
 const PRICE_GROUP_NAMES = {
   low: 'Budget',
@@ -73,16 +73,15 @@ const Basic = React.createClass({
 
   componentWillMount: function() {
     this._garmentsByGroup = [];
-    this._handleResize = debounce(this.handleResize, 50);
   },
 
   componentDidMount: function() {
-    window.addEventListener('resize', this._handleResize);
+    addResizeHandler(this.handleResize);
     this.handleResize();
   },
 
   componentWillUnmount: function() {
-    window.removeEventListener('resize', this._handleResize);
+    removeResizeHandler(this.handleResize);
   },
 
   render: function() {
