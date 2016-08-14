@@ -3,6 +3,7 @@
 @import "himation/mixins/typography";
 
 $_survey--button-h-padding: 10%;
+$_survey--field-top-padding: 2.5em;
 
 .l--survey {
 
@@ -28,7 +29,7 @@ $_survey--button-h-padding: 10%;
   display: block;
   font-size: 1.5em;
   font-weight: $himation--font-weight-light;
-  padding: 2.5em $himation--site-gutter 0.5em;
+  padding: $_survey--field-top-padding $himation--site-gutter 0.5em;
   width: 100%;
 }
 
@@ -63,10 +64,18 @@ $_survey--button-h-padding: 10%;
 
 @include himation--breakpoint-phone {
 
+  .l--survey__title {
+    font-size: 1.5em;
+  }
+
   .l--survey__field__title,
   .l--survey__field__content {
     padding-left: $himation--site-condensed-gutter;
     padding-right: $himation--site-condensed-gutter;
+  }
+
+  .l--survey__field__title {
+    padding-top: $_survey--field-top-padding * 0.75;
   }
 
   .l--survey__submit-button {
