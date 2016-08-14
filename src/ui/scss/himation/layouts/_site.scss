@@ -2,8 +2,6 @@
 
 $_site--footer-v-padding: 4em;
 $_site--slogan-font-size: 1.25em;
-$_site--logo-aspect-ratio: 1.2;
-$_site--logo-v-padding: 1.25em;
 
 .l--site {
   color: $himation--text-color;
@@ -16,23 +14,13 @@ $_site--logo-v-padding: 1.25em;
   color: $himation--branding-text-color;
   display: flex;
   justify-content: space-between;
-  padding: 0 $himation--site-gutter;
+  min-height: $himation--site-header-height;
+  padding: 1em $himation--site-gutter;
 }
 
 .l--site__header__logo {
-  $_border-size: 3px;
-
   background-color: $himation--branding-secondary-color;
-  border: $_border-size solid $himation--page-bg-color;
-  border-bottom: 0;
-  border-top: 0;
-  box-sizing: border-box;
   color: inherit;
-  height: $himation--site-header-height;
-  margin-bottom: $_border-size * -1;
-  padding: $_site--logo-v-padding 0;
-  text-align: center;
-  width: $himation--site-header-height * $_site--logo-aspect-ratio;
 
   &:hover {
     background-color: lighten($himation--branding-secondary-color, 2.5%);
@@ -45,15 +33,17 @@ $_site--logo-v-padding: 1.25em;
 
 .l--site__logo {
   box-sizing: border-box;
-  display: inline-block;
-  height: 100%;
-  width: auto;
+  display: block;
+  height: auto;
+  padding: 1em 2em;
+  width: 9em;
 }
 
 .l--site__slogan {
   font-size: $_site--slogan-font-size;
-  font-weight: $himation--font-weight-light;
-  letter-spacing: 0.025em;
+  font-weight: $himation--font-weight-ultra-light;
+  letter-spacing: 0.05em;
+  line-height: 1.375;
 }
 
 .l--site__body {
@@ -101,29 +91,26 @@ $_site--logo-v-padding: 1.25em;
 
   .l--site__header__branding {
     flex: 1;
-    padding-left: $himation--site-gutter * 0.75;
+    padding-left: $himation--site-gutter;
     text-align: center;
   }
   .l--site__slogan {
-    letter-spacing: 0;
+    font-size: $_site--slogan-font-size * 0.9;
   }
 
 }
 
 @include himation--breakpoint-phone {
 
-  .l--site__header__logo {
-    $_scaling: 0.9;
-
-    height: $himation--site-condensed-header-height;
-    padding-bottom: $_site--logo-v-padding * $_scaling;
-    padding-top: $_site--logo-v-padding * $_scaling;
-    width: $himation--site-condensed-header-height * $_site--logo-aspect-ratio * $_scaling;
+  .l--site__header {
+    min-height: $himation--site-condensed-header-height;
   }
-
+  .l--site__logo {
+    padding: 0.5em 1.25em;
+    width: 6em;
+  }
   .l--site__slogan {
     font-size: $_site--slogan-font-size * 0.65;
-    line-height: 1.375;
   }
 
   .l--site__footer {
