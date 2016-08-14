@@ -104,10 +104,12 @@ $_site--slogan-font-size: 1.25em;
 @include himation--breakpoint-phone {
 
   .l--site__header {
-    min-height: $himation--site-condensed-header-height;
+    min-height: 0;
+    padding: 0;
+    padding-right: $himation--site-gutter;
   }
   .l--site__logo {
-    padding: 0.5em 1.25em;
+    padding: 1em 1.5em;
     width: 6em;
   }
   .l--site__slogan {
