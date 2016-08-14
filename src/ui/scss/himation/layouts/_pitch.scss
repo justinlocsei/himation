@@ -4,6 +4,7 @@
 $_pitch--content-width: 100% - $himation--site-gutter * 2;
 
 $_pitch--image-width: 33% * ($_pitch--content-width / 100%);
+$_pitch--tagline-image-width: 35%;
 
 .l--pitch {
   background-color: $himation--form-field-bg-color;
@@ -30,6 +31,14 @@ $_pitch--image-width: 33% * ($_pitch--content-width / 100%);
   font-weight: $himation--font-weight-bold;
   line-height: 1.125;
   margin-bottom: 0.5em;
+}
+
+.l--pitch__tagline__image {
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+  z-index: -1;
 }
 
 .l--pitch__details {
@@ -79,18 +88,44 @@ $_pitch--image-width: 33% * ($_pitch--content-width / 100%);
 
 @include himation--breakpoint-phone {
 
+  .l--pitch__content {
+    padding-right: 0;
+  }
+
   .l--pitch__tagline {
     font-size: 1.75em;
     line-height: 1.25;
-    margin-bottom: 1em;
+    margin-bottom: 0;
+    padding-bottom: 1em;
+    padding-right: $_pitch--tagline-image-width - $himation--site-gutter * 2;
+    position: relative;
+  }
+  .l--pitch__tagline__image {
+    bottom: 0;
+    display: block;
+    position: absolute;
+    right: $himation--site-gutter * -1;
+    top: 2%;
+    width: $_pitch--tagline-image-width;
   }
 
   .l--pitch__details {
+    border-top: 1px solid darken($himation--form-field-bg-color, 20%);
+    box-shadow: 0 1px 0 lighten($himation--form-field-bg-color, 25%) inset;
     line-height: 1.5;
+    margin-left: -100%;
+    margin-right: -100%;
+    padding-left: 100%;
+    padding-right: 100%;
+    padding-top: 1em;
   }
 
   .l--pitch__cta {
     margin-top: 3em;
+  }
+
+  .l--pitch__graphic {
+    display: none;
   }
 
 }
