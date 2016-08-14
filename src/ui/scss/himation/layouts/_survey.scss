@@ -3,7 +3,7 @@
 @import "himation/mixins/typography";
 
 $_survey--button-h-padding: 10%;
-$_survey--field-top-padding: 2.5em;
+$_survey--field-top-margin: 3.5em;
 
 .l--survey {
 
@@ -11,12 +11,19 @@ $_survey--field-top-padding: 2.5em;
 
 .l--survey__title {
   border-bottom: 0.125em solid currentColor;
-  font-size: 2.75em;
+  display: inline-block;
+  font-size: 2em;
   font-weight: $himation--font-weight-bold;
-  padding: 0.25em $himation--site-gutter;
+  margin: 0 $himation--site-gutter 1.25em;
+  padding: 0.25em 0;
+  text-transform: uppercase;
 }
 
 .l--survey__field {
+
+  & + & {
+    margin-top: $_survey--field-top-margin;
+  }
 
   // Hide the honeypot field
   &.for-email {
@@ -29,7 +36,7 @@ $_survey--field-top-padding: 2.5em;
   display: block;
   font-size: 1.5em;
   font-weight: $himation--font-weight-light;
-  padding: $_survey--field-top-padding $himation--site-gutter 0.5em;
+  padding: 0 $himation--site-gutter 0.5em;
   width: 100%;
 }
 
@@ -68,8 +75,10 @@ $_survey--field-top-padding: 2.5em;
     font-size: 1.5em;
   }
 
-  .l--survey__field__title {
-    padding-top: $_survey--field-top-padding * 0.75;
+  .l--survey__field {
+    & + & {
+      margin-top: $_survey--field-top-margin * 0.75;
+    }
   }
 
   .l--survey__submit-button {
