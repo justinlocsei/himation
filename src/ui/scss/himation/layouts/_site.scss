@@ -128,6 +128,7 @@ $_site--logo-v-padding: 1.25em;
 
   .l--site__footer {
     flex-direction: column;
+    margin-top: 4em;
     padding: $_site--footer-v-padding * 0.5 $himation--site-gutter;
   }
   .l--site__footer__links {
