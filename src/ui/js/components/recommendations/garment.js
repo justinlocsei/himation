@@ -1,3 +1,4 @@
+import fastdom from 'fastdom';
 import React, { PropTypes } from 'react';
 
 const Garment = React.createClass({
@@ -88,12 +89,16 @@ const Garment = React.createClass({
    * container's height, which indicates that they are being cropped.
    */
   _optimizeImageScaling: function() {
-    const imageHeight = this._dom.image.getBoundingClientRect().height;
-    const previewHeight = this._dom.preview.getBoundingClientRect().height;
+    fastdom.measure(() => {
+      const imageHeight = this._dom.image.getBoundingClientRect().height;
+      const previewHeight = this._dom.preview.getBoundingClientRect().height;
 
-    if (imageHeight >= previewHeight) {
-      this._dom.preview.classList.add('is-cropped');
-    }
+      if (imageHeight >= previewHeight) {
+        fastdom.mutate(() => {
+          this._dom.preview.classList.add('is-cropped');
+        });
+      }
+    });
   }
 
 });
