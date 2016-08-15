@@ -8,6 +8,7 @@ $_basic-teaser--total-groups: 6;
 
 .c--basic-teaser {
   display: block;
+  overflow: hidden;
   position: relative;
   z-index: $himation--z-flat;
 }
@@ -20,7 +21,7 @@ $_basic-teaser--total-groups: 6;
   max-width: 10em;
   opacity: 0.5;
   position: absolute;
-  right: 0;
+  right: -2em;
   width: 75%;
   z-index: 1;
 }
