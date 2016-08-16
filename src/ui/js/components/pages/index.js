@@ -1,26 +1,18 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
 import { childProps } from 'himation/core/extensions/react';
 
 const Page = React.createClass({
 
   propTypes: {
-    children: childProps.multiple,
-    title: PropTypes.string
+    children: childProps.multiple
   },
 
   render: function() {
-    const { children, title } = this.props;
-
-    let titleTag;
-    if (title) {
-      titleTag = <h1 className="l--page__title">{title}</h1>;
-    }
+    const { children } = this.props;
 
     return (
       <div className="l--page">
-        {titleTag}
-
         <main className="l--page__content">
           {children}
         </main>
