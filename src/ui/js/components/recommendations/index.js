@@ -6,6 +6,8 @@ import sortBy from 'lodash/sortBy';
 import Basic from './basic';
 import BasicTeaser from './basic-teaser';
 
+const TEASERS_ANCHOR = 'basics';
+
 const Recommendations = React.createClass({
 
   propTypes: {
@@ -56,7 +58,7 @@ const Recommendations = React.createClass({
 
     return (
       <div className="l--recommendations">
-        <h1 className="l--recommendations__title">
+        <h1 className="l--recommendations__title" id={TEASERS_ANCHOR}>
           <span className="l--recommendations__title__text">Your Basics</span>
         </h1>
 
@@ -82,6 +84,10 @@ const Recommendations = React.createClass({
                   maxGarmentsPerGroup={maxGarmentsPerGroup}
                   name={basic.basic.name}
                 />
+
+                <p className="l--recommendations__basic__footer">
+                  <a href={`#${TEASERS_ANCHOR}`} className="l--recommendations__basic__return-link">Back to top</a>
+                </p>
               </section>
             );
           })}
