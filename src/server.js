@@ -181,7 +181,7 @@ Server.prototype._createErrorHandler = function() {
     }
 
     res.status(500);
-    res.render('pages/error', {
+    res.render('pages/500', {
       homePageUrl: homePageUrl
     });
   };

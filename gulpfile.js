@@ -269,7 +269,7 @@ gulp.task('test-api-response', function testApiResponse(done) {
 
 // Export the error page to a file
 gulp.task('export-error-page', function exportErrorPage() {
-  var updated = exportTemplate('pages/error.html', options['export-to']);
+  var updated = exportTemplate('pages/500.html', options['export-to']);
   if (updated) {
     gutil.log('export-error-page', 'File updated');
   }
