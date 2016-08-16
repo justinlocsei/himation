@@ -6,6 +6,17 @@ $_recommendations--price-group-gutter: 8%;
 
 }
 
+.c--recommendations__title {
+  border: 2px solid currentColor;
+  box-sizing: border-box;
+  color: $himation--branding-primary-color;
+  font-size: 1.125em;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin: 2em auto;
+  padding: 1.5em;
+}
+
 .c--recommendations__header {
   background-color: $himation--text-color;
   color: $himation--text-contrasting-color;

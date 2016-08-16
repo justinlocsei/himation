@@ -15,7 +15,7 @@ let RecommendationsPage = React.createClass({
 
   render: function() {
     return (
-      <Page title="Your Recommendations">
+      <Page>
         <Recommendations {...this.props} />
       </Page>
     );
