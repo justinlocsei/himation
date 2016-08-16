@@ -3,6 +3,7 @@
 var fs = require('fs');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
+var nunjucks = require('nunjucks');
 var Promise = require('bluebird');
 var request = require('request');
 var rimraf = require('rimraf');
@@ -23,6 +24,11 @@ var urls = require('himation/core/urls');
 var webpackConfigs = require('himation/config/webpack/configs');
 
 var options = yargs
+  .option('export-to', {
+    alias: 'e',
+    default: null,
+    describe: 'The target path for an exported file'
+  })
   .option('optimize', {
     alias: 'o',
     default: false,
@@ -261,6 +267,22 @@ gulp.task('test-api-response', function testApiResponse(done) {
     });
 });
 
+// Export the error page to a file
+gulp.task('export-error-page', function exportErrorPage() {
+  var updated = exportTemplate('pages/error.html', options['export-to']);
+  if (updated) {
+    gutil.log('export-error-page', 'File updated');
+  }
+});
+
+// Export the error page to a file
+gulp.task('export-404-page', function export404Page() {
+  var updated = exportTemplate('pages/404.html', options['export-to']);
+  if (updated) {
+    gutil.log('export-404-page', 'File updated');
+  }
+});
+
 /**
  * Run a webpack build for a given configuration
  *
@@ -282,5 +304,33 @@ function runWebpackBuild(configFactory, done) {
       var rounded = Math.floor(percentage * 100);
       gutil.log(logLabel, rounded + '% ' + message);
     }));
+  }
+}
+
+/**
+ * Export a rendered Nunjucks template to a file
+ *
+ * @param {string} template The path to a Nunjucks template
+ * @param {string} target The path to the target file
+ * @returns {boolean} Whether the file was modified or created
+ */
+function exportTemplate(template, target) {
+  var loader = new nunjucks.FileSystemLoader(paths.ui.templates);
+  var renderer = new nunjucks.Environment(loader, {autoescape: true, throwOnUndefined: true});
+
+  var oldMarkup;
+  try {
+    oldMarkup = fs.readFileSync(target).toString();
+  } catch (e) {
+    oldMarkup = '';
+  }
+
+  var newMarkup = renderer.render(template, {homePageUrl: settings.servers.app.publicUrl});
+
+  if (oldMarkup !== newMarkup) {
+    fs.writeFileSync(target, newMarkup);
+    return true;
+  } else {
+    return false;
   }
 }
