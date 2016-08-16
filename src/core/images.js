@@ -44,7 +44,7 @@ function imageSizesToDimensions(imageSizes, width) {
   var aspectRatio = normalSize.width / normalSize.height;
 
   return {
-    height: width / aspectRatio,
+    height: Math.floor(width / aspectRatio),
     width: width
   };
 }
