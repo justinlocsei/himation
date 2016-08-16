@@ -23,16 +23,6 @@ $_basic-teaser--total-groups: 6;
   right: 0;
   width: 75%;
   z-index: 1;
-
-  &::before {
-    background: linear-gradient(90deg, $himation--page-bg-color, rgba($himation--page-bg-color, 0));
-    bottom: 0;
-    content: "";
-    left: 0;
-    position: absolute;
-    right: 85%;
-    top: 0;
-  }
 }
 
 .c--basic-teaser__meta {
