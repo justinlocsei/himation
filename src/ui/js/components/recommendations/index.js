@@ -56,7 +56,9 @@ const Recommendations = React.createClass({
 
     return (
       <div className="l--recommendations">
-        <h1 className="l--recommendations__title">Your Basics</h1>
+        <h1 className="l--recommendations__title">
+          <span className="l--recommendations__title__text">Your Basics</span>
+        </h1>
 
         <ul className="l--recommendations__basic-teasers">
           {basicTeasers.map(function(teaser, index) {

@@ -5,6 +5,23 @@ $_recommendations--basic-teaser-gutter: 2px;
   position: relative;
 }
 
+.l--recommendations__title {
+  margin: 4em auto 2em;
+  text-align: center;
+}
+
+.l--recommendations__title__text {
+  border: 2px solid currentColor;
+  box-sizing: border-box;
+  color: $himation--branding-primary-color;
+  display: inline-block;
+  font-size: 1.125em;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding: 1em 3em;
+  text-transform: uppercase;
+}
+
 .l--recommendations__basic-teasers {
   display: flex;
   flex-wrap: wrap;
