@@ -267,15 +267,15 @@ gulp.task('test-api-response', function testApiResponse(done) {
     });
 });
 
-// Export the error page to a file
-gulp.task('export-error-page', function exportErrorPage() {
+// Export the 500 page to a file
+gulp.task('export-500-page', function export500Page() {
   var updated = exportTemplate('pages/500.html', options['export-to']);
   if (updated) {
-    gutil.log('export-error-page', 'File updated');
+    gutil.log('export-500-page', 'File updated');
   }
 });
 
-// Export the error page to a file
+// Export the 404 page to a file
 gulp.task('export-404-page', function export404Page() {
   var updated = exportTemplate('pages/404.html', options['export-to']);
   if (updated) {
