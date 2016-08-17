@@ -3,7 +3,7 @@
 var BODY_SHAPES = [
   {name: 'Pear', slug: 'pear'},
   {name: 'Hourglass', slug: 'hourglass'},
-  {name: 'Inverted triangle', slug: 'inverted'},
+  {name: 'Inverted Triangle', slug: 'inverted'},
   {name: 'Apple', slug: 'apple'},
   {name: 'Rectangle', slug: 'rectangle'}
 ];
