@@ -2,9 +2,7 @@ import React, { PropTypes } from 'react';
 
 import favicon from 'himation/images/branding/favicon.ico';
 import touchIcon from 'himation/images/branding/apple-touch-icon.png';
-
-// This global variable is replaced at build time with the Google Analytics ID
-const GOOGLE_ANALYTICS_ID = HIMATION_GOOGLE_ANALYTICS_ID;
+import { getSetting } from 'himation/ui/config';
 
 const Document = React.createClass({
 
@@ -102,7 +100,7 @@ const Document = React.createClass({
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-      ga('create', '${GOOGLE_ANALYTICS_ID}', 'auto');
+      ga('create', '${getSetting('googleAnalyticsId')}', 'auto');
       ga('send', 'pageview');
     `;
 
