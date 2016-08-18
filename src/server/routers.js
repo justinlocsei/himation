@@ -2,6 +2,9 @@
 
 var express = require('express');
 
+// A mapping between route GUIDs and loaded route handlers
+var routeHandlers = {};
+
 /**
  * Load a compiled route handler from the build manifest
  *
@@ -11,7 +14,14 @@ var express = require('express');
  * @private
  */
 function loadRouteHandler(build, route) {
-  return require(build.entries[route.guid]);
+  var handler = routeHandlers[route.guid];
+
+  if (handler === undefined) {
+    handler = require(build.entries[route.guid]);
+    routeHandlers[route.guid] = handler;
+  }
+
+  return handler;
 }
 
 /**
