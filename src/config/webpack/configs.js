@@ -172,10 +172,10 @@ function globalPlugins(label, optimize, settings, compress) {
     HIMATION_CONFIG: JSON.stringify({
       debug: settings.debug,
       environment: settings.environment,
+      googleAnalyticsId: settings.googleAnalyticsId,
       rootUrl: settings.servers.app.publicUrl,
       sentryDsn: settings.errors.track && settings.errors.sentryDsnPublic
-    }),
-    HIMATION_GOOGLE_ANALYTICS_ID: JSON.stringify(settings.googleAnalyticsId)
+    })
   };
 
   if (optimize) {
