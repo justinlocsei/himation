@@ -50,6 +50,7 @@ var serverSchema = Joi.object().keys({
  * @property {object} servers Addresses for all known servers
  * @property {HimationServerSettings} servers.app Address components for the application server
  * @property {HimationServerSettings} servers.assets Address components for the assets server
+ * @property {boolean} trackStats Whether to track application stats
  */
 var schema = Joi.object().keys({
   assets: Joi.object().keys({
@@ -79,7 +80,8 @@ var schema = Joi.object().keys({
   servers: Joi.object().keys({
     app: serverSchema,
     assets: serverSchema
-  }).default()
+  }).default(),
+  trackStats: Joi.boolean().default(false)
 }).default();
 
 /**

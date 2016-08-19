@@ -53,7 +53,8 @@ structure below, which shows the available settings and their defaults:
       "protocol": "http",        // The protocol used for the asset server
       "publicUrl": null          // The public URL by which the asset server is accessible
     }
-  }
+  },
+  "trackStats": false // Whether to track application stats
 }
 ```
 
