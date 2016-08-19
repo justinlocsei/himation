@@ -5217,6 +5217,9 @@
       },
       "version": "2.1.2"
     },
+    "hot-shots": {
+      "version": "4.2.0"
+    },
     "image-size-loader": {
       "dependencies": {
         "image-size": {
