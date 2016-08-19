@@ -21,7 +21,7 @@ function getTimestamp() {
 function create(report) {
   var client = new StatsD({
     mock: !report,
-    prefix: 'himation'
+    prefix: 'himation.'
   });
 
   return function(req, res, next) {
