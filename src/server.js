@@ -12,6 +12,7 @@ var builds = require('himation/config/webpack/configs');
 var paths = require('himation/core/paths');
 var routers = require('himation/server/routers');
 var routes = require('himation/config/routes');
+var trackStats = require('himation/server/middleware/track-stats');
 
 /**
  * An application server
@@ -112,6 +113,7 @@ Server.prototype._createApplication = function(rootPath) {
 
   app.use(this._createLogger());
   app.use(this._createAssetMiddleware());
+  app.use(trackStats.create(this.settings.trackStats));
   app.use(rootPath, this._createRouter());
 
   if (this.settings.errors.track) {
