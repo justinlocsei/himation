@@ -110,8 +110,8 @@ $_pitch--tagline-image-width: 35%;
   }
 
   .l--pitch__details {
-    border-top: 1px solid darken($himation--form-field-bg-color, 20%);
-    box-shadow: 0 1px 0 lighten($himation--form-field-bg-color, 25%) inset;
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0) 3%);
+    border-top: 1px solid $himation--text-color;
     line-height: 1.5;
     margin-left: -100%;
     margin-right: -100%;
