@@ -1,7 +1,7 @@
 @import "himation/mixins/responsive";
 
 $_site--footer-v-padding: 4em;
-$_site--slogan-font-size: 1.25em;
+$_site--slogan-font-size: 1.125em;
 
 .l--site {
   color: $himation--text-color;
@@ -42,8 +42,7 @@ $_site--slogan-font-size: 1.25em;
 
 .l--site__slogan {
   font-size: $_site--slogan-font-size;
-  font-weight: $himation--font-weight-ultra-light;
-  letter-spacing: 0.05em;
+  font-weight: $himation--font-weight-light;
   line-height: 1.375;
 }
 
@@ -113,7 +112,7 @@ $_site--slogan-font-size: 1.25em;
     width: 6em;
   }
   .l--site__slogan {
-    font-size: $_site--slogan-font-size * 0.65;
+    font-size: $_site--slogan-font-size * 0.7;
   }
 
   .l--site__footer {
