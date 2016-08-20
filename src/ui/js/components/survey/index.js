@@ -133,7 +133,7 @@ let Survey = React.createClass({
 
         <fieldset className="l--survey__buttons">
           <button className="l--survey__submit-button" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? `Getting recommendations${String.fromCharCode(8230)}` : 'Show me what I need'}
+            {isSubmitting ? `Loading${String.fromCharCode(8230)}` : 'Show me what I need'}
           </button>
         </fieldset>
 
