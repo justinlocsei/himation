@@ -83,6 +83,7 @@ $_survey--field-top-margin: 3.5em;
 
   .l--survey__submit-button {
     $_padding: $_survey--button-h-padding * 0.5;
+    margin: 0 $_padding;
     padding-left: $_padding;
     padding-right: $_padding;
   }
