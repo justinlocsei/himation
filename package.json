@@ -72,6 +72,7 @@
     "redux": "^3.5.2",
     "redux-form": "^5.2.5",
     "request": "^2.72.0",
+    "resolve-url-loader": "^1.6.0",
     "rimraf": "^2.4.4",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.0",
