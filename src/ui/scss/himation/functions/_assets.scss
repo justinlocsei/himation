@@ -1,0 +1,7 @@
+// Return the URL for an image asset
+//
+// @param <string> $path The path to an image
+// @return <string> The image URL, relative to the final asset destination
+@function himation--image-url($path) {
+  @return url("../../images/#{$path}");
+}
