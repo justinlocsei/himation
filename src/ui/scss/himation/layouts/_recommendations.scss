@@ -1,3 +1,5 @@
+@import "himation/functions/assets";
+
 $_recommendations--basic-teaser-gutter: 2px;
 
 .l--recommendations {
@@ -61,16 +63,20 @@ $_recommendations--basic-teaser-gutter: 2px;
   display: inline-block;
   font-size: 0.7em;
   font-weight: $himation--font-weight-bold;
+  opacity: 0.8;
   text-transform: uppercase;
   word-spacing: 0.125em;
 
   &::after {
-    content: "\2b06";
+    content: himation--image-url("icons/up-arrow.svg");
+    display: inline-block;
+    height: 0.9em;
     margin-left: 0.375em;
+    width: 0.9em;
   }
 
   &:hover,
   &:focus {
-    color: lighten($himation--branding-primary-color, 15%);
+    opacity: 1;
   }
 }
