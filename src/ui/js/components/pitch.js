@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 
-const heroNormal = require('himation/images/pitch/businesswoman-1x.jpg');
 const heroLarge = require('himation/images/pitch/businesswoman-2x.jpg');
 
 const Pitch = React.createClass({
@@ -19,7 +18,6 @@ const Pitch = React.createClass({
     const { surveyId } = this.props;
 
     const graphicStyles = {backgroundImage: `url(${heroLarge.src})`};
-    const taglineStyles = {backgroundImage: `url(${heroNormal.src})`};
 
     return (
       <div className="l--pitch">
@@ -28,7 +26,6 @@ const Pitch = React.createClass({
           <h1 className="l--pitch__tagline">
             Ladies, take the pain out of keeping your professional wardrobe
             stocked with essentials.
-            <span className="l--pitch__tagline__image" style={taglineStyles} />
           </h1>
 
           <p className="l--pitch__details">
