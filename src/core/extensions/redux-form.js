@@ -2,7 +2,7 @@
 
 var isArray = require('lodash/isArray');
 
-var ARRAY_DEFINITION_MATCH = new RegExp(/(\w+)\[\]/);
+var ARRAY_DEFINITION_MATCH = new RegExp(/(\w+)\[\]\.?(.+)?/);
 var ARRAY_FIELD_MATCH = new RegExp(/\[([0-9]+)\]\.(.+)$/);
 
 var INPUT_PROPS = [
@@ -89,6 +89,27 @@ function seedFields(schema, values, validationErrors) {
   var errors = validationErrors || {};
   var hasErrors = Object.keys(errors).length > 0;
 
+  // Build a map of field names to lists of their subfield names
+  var subfields = schema.reduce(function(previous, fieldDef) {
+    var arrayDefinitionMatch = ARRAY_DEFINITION_MATCH.exec(fieldDef);
+
+    var fieldName, subfieldName;
+    if (arrayDefinitionMatch) {
+      fieldName = arrayDefinitionMatch[1];
+      subfieldName = arrayDefinitionMatch[2];
+    } else {
+      fieldName = fieldDef;
+    }
+
+    previous[fieldName] = previous[fieldName] || [];
+    if (subfieldName) {
+      previous[fieldName].push(subfieldName);
+    }
+
+    return previous;
+  }, {});
+
+  // Create placeholder values for each field in the schema
   return schema.reduce(function(seeded, fieldDef) {
     var arrayDefinitionMatch = ARRAY_DEFINITION_MATCH.exec(fieldDef);
     var fieldName = arrayDefinitionMatch ? arrayDefinitionMatch[1] : fieldDef;
@@ -101,17 +122,19 @@ function seedFields(schema, values, validationErrors) {
           touched: hasErrors
         };
 
-        Object.keys(value).forEach(function(subFieldName) {
-          field[subFieldName] = {
-            name: fieldName + '[' + i + '].' + subFieldName,
+        // Use the list of known subfield names for the field to create
+        // instances of subfields that can be used in a Redux form
+        subfields[fieldName].forEach(function(subfieldName) {
+          field[subfieldName] = {
+            name: fieldName + '[' + i + '].' + subfieldName,
             onChange: noOpOnChange,
-            value: value[subFieldName]
+            value: fieldValue[i][subfieldName]
           };
         });
 
         return field;
       });
-    } else if (fieldValue !== undefined) {
+    } else {
       seeded[fieldName] = {
         error: errors[fieldName],
         name: fieldName,
