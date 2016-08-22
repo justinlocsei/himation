@@ -50,6 +50,8 @@ function configureSecurity(app) {
   app.use(helmet.noCache());
   app.use(helmet.noSniff());
   app.use(helmet.xssFilter());
+
+  app.set('trust proxy', 'loopback');
 }
 
 /**
