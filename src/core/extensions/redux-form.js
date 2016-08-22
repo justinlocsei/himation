@@ -16,7 +16,7 @@ var INPUT_PROPS = [
 ];
 
 /**
- * Extract props that canb e passed to a React input from a form field
+ * Extract props that can be passed to a React input from a form field
  *
  * @param {object} field A Redux form field
  * @returns {object} The input props
