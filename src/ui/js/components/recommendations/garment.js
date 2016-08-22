@@ -32,6 +32,18 @@ const Garment = React.createClass({
     this._optimizeImageScaling();
   },
 
+  handleClick: function() {
+    const tracker = window.ga;
+    if (!tracker) { return; }
+
+    tracker('send', {
+      hitType: 'event',
+      eventCategory: 'Garments',
+      eventAction: 'view',
+      eventLabel: this.props.brandedName
+    });
+  },
+
   render: function() {
     const {
       averageAspectRatio,
@@ -61,7 +73,7 @@ const Garment = React.createClass({
 
     return (
       <div className="c--garment">
-        <a href={url} rel="external noopener noreferrer" className="c--garment__preview" style={previewStyle} title={`Buy for $${formattedPrice} from ${retailer}`} target="_blank" ref={function(el) { dom.preview = el; }}>
+        <a href={url} rel="external noopener noreferrer" className="c--garment__preview" style={previewStyle} title={`Buy for $${formattedPrice} from ${retailer}`} target="_blank" ref={function(el) { dom.preview = el; }} onClick={this.handleClick}>
           <p className="c--garment__media" style={mediaStyle}>
             <img className="c--garment__media__image" src={image.url} alt={`${brandedName}`} ref={function(el) { dom.image = el; }} />
           </p>
