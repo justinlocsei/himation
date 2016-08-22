@@ -36,12 +36,13 @@ function renderInvalidSurveyForm(res, data, errors) {
  * @param {function} next An Express next callback
  * @param {object} options Options for rendering the recommendations
  * @param {ApiClient} options.apiClient A himation API client
+ * @param {string} options.ipAddress The IP address of the requester
  * @param {HimationSurveyData} options.surveyData The survey data
  */
 function renderRecommendations(res, next, options) {
-  const { apiClient, surveyData } = options;
+  const { apiClient, ipAddress, surveyData } = options;
 
-  apiClient.requestRecommendations(packageSurvey(surveyData))
+  apiClient.requestRecommendations(packageSurvey(surveyData), {ip: ipAddress})
     .then(function(recommendations) {
       const markup = prerenderPageComponent(res, RecommendationsPage, {
         state: {
@@ -70,6 +71,7 @@ export function renderResponse(req, res, next, settings) {
     const apiClient = createApiClient(settings.chiton.endpoint, settings.chiton.token);
     renderRecommendations(res, next, {
       apiClient: apiClient,
+      ipAddress: req.ip,
       surveyData: surveyData
     });
   }
