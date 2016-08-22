@@ -90,11 +90,17 @@ function ApiClient(endpoint, token) {
  * Request recommendations for a wardrobe profile
  *
  * @param {object} profile Serialized profile data
+ * @param {object} [options] Options for requesting recommendations
+ * @param {string} [options.ip] The IP address of the requester to send to the API
  * @returns {Promise} The pending request
  * @fulfill {object} The generated recommendation data
  * @reject {Error} A request or parsing error
  */
-ApiClient.prototype.requestRecommendations = function(profile) {
+ApiClient.prototype.requestRecommendations = function(profile, options) {
+  var settings = extend({
+    ip: null
+  }, options || {});
+
   var endpoint = this.endpoint;
   var token = this.token;
 
@@ -103,6 +109,7 @@ ApiClient.prototype.requestRecommendations = function(profile) {
       url: urls.relativeToAbsolute('recommendations', endpoint) + '/',
       method: 'POST',
       body: extend({}, profile, {
+        'client_ip_address': settings.ip,
         'max_garments_per_group': 2
       }),
       json: true,
