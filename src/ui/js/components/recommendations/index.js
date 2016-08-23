@@ -64,7 +64,6 @@ const Recommendations = React.createClass({
 
         <ul className="l--recommendations__basic-teasers">
           {basicTeasers.map(function(teaser, index) {
-
             return (
               <li className="l--recommendations__basic-teaser" key={index}>
                 <BasicTeaser {...teaser} />
