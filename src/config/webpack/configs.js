@@ -277,7 +277,7 @@ function server(settings) {
       path: paths.build.assets,
       publicPath: settings.servers.assets.publicUrl
     },
-    plugins: globalPlugins(BUILD_IDS.server, false, settings, false),
+    plugins: globalPlugins(BUILD_IDS.server, settings.assets.optimize, settings, false),
     target: 'node'
   });
 
