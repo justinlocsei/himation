@@ -16,45 +16,11 @@ const Recommendations = React.createClass({
   },
 
   render: function() {
-    const { basics, categories } = this.props;
+    const that = this;
+    const { categories } = this.props;
 
-    const basicsByCategory = basics.reduce(function(previous, basic) {
-      const category = basic.basic.category;
-
-      if (!previous[category]) { previous[category] = []; }
-      previous[category].push(basic);
-
-      return previous;
-    }, {});
-
-    const sortedBasics = categories.reduce(function(previous, category) {
-      const categoryBasics = basicsByCategory[category];
-      if (categoryBasics) {
-        return previous.concat(categoryBasics);
-      } else {
-        return previous;
-      }
-    }, []);
-
-    const basicTeasers = sortedBasics.map(function(basic) {
-      const bestRecommendation = sortBy(basic.garments, g => g.weight * -1)[0];
-      const teaserImage = sortBy(bestRecommendation.images, i => i.width * -1)[0];
-
-      return {
-        anchorId: basic.basic.slug,
-        category: basic.basic.category,
-        groupNumber: categories.indexOf(basic.basic.category) + 1,
-        image: teaserImage.url,
-        name: basic.basic.plural_name
-      };
-    });
-
-    const maxGarmentsPerGroup = sortedBasics.reduce(function(previous, basic) {
-      const garmentsPerGroup = flatten(basic.facets.map(function(facet) {
-        return max(facet.groups.map(group => group.garment_ids.length));
-      }));
-      return Math.max(previous, max(garmentsPerGroup));
-    }, 0);
+    const sortedBasics = this._getSortedBasics();
+    const maxGarmentsPerGroup = this._getMaxGarmentsPerGroup();
 
     return (
       <div className="l--recommendations">
@@ -63,10 +29,16 @@ const Recommendations = React.createClass({
         </h1>
 
         <ul className="l--recommendations__basic-teasers">
-          {basicTeasers.map(function(teaser, index) {
+          {sortedBasics.map(function(basic, index) {
             return (
               <li className="l--recommendations__basic-teaser" key={index}>
-                <BasicTeaser {...teaser} />
+                <BasicTeaser
+                  anchorId={basic.basic.slug}
+                  category={basic.basic.category}
+                  groupNumber={categories.indexOf(basic.basic.category) + 1}
+                  image={that._getBasicTeaserImage(basic).url}
+                  name={basic.basic.plural_name}
+                />
               </li>
             );
           })}
@@ -93,6 +65,60 @@ const Recommendations = React.createClass({
         </div>
       </div>
     );
+  },
+
+  /**
+   * Get a list of basics ordered by their category and name
+   *
+   * @returns {object}
+   */
+  _getSortedBasics: function() {
+    const basicsByCategoryName = this.props.basics.reduce(function(byCategory, basic) {
+      const category = basic.basic.category;
+      if (!byCategory[category]) { byCategory[category] = []; }
+      byCategory[category].push(basic);
+      return byCategory;
+    }, {});
+
+    return this.props.categories.reduce(function(sorted, categoryName) {
+      const basics = basicsByCategoryName[categoryName];
+      if (basics) {
+        return sorted.concat(sortBy(basics, b => b.basic.plural_name));
+      } else {
+        return sorted;
+      }
+    }, []);
+  },
+
+  /**
+   * Determine the maximum number of garments per facet group
+   *
+   * This value is calculated by examining the contents of each group for each
+   * basic's facets and taking the largest value.
+   *
+   * @returns {number}
+   */
+  _getMaxGarmentsPerGroup: function() {
+    return this.props.basics.reduce(function(maxValue, basic) {
+      const garmentsPerGroup = flatten(basic.facets.map(function(facet) {
+        return max(facet.groups.map(group => group.garment_ids.length));
+      }));
+      return Math.max(maxValue, max(garmentsPerGroup));
+    }, 0);
+  },
+
+  /**
+   * Determine the teaser image for a basic
+   *
+   * This uses the smallest image available for the recommendation with the
+   * highest weight.
+   *
+   * @param {object} basic A basic with multiple recommendations
+   * @returns {object}
+   */
+  _getBasicTeaserImage: function(basic) {
+    const bestRecommendation = sortBy(basic.garments, g => g.weight * -1)[0];
+    return sortBy(bestRecommendation.images, i => i.width * -1)[0];
   }
 
 });
