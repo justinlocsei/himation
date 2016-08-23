@@ -57,6 +57,7 @@
     "json-stable-stringify": "^1.0.1",
     "linklocal": "^2.5.2",
     "lodash": "^4.0.0",
+    "lru-cache": "^4.0.1",
     "morgan": "^1.6.1",
     "node-sass": "^3.4.2",
     "nunjucks": "^2.2.0",
