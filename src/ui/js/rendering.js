@@ -7,7 +7,7 @@ import { render as reactRender } from 'react-dom';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 
 import appReducers from 'himation/ui/reducers';
-import Document from 'himation/ui/containers/site/document';
+import Document from 'himation/ui/containers/document';
 import Site from 'himation/ui/containers/site';
 import { getSetting } from 'himation/ui/config';
 
