@@ -31,6 +31,7 @@ function resolve() {
       assets: path.join(build, 'assets'),
       root: build
     },
+    core: path.join(src, 'core'),
     modules: {
       bin: path.join(modules, '.bin'),
       root: modules
