@@ -155,7 +155,7 @@ function imageLoaders(optimize) {
  */
 function globalPlugins(label, optimize, settings, compress) {
   var paths = resolvePaths();
-  var extractTo = optimize ? '[name]-[contenthash].css' : '[name]-[id].css';
+  var extractTo = compress ? '[name]-[contenthash].css' : '[name]-[id].css';
   var plugins = [new ExtractTextPlugin(extractTo)];
 
   plugins.push(new StyleLintPlugin({
