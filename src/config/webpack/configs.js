@@ -22,6 +22,9 @@ var BUILD_IDS = {
   ui: 'ui'
 };
 
+// Modules that cannot be include in a server-side build
+var SERVER_MODULE_BLACKLIST = ['request'];
+
 /**
  * Create a webpack config by applying settings on top of a baseline
  *
@@ -252,14 +255,14 @@ function server(settings) {
     root: 'himation'
   });
 
+  var externalCheck = new RegExp('^(' + SERVER_MODULE_BLACKLIST.join('|') + ')($|\/)');
+
   var config = create(settings, {
     context: paths.server.root,
     devtool: false,
     entry: entries,
     externals: function(context, request, callback) {
-      var isNonRelative = /^[^\.]/.test(request);
-      var isUiModule = /^himation\//.test(request);
-      return callback(null, isNonRelative && !isUiModule);
+      return callback(null, externalCheck.test(request));
     },
     module: {
       loaders: flatten([
