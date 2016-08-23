@@ -1,7 +1,7 @@
 import anime from 'animejs';
 import React from 'react';
 
-import Page from 'himation/ui/components/pages';
+import Page from 'himation/ui/components/page';
 import Pitch from 'himation/ui/components/pitch';
 import routes from 'himation/config/routes';
 import Survey from 'himation/ui/components/survey';

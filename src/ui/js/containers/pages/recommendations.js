@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import Page from 'himation/ui/components/pages';
+import Page from 'himation/ui/components/page';
 import Recommendations from 'himation/ui/components/recommendations';
 
 import 'himation/styles/recommendations';
