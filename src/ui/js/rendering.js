@@ -11,6 +11,11 @@ import Document from 'himation/ui/containers/document';
 import Site from 'himation/ui/containers/site';
 import { getSetting } from 'himation/ui/config';
 
+let ReactPerf;
+if (__WEBPACK_DEF_HIMATION_DEBUG) {
+  ReactPerf = require('react-addons-perf');
+}
+
 const APP_CONTAINER_ID = 'app-content';
 const STATE_VARIABLE_NAME = 'HIMATION_STATE';
 
@@ -108,6 +113,10 @@ export function renderPageComponent(Page) {
   const storeArgs = [site, getPrerenderedState()];
   if (getSetting('debug') && window.devToolsExtension) {
     storeArgs.push(window.devToolsExtension());
+  }
+
+  if (ReactPerf) {
+    window.ReactPerf = ReactPerf;
   }
 
   const connectedSite = bindComponentToStore.apply(bindComponentToStore, storeArgs);
