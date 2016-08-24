@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce';
 
-// The singleton resize handler
-const resizeHandler = null;
+// A flag for whether the resize handler has been registered
+let handlerRegistered = false;
 
 // A singleton collection of all registered resize handlers
 let resizeHandlers = [];
@@ -12,8 +12,9 @@ let resizeHandlers = [];
  * @param {function} handler The resize handler
  */
 export function addResizeHandler(handler) {
-  if (!resizeHandler) {
+  if (!handlerRegistered) {
     registerSingletonResizeHandler();
+    handlerRegistered = true;
   }
 
   if (resizeHandlers.indexOf(handler) === -1) {
