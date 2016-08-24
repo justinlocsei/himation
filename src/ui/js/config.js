@@ -2,7 +2,7 @@ import { ConfigurationError } from 'himation/core/errors';
 
 // This global variable is replaced at build time by Webpack with a partial
 // configuration object containing non-sensitive data
-const CONFIG = HIMATION_CONFIG;
+const CONFIG = __WEBPACK_DEF_HIMATION_CONFIG;
 
 /**
  * Get the value of a named configuration setting

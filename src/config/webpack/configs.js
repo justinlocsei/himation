@@ -172,7 +172,7 @@ function globalPlugins(label, optimize, settings, compress) {
   plugins.push(new webpack.NoErrorsPlugin());
 
   var definitions = {
-    HIMATION_CONFIG: JSON.stringify({
+    __WEBPACK_DEF_HIMATION_CONFIG: JSON.stringify({
       debug: settings.debug,
       environment: settings.environment,
       googleAnalyticsId: settings.googleAnalyticsId,
