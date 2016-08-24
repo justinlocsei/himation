@@ -53,7 +53,7 @@ const Recommendations = React.createClass({
                   facets={basic.facets}
                   garments={basic.garments}
                   maxGarmentsPerGroup={maxGarmentsPerGroup}
-                  name={basic.basic.name}
+                  name={basic.basic.plural_name}
                 />
 
                 <p className="l--recommendations__basic__footer">
