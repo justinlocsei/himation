@@ -1,6 +1,8 @@
 import fastdom from 'fastdom';
 import React, { PropTypes } from 'react';
 
+import { addResizeHandler, removeResizeHandler } from 'himation/ui/events';
+
 const Garment = React.createClass({
 
   propTypes: {
@@ -25,11 +27,16 @@ const Garment = React.createClass({
   },
 
   componentDidMount: function() {
+    addResizeHandler(this._optimizeImageScaling);
     this._optimizeImageScaling();
   },
 
   componentDidUpdate: function() {
     this._optimizeImageScaling();
+  },
+
+  componentWillUnmount: function() {
+    removeResizeHandler(this._optimizeImageScaling);
   },
 
   handleClick: function() {
