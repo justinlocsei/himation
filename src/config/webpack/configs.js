@@ -178,7 +178,8 @@ function globalPlugins(label, optimize, settings, compress) {
       googleAnalyticsId: settings.googleAnalyticsId,
       rootUrl: settings.servers.app.publicUrl,
       sentryDsn: settings.errors.track && settings.errors.sentryDsnPublic
-    })
+    }),
+    __WEBPACK_DEF_HIMATION_DEBUG: JSON.stringify(settings.debug)
   };
 
   if (optimize) {
