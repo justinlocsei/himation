@@ -2,7 +2,7 @@
 @import "himation/mixins/responsive";
 
 $_pitch--content-width: 100% - $himation--site-gutter * 2;
-
+$_pitch--image-max-height: 60em;
 $_pitch--image-width: 33% * ($_pitch--content-width / 100%);
 $_pitch--tagline-image-width: 35%;
 
@@ -13,6 +13,7 @@ $_pitch--tagline-image-width: 35%;
   flex-direction: column;
   justify-content: center;
   margin-bottom: 3em;
+  max-height: $_pitch--image-max-height;
   min-height: calc(100vh - #{$himation--site-header-height});
   padding: 0 $himation--site-gutter;
   position: relative;
@@ -67,6 +68,7 @@ $_pitch--tagline-image-width: 35%;
 
   .l--pitch {
     font-size: 0.8em;
+    max-height: $_pitch--image-max-height * 0.66;
   }
 
   .l--pitch__graphic {
