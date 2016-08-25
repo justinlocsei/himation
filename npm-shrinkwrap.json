@@ -120,46 +120,6 @@
         "babel-messages": {
           "version": "6.8.0"
         },
-        "babel-register": {
-          "dependencies": {
-            "core-js": {
-              "version": "2.4.1"
-            },
-            "home-or-tmp": {
-              "dependencies": {
-                "os-tmpdir": {
-                  "version": "1.0.1"
-                },
-                "user-home": {
-                  "version": "1.1.1"
-                }
-              },
-              "version": "1.0.0"
-            },
-            "mkdirp": {
-              "dependencies": {
-                "minimist": {
-                  "version": "0.0.8"
-                }
-              },
-              "version": "0.5.1"
-            },
-            "source-map-support": {
-              "dependencies": {
-                "source-map": {
-                  "dependencies": {
-                    "amdefine": {
-                      "version": "1.0.0"
-                    }
-                  },
-                  "version": "0.1.32"
-                }
-              },
-              "version": "0.2.10"
-            }
-          },
-          "version": "6.14.0"
-        },
         "babel-template": {
           "version": "6.14.0"
         },
@@ -3679,9 +3639,6 @@
             }
           },
           "version": "0.2.15"
-        },
-        "object-assign": {
-          "version": "4.1.0"
         }
       },
       "version": "1.5.0"
@@ -3883,9 +3840,6 @@
             },
             "json5": {
               "version": "0.5.0"
-            },
-            "object-assign": {
-              "version": "4.1.0"
             }
           },
           "version": "0.2.15"
@@ -3924,9 +3878,6 @@
             },
             "json5": {
               "version": "0.5.0"
-            },
-            "object-assign": {
-              "version": "4.1.0"
             }
           },
           "version": "0.2.15"
@@ -5195,9 +5146,6 @@
             },
             "json5": {
               "version": "0.5.0"
-            },
-            "object-assign": {
-              "version": "4.1.0"
             }
           },
           "version": "0.2.15"
@@ -5224,9 +5172,6 @@
                 },
                 "arrify": {
                   "version": "1.0.1"
-                },
-                "object-assign": {
-                  "version": "4.1.0"
                 },
                 "pinkie-promise": {
                   "dependencies": {
@@ -5291,9 +5236,6 @@
                     },
                     "npm-run-path": {
                       "version": "1.0.0"
-                    },
-                    "object-assign": {
-                      "version": "4.1.0"
                     },
                     "path-key": {
                       "version": "1.0.0"
@@ -6157,9 +6099,6 @@
                         },
                         "vinyl-assign": {
                           "dependencies": {
-                            "object-assign": {
-                              "version": "4.1.0"
-                            },
                             "readable-stream": {
                               "dependencies": {
                                 "buffer-shims": {
@@ -6479,9 +6418,6 @@
                               },
                               "version": "0.5.1"
                             },
-                            "object-assign": {
-                              "version": "4.1.0"
-                            },
                             "readable-stream": {
                               "dependencies": {
                                 "buffer-shims": {
@@ -6764,9 +6700,6 @@
                         },
                         "is-url": {
                           "version": "1.2.2"
-                        },
-                        "object-assign": {
-                          "version": "4.1.0"
                         },
                         "read-all-stream": {
                           "dependencies": {
@@ -7197,9 +7130,6 @@
                       "dependencies": {
                         "async-each-series": {
                           "version": "1.1.0"
-                        },
-                        "object-assign": {
-                          "version": "4.1.0"
                         }
                       },
                       "version": "1.0.3"
@@ -7309,9 +7239,6 @@
                                     }
                                   },
                                   "version": "2.3.5"
-                                },
-                                "object-assign": {
-                                  "version": "4.1.0"
                                 },
                                 "read-pkg-up": {
                                   "dependencies": {
@@ -7524,9 +7451,6 @@
                                         }
                                       },
                                       "version": "2.3.5"
-                                    },
-                                    "object-assign": {
-                                      "version": "4.1.0"
                                     },
                                     "read-pkg-up": {
                                       "dependencies": {
@@ -8450,9 +8374,6 @@
                         "is-url": {
                           "version": "1.2.2"
                         },
-                        "object-assign": {
-                          "version": "4.1.0"
-                        },
                         "read-all-stream": {
                           "dependencies": {
                             "pinkie-promise": {
@@ -8904,9 +8825,6 @@
                       "dependencies": {
                         "escape-string-regexp": {
                           "version": "1.0.5"
-                        },
-                        "object-assign": {
-                          "version": "4.1.0"
                         }
                       },
                       "version": "1.7.0"
@@ -9034,9 +8952,6 @@
                                     }
                                   },
                                   "version": "2.3.5"
-                                },
-                                "object-assign": {
-                                  "version": "4.1.0"
                                 },
                                 "read-pkg-up": {
                                   "dependencies": {
@@ -9205,9 +9120,6 @@
                     },
                     "npm-run-path": {
                       "version": "1.0.0"
-                    },
-                    "object-assign": {
-                      "version": "4.1.0"
                     },
                     "path-key": {
                       "version": "1.0.0"
@@ -10074,9 +9986,6 @@
                         },
                         "vinyl-assign": {
                           "dependencies": {
-                            "object-assign": {
-                              "version": "4.1.0"
-                            },
                             "readable-stream": {
                               "dependencies": {
                                 "buffer-shims": {
@@ -10396,9 +10305,6 @@
                               },
                               "version": "0.5.1"
                             },
-                            "object-assign": {
-                              "version": "4.1.0"
-                            },
                             "readable-stream": {
                               "dependencies": {
                                 "buffer-shims": {
@@ -10681,9 +10587,6 @@
                         },
                         "is-url": {
                           "version": "1.2.2"
-                        },
-                        "object-assign": {
-                          "version": "4.1.0"
                         },
                         "read-all-stream": {
                           "dependencies": {
@@ -11114,9 +11017,6 @@
                       "dependencies": {
                         "async-each-series": {
                           "version": "1.1.0"
-                        },
-                        "object-assign": {
-                          "version": "4.1.0"
                         }
                       },
                       "version": "1.0.3"
@@ -11226,9 +11126,6 @@
                                     }
                                   },
                                   "version": "2.3.5"
-                                },
-                                "object-assign": {
-                                  "version": "4.1.0"
                                 },
                                 "read-pkg-up": {
                                   "dependencies": {
@@ -11441,9 +11338,6 @@
                                         }
                                       },
                                       "version": "2.3.5"
-                                    },
-                                    "object-assign": {
-                                      "version": "4.1.0"
                                     },
                                     "read-pkg-up": {
                                       "dependencies": {
@@ -12367,9 +12261,6 @@
                         "is-url": {
                           "version": "1.2.2"
                         },
-                        "object-assign": {
-                          "version": "4.1.0"
-                        },
                         "read-all-stream": {
                           "dependencies": {
                             "pinkie-promise": {
@@ -12821,9 +12712,6 @@
                       "dependencies": {
                         "escape-string-regexp": {
                           "version": "1.0.5"
-                        },
-                        "object-assign": {
-                          "version": "4.1.0"
                         }
                       },
                       "version": "1.7.0"
@@ -12951,9 +12839,6 @@
                                     }
                                   },
                                   "version": "2.3.5"
-                                },
-                                "object-assign": {
-                                  "version": "4.1.0"
                                 },
                                 "read-pkg-up": {
                                   "dependencies": {
@@ -13119,9 +13004,6 @@
                     },
                     "npm-run-path": {
                       "version": "1.0.0"
-                    },
-                    "object-assign": {
-                      "version": "4.1.0"
                     },
                     "path-key": {
                       "version": "1.0.0"
@@ -13988,9 +13870,6 @@
                         },
                         "vinyl-assign": {
                           "dependencies": {
-                            "object-assign": {
-                              "version": "4.1.0"
-                            },
                             "readable-stream": {
                               "dependencies": {
                                 "buffer-shims": {
@@ -14310,9 +14189,6 @@
                               },
                               "version": "0.5.1"
                             },
-                            "object-assign": {
-                              "version": "4.1.0"
-                            },
                             "readable-stream": {
                               "dependencies": {
                                 "buffer-shims": {
@@ -14595,9 +14471,6 @@
                         },
                         "is-url": {
                           "version": "1.2.2"
-                        },
-                        "object-assign": {
-                          "version": "4.1.0"
                         },
                         "read-all-stream": {
                           "dependencies": {
@@ -15028,9 +14901,6 @@
                       "dependencies": {
                         "async-each-series": {
                           "version": "1.1.0"
-                        },
-                        "object-assign": {
-                          "version": "4.1.0"
                         }
                       },
                       "version": "1.0.3"
@@ -15140,9 +15010,6 @@
                                     }
                                   },
                                   "version": "2.3.5"
-                                },
-                                "object-assign": {
-                                  "version": "4.1.0"
                                 },
                                 "read-pkg-up": {
                                   "dependencies": {
@@ -15355,9 +15222,6 @@
                                         }
                                       },
                                       "version": "2.3.5"
-                                    },
-                                    "object-assign": {
-                                      "version": "4.1.0"
                                     },
                                     "read-pkg-up": {
                                       "dependencies": {
@@ -16281,9 +16145,6 @@
                         "is-url": {
                           "version": "1.2.2"
                         },
-                        "object-assign": {
-                          "version": "4.1.0"
-                        },
                         "read-all-stream": {
                           "dependencies": {
                             "pinkie-promise": {
@@ -16735,9 +16596,6 @@
                       "dependencies": {
                         "escape-string-regexp": {
                           "version": "1.0.5"
-                        },
-                        "object-assign": {
-                          "version": "4.1.0"
                         }
                       },
                       "version": "1.7.0"
@@ -16865,9 +16723,6 @@
                                     }
                                   },
                                   "version": "2.3.5"
-                                },
-                                "object-assign": {
-                                  "version": "4.1.0"
                                 },
                                 "read-pkg-up": {
                                   "dependencies": {
@@ -17033,9 +16888,6 @@
                     },
                     "npm-run-path": {
                       "version": "1.0.0"
-                    },
-                    "object-assign": {
-                      "version": "4.1.0"
                     },
                     "path-key": {
                       "version": "1.0.0"
@@ -17902,9 +17754,6 @@
                         },
                         "vinyl-assign": {
                           "dependencies": {
-                            "object-assign": {
-                              "version": "4.1.0"
-                            },
                             "readable-stream": {
                               "dependencies": {
                                 "buffer-shims": {
@@ -18224,9 +18073,6 @@
                               },
                               "version": "0.5.1"
                             },
-                            "object-assign": {
-                              "version": "4.1.0"
-                            },
                             "readable-stream": {
                               "dependencies": {
                                 "buffer-shims": {
@@ -18509,9 +18355,6 @@
                         },
                         "is-url": {
                           "version": "1.2.2"
-                        },
-                        "object-assign": {
-                          "version": "4.1.0"
                         },
                         "read-all-stream": {
                           "dependencies": {
@@ -18942,9 +18785,6 @@
                       "dependencies": {
                         "async-each-series": {
                           "version": "1.1.0"
-                        },
-                        "object-assign": {
-                          "version": "4.1.0"
                         }
                       },
                       "version": "1.0.3"
@@ -19054,9 +18894,6 @@
                                     }
                                   },
                                   "version": "2.3.5"
-                                },
-                                "object-assign": {
-                                  "version": "4.1.0"
                                 },
                                 "read-pkg-up": {
                                   "dependencies": {
@@ -19269,9 +19106,6 @@
                                         }
                                       },
                                       "version": "2.3.5"
-                                    },
-                                    "object-assign": {
-                                      "version": "4.1.0"
                                     },
                                     "read-pkg-up": {
                                       "dependencies": {
@@ -20195,9 +20029,6 @@
                         "is-url": {
                           "version": "1.2.2"
                         },
-                        "object-assign": {
-                          "version": "4.1.0"
-                        },
                         "read-all-stream": {
                           "dependencies": {
                             "pinkie-promise": {
@@ -20649,9 +20480,6 @@
                       "dependencies": {
                         "escape-string-regexp": {
                           "version": "1.0.5"
-                        },
-                        "object-assign": {
-                          "version": "4.1.0"
                         }
                       },
                       "version": "1.7.0"
@@ -20779,9 +20607,6 @@
                                     }
                                   },
                                   "version": "2.3.5"
-                                },
-                                "object-assign": {
-                                  "version": "4.1.0"
                                 },
                                 "read-pkg-up": {
                                   "dependencies": {
@@ -21027,9 +20852,6 @@
             },
             "json5": {
               "version": "0.5.0"
-            },
-            "object-assign": {
-              "version": "4.1.0"
             }
           },
           "version": "0.2.15"
@@ -21363,9 +21185,6 @@
               },
               "version": "2.3.5"
             },
-            "object-assign": {
-              "version": "4.1.0"
-            },
             "read-pkg-up": {
               "dependencies": {
                 "find-up": {
@@ -21580,9 +21399,6 @@
                     },
                     "has-unicode": {
                       "version": "2.0.1"
-                    },
-                    "object-assign": {
-                      "version": "4.1.0"
                     },
                     "signal-exit": {
                       "version": "3.0.0"
@@ -22510,9 +22326,6 @@
             },
             "json5": {
               "version": "0.5.0"
-            },
-            "object-assign": {
-              "version": "4.1.0"
             }
           },
           "version": "0.2.15"
@@ -22631,9 +22444,6 @@
             }
           },
           "version": "0.2.15"
-        },
-        "object-assign": {
-          "version": "4.1.0"
         }
       },
       "version": "4.0.0"
@@ -22650,9 +22460,6 @@
             },
             "json5": {
               "version": "0.5.0"
-            },
-            "object-assign": {
-              "version": "4.1.0"
             }
           },
           "version": "0.2.15"
@@ -22699,9 +22506,6 @@
           "dependencies": {
             "color-diff": {
               "version": "0.1.7"
-            },
-            "object-assign": {
-              "version": "4.1.0"
             },
             "pipetteur": {
               "dependencies": {
@@ -22759,9 +22563,6 @@
             },
             "minimist": {
               "version": "1.2.0"
-            },
-            "object-assign": {
-              "version": "4.1.0"
             },
             "os-homedir": {
               "version": "1.0.1"
@@ -22999,9 +22800,6 @@
               },
               "version": "1.0.2"
             },
-            "object-assign": {
-              "version": "4.1.0"
-            },
             "pify": {
               "version": "2.3.0"
             },
@@ -23108,9 +22906,6 @@
                 }
               },
               "version": "2.3.5"
-            },
-            "object-assign": {
-              "version": "4.1.0"
             },
             "read-pkg-up": {
               "dependencies": {
@@ -23474,9 +23269,6 @@
             },
             "json5": {
               "version": "0.5.0"
-            },
-            "object-assign": {
-              "version": "4.1.0"
             }
           },
           "version": "0.2.15"
@@ -24136,9 +23928,6 @@
                 }
               },
               "version": "2.0.1"
-            },
-            "lodash": {
-              "version": "4.15.0"
             },
             "micromatch": {
               "dependencies": {
