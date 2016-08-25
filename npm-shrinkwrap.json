@@ -3680,14 +3680,6 @@
       },
       "version": "1.5.0"
     },
-    "eslint-plugin-mocha": {
-      "dependencies": {
-        "ramda": {
-          "version": "0.22.1"
-        }
-      },
-      "version": "4.4.0"
-    },
     "eslint-plugin-react": {
       "dependencies": {
         "doctrine": {
@@ -21163,17 +21155,6 @@
     "lodash": {
       "version": "4.15.0"
     },
-    "lru-cache": {
-      "dependencies": {
-        "pseudomap": {
-          "version": "1.0.2"
-        },
-        "yallist": {
-          "version": "2.0.0"
-        }
-      },
-      "version": "4.0.1"
-    },
     "morgan": {
       "dependencies": {
         "basic-auth": {
@@ -22016,9 +21997,6 @@
     },
     "object-assign": {
       "version": "4.1.0"
-    },
-    "parse5": {
-      "version": "2.2.0"
     },
     "postcss-loader": {
       "dependencies": {
@@ -23480,14 +23458,6 @@
         }
       },
       "version": "0.3.1"
-    },
-    "tmp": {
-      "dependencies": {
-        "os-tmpdir": {
-          "version": "1.0.1"
-        }
-      },
-      "version": "0.0.28"
     },
     "url-loader": {
       "dependencies": {
