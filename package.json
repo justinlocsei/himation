@@ -69,6 +69,7 @@
     "raven-js": "^3.3.0",
     "raw-loader": "^0.5.1",
     "react": "^15.0.0",
+    "react-addons-perf": "^15.3.0",
     "react-dom": "^15.0.0",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
@@ -87,9 +88,7 @@
     "write-file-webpack-plugin": "^3.1.8",
     "yargs": "^4.0.0"
   },
-  "devDependencies": {
-    "react-addons-perf": "^15.3.0"
-  },
+  "devDependencies": {},
   "engines": {
     "node": ">= 4.0"
   }
