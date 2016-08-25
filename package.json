@@ -86,7 +86,7 @@
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.15.0",
     "write-file-webpack-plugin": "^3.1.8",
-    "yargs": "^4.0.0"
+    "yargs": "^4.8.1"
   },
   "devDependencies": {},
   "engines": {

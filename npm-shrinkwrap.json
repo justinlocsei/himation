@@ -24442,10 +24442,10 @@
           "version": "1.2.0"
         },
         "get-caller-file": {
-          "version": "1.0.1"
+          "version": "1.0.2"
         },
         "lodash.assign": {
-          "version": "4.1.0"
+          "version": "4.2.0"
         },
         "os-locale": {
           "dependencies": {
@@ -24483,7 +24483,7 @@
                 "load-json-file": {
                   "dependencies": {
                     "graceful-fs": {
-                      "version": "4.1.5"
+                      "version": "4.1.6"
                     },
                     "parse-json": {
                       "dependencies": {
@@ -24566,7 +24566,7 @@
                 "path-type": {
                   "dependencies": {
                     "graceful-fs": {
-                      "version": "4.1.5"
+                      "version": "4.1.6"
                     },
                     "pify": {
                       "version": "2.3.0"
@@ -24624,7 +24624,7 @@
               "version": "3.0.1"
             }
           },
-          "version": "1.0.1"
+          "version": "1.0.2"
         },
         "which-module": {
           "version": "1.0.0"
