@@ -1,5 +1,6 @@
 'use strict';
 
+var extend = require('extend');
 var fs = require('fs');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
@@ -312,9 +313,10 @@ function runWebpackBuild(configFactory, done) {
  *
  * @param {string} template The path to a Nunjucks template
  * @param {string} target The path to the target file
+ * @param {object} [target] Context to pass to the template
  * @returns {boolean} Whether the file was modified or created
  */
-function exportTemplate(template, target) {
+function exportTemplate(template, target, context) {
   var loader = new nunjucks.FileSystemLoader(paths.ui.templates);
   var renderer = new nunjucks.Environment(loader, {autoescape: true, throwOnUndefined: true});
 
@@ -325,7 +327,9 @@ function exportTemplate(template, target) {
     oldMarkup = '';
   }
 
-  var newMarkup = renderer.render(template, {homePageUrl: settings.servers.app.publicUrl});
+  var newMarkup = renderer.render(template, extend({
+    homePageUrl: settings.servers.app.publicUrl
+  }, context || {}));
 
   if (oldMarkup !== newMarkup) {
     fs.writeFileSync(target, newMarkup);
