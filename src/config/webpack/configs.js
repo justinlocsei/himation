@@ -89,10 +89,16 @@ function sassLoaders() {
  *
  * @param {string[]} files Paths to JS files that should be processed
  * @param {boolean} preserve Whether to preserve the original code, if possible
+ * @param {boolean} optimize Whether to optimize the code through transforms
  * @returns {object[]}
  * @private
  */
-function jsLoaders(files, preserve) {
+function jsLoaders(files, preserve, optimize) {
+  const babelPlugins = [
+    'transform-runtime',
+    'transform-object-rest-spread'
+  ];
+
   return [
     {
       test: /\.js$/,
@@ -101,10 +107,7 @@ function jsLoaders(files, preserve) {
       query: {
         cacheDirectory: true,
         compact: !preserve,
-        plugins: [
-          'transform-runtime',
-          'transform-object-rest-spread'
-        ],
+        plugins: babelPlugins,
         presets: ['es2015', 'react'],
         retainLines: !!preserve
       }
@@ -255,6 +258,7 @@ function server(settings) {
   });
 
   var externalCheck = new RegExp('^(' + SERVER_MODULE_BLACKLIST.join('|') + ')($|\/)');
+  var optimize = settings.assets.optimize;
 
   var config = create(settings, {
     context: paths.server.root,
@@ -265,8 +269,8 @@ function server(settings) {
     },
     module: {
       loaders: flatten([
-        imageLoaders(settings.assets.optimize),
-        jsLoaders([paths.server.views, paths.ui.js], true),
+        imageLoaders(optimize),
+        jsLoaders([paths.server.views, paths.ui.js], true, optimize),
         sassLoaders()
       ])
     },
@@ -276,7 +280,7 @@ function server(settings) {
       path: paths.build.assets,
       publicPath: settings.servers.assets.publicUrl
     },
-    plugins: globalPlugins(BUILD_IDS.server, settings.assets.optimize, settings, false),
+    plugins: globalPlugins(BUILD_IDS.server, optimize, settings, false),
     target: 'node'
   });
 
@@ -309,7 +313,7 @@ function ui(settings) {
     module: {
       loaders: flatten([
         imageLoaders(optimizeAssets),
-        jsLoaders([paths.src], false),
+        jsLoaders([paths.src], false, optimizeAssets),
         sassLoaders()
       ]),
       preLoaders: [
