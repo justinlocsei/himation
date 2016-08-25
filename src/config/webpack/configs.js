@@ -99,6 +99,11 @@ function jsLoaders(files, preserve, optimize) {
     'transform-object-rest-spread'
   ];
 
+  if (optimize) {
+    babelPlugins.push('transform-react-constant-elements');
+    babelPlugins.push('transform-react-inline-elements');
+  }
+
   return [
     {
       test: /\.js$/,
