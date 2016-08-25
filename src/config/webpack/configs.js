@@ -183,9 +183,7 @@ function globalPlugins(label, optimize, settings, compress) {
   };
 
   if (optimize) {
-    definitions['process.env'] = {
-      NODE_ENV: JSON.stringify('production')
-    };
+    definitions['process.env.NODE_ENV'] = JSON.stringify('production');
   }
 
   plugins.push(new webpack.DefinePlugin(definitions));
