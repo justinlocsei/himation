@@ -320,7 +320,7 @@ function runWebpackBuild(configFactory, done) {
  *
  * @param {string} template The path to a Nunjucks template
  * @param {string} target The path to the target file
- * @param {object} [target] Context to pass to the template
+ * @param {object} [context] Context to pass to the template
  * @returns {boolean} Whether the file was modified or created
  */
 function exportTemplate(template, target, context) {
