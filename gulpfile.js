@@ -284,6 +284,14 @@ gulp.task('export-404-page', function export404Page() {
   }
 });
 
+// Export the sitemap to a file
+gulp.task('export-sitemap', function exportSitemap() {
+  var updated = writeSitemapToFile(options['export-to']);
+  if (updated) {
+    gutil.log('export-sitemap', 'Sitemap updated');
+  }
+});
+
 /**
  * Run a webpack build for a given configuration
  *
@@ -337,4 +345,19 @@ function exportTemplate(template, target, context) {
   } else {
     return false;
   }
+}
+
+/**
+ * Export the sitemap to a file
+ *
+ * @param {string} target The path to the target file
+ * @returns {boolean} Whether the sitemap was updated
+ */
+function writeSitemapToFile(target) {
+  var publicRoutes = routes.filter(route => route.method === 'get');
+  var publicUrls = publicRoutes.map(function(route) {
+    return urls.relativeToAbsolute(route.path, settings.servers.app.publicUrl);
+  });
+
+  return exportTemplate('sitemap.xml', target, {urls: publicUrls});
 }
