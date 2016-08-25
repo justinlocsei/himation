@@ -88,15 +88,7 @@
     "yargs": "^4.0.0"
   },
   "devDependencies": {
-    "chai": "^3.4.1",
-    "chai-as-promised": "^5.2.0",
-    "gulp-mocha": "^3.0.0",
-    "himation-test": "file:./test",
-    "mocha": "^3.0.0",
-    "mock-fs": "^3.6.0",
-    "react-addons-perf": "^15.3.0",
-    "sinon": "^1.17.2",
-    "supertest": "^2.0.0"
+    "react-addons-perf": "^15.3.0"
   },
   "engines": {
     "node": ">= 4.0"
