@@ -72,20 +72,22 @@ export function getPrerenderedState() {
  * @param {express.Response} res An Express response
  * @param {React.Component} Page A React page component
  * @param {object} [options] Options for rendering the page
- * @param {object} [options.state] The initial Redux application state
  * @param {object} [options.context] Additional context for rendering the template
+ * @param {object} [options.state] The initial Redux application state
+ * @param {string} [options.template] The path to the template to render
  */
 export function prerenderPageComponent(res, Page, options = {}) {
   const settings = {
     context: {},
     state: undefined,
+    template: 'layouts/main.html',
     ...options
   };
 
   const page = React.createElement(Page);
   const connectedPage = bindComponentToStore(page, settings.state);
 
-  res.render('layouts/main.html', {
+  res.render(settings.template, {
     ...settings.context,
     assets: res.locals.assets,
     content: renderToString(connectedPage),
