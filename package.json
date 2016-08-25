@@ -31,7 +31,7 @@
     "bluebird": "^3.4.3",
     "body-parser": "^1.15.2",
     "clone": "^1.0.2",
-    "css-loader": "^0.23.0",
+    "css-loader": "^0.10.1",
     "cssnano": "^3.7.4",
     "eslint": "^3.3.1",
     "eslint-config-justinlocsei": "justinlocsei/eslint-config-justinlocsei#v1.6.0",
