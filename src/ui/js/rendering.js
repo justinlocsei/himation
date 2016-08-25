@@ -4,12 +4,15 @@ import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import { reducer as formReducer } from 'redux-form';
 import { render as reactRender } from 'react-dom';
-import { renderToStaticMarkup, renderToString } from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
 
 import appReducers from 'himation/ui/reducers';
-import Document from 'himation/ui/containers/document';
-import Site from 'himation/ui/containers/site';
+import favicon from 'himation/images/branding/favicon.ico';
+import logo from 'himation/images/branding/logo.svg';
+import touchIcon from 'himation/images/branding/apple-touch-icon.png';
 import { getSetting } from 'himation/ui/config';
+
+import 'himation/styles/site';
 
 let ReactPerf;
 if (__WEBPACK_DEF_HIMATION_DEBUG) {
@@ -60,40 +63,42 @@ export function getPrerenderedState() {
 }
 
 /**
- * Pre-render a page component to a string
+ * Pre-render a page component
  *
- * This renders the entire document using a static-markup document component as
- * a wrapper for a traditionally rendered site component that contains the given
- * page component.
+ * This renders the entire document using a template that contains the
+ * pre-rendered page component and information on the state used to render the
+ * page, to allow React to reconcile the server output with the client code.
  *
  * @param {express.Response} res An Express response
  * @param {React.Component} Page A React page component
  * @param {object} [options] Options for rendering the page
  * @param {object} [options.state] The initial Redux application state
- * @param {object} [options.documentProps] Props to pass to the document container
- * @returns {string} The rendered page
+ * @param {object} [options.context] Additional context for rendering the template
  */
 export function prerenderPageComponent(res, Page, options = {}) {
   const settings = {
-    documentProps: {},
+    context: {},
     state: undefined,
     ...options
   };
 
   const page = React.createElement(Page);
-  const site = React.createElement(Site, null, page);
-  const connectedSite = bindComponentToStore(site, settings.state);
+  const connectedPage = bindComponentToStore(page, settings.state);
 
-  const container = React.createElement(Document, {
-    ...settings.documentProps,
+  res.render('layouts/main.html', {
+    ...settings.context,
     assets: res.locals.assets,
-    content: renderToString(connectedSite),
+    content: renderToString(connectedPage),
     contentId: APP_CONTAINER_ID,
+    copyrightYear: new Date().getFullYear(),
+    favicon: favicon,
+    googleAnalyticsId: getSetting('googleAnalyticsId'),
+    logo: logo,
+    reduxState: JSON.stringify(connectedPage.props.store.getState()),
+    rootUrl: getSetting('rootUrl'),
     stateVariableName: STATE_VARIABLE_NAME,
-    store: connectedSite.props.store.getState()
+    touchIcon: touchIcon.src
   });
-
-  return renderToStaticMarkup(container);
 }
 
 /**
@@ -108,9 +113,8 @@ export function renderPageComponent(Page) {
   configureErrorTracking();
 
   const page = React.createElement(Page);
-  const site = React.createElement(Site, null, page);
 
-  const storeArgs = [site, getPrerenderedState()];
+  const storeArgs = [page, getPrerenderedState()];
   if (getSetting('debug') && window.devToolsExtension) {
     storeArgs.push(window.devToolsExtension());
   }
@@ -119,7 +123,7 @@ export function renderPageComponent(Page) {
     window.ReactPerf = ReactPerf;
   }
 
-  const connectedSite = bindComponentToStore.apply(bindComponentToStore, storeArgs);
+  const connectedPage = bindComponentToStore.apply(bindComponentToStore, storeArgs);
 
-  reactRender(connectedSite, document.getElementById(APP_CONTAINER_ID));
+  reactRender(connectedPage, document.getElementById(APP_CONTAINER_ID));
 }

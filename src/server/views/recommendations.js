@@ -3,7 +3,6 @@ import RecommendationsPage from 'himation/ui/containers/pages/recommendations';
 import { convertPostDataToProfile } from 'himation/server/data/survey';
 import { createApiClient, packageSurvey } from 'himation/server/api';
 import { prerenderPageComponent } from 'himation/ui/rendering';
-import { renderHtml } from 'himation/server/rendering';
 import { isSpamSubmission, validate } from 'himation/ui/components/survey';
 
 /**
@@ -14,7 +13,7 @@ import { isSpamSubmission, validate } from 'himation/ui/components/survey';
  * @param {object} errors Possible validation errors
  */
 function renderInvalidSurveyForm(res, data, errors) {
-  const markup = prerenderPageComponent(res, IndexPage, {
+  prerenderPageComponent(res, IndexPage, {
     state: {
       survey: {
         ...data,
@@ -26,7 +25,6 @@ function renderInvalidSurveyForm(res, data, errors) {
       }
     }
   });
-  res.send(renderHtml(markup));
 }
 
 /**
@@ -44,12 +42,11 @@ function renderRecommendations(res, next, options) {
 
   apiClient.requestRecommendations(packageSurvey(surveyData), {ip: ipAddress})
     .then(function(recommendations) {
-      const markup = prerenderPageComponent(res, RecommendationsPage, {
+      prerenderPageComponent(res, RecommendationsPage, {
         state: {
           recommendations: recommendations
         }
       });
-      res.send(renderHtml(markup));
     })
     .catch(function(error) {
       next(error);
