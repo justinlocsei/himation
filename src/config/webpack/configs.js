@@ -313,7 +313,7 @@ function ui(settings) {
     module: {
       loaders: flatten([
         imageLoaders(optimizeAssets),
-        jsLoaders([paths.src], false, optimizeAssets),
+        jsLoaders([paths.src], false, false),
         sassLoaders()
       ]),
       preLoaders: [
