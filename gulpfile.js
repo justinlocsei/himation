@@ -44,7 +44,6 @@ var options = yargs
 
 var plugins = {
   eslint: require('gulp-eslint'),
-  mocha: require('gulp-mocha'),
   stylelint: require('gulp-stylelint')
 };
 
