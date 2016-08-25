@@ -23,6 +23,10 @@ function renderInvalidSurveyForm(res, data, errors) {
           isSubmitting: false
         }
       }
+    },
+    template: 'pages/home.html',
+    context: {
+      formIsInvalid: true
     }
   });
 }
@@ -45,7 +49,8 @@ function renderRecommendations(res, next, options) {
       prerenderPageComponent(res, RecommendationsPage, {
         state: {
           recommendations: recommendations
-        }
+        },
+        template: 'pages/recommendations.html'
       });
     })
     .catch(function(error) {
