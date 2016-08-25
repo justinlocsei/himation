@@ -382,6 +382,12 @@
       },
       "version": "6.8.0"
     },
+    "babel-plugin-transform-react-constant-elements": {
+      "version": "6.9.1"
+    },
+    "babel-plugin-transform-react-inline-elements": {
+      "version": "6.8.0"
+    },
     "babel-plugin-transform-runtime": {
       "version": "6.12.0"
     },
