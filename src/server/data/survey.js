@@ -31,7 +31,7 @@ var surveyData = require('himation/core/data/survey');
  * @private
  */
 function parseBirthYear(data) {
-  return parseInt(data.birthYear, 10);
+  return data.birthYear ? parseInt(data.birthYear, 10) : undefined;
 }
 
 /**
