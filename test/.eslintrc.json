@@ -1,9 +1,0 @@
-{
-  "extends": "justinlocsei/configurations/mocha",
-  "globals": {
-    "assert": true
-  },
-  "rules": {
-    "strict": [2, "global"]
-  }
-}
