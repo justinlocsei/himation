@@ -10,6 +10,7 @@ import Field from './field';
 import FormalityPicker from './fields/formality-picker';
 import SizePicker from './fields/size-picker';
 import StylePicker from './fields/style-picker';
+import { convertPostDataToProfile } from 'himation/server/data/survey';
 import { dismissSurveyErrors, flagSurveyErrors, submitSurvey } from 'himation/ui/actions/survey';
 import { MAX_BIRTH_YEAR, MAX_STYLES, MAX_STYLES_WORD, MIN_BIRTH_YEAR } from 'himation/core/data/survey';
 import { scrollToFirstError } from './error-message';
@@ -58,9 +59,30 @@ let Survey = React.createClass({
   },
 
   componentWillMount: function() {
+    this._dom = {};
+
     if (this.props.failedValidation) {
       this.props.form.touchAll();
     }
+  },
+
+  // Derive the internal redux-form state from the form's DOM
+  //
+  // This only occurs when the form is not being seeded with a non-default
+  // state, as is the case when the user validated the form via an HTTP request
+  // instead of client logic.  This serializes the form and converts that data
+  // to an object that can be used to initialize the redux form.
+  //
+  // The goal of all of this is to ensure that, if a user arrives at the form
+  // by hitting the back button, browsers that remember the user's selection
+  // will not be reset when the user changes a value on the form, due to an
+  // internal empty state for redux form.
+  componentDidMount: function() {
+    if (this.props.failedValidation) { return; }
+
+    const postData = this._extractPostData(this._dom.form);
+    const profile = convertPostDataToProfile(postData);
+    this.props.form.initializeForm(profile);
   },
 
   componentDidUpdate: function() {
@@ -72,10 +94,11 @@ let Survey = React.createClass({
   render: function() {
     const { anchorId, form, formAction, formMethod, isSubmitting, onServerSubmit } = this.props;
 
+    const dom = this._dom;
     const handleSubmit = form.valid ? onServerSubmit : form.handleSubmit;
 
     return (
-      <form className="l--survey" id={anchorId} action={formAction} method={formMethod} onSubmit={handleSubmit}>
+      <form className="l--survey" id={anchorId} action={formAction} method={formMethod} onSubmit={handleSubmit} ref={function(el) { dom.form = el; }}>
 
         <h2 className="l--survey__title">Tell Us About Yourself</h2>
 
@@ -147,6 +170,40 @@ let Survey = React.createClass({
 
     const hasData = fields.formalities.length > 0;
     return hasData ? fields[fieldName] : initialValues[fieldName];
+  },
+
+  /**
+   * Convert the form's field selections into a hash of POST data
+   *
+   * @param {Element} form The form's DOM element
+   * @returns {object} A mapping of field names to serialized values
+   */
+  _extractPostData: function(form) {
+    const data = {};
+
+    const inputs = form.querySelectorAll('input');
+    const inputCount = inputs.length;
+
+    for (let i = 0; i < inputCount; i++) {
+      const input = inputs[i];
+      let value;
+
+      if (input.type === 'checkbox' || input.type === 'radio') {
+        if (input.value === 'false' || input.value === 'true') {
+          value = input.checked ? 'true' : '';
+        } else if (input.checked) {
+          value = input.value;
+        }
+      } else if (input.value) {
+        value = input.value;
+      }
+
+      if (value !== undefined) {
+        data[input.name] = value;
+      }
+    }
+
+    return data;
   }
 
 });
