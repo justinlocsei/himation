@@ -1,3 +1,4 @@
+@import "himation/mixins/capabilities";
 @import "himation/mixins/responsive";
 
 $_recommendations--price-group-gutter: 8%;
@@ -118,6 +119,81 @@ $_recommendations--price-group-gutter: 8%;
   .c--recommendations__price-group__garment {
     margin: 0 $_recommendations--price-group-gutter;
     max-width: 50% - $_recommendations--price-group-gutter;
+  }
+
+}
+
+@include himation--flexbox-fallback {
+
+  .c--recommendations__price-groups {
+    display: block;
+  }
+  .c--recommendations__price-group {
+    $_gutter: 4%;
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    padding: 0 $_gutter * 0.5;
+    vertical-align: top;
+    width: (100% / 3);
+
+    &:first-child {
+      padding-left: 0;
+      padding-right: $_gutter;
+    }
+    &:last-child {
+      padding-left: $_gutter;
+      padding-right: 0;
+    }
+  }
+
+  .c--recommendations__price-group__garments {
+    display: block;
+  }
+  .c--recommendations__price-group__garment {
+    display: inline-block;
+    max-width: none;
+    vertical-align: top;
+    width: 50% - $_recommendations--price-group-gutter;
+  }
+
+  .c--recommendations__price-group__placeholder {
+    display: block;
+    position: relative;
+  }
+  .c--recommendations__price-group__placeholder__text {
+    left: 0;
+    margin-top: -0.5em;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+  }
+
+  @include himation--breakpoint-tablet {
+
+    .c--recommendations__price-group__garment {
+      width: 100%;
+    }
+
+  }
+
+  @include himation--breakpoint-phone {
+
+    .c--recommendations__price-group {
+      display: block;
+      padding: 0;
+      width: 100%;
+
+      &:first-child,
+      &:last-child {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+    .c--recommendations__price-group__garment {
+      max-width: 50% - $_recommendations--price-group-gutter;
+    }
+
   }
 
 }
