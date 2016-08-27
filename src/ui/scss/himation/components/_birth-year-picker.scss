@@ -6,16 +6,16 @@
 
 .c--birth-year-picker__field {
   @include himation--input-container;
-  align-items: center;
-  display: flex;
 }
 
 .c--birth-year-picker__label {
-
+  display: inline-block;
 }
 
 .c--birth-year-picker__data {
+  display: inline-block;
   position: relative;
+  vertical-align: middle;
 }
 
 .c--birth-year-picker__error {
