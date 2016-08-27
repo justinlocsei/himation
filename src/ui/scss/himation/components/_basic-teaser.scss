@@ -1,3 +1,5 @@
+@import "himation/mixins/capabilities";
+
 $_basic-teaser--tile-base-bg-color: darken($himation--branding-secondary-color, 25%);
 $_basic-teaser--tile-base-opacity: 0.75;
 $_basic-teaser--tile-accent-bg-color: $himation--text-color;
@@ -75,6 +77,15 @@ $_basic-teaser--total-groups: 6;
   }
   .c--basic-teaser__meta {
     background-color: rgba($_basic-teaser--tile-accent-bg-color, $_basic-teaser--tile-accent-opacity);
+  }
+
+}
+
+@include himation--flexbox-fallback {
+
+  .c--basic-teaser__meta {
+    display: block;
+    padding-top: 1.75em;
   }
 
 }
