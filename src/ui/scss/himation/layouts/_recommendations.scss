@@ -1,4 +1,6 @@
 @import "himation/functions/assets";
+@import "himation/mixins/capabilities";
+@import "himation/mixins/responsive";
 
 $_recommendations--basic-teaser-gutter: 2px;
 
@@ -79,4 +81,28 @@ $_recommendations--basic-teaser-gutter: 2px;
   &:focus {
     opacity: 1;
   }
+}
+
+@include himation--flexbox-fallback {
+
+  .l--recommendations__basic-teasers {
+    display: block;
+  }
+  .l--recommendations__basic-teaser {
+    display: inline-block;
+    width: 20%;
+  }
+
+  @include himation--breakpoint-tablet {
+    .l--recommendations__basic-teaser {
+      width: (100% / 3);
+    }
+  }
+
+  @include himation--breakpoint-phone {
+    .l--recommendations__basic-teaser {
+      width: 100%;
+    }
+  }
+
 }
