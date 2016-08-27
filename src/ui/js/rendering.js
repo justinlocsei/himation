@@ -1,3 +1,4 @@
+import modernizrUrl from 'modernizr-build';
 import Raven from 'raven-js';
 import React from 'react';
 import { createStore, combineReducers } from 'redux';
@@ -96,6 +97,7 @@ export function prerenderPageComponent(res, Page, options = {}) {
     favicon: favicon,
     googleAnalyticsId: getSetting('googleAnalyticsId'),
     logo: logo,
+    modernizrUrl: modernizrUrl,
     reduxState: JSON.stringify(connectedPage.props.store.getState()),
     rootUrl: getSetting('rootUrl'),
     stateVariableName: STATE_VARIABLE_NAME,
