@@ -1,3 +1,4 @@
+@import "himation/mixins/capabilities";
 @import "himation/mixins/forms";
 @import "himation/mixins/responsive";
 
@@ -36,6 +37,18 @@ $_body-shape-picker--gutter: 1em;
 
   .c--body-shape-picker__body-shape {
     flex-basis: 50%;
+  }
+
+}
+
+@include himation--flexbox-fallback {
+
+  .c--body-shape-picker__body-shapes {
+    display: table;
+    width: 100%;
+  }
+  .c--body-shape-picker__body-shape {
+    display: table-cell;
   }
 
 }
