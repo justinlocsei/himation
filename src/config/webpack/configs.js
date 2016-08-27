@@ -247,6 +247,30 @@ function forceFileWriting(config) {
 }
 
 /**
+ * Add a loader to produce a custom Modernizr build
+ *
+ * @param {object} config A webpack configuration
+ * @param {boolean} compress Whether to compress the build
+ * @returns {object} The updated configuration file
+ */
+function addModernizrBuild(config, compress) {
+  var paths = resolvePaths();
+
+  var loaders = ['file?name=[hash].js'];
+  if (compress) { loaders.push('uglify'); }
+  loaders.push(path.join(paths.src, 'config', 'webpack', 'loaders', 'modernizr.js'));
+
+  config.module.loaders.push({
+    test: /\.modernizrrc$/,
+    loaders: loaders
+  });
+
+  config.resolve.alias['modernizr-build$'] = path.join(paths.root, '.modernizrrc');
+
+  return config;
+}
+
+/**
  * Create a webpack configuration for use on the server
  *
  * This produces compiled ES3 JS files that are used exclusively for server-side
@@ -289,6 +313,7 @@ function server(settings) {
     target: 'node'
   });
 
+  config = addModernizrBuild(config, optimize);
   return forceFileWriting(config);
 }
 
@@ -338,6 +363,7 @@ function ui(settings) {
     target: 'web'
   });
 
+  config = addModernizrBuild(config, optimizeAssets);
   return forceFileWriting(config);
 }
 
