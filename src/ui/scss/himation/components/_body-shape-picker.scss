@@ -45,10 +45,42 @@ $_body-shape-picker--gutter: 1em;
 
   .c--body-shape-picker__body-shapes {
     display: table;
+    margin: 0;
     width: 100%;
   }
   .c--body-shape-picker__body-shape {
     display: table-cell;
+    padding: 0;
+    padding-left: $_body-shape-picker--gutter * 2;
+
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+
+  @include himation--breakpoint-tablet {
+
+    .c--body-shape-picker__body-shapes {
+      display: block;
+    }
+    .c--body-shape-picker__body-shape {
+      box-sizing: border-box;
+      display: inline-block;
+      padding: $_body-shape-picker--gutter;
+      width: 50%;
+
+      &:first-child {
+        padding-left: $_body-shape-picker--gutter;
+      }
+    }
+  }
+
+  @include himation--breakpoint-phone {
+
+    .c--body-shape-picker__body-shape {
+      width: 100%;
+    }
+
   }
 
 }
