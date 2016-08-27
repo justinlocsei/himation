@@ -1,3 +1,4 @@
+@import "himation/mixins/capabilities";
 @import "himation/mixins/forms";
 @import "himation/mixins/responsive";
 
@@ -107,6 +108,48 @@ $_formality--text-gutter: 1em;
 
   .c--formality__error {
     bottom: 90%;
+  }
+
+}
+
+@include himation--flexbox-fallback {
+
+  .c--formality__details {
+    display: block;
+    overflow: hidden;
+  }
+  .c--formality__media {
+    display: block;
+    float: left;
+  }
+  .c--formality__text {
+    display: block;
+    margin-top: 1em;
+    overflow: hidden;
+    width: auto;
+  }
+
+  .c--formality__frequencies {
+    display: block;
+  }
+  .c--formality__frequency {
+    display: block;
+  }
+
+  @include himation--breakpoint-tablet {
+
+    .c--formality__media {
+      float: none;
+    }
+
+  }
+
+  @include himation--breakpoint-phone {
+
+    .c--formality__media {
+      float: left;
+    }
+
   }
 
 }
