@@ -1,0 +1,12 @@
+{
+  "classPrefix": "supports",
+  "minify": false,
+  "options": [
+    "setClasses"
+  ],
+  "feature-detects": [
+    "css/flexbox",
+    "css/flexwrap",
+    "storage/sessionstorage"
+  ]
+}
