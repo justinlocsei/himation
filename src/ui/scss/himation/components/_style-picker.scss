@@ -1,3 +1,4 @@
+@import "himation/mixins/capabilities";
 @import "himation/mixins/forms";
 @import "himation/mixins/responsive";
 
@@ -44,6 +45,30 @@ $_style-picker--grid-h-spacing: 0.25em;
   }
   .c--style-picker__style {
     flex: 1;
+  }
+
+}
+
+@include himation--flexbox-fallback {
+
+  .c--style-picker__styles {
+    display: block;
+  }
+  .c--style-picker__style {
+    display: inline-block;
+    width: (100% / 3);
+  }
+
+  @include himation--breakpoint-tablet {
+    .c--style-picker__style {
+      width: 50%;
+    }
+  }
+
+  @include himation--breakpoint-phone {
+    .c--style-picker__style {
+      width: 100%;
+    }
   }
 
 }
