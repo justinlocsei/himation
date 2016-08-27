@@ -92,7 +92,11 @@ const Basic = React.createClass({
                     if (garment) {
                       garmentTag = <Garment {...garment} averageAspectRatio={averageAspectRatio} />;
                     } else {
-                      garmentTag = <p className="c--recommendations__price-group__placeholder">Out of stock</p>;
+                      garmentTag = (
+                        <p className="c--recommendations__price-group__placeholder">
+                          <span className="c--recommendations__price-group__placeholder__text">Out of stock</span>
+                        </p>
+                      );
                     }
 
                     return (

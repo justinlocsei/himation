@@ -81,6 +81,10 @@ $_recommendations--price-group-gutter: 8%;
   text-align: center;
 }
 
+.c--recommendations__price-group__placeholder__text {
+
+}
+
 @include himation--breakpoint-tablet {
 
   .c--recommendations__price-group__garments {
