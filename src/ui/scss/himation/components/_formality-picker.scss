@@ -1,3 +1,4 @@
+@import "himation/mixins/capabilities";
 @import "himation/mixins/responsive";
 
 $_formality-picker--grid-h-spacing: 2em;
@@ -42,6 +43,28 @@ $_formality-picker--grid-v-spacing: 2em;
   }
   .c--formality-picker__formality {
     flex: 1;
+  }
+
+}
+
+@include himation--flexbox-fallback {
+
+  .c--formality-picker__formalities {
+    display: block;
+  }
+  .c--formality-picker__formality {
+    display: inline-block;
+    vertical-align: middle;
+    width: (100% / 3);
+  }
+
+  @include himation--breakpoint-phone {
+
+    .c--formality-picker__formality {
+      display: block;
+      width: 100%;
+    }
+
   }
 
 }
