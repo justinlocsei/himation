@@ -3,8 +3,7 @@
 $_garment--details-v-padding: 0.75em;
 
 .c--garment {
-  display: flex;
-  flex-direction: column;
+
 }
 
 .c--garment__preview {
@@ -28,9 +27,7 @@ $_garment--details-v-padding: 0.75em;
 }
 
 .c--garment__details {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+
 }
 
 .c--garment__price {
