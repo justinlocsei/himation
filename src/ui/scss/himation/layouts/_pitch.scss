@@ -1,3 +1,4 @@
+@import "himation/mixins/capabilities";
 @import "himation/mixins/forms";
 @import "himation/mixins/responsive";
 
@@ -127,6 +128,15 @@ $_pitch--tagline-image-width: 35%;
     box-shadow: 0.125em 0.125em 0.25em rgba(0, 0, 0, 0.375);
     padding: 1em 0.25em;
     width: 100%;
+  }
+
+}
+
+@include himation--flexbox-fallback {
+
+  .l--pitch {
+    display: block;
+    padding-top: 4%;
   }
 
 }
