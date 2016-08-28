@@ -8,6 +8,7 @@ import { render as reactRender } from 'react-dom';
 import { renderToString } from 'react-dom/server';
 
 import appReducers from 'himation/ui/reducers';
+import facebookShareImage from 'himation/images/branding/facebook-share.jpg';
 import favicon from 'himation/images/branding/favicon.ico';
 import logo from 'himation/images/branding/logo.svg';
 import touchIcon from 'himation/images/branding/apple-touch-icon.png';
@@ -94,6 +95,7 @@ export function prerenderPageComponent(res, Page, options = {}) {
     content: renderToString(connectedPage),
     contentId: APP_CONTAINER_ID,
     copyrightYear: new Date().getFullYear(),
+    facebookShareImage: facebookShareImage.src,
     favicon: favicon,
     googleAnalyticsId: getSetting('googleAnalyticsId'),
     logo: logo,
