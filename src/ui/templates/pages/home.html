@@ -1,3 +1,13 @@
 {% extends "layouts/main.html" %}
 
 {% block title %}{% if formIsInvalid %}Invalid Survey - {% endif %}Cover Your Basics{% endblock %}
+
+{% block meta %}
+  <meta property="og:description" content="For professional women with better things to do than shop. We take the pain out of keeping your professional wardrobe stocked with essentials.">
+  <meta property="og:image" content="{{ facebookShareImage }}">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Cover Your Basics">
+  <meta property="og:title" content="Fill Out Our Survey">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ rootUrl }}">
+{% endblock %}
