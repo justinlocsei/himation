@@ -74,7 +74,7 @@ var schema = Joi.object().keys({
     sentryDsnPublic: Joi.string(),
     track: Joi.boolean().default(false)
   }).default(),
-  facebookAppId: Joi.string(),
+  facebookAppId: Joi.string().default(null),
   googleAnalyticsId: Joi.string(),
   server: Joi.object().keys({
     debugLogging: Joi.boolean().default(false)
