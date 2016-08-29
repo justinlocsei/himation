@@ -12,6 +12,7 @@ import facebookShareImage from 'himation/images/branding/facebook-share.jpg';
 import favicon from 'himation/images/branding/favicon.ico';
 import logo from 'himation/images/branding/logo.svg';
 import touchIcon from 'himation/images/branding/apple-touch-icon.png';
+import twitterLogo from 'himation/images/branding/twitter-logo.png';
 import { getSetting } from 'himation/ui/config';
 
 import 'himation/styles/site';
@@ -104,6 +105,7 @@ export function prerenderPageComponent(res, Page, options = {}) {
     reduxState: JSON.stringify(connectedPage.props.store.getState()),
     rootUrl: getSetting('rootUrl'),
     stateVariableName: STATE_VARIABLE_NAME,
+    twitterLogo: twitterLogo.src,
     touchIcon: touchIcon.src
   });
 }
