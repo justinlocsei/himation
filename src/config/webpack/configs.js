@@ -183,6 +183,7 @@ function globalPlugins(label, optimize, settings, compress) {
     __WEBPACK_DEF_HIMATION_CONFIG: JSON.stringify({
       debug: settings.debug,
       environment: settings.environment,
+      facebookAppId: settings.facebookAppId,
       googleAnalyticsId: settings.googleAnalyticsId,
       rootUrl: settings.servers.app.publicUrl,
       sentryDsn: settings.errors.track && settings.errors.sentryDsnPublic
