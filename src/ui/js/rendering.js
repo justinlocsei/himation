@@ -97,6 +97,7 @@ export function prerenderPageComponent(res, Page, options = {}) {
     copyrightYear: new Date().getFullYear(),
     facebookShareImage: facebookShareImage.src,
     favicon: favicon,
+    facebookAppId: getSetting('facebookAppId'),
     googleAnalyticsId: getSetting('googleAnalyticsId'),
     logo: logo,
     modernizrUrl: modernizrUrl,

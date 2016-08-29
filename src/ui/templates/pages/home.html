@@ -10,4 +10,8 @@
   <meta property="og:title" content="Fill Out Our Survey">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ rootUrl }}">
+
+  {% if facebookAppId %}
+    <meta property="fb:app_id" content="{{ facebookAppId }}">
+  {% endif %}
 {% endblock %}
