@@ -205,11 +205,11 @@
 // @param <length> $elevation The elevation to use for the popover's shadow
 // @param <color> $shadow-color The color for the popover's shadow
 // @param <boolean> $is-attached Whether the popover is attached to an element
-@mixin himation--error-popover($size: 1.25em, $triangle-size: 0.5em, $elevation: 0.5em, $shadow-color: rgba(0, 0, 0, 0.125), $is-attached: false) {
+@mixin himation--error-popover($size: 1.25em, $triangle-size: 0.5em, $elevation: 0.25em, $shadow-color: rgba(0, 0, 0, 0.375), $is-attached: false) {
   @include himation--font-stack-serif;
   background-color: $himation--form-error-bg-color;
   border: 1px solid darken($himation--form-error-bg-color, 15%);
-  box-shadow: 0 $elevation $elevation $shadow-color;
+  box-shadow: 0 $elevation $elevation * 2 $shadow-color;
   box-sizing: border-box;
   color: $himation--form-error-text-color;
   font-size: $size;
@@ -224,9 +224,14 @@
     left: 25%;
     right: 25%;
 
-    @include himation--breakpoint-phone {
+    @include himation--breakpoint-tablet {
       left: 10%;
       right: 10%;
+    }
+
+    @include himation--breakpoint-phone {
+      left: 0;
+      right: 0;
     }
   }
 }
