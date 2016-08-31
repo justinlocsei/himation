@@ -135,7 +135,7 @@ function imageLoaders(optimize) {
   };
 
   if (optimize) {
-    var compression = {
+    var rasterCompression = {
       interlaced: false,
       optimizationLevel: 4,
       pngquant: {
@@ -144,15 +144,31 @@ function imageLoaders(optimize) {
       },
       progressive: true
     };
-    rasterLoader.loaders.push('image-webpack?' + JSON.stringify(compression));
+    rasterLoader.loaders.push('image-webpack?' + JSON.stringify(rasterCompression));
   }
 
-  var fallbackLoader = {
-    test: /\.(ico|svg)$/,
+  var svgLoader = {
+    test: /\.svg$/,
+    loaders: ['file?name=[hash].[ext]']
+  };
+
+  if (optimize) {
+    var svgCompression = {
+      svgo: {
+        plugins: [
+          {removeViewBox: false}
+        ]
+      }
+    };
+    svgLoader.loaders.push('image-webpack?' + JSON.stringify(svgCompression));
+  }
+
+  var icoLoader = {
+    test: /\.ico$/,
     loader: 'file?name=[hash].[ext]'
   };
 
-  return [rasterLoader, fallbackLoader];
+  return [rasterLoader, svgLoader, icoLoader];
 }
 
 /**
