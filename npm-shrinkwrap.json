@@ -2487,7 +2487,7 @@
       "version": "6.11.6"
     },
     "bluebird": {
-      "version": "3.4.3"
+      "version": "3.4.5"
     },
     "body-parser": {
       "dependencies": {
