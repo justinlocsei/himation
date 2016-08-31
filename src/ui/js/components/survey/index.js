@@ -12,7 +12,7 @@ import SizePicker from './fields/size-picker';
 import StylePicker from './fields/style-picker';
 import { convertPostDataToProfile } from 'himation/server/data/survey';
 import { dismissSurveyErrors, flagSurveyErrors, submitSurvey } from 'himation/ui/actions/survey';
-import { MAX_BIRTH_YEAR, MAX_STYLES, MAX_STYLES_WORD, MIN_BIRTH_YEAR } from 'himation/core/data/survey';
+import { FREQUENCIES, MAX_BIRTH_YEAR, MAX_STYLES, MAX_STYLES_WORD, MIN_BIRTH_YEAR } from 'himation/core/data/survey';
 import { scrollToFirstError } from './error-message';
 import { seedFields } from 'himation/core/extensions/redux-form';
 
@@ -259,15 +259,16 @@ export function validate(values) {
   }
 
   if (values.formalities) {
-    const formalityErrors = values.formalities.reduce(function(previous, formality, index) {
-      if (!formality.frequency) {
-        previous[index] = 'Please select a frequency';
+    const withFrequency = values.formalities.reduce(function(previous, formality) {
+      if (!formality.frequency || formality.frequency === FREQUENCIES[0].slug) {
+        return previous;
+      } else {
+        return previous + 1;
       }
-      return previous;
-    }, []);
+    }, 0);
 
-    if (formalityErrors.length) {
-      errors.formalities = formalityErrors;
+    if (!withFrequency) {
+      errors.formalities = ['Please select at least one frequency'];
     }
   }
 
