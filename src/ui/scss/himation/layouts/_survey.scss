@@ -2,7 +2,6 @@
 @import "himation/mixins/responsive";
 @import "himation/mixins/typography";
 
-$_survey--button-h-padding: 10%;
 $_survey--field-top-margin: 3.5em;
 
 .l--survey {
@@ -63,10 +62,21 @@ $_survey--field-top-margin: 3.5em;
 
 .l--survey__submit-button {
   @include himation--button;
+  box-sizing: border-box;
   font-size: 1.25em;
   font-weight: $himation--font-weight-semi-bold;
-  padding: 1.5em $_survey--button-h-padding;
+  margin: 0 0.25em;
+  padding: 1.5em 0.5em;
   text-transform: uppercase;
+  width: 40%;
+}
+
+@include himation--breakpoint-tablet {
+
+  .l--survey__submit-button {
+    width: 60%;
+  }
+
 }
 
 @include himation--breakpoint-phone {
@@ -82,10 +92,7 @@ $_survey--field-top-margin: 3.5em;
   }
 
   .l--survey__submit-button {
-    $_padding: $_survey--button-h-padding * 0.5;
-    margin: 0 $_padding;
-    padding-left: $_padding;
-    padding-right: $_padding;
+    width: 90%;
   }
 
 }
