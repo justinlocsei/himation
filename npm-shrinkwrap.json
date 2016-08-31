@@ -22725,7 +22725,7 @@
           "version": "5.1.2"
         }
       },
-      "version": "0.10.1"
+      "version": "0.11.1"
     },
     "postcss-scss": {
       "dependencies": {
@@ -22749,7 +22749,7 @@
           "version": "5.1.2"
         }
       },
-      "version": "0.1.9"
+      "version": "0.2.1"
     },
     "raven": {
       "dependencies": {
