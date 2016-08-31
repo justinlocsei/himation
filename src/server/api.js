@@ -7,6 +7,7 @@ var request = require('request');
 var sortBy = require('lodash/sortBy');
 
 var errors = require('himation/core/errors');
+var surveyData = require('himation/core/data/survey');
 var urls = require('himation/core/urls');
 
 /**
@@ -23,7 +24,7 @@ function packageSurvey(data) {
   var expectations = data.formalities.map(function(formality) {
     return {
       formality: formality.slug,
-      frequency: formality.frequency
+      frequency: formality.frequency || surveyData.FREQUENCIES[0].slug
     };
   });
 
