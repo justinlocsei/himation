@@ -6,6 +6,7 @@ var cssnano = require('cssnano');
 var extend = require('extend');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var flatten = require('lodash/flatten');
+var os = require('os');
 var path = require('path');
 var StyleLintPlugin = require('stylelint-webpack-plugin');
 var webpack = require('webpack');
@@ -110,7 +111,7 @@ function jsLoaders(files, preserve, optimize) {
       include: files,
       loader: 'babel',
       query: {
-        cacheDirectory: true,
+        cacheDirectory: path.join(os.tmpdir(), 'himation-babel'),
         compact: !preserve,
         plugins: babelPlugins,
         presets: ['es2015', 'react'],
