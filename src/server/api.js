@@ -12,7 +12,7 @@ var urls = require('himation/core/urls');
 /**
  * Convert a survey state shape to data that can be submitted to the API
  *
- * @param {object} data A survey state shape
+ * @param {HimationSurveyData} data A survey state shape
  * @returns {object} A payload for an API recommendations request
  */
 function packageSurvey(data) {
