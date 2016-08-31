@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 
-import ErrorMessage from 'himation/ui/components/survey/error-message';
 import { anyPropsChanged } from 'himation/core/extensions/react';
 import { extractInputProps } from 'himation/core/extensions/redux-form';
 import { FREQUENCIES } from 'himation/core/data/survey';
@@ -22,7 +21,7 @@ const Formality = React.createClass({
   },
 
   shouldComponentUpdate: function(nextProps) {
-    return anyPropsChanged(this.props.field.frequency, nextProps.field.frequency, ['error', 'touched', 'value']);
+    return anyPropsChanged(this.props.field.frequency, nextProps.field.frequency, ['touched', 'value']);
   },
 
   render: function() {
@@ -39,11 +38,6 @@ const Formality = React.createClass({
       );
     });
 
-    let errorTag;
-    if (field.touched && field.error) {
-      errorTag = <ErrorMessage className="c--formality__error">{field.error}</ErrorMessage>;
-    }
-
     return (
       <div className="c--formality">
         <div className="c--formality__details">
@@ -52,8 +46,6 @@ const Formality = React.createClass({
           </div>
 
           <fieldset className="c--formality__text">
-            {errorTag}
-
             <legend className="c--formality__name">{name}</legend>
 
             <ul className="c--formality__frequencies">

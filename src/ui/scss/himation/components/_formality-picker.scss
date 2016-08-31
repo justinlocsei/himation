@@ -1,11 +1,18 @@
 @import "himation/mixins/capabilities";
+@import "himation/mixins/forms";
 @import "himation/mixins/responsive";
 
 $_formality-picker--grid-h-spacing: 2em;
 $_formality-picker--grid-v-spacing: 2em;
 
 .c--formality-picker {
+  position: relative;
+}
 
+.c--formality-picker__error {
+  @include himation--error-popover;
+  bottom: 100%;
+  margin-bottom: -0.5em;
 }
 
 .c--formality-picker__formalities {

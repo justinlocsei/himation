@@ -31,12 +31,6 @@ $_formality--text-gutter: 1em;
   width: 100%;
 }
 
-.c--formality__error {
-  @include himation--error-popover($size: 0.9em, $is-attached: true);
-  bottom: 105%;
-  width: 100%;
-}
-
 .c--formality__name {
   color: darken($himation--text-muted-color, 15%);
   font-size: 0.9em;
