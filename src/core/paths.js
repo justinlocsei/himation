@@ -42,6 +42,7 @@ function resolve() {
     },
     settings: settingsPath,
     src: src,
+    tasks: path.join(root, 'tasks'),
     ui: {
       images: path.join(ui, 'images'),
       js: path.join(ui, 'js'),
