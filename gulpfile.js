@@ -179,15 +179,6 @@ gulp.task('develop-assets', function developAssets() {
   });
 });
 
-// Run all tests
-gulp.task('test', function test() {
-  return gulp.src(files.matchDeep(paths.test.functional), {read: false})
-    .pipe(plugins.mocha({
-      reporter: 'dot',
-      require: ['himation-test/support/environment']
-    }));
-});
-
 // Refresh the gateway cache
 gulp.task('refresh-cache', function refreshCache(done) {
   var requestAsync = Promise.promisify(request);
