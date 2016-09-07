@@ -67,7 +67,6 @@ $_site--slogan-font-size: 1.125em;
   color: $himation--branding-text-color;
   display: table;
   font-size: 0.85em;
-  margin-top: $_site--footer-v-padding;
   padding: $_site--footer-v-padding $himation--site-gutter;
   table-layout: fixed;
   width: 100%;
@@ -127,7 +126,6 @@ $_site--slogan-font-size: 1.125em;
   }
 
   .l--site__footer {
-    margin-top: 4em;
     padding: $_site--footer-v-padding * 0.5 $himation--site-gutter;
   }
   .l--site__footer__links {
