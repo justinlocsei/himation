@@ -3,30 +3,33 @@
 @import "himation/mixins/responsive";
 
 // Apply button styles to a caller
-@mixin himation--button {
-  background-color: $himation--branding-primary-color;
-  border: 1px solid $himation--branding-primary-color;
+//
+// @param <color> $background The background color for the button
+// @param <color> $text The background color for the button
+@mixin himation--button($background: $himation--branding-primary-color, $text: $himation--branding-text-color) {
+  background-color: $background;
+  border: 1px solid $background;
   box-sizing: border-box;
-  color: $himation--branding-text-color;
+  color: $text;
   cursor: pointer;
   display: inline-block;
 
   &:hover,
   &:focus {
-    background-color: lighten($himation--branding-primary-color, 5%);
-    border-color: lighten($himation--branding-primary-color, 5%);
+    background-color: lighten($background, 5%);
+    border-color: lighten($background, 5%);
   }
 
   &:focus {
-    box-shadow: 0 0 0 1px $himation--branding-text-color inset;
+    box-shadow: 0 0 0 1px $text inset;
     outline: 0;
   }
 
   &:disabled {
-    background-color: $himation--branding-secondary-color;
-    border-color: $himation--branding-secondary-color;
+    background-color: mix($background, #fff, 75%);
+    border-color: mix($background, #fff, 75%);
     cursor: default;
-    transition: background-color 0.75s;
+    transition: background-color 0.75s, border-color 0.75s;
   }
 }
 
