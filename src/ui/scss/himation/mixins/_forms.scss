@@ -186,16 +186,21 @@
   }
 
   input {
-    background-color: $himation--input-bg-color;
-    border: 1px solid $himation--input-border-color;
-    outline: 0;
-
-    &:hover,
-    &:focus {
-      border-color: darken($himation--input-border-color, 10%);
-    }
+    @include himation--input();
   }
 
+}
+
+// Show the caller as a stylized input element
+@mixin himation--input() {
+  background-color: $himation--input-bg-color;
+  border: 1px solid $himation--input-border-color;
+  outline: 0;
+
+  &:hover,
+  &:focus {
+    border-color: darken($himation--input-border-color, 10%);
+  }
 }
 
 // Show the caller as an absolutely positioned error popover
