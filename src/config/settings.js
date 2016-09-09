@@ -38,6 +38,8 @@ var serverSchema = Joi.object().keys({
  * @property {object} chiton Information on the Chiton API
  * @property {string} chiton.endpoint The absolute URL for the base Chiton endpoint
  * @property {string} chiton.token The token to use for authenticating Chiton requests
+ * @property {object} cookies The names of common cookies
+ * @property {string} cookies.registered The name of the registered cookie
  * @property {boolean} debug Whether to run in debugging mode
  * @property {string} environment The name of the application environment
  * @property {object} errors Information on handling errors
@@ -66,6 +68,9 @@ var schema = Joi.object().keys({
   chiton: Joi.object().keys({
     endpoint: Joi.string(),
     token: Joi.string()
+  }).default(),
+  cookies: Joi.object().keys({
+    registered: Joi.string().default('registered')
   }).default(),
   debug: Joi.boolean().default(false),
   environment: Joi.string().default('development'),
