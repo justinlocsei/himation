@@ -300,6 +300,7 @@ function addModernizrBuild(config, compress) {
 function server(settings) {
   var paths = resolvePaths();
   var entries = sources.routesToEntryPoints(routes, {
+    directory: paths.server.root,
     modules: ['views'],
     root: 'himation'
   });
@@ -347,6 +348,7 @@ function ui(settings) {
   var paths = resolvePaths();
   var optimizeAssets = settings.assets.optimize;
   var entries = sources.routesToEntryPoints(routes, {
+    directory: paths.ui.js,
     modules: ['pages'],
     root: 'himation'
   });

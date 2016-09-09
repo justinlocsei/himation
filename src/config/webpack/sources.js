@@ -1,7 +1,9 @@
 'use strict';
 
 var extend = require('extend');
+var fs = require('fs');
 var isEqual = require('lodash/isEqual');
+var path = require('path');
 var uniq = require('lodash/uniq');
 
 var routing = require('himation/core/routing');
@@ -66,12 +68,14 @@ function entryPointsToCommonsChunks(points, options) {
  *
  * @param {HimationRoute[]} routes All available routes
  * @param {object} [options] Options for generating the map of entries
+ * @param {string} options.directory The absolute path to the modules' root directory
  * @param {string[]} options.modules The hierarchy to use for each module
  * @param {string} options.root The name of the root route
  * @returns {object} A mapping of entry points to module paths
  */
 function routesToEntryPoints(routes, options) {
   var settings = extend({
+    directory: null,
     modules: [],
     root: ''
   }, options || {});
@@ -84,7 +88,25 @@ function routesToEntryPoints(routes, options) {
 
     var split = levels[0] === settings.root ? 1 : 0;
     var modules = levels.slice(split);
-    points[guid] = parentModules.concat(modules).join('/');
+    var entryPoint = parentModules.concat(modules).join('/');
+
+    var fileExists = true, possiblePath;
+    if (settings.directory) {
+      possiblePath = path.join(settings.directory, entryPoint + '.js');
+      try {
+        fs.statSync(possiblePath);
+      } catch (e) {
+        if (e.code === 'ENOENT') {
+          fileExists = false;
+        } else {
+          throw(e);
+        }
+      }
+    }
+
+    if (fileExists) {
+      points[guid] = entryPoint;
+    }
 
     return points;
   }, {});
