@@ -84,10 +84,42 @@ $_recommendations--basic-teaser-gutter: 2px;
 }
 
 .l--recommendations__registration {
+
+}
+
+.l--recommendations__registration__dismiss {
+  background: $himation--page-bg-color;
+  border: 1px solid $himation--branding-primary-color;
+  border-radius: 0.25em;
+  box-shadow: 0.25em 0.25em 0.5em rgba(0, 0, 0, 0.125);
+  color: $himation--branding-primary-color;
+  cursor: pointer;
+  display: none;
+  font-weight: $himation--font-weight-bold;
+  padding: 1em;
+  position: absolute;
+  right: 2em;
+  top: -0.25em;
+
+  &:hover,
+  &:focus {
+    background: darken($himation--page-bg-color, 2.5%);
+  }
+}
+
+.l--recommendations__registration__dismiss-icon {
+  display: block;
+  height: 1em;
+  width: 1em;
+}
+
+.l--recommendations__registration__form {
+
   .c--registration {
     margin: 2em -100% 0;
     padding: 4em 100%;
   }
+
 }
 
 @include himation--flexbox-fallback {

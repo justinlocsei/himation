@@ -5,6 +5,7 @@ import sortBy from 'lodash/sortBy';
 
 import Basic from './basic';
 import BasicTeaser from './basic-teaser';
+import closeImage from 'himation/images/icons/close.svg';
 import Registration from 'himation/ui/components/registration';
 
 const TEASERS_ANCHOR = 'basics';
@@ -66,7 +67,12 @@ const Recommendations = React.createClass({
         </div>
 
         <div className="l--recommendations__registration">
-          <Registration />
+          <button className="l--recommendations__registration__dismiss" type="button" title="Dismiss">
+            <img className="l--recommendations__registration__dismiss-icon" src={closeImage} alt="Dismiss" height={16} width={16} />
+          </button>
+          <div className="l--recommendations__registration__form">
+            <Registration />
+          </div>
         </div>
       </div>
     );
