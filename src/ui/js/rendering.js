@@ -1,7 +1,8 @@
 import modernizrUrl from 'modernizr-build';
 import Raven from 'raven-js';
 import React from 'react';
-import { createStore, combineReducers } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import { applyMiddleware, compose, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import { reducer as formReducer } from 'redux-form';
 import { render as reactRender } from 'react-dom';
@@ -30,17 +31,20 @@ const STATE_VARIABLE_NAME = 'HIMATION_STATE';
  *
  * @param {React.Component} component An instance of a React component
  * @param {object} [initialState] The initial state of the store
- * @param {object[]} [middleware] Middleware to add to the store
+ * @param {object} [devTools] An instance of the Redux dev-tools middleware
  * @returns {React.Component} The initial component, wrapped in a provider
  * @private
  */
-function bindComponentToStore(component, initialState, middleware) {
+function bindComponentToStore(component, initialState, devTools) {
   const reducers = combineReducers({
     ...appReducers,
     form: formReducer
   });
 
-  const store = createStore(reducers, initialState, middleware);
+  const middleware = [applyMiddleware(thunkMiddleware)];
+  if (devTools) { middleware.push(devTools); }
+
+  const store = createStore(reducers, initialState, compose(...middleware));
   return React.createElement(Provider, {store: store}, component);
 }
 
