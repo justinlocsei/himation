@@ -147,6 +147,61 @@ ApiClient.prototype.requestRecommendations = function(profile, options) {
 };
 
 /**
+ * Register a user and their recommendations
+ *
+ * @param {object} options Options for registration
+ * @param {string} options.email The user's email address
+ * @param {number} options.recommendationId The ID of the user's recommendations
+ * @returns {Promise} The pending request
+ * @fulfill {object} The generated recommendation data
+ * @reject {Error} A request or parsing error
+ */
+ApiClient.prototype.registerUser = function(options) {
+  var endpoint = this.endpoint;
+  var token = this.token;
+
+  return new Promise(function(resolve, reject) {
+    request({
+      url: urls.relativeToAbsolute('wardrobe-profiles', endpoint) + '/',
+      method: 'POST',
+      body: {
+        'email': options.email,
+        'recommendation_id': options.recommendationId
+      },
+      json: true,
+      headers: {
+        'Authorization': 'Token ' + token
+      }
+    }, function(error, response, body) {
+      var errorMessage;
+
+      if (error) {
+        reject(new errors.DataError('Request error: ' + error));
+      } else if (response.statusCode === 200) {
+        resolve(body.wardrobe_profile_id);
+      } else if (response.statusCode === 400) {
+        if (isString(body)) {
+          errorMessage = body;
+        } else if (body.errors && body.errors.fields) {
+          errorMessage = Object.keys(body.errors.fields).reduce(function(previous, field) {
+            previous.push(field + ': ' + body.errors.fields[field]);
+            return previous;
+          }, []).join(' | ');
+        } else if (body.errors && body.errors.recommendation) {
+          errorMessage = body.errors.recommendation;
+        } else {
+          errorMessage = 'Unknown error';
+        }
+
+        reject(new errors.DataError('API error: ' + errorMessage));
+      } else {
+        reject(new errors.DataError('Unknown error: ' + response.statusCode));
+      }
+    });
+  });
+};
+
+/**
  * Create a Chiton API client
  *
  * @param {string} endpoint The URL for the root API endpoint
