@@ -99,7 +99,7 @@ function routesToEntryPoints(routes, options) {
         if (e.code === 'ENOENT') {
           fileExists = false;
         } else {
-          throw(e);
+          throw e;
         }
       }
     }
