@@ -117,6 +117,10 @@ function jsLoaders(files, preserve, optimize) {
         presets: ['es2015', 'react'],
         retainLines: !!preserve
       }
+    },
+    {
+      test: /\.json$/,
+      loader: 'json'
     }
   ];
 }
