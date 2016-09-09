@@ -10,24 +10,24 @@ $_registration--label-color: #aaa;
 $_registration--error-font-size: 0.9em;
 $_registration--error-gap: 0.25em;
 
-.l--registration {
+.c--registration {
 
 }
 
-.l--registration__title {
+.c--registration__title {
   font-size: 2em;
   font-weight: $himation--font-weight-normal;
   margin-bottom: 0.75em;
   text-align: center;
 }
 
-.l--registration__content {
+.c--registration__content {
   align-items: center;
   display: flex;
   justify-content: space-around;
 }
 
-.l--registration__pitch {
+.c--registration__pitch {
   border-left: 1px solid rgba(0, 0, 0, 0.125);
   flex: 1;
   line-height: 1.25;
@@ -35,7 +35,7 @@ $_registration--error-gap: 0.25em;
   padding: 1em 2em;
 }
 
-.l--registration__form {
+.c--registration__form {
   align-items: center;
   display: flex;
   flex: 1;
@@ -43,11 +43,11 @@ $_registration--error-gap: 0.25em;
   order: 1;
 }
 
-.l--registration__email {
+.c--registration__email {
   position: relative;
 }
 
-.l--registration__email__error {
+.c--registration__email__error {
   bottom: 100%;
   color: $himation--form-error-bg-color;
   font-size: $_registration--error-font-size;
@@ -56,7 +56,7 @@ $_registration--error-gap: 0.25em;
   position: absolute;
 }
 
-.l--registration__email__input {
+.c--registration__email__input {
   @include himation--input;
   box-sizing: border-box;
   display: inline-block;
@@ -70,7 +70,7 @@ $_registration--error-gap: 0.25em;
   }
 }
 
-.l--registration__email__label {
+.c--registration__email__label {
   bottom: 50%;
   color: $_registration--label-color;
   font-size: $_registration--label-font-size;
@@ -81,7 +81,7 @@ $_registration--error-gap: 0.25em;
   transition: bottom 0.25s, color 0.25s, font-size 0.25s;
 }
 
-%l--registration-email-top-label {
+%c--registration-email-top-label {
   bottom: 100%;
   color: darken($_registration--label-color, 25%);
   font-size: $_registration--error-font-size;
@@ -90,11 +90,11 @@ $_registration--error-gap: 0.25em;
   padding-top: 0;
 }
 
-.l--registration__buttons {
+.c--registration__buttons {
   margin-left: 0.5em;
 }
 
-.l--registration__submit {
+.c--registration__submit {
   $_font-size: 0.8em;
 
   @include himation--button;
@@ -109,21 +109,21 @@ $_registration--error-gap: 0.25em;
   width: 10em;
 }
 
-.l--registration.is-active {
+.c--registration.is-active {
 
-  .l--registration__email__label {
-    @extend %l--registration-email-top-label;
+  .c--registration__email__label {
+    @extend %c--registration-email-top-label;
   }
 
 }
 
-.l--registration.is-invalid {
+.c--registration.is-invalid {
 
-  .l--registration__email__label {
+  .c--registration__email__label {
     display: none;
   }
 
-  .l--registration__email__input {
+  .c--registration__email__input {
     border-color: $himation--form-error-bg-color;
   }
 
@@ -131,8 +131,8 @@ $_registration--error-gap: 0.25em;
 
 @include himation--no-js {
 
-  .l--registration__email__label {
-    @extend %l--registration-email-top-label;
+  .c--registration__email__label {
+    @extend %c--registration-email-top-label;
   }
 
 }
