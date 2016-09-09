@@ -1,0 +1,138 @@
+@import "himation/functions/typography";
+@import "himation/mixins/capabilities";
+@import "himation/mixins/forms";
+
+$_registration--input-height: 3em;
+$_registration--input-padding: 0.5em;
+$_registration--input-font-size: 1.75em;
+$_registration--label-font-size: 1.25em;
+$_registration--label-color: #aaa;
+$_registration--error-font-size: 0.9em;
+$_registration--error-gap: 0.25em;
+
+.l--registration {
+
+}
+
+.l--registration__title {
+  font-size: 2em;
+  font-weight: $himation--font-weight-normal;
+  margin-bottom: 0.75em;
+  text-align: center;
+}
+
+.l--registration__content {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.l--registration__pitch {
+  border-left: 1px solid rgba(0, 0, 0, 0.125);
+  flex: 1;
+  line-height: 1.25;
+  order: 2;
+  padding: 1em 2em;
+}
+
+.l--registration__form {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  order: 1;
+}
+
+.l--registration__email {
+  position: relative;
+}
+
+.l--registration__email__error {
+  bottom: 100%;
+  color: $himation--form-error-bg-color;
+  font-size: $_registration--error-font-size;
+  font-weight: $himation--font-weight-bold;
+  padding-bottom: $_registration--error-gap;
+  position: absolute;
+}
+
+.l--registration__email__input {
+  @include himation--input;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: $_registration--input-font-size;
+  height: himation--relative-em($_registration--input-height, $_registration--input-font-size);
+  padding: himation--relative-em($_registration--input-padding, $_registration--input-font-size);
+
+  &::placeholder {
+    color: $himation--text-muted-color;
+    font-weight: $himation--font-weight-light;
+  }
+}
+
+.l--registration__email__label {
+  bottom: 50%;
+  color: $_registration--label-color;
+  font-size: $_registration--label-font-size;
+  font-weight: $himation--font-weight-light;
+  margin-bottom: -1em;
+  padding: himation--relative-em($_registration--input-padding, $_registration--label-font-size);
+  position: absolute;
+  transition: bottom 0.25s, color 0.25s, font-size 0.25s;
+}
+
+%l--registration-email-top-label {
+  bottom: 100%;
+  color: darken($_registration--label-color, 25%);
+  font-size: $_registration--error-font-size;
+  margin-bottom: 0;
+  padding-bottom: $_registration--error-gap;
+  padding-top: 0;
+}
+
+.l--registration__buttons {
+  margin-left: 0.5em;
+}
+
+.l--registration__submit {
+  $_font-size: 0.8em;
+
+  @include himation--button;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: $_font-size;
+  font-weight: $himation--font-weight-bold;
+  height: himation--relative-em($_registration--input-height, $_font-size);
+  letter-spacing: 0.0125em;
+  padding: 1em 0.5em;
+  text-transform: uppercase;
+  width: 10em;
+}
+
+.l--registration.is-active {
+
+  .l--registration__email__label {
+    @extend %l--registration-email-top-label;
+  }
+
+}
+
+.l--registration.is-invalid {
+
+  .l--registration__email__label {
+    display: none;
+  }
+
+  .l--registration__email__input {
+    border-color: $himation--form-error-bg-color;
+  }
+
+}
+
+@include himation--no-js {
+
+  .l--registration__email__label {
+    @extend %l--registration-email-top-label;
+  }
+
+}

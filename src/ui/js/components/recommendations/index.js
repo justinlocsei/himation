@@ -5,6 +5,7 @@ import sortBy from 'lodash/sortBy';
 
 import Basic from './basic';
 import BasicTeaser from './basic-teaser';
+import Registration from 'himation/ui/components/registration';
 
 const TEASERS_ANCHOR = 'basics';
 
@@ -62,6 +63,10 @@ const Recommendations = React.createClass({
               </section>
             );
           })}
+        </div>
+
+        <div className="l--recommendations__registration">
+          <Registration />
         </div>
       </div>
     );

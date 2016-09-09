@@ -83,6 +83,13 @@ $_recommendations--basic-teaser-gutter: 2px;
   }
 }
 
+.l--recommendations__registration {
+  background-color: $himation--form-field-bg-color;
+  border-top: 1px solid darken($himation--form-field-bg-color, 10%);
+  margin: 2em -100% 0;
+  padding: 2em 100%;
+}
+
 @include himation--flexbox-fallback {
 
   .l--recommendations__basic-teasers {
