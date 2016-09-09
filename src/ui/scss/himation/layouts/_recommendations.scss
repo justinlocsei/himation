@@ -122,6 +122,31 @@ $_recommendations--basic-teaser-gutter: 2px;
 
 }
 
+.l--recommendations.is-pitching {
+
+  .l--recommendations__registration {
+    bottom: 0;
+    box-shadow: 0 -0.25em 1em rgba(0, 0, 0, 0.25);
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: $himation--z-overlay;
+
+  }
+
+  .l--recommendations__registration__dismiss {
+
+  }
+
+  .l--recommendations__registration__form {
+    .c--registration {
+      margin: 0;
+      padding: 2em $himation--site-gutter;
+    }
+  }
+
+}
+
 @include himation--flexbox-fallback {
 
   .l--recommendations__basic-teasers {
