@@ -21617,6 +21617,9 @@
       },
       "version": "9.0.4"
     },
+    "json-loader": {
+      "version": "0.5.4"
+    },
     "json-stable-stringify": {
       "dependencies": {
         "jsonify": {
