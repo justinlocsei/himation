@@ -59,9 +59,9 @@ let Registration = React.createClass({
 
         <div className="c--registration__content">
           <p className="c--registration__pitch">
-            Sign up for our email list to receive occasional updates about newly
-            added items or seasonally featured basics.  You'll never receive
-            advertisements, and you can unsubscribe at any time.
+            We'll send you occasional updates about newly added items,
+            seasonally featured basics, and major sales. You'll receive about
+            one email per month, and you can unsubscribe at any time.
           </p>
 
           <form className="c--registration__form" method={SUBMIT_ROUTE.method} action={SUBMIT_ROUTE.path} onSubmit={form.handleSubmit}>
