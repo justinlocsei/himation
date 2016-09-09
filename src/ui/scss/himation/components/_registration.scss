@@ -11,12 +11,13 @@ $_registration--error-font-size: 0.9em;
 $_registration--error-gap: 0.25em;
 
 .c--registration {
-
+  background-color: $himation--branding-primary-color;
+  color: $himation--branding-text-color;
 }
 
 .c--registration__title {
   font-size: 2em;
-  font-weight: $himation--font-weight-normal;
+  font-weight: $himation--font-weight-bold;
   margin-bottom: 0.75em;
   text-align: center;
 }
@@ -28,7 +29,7 @@ $_registration--error-gap: 0.25em;
 }
 
 .c--registration__pitch {
-  border-left: 1px solid rgba(0, 0, 0, 0.125);
+  border-left: 1px solid rgba(255, 255, 255, 0.75);
   flex: 1;
   line-height: 1.25;
   order: 2;
@@ -48,11 +49,12 @@ $_registration--error-gap: 0.25em;
 }
 
 .c--registration__email__error {
+  background-color: $himation--form-error-bg-color;
   bottom: 100%;
-  color: $himation--form-error-bg-color;
+  color: $himation--form-error-text-color;
   font-size: $_registration--error-font-size;
   font-weight: $himation--font-weight-bold;
-  padding-bottom: $_registration--error-gap;
+  padding: 0.5em;
   position: absolute;
 }
 
@@ -83,7 +85,7 @@ $_registration--error-gap: 0.25em;
 
 %c--registration-email-top-label {
   bottom: 100%;
-  color: darken($_registration--label-color, 25%);
+  color: $himation--branding-text-color;
   font-size: $_registration--error-font-size;
   margin-bottom: 0;
   padding-bottom: $_registration--error-gap;
@@ -97,7 +99,7 @@ $_registration--error-gap: 0.25em;
 .c--registration__submit {
   $_font-size: 0.8em;
 
-  @include himation--button;
+  @include himation--button($himation--branding-secondary-color);
   box-sizing: border-box;
   display: inline-block;
   font-size: $_font-size;
