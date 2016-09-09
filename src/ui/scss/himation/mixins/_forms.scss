@@ -25,6 +25,7 @@
   &:disabled {
     background-color: $himation--branding-secondary-color;
     border-color: $himation--branding-secondary-color;
+    cursor: default;
     transition: background-color 0.75s;
   }
 }
