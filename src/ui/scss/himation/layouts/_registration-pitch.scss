@@ -1,3 +1,5 @@
+@import "himation/mixins/capabilities";
+
 .l--registration-pitch {
 
 }
@@ -57,4 +59,23 @@
     }
 
   }
+}
+
+@keyframes registration--slide-up {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@include himation--supports(cssanimations) {
+
+  .l--registration-pitch.is-active {
+    animation-duration: 750ms;
+    animation-name: registration--slide-up;
+  }
+
 }
