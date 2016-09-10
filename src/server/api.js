@@ -73,6 +73,8 @@ function simplifyRecommendations(original) {
     });
   });
 
+  original.recommendationId = original.recommendation_id;
+
   return original;
 }
 

@@ -92,7 +92,7 @@ function mapStateToFormProps(state) {
   return {
     initialValues: {
       email: registration.email,
-      recommendationId: recommendations.recommendation_id
+      recommendationId: recommendations.recommendationId
     }
   };
 }
@@ -124,7 +124,7 @@ function mapStateToComponentProps(state) {
     hasSaveError: registration.hasSaveError,
     initialValues: seedFields(FORM_SCHEMA, registration, registration.errors),
     isSubmitting: registration.isSubmitting,
-    recommendationId: recommendations.recommendation_id
+    recommendationId: recommendations.recommendationId
   };
 }
 
