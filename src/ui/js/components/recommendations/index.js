@@ -1,3 +1,4 @@
+import debounce from 'lodash/debounce';
 import flatten from 'lodash/flatten';
 import max from 'lodash/max';
 import React, { PropTypes } from 'react';
@@ -7,25 +8,63 @@ import Basic from './basic';
 import BasicTeaser from './basic-teaser';
 import closeImage from 'himation/images/icons/close.svg';
 import Registration from 'himation/ui/components/registration';
+import { addResizeHandler } from 'himation/ui/events';
 
 const TEASERS_ANCHOR = 'basics';
+
+const BASIC_CHECK_INTERVAL = 1000;
 
 const Recommendations = React.createClass({
 
   propTypes: {
     basics: PropTypes.array.isRequired,
-    categories: PropTypes.array.isRequired
+    categories: PropTypes.array.isRequired,
+    hasDismissedRegistration: PropTypes.bool,
+    isPitching: PropTypes.bool,
+    onDismissRegistration: PropTypes.func.isRequired,
+    onViewBasic: PropTypes.func.isRequired
+  },
+
+  getDefaultProps: function() {
+    return {
+      hasDismissedRegistration: false,
+      isPitching: false
+    };
+  },
+
+  componentWillMount: function() {
+    this._trackedBasics = {};
+  },
+
+  componentDidMount: function() {
+    this._trackBasicPositions();
+    addResizeHandler(this._trackBasicPositions);
+
+    window.addEventListener('scroll', debounce(this._updateViewedBasics, BASIC_CHECK_INTERVAL));
   },
 
   render: function() {
     const that = this;
-    const { categories } = this.props;
+    const { categories, hasDismissedRegistration, isPitching } = this.props;
 
+    const trackedBasics = this._trackedBasics;
     const sortedBasics = this._getSortedBasics();
     const maxGarmentsPerGroup = this._getMaxGarmentsPerGroup();
 
+    function trackBasic(el, slug) {
+      trackedBasics[slug] = trackedBasics[slug] || {};
+      trackedBasics[slug].ref = el;
+    }
+
+    const classes = ['l--recommendations'];
+    if (hasDismissedRegistration) {
+      classes.push('is-pitched');
+    } else if (isPitching) {
+      classes.push('is-pitching');
+    }
+
     return (
-      <div className="l--recommendations">
+      <div className={classes.join(' ')}>
         <h1 className="l--recommendations__title" id={TEASERS_ANCHOR}>
           <span className="l--recommendations__title__text">Your Basics</span>
         </h1>
@@ -49,7 +88,7 @@ const Recommendations = React.createClass({
         <div className="l--recommendations__basics">
           {sortedBasics.map(function(basic, index) {
             return (
-              <section className="l--recommendations__basic" key={index} id={basic.basic.slug}>
+              <section className="l--recommendations__basic" key={index} id={basic.basic.slug} ref={function(el) { trackBasic(el, basic.basic.slug); }}>
                 <Basic
                   category={basic.basic.category}
                   facets={basic.facets}
@@ -130,6 +169,37 @@ const Recommendations = React.createClass({
   _getBasicTeaserImage: function(basic) {
     const bestRecommendation = sortBy(basic.garments, g => g.weight * -1)[0];
     return sortBy(bestRecommendation.images, i => i.width * -1)[0];
+  },
+
+  /**
+   * Track the position of all basics
+   */
+  _trackBasicPositions: function() {
+    const trackedBasics = this._trackedBasics;
+
+    Object.keys(trackedBasics).forEach(function(slug) {
+      const basic = trackedBasics[slug];
+      basic.top = basic.ref.offsetTop;
+      basic.bottom = basic.top + basic.ref.offsetHeight;
+    });
+  },
+
+  /**
+   * Update the count of viewed basics based on the current scroll position
+   */
+  _updateViewedBasics: function() {
+    const frameTop = window.scrollY;
+    const frameBottom = frameTop + window.innerHeight * 0.5;
+
+    const trackedBasics = this._trackedBasics;
+    const onViewBasic = this.props.onViewBasic;
+
+    Object.keys(trackedBasics).forEach(function(slug) {
+      const basic = trackedBasics[slug];
+      if (frameTop >= basic.top && frameBottom <= basic.bottom) {
+        onViewBasic(slug);
+      }
+    });
   }
 
 });
