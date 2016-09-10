@@ -2587,6 +2587,17 @@
     "clone": {
       "version": "1.0.2"
     },
+    "cookie-parser": {
+      "dependencies": {
+        "cookie": {
+          "version": "0.3.1"
+        },
+        "cookie-signature": {
+          "version": "1.0.6"
+        }
+      },
+      "version": "1.4.3"
+    },
     "css-loader": {
       "dependencies": {
         "babel-code-frame": {
