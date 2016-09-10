@@ -5,6 +5,7 @@
     "setClasses"
   ],
   "feature-detects": [
+    "css/animations",
     "css/flexbox",
     "css/flexwrap",
     "storage/sessionstorage"
