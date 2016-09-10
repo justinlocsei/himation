@@ -4,7 +4,7 @@ import { COMPLETE_REGISTRATION } from 'himation/ui/actions/registration';
 import { BANISH_REGISTRATION, DISMISS_REGISTRATION } from 'himation/ui/actions/registration-pitch';
 import { VIEW_BASIC } from 'himation/ui/actions/recommendations';
 
-const BASIC_THRESHOLD = 1;
+const BASIC_THRESHOLD = 3;
 
 const defaultState = {
   isActive: false,
