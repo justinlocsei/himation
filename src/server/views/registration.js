@@ -29,7 +29,7 @@ export function renderResponse(req, res, next, settings) {
         return res.redirect(homePage.path);
       }
     })
-    .catch(function(error) {
+    .catch(function() {
       if (wantsJson) {
         return res.json({error: true});
       } else {
