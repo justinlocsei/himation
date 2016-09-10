@@ -7,15 +7,21 @@ const RegistrationPitch = React.createClass({
 
   propTypes: {
     isActive: PropTypes.bool,
-    isDismissed: PropTypes.bool,
+    isComplete: PropTypes.bool,
+    onBanish: PropTypes.func.isRequired,
     onDismiss: PropTypes.func.isRequired
   },
 
   getDefaultProps: function() {
     return {
       isActive: false,
-      isDismissed: false
+      isComplete: false
     };
+  },
+
+  handleBanishClick: function(e) {
+    e.preventDefault();
+    this.props.onBanish();
   },
 
   handleDismissClick: function(e) {
@@ -24,13 +30,20 @@ const RegistrationPitch = React.createClass({
   },
 
   render: function() {
-    const { isActive, isDismissed } = this.props;
+    const { isActive, isComplete } = this.props;
 
     const classes = ['l--registration-pitch'];
-    if (isDismissed) {
-      classes.push('is-dismissed');
-    } else if (isActive) {
-      classes.push('is-active');
+    if (isComplete) { classes.push('is-complete'); }
+    if (isActive) { classes.push('is-active'); }
+
+    let completeTag;
+    if (isComplete) {
+      completeTag = (
+        <div className="l--registration-pitch__complete">
+          <p className="l--registration-pitch__complete__text">We've added you to our list</p>
+          <button onClick={this.handleBanishClick} className="l--registration-pitch__complete__dismiss">Hide this</button>
+        </div>
+      );
     }
 
     return (
@@ -40,6 +53,7 @@ const RegistrationPitch = React.createClass({
         </button>
 
         <div className="l--registration-pitch__registration">
+          {completeTag}
           <Registration />
         </div>
       </div>

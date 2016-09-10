@@ -1,4 +1,15 @@
 @import "himation/mixins/capabilities";
+@import "himation/mixins/forms";
+
+@keyframes registration--slide-up {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
 
 .l--registration-pitch {
 
@@ -31,15 +42,49 @@
 }
 
 .l--registration-pitch__registration {
+  position: relative;
 
   .c--registration {
-    margin: 2em -100% 0;
+    margin: 0 -100%;
     padding: 4em 100%;
   }
+}
 
+.l--registration-pitch__complete {
+  align-items: center;
+  animation-duration: 750ms;
+  animation-name: registration--slide-up;
+  background-color: $himation--branding-primary-color;
+  bottom: 0;
+  color: $himation--branding-text-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: $himation--z-overlay;
+}
+
+.l--registration-pitch__complete__text {
+  font-size: 3em;
+  font-weight: $himation--font-weight-light;
+}
+
+.l--registration-pitch__complete__dismiss {
+  @include himation--ghost-button($dark: true);
+  color: inherit;
+  font-size: 0.9em;
+  letter-spacing: 0.0625em;
+  margin-top: 2em;
+  padding: 1em 2em;
+  text-transform: uppercase;
 }
 
 .l--registration-pitch.is-active {
+  animation-duration: 750ms;
+  animation-name: registration--slide-up;
   bottom: 0;
   box-shadow: 0 -0.25em 1em rgba(0, 0, 0, 0.25);
   left: 0;
@@ -59,23 +104,4 @@
     }
 
   }
-}
-
-@keyframes registration--slide-up {
-  from {
-    transform: translateY(100%);
-  }
-
-  to {
-    transform: translateY(0);
-  }
-}
-
-@include himation--supports(cssanimations) {
-
-  .l--registration-pitch.is-active {
-    animation-duration: 750ms;
-    animation-name: registration--slide-up;
-  }
-
 }

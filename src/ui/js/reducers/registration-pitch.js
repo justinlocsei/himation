@@ -1,12 +1,15 @@
 import uniq from 'lodash/uniq';
 
-import { DISMISS_REGISTRATION } from 'himation/ui/actions/registration-pitch';
+import { COMPLETE_REGISTRATION } from 'himation/ui/actions/registration';
+import { BANISH_REGISTRATION, DISMISS_REGISTRATION } from 'himation/ui/actions/registration-pitch';
 import { VIEW_BASIC } from 'himation/ui/actions/recommendations';
 
-const BASIC_THRESHOLD = 4;
+const BASIC_THRESHOLD = 1;
 
 const defaultState = {
   isActive: false,
+  isBanished: false,
+  isComplete: false,
   isDismissed: false,
   viewedBasics: []
 };
@@ -21,11 +24,24 @@ export default function registrationPitch(state = defaultState, action) {
         viewedBasics: viewed
       };
     }
+    case BANISH_REGISTRATION: {
+      return {
+        ...state,
+        isActive: false,
+        isBanished: true
+      };
+    }
     case DISMISS_REGISTRATION: {
       return {
         ...state,
         isActive: false,
         isDismissed: true
+      };
+    }
+    case COMPLETE_REGISTRATION: {
+      return {
+        ...state,
+        isComplete: true
       };
     }
     default: {

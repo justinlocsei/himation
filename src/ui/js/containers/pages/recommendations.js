@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Page from 'himation/ui/components/page';
 import Recommendations from 'himation/ui/components/recommendations';
 import RegistrationPitch from 'himation/ui/components/registration-pitch';
-import { dismissRegistration } from 'himation/ui/actions/registration-pitch';
+import { banishRegistration, dismissRegistration } from 'himation/ui/actions/registration-pitch';
 import { viewBasic } from 'himation/ui/actions/recommendations';
 
 import 'himation/styles/recommendations';
@@ -14,8 +14,10 @@ let RecommendationsPage = React.createClass({
   propTypes: {
     basics: PropTypes.array.isRequired,
     categories: PropTypes.array.isRequired,
-    hasDismissedRegistration: PropTypes.bool.isRequired,
+    hasBanishedRegistration: PropTypes.bool.isRequired,
+    hasCompletedRegistration: PropTypes.bool.isRequired,
     isPitching: PropTypes.bool.isRequired,
+    onBanishRegistration: PropTypes.func.isRequired,
     onDismissRegistration: PropTypes.func.isRequired,
     onViewBasic: PropTypes.func.isRequired
   },
@@ -24,16 +26,30 @@ let RecommendationsPage = React.createClass({
     const {
       basics,
       categories,
-      hasDismissedRegistration,
+      hasBanishedRegistration,
+      hasCompletedRegistration,
       isPitching,
+      onBanishRegistration,
       onDismissRegistration,
       onViewBasic
     } = this.props;
 
+    let pitchTag;
+    if (!hasBanishedRegistration) {
+      pitchTag = (
+        <RegistrationPitch
+          isActive={isPitching}
+          isComplete={hasCompletedRegistration}
+          onBanish={onBanishRegistration}
+          onDismiss={onDismissRegistration}
+        />
+      );
+    }
+
     return (
-      <Page>
+      <Page slug="recommendations">
         <Recommendations basics={basics} categories={categories} onViewBasic={onViewBasic} />
-        <RegistrationPitch isActive={isPitching} isDismissed={hasDismissedRegistration} onDismiss={onDismissRegistration} />
+        {pitchTag}
       </Page>
     );
   }
@@ -46,13 +62,17 @@ function mapStateToProps(state) {
   return {
     basics: recommendations.basics,
     categories: recommendations.categories,
-    hasDismissedRegistration: registrationPitch.isDismissed,
+    hasBanishedRegistration: registrationPitch.isBanished,
+    hasCompletedRegistration: registrationPitch.isComplete,
     isPitching: registrationPitch.isActive
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    onBanishRegistration: function() {
+      dispatch(banishRegistration());
+    },
     onDismissRegistration: function() {
       dispatch(dismissRegistration());
     },
