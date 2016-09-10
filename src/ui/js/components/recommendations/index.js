@@ -6,8 +6,6 @@ import sortBy from 'lodash/sortBy';
 
 import Basic from './basic';
 import BasicTeaser from './basic-teaser';
-import closeImage from 'himation/images/icons/close.svg';
-import Registration from 'himation/ui/components/registration';
 import { addResizeHandler } from 'himation/ui/events';
 
 const TEASERS_ANCHOR = 'basics';
@@ -19,17 +17,7 @@ const Recommendations = React.createClass({
   propTypes: {
     basics: PropTypes.array.isRequired,
     categories: PropTypes.array.isRequired,
-    hasDismissedRegistration: PropTypes.bool,
-    isPitching: PropTypes.bool,
-    onDismissRegistration: PropTypes.func.isRequired,
     onViewBasic: PropTypes.func.isRequired
-  },
-
-  getDefaultProps: function() {
-    return {
-      hasDismissedRegistration: false,
-      isPitching: false
-    };
   },
 
   componentWillMount: function() {
@@ -45,7 +33,7 @@ const Recommendations = React.createClass({
 
   render: function() {
     const that = this;
-    const { categories, hasDismissedRegistration, isPitching } = this.props;
+    const { categories } = this.props;
 
     const trackedBasics = this._trackedBasics;
     const sortedBasics = this._getSortedBasics();
@@ -56,15 +44,8 @@ const Recommendations = React.createClass({
       trackedBasics[slug].ref = el;
     }
 
-    const classes = ['l--recommendations'];
-    if (hasDismissedRegistration) {
-      classes.push('is-pitched');
-    } else if (isPitching) {
-      classes.push('is-pitching');
-    }
-
     return (
-      <div className={classes.join(' ')}>
+      <div className="l--recommendations">
         <h1 className="l--recommendations__title" id={TEASERS_ANCHOR}>
           <span className="l--recommendations__title__text">Your Basics</span>
         </h1>
@@ -103,15 +84,6 @@ const Recommendations = React.createClass({
               </section>
             );
           })}
-        </div>
-
-        <div className="l--recommendations__registration">
-          <button className="l--recommendations__registration__dismiss" type="button" title="Dismiss">
-            <img className="l--recommendations__registration__dismiss-icon" src={closeImage} alt="Dismiss" height={16} width={16} />
-          </button>
-          <div className="l--recommendations__registration__form">
-            <Registration />
-          </div>
         </div>
       </div>
     );

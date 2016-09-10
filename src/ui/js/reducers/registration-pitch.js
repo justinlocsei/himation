@@ -1,8 +1,9 @@
 import uniq from 'lodash/uniq';
 
-import { DISMISS_REGISTRATION, VIEW_BASIC } from 'himation/ui/actions/pitch';
+import { DISMISS_REGISTRATION } from 'himation/ui/actions/registration-pitch';
+import { VIEW_BASIC } from 'himation/ui/actions/recommendations';
 
-const BASIC_PITCH_THRESHOLD = 4;
+const BASIC_THRESHOLD = 4;
 
 const defaultState = {
   isActive: false,
@@ -10,13 +11,13 @@ const defaultState = {
   viewedBasics: []
 };
 
-export default function pitch(state = defaultState, action) {
+export default function registrationPitch(state = defaultState, action) {
   switch (action.type) {
     case VIEW_BASIC: {
       const viewed = uniq(state.viewedBasics.concat([action.payload.slug]));
       return {
         ...state,
-        isActive: !state.isDismissed && viewed.length >= BASIC_PITCH_THRESHOLD,
+        isActive: !state.isDismissed && viewed.length >= BASIC_THRESHOLD,
         viewedBasics: viewed
       };
     }

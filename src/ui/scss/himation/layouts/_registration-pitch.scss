@@ -1,0 +1,60 @@
+.l--registration-pitch {
+
+}
+
+.l--registration-pitch__dismiss {
+  background: $himation--page-bg-color;
+  border: 1px solid $himation--branding-primary-color;
+  border-radius: 0.25em;
+  box-shadow: 0.25em 0.25em 0.5em rgba(0, 0, 0, 0.125);
+  color: $himation--branding-primary-color;
+  cursor: pointer;
+  display: none;
+  font-weight: $himation--font-weight-bold;
+  padding: 1em;
+  position: absolute;
+  right: 2em;
+  top: -0.25em;
+
+  &:hover,
+  &:focus {
+    background: darken($himation--page-bg-color, 2.5%);
+  }
+}
+
+.l--registration-pitch__dismiss-icon {
+  display: block;
+  height: 1em;
+  width: 1em;
+}
+
+.l--registration-pitch__registration {
+
+  .c--registration {
+    margin: 2em -100% 0;
+    padding: 4em 100%;
+  }
+
+}
+
+.l--registration-pitch.is-active {
+  bottom: 0;
+  box-shadow: 0 -0.25em 1em rgba(0, 0, 0, 0.25);
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: $himation--z-overlay;
+
+  .l--registration-pitch__dismiss {
+    display: block;
+  }
+
+  .l--registration-pitch__registration {
+
+    .c--registration {
+      margin: 0;
+      padding: 2em $himation--site-gutter;
+    }
+
+  }
+}
