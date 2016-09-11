@@ -6,7 +6,7 @@ import { VIEW_BASIC } from 'himation/ui/actions/recommendations';
 
 const BASIC_THRESHOLD = 3;
 
-const defaultState = {
+export const defaultState = {
   isActive: false,
   isBanished: false,
   isComplete: false,
