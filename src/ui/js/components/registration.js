@@ -58,18 +58,6 @@ let Registration = React.createClass({
         <h3 className="c--registration__title">Sign up for email reminders to keep your basics covered</h3>
 
         <div className="c--registration__content">
-          <p className="c--registration__pitch">
-            <span className="c--registration__pitch-text for-long">
-              We'll send you occasional updates about newly added items,
-              seasonally featured basics, and major sales. You'll receive about
-              one email per month, and you can unsubscribe at any time.
-            </span>
-            <span className="c--registration__pitch-text for-short">
-              We'll send you about one update per month, and you can unsubscribe
-              at any time.
-            </span>
-          </p>
-
           <form className="c--registration__form" method={SUBMIT_ROUTE.method} action={SUBMIT_ROUTE.path} onSubmit={form.handleSubmit}>
             {errorTag}
 
@@ -82,6 +70,18 @@ let Registration = React.createClass({
 
             <input type="hidden" name="recommendationId" value={recommendationId} />
           </form>
+
+          <p className="c--registration__pitch">
+            <span className="c--registration__pitch-text for-long">
+              We'll send you occasional updates about newly added items,
+              seasonally featured basics, and major sales. You'll receive about
+              one email per month, and you can unsubscribe at any time.
+            </span>
+            <span className="c--registration__pitch-text for-short">
+              We'll send you about one update per month, and you can unsubscribe
+              at any time.
+            </span>
+          </p>
         </div>
       </div>
     );
