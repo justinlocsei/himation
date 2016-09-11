@@ -107,6 +107,14 @@ $_registration-pitch--z-complete: 2;
   }
 }
 
+.l--registration-pitch.is-complete {
+
+  .l--registration-pitch__dismiss {
+    display: none;
+  }
+
+}
+
 @include himation--breakpoint-tablet {
 
   .l--registration-pitch__dismiss {
