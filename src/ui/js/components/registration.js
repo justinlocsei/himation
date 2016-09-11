@@ -46,7 +46,7 @@ let Registration = React.createClass({
 
     let errorTag;
     if (errorMessage) {
-      errorTag = <p className="c--registration__email__error">{errorMessage}</p>;
+      errorTag = <p className="c--registration__error">{errorMessage}</p>;
     }
 
     const classes = ['c--registration'];
@@ -59,23 +59,26 @@ let Registration = React.createClass({
 
         <div className="c--registration__content">
           <p className="c--registration__pitch">
-            We'll send you occasional updates about newly added items,
-            seasonally featured basics, and major sales. You'll receive about
-            one email per month, and you can unsubscribe at any time.
+            <span className="c--registration__pitch-text for-long">
+              We'll send you occasional updates about newly added items,
+              seasonally featured basics, and major sales. You'll receive about
+              one email per month, and you can unsubscribe at any time.
+            </span>
+            <span className="c--registration__pitch-text for-short">
+              We'll send you about one update per month, and you can unsubscribe
+              at any time.
+            </span>
           </p>
 
           <form className="c--registration__form" method={SUBMIT_ROUTE.method} action={SUBMIT_ROUTE.path} onSubmit={form.handleSubmit}>
-            <div className="c--registration__email">
-              {errorTag}
-              <label className="c--registration__email__label" htmlFor="email">Your Email Address</label>
-              <input className="c--registration__email__input" type="email" id="email" placeholder={hasError ? 'email@example.com' : null} {...extractInputProps(emailField)} value={emailField.value || ''} />
-            </div>
+            {errorTag}
 
-            <div className="c--registration__buttons">
-              <button type="submit" className="c--registration__submit" disabled={isSubmitting}>
-                {isSubmitting ? `Signing Up${String.fromCharCode(8230)}` : 'Sign Up'}
-              </button>
-            </div>
+            <label className="c--registration__email-label" htmlFor="email">Your Email Address</label>
+            <input className="c--registration__email-input" type="email" id="email" placeholder={hasError ? 'email@example.com' : null} {...extractInputProps(emailField)} value={emailField.value || ''} />
+
+            <button type="submit" className="c--registration__submit" disabled={isSubmitting}>
+              {isSubmitting ? String.fromCharCode(8230) : 'Sign Up'}
+            </button>
 
             <input type="hidden" name="recommendationId" value={recommendationId} />
           </form>
