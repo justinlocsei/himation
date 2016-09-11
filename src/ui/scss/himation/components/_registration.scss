@@ -31,7 +31,6 @@ $_registration--gutter: 2em;
   border-left: 1px solid rgba(255, 255, 255, 0.75);
   flex: 1;
   line-height: 1.375;
-  order: 2;
   padding: 1em 0 1em $_registration--gutter;
 }
 
@@ -51,7 +50,6 @@ $_registration--gutter: 2em;
   display: flex;
   flex: 1;
   justify-content: center;
-  order: 1;
   padding-right: $_registration--gutter;
   position: relative;
 }
@@ -74,7 +72,6 @@ $_registration--gutter: 2em;
   flex: 2.5;
   font-size: 1.75em;
   padding: $_registration--input-padding;
-  width: 100%;
 
   &::placeholder {
     color: $himation--text-muted-color;
@@ -114,7 +111,7 @@ $_registration--gutter: 2em;
   margin-left: 0.5em;
   padding: 0.5em;
   text-transform: uppercase;
-  width: 100%;
+  white-space: nowrap;
 }
 
 .c--registration.is-active,
@@ -162,17 +159,20 @@ $_registration--gutter: 2em;
   }
 
   .c--registration__content {
-    display: block;
+    align-items: stretch;
+    flex-direction: column;
   }
   .c--registration__pitch {
     border-left: 0;
     font-size: 0.8em;
     margin: 1.5em 0 1.75em;
+    order: 1;
     padding: 0;
   }
   .c--registration__form {
     font-size: 0.95em;
     height: 3.25em;
+    order: 2;
     padding: 0;
   }
 
@@ -231,6 +231,78 @@ $_registration--gutter: 2em;
 
   .c--registration__form {
     font-size: 0.85em;
+  }
+
+}
+
+@include himation--flexbox-fallback {
+
+  .c--registration__content {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+  }
+  .c--registration__pitch,
+  .c--registration__form {
+    display: table-cell;
+    vertical-align: middle;
+    width: 50%;
+  }
+
+  .c--registration__email-input,
+  .c--registration__submit {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .c--registration__email-input {
+    width: 65%;
+  }
+  .c--registration__submit {
+    margin-left: 2.5%;
+    padding-bottom: $_registration--input-padding * 2.125;
+    padding-top: $_registration--input-padding * 2.125;
+    width: 32.5%;
+  }
+
+  .c--registration__error,
+  .c--registration.is-active .c--registration__email-label,
+  .c--registration.is-invalid .c--registration__email-label {
+    bottom: 80%;
+  }
+
+  @include himation--breakpoint-tablet {
+
+    .c--registration__content,
+    .c--registration__pitch,
+    .c--registration__form {
+      display: block;
+      width: 100%;
+    }
+    .c--registration__pitch {
+      margin: 0;
+    }
+    .c--registration__form {
+      margin: 1em 0;
+    }
+
+    .c--registration__email-input {
+      height: 3.25em;
+    }
+
+    .c--registration__error,
+    .c--registration.is-active .c--registration__email-label,
+    .c--registration.is-invalid .c--registration__email-label {
+      bottom: 100%;
+    }
+
+  }
+
+  @include himation--breakpoint-phone {
+
+    .c--registration__email-input {
+      height: 3.5em;
+    }
+
   }
 
 }
