@@ -123,8 +123,8 @@ $_registration-pitch--z-complete: 2;
   }
 
   .l--registration-pitch__registration {
-    padding-bottom: 2em;
-    padding-top: 2em;
+    padding-bottom: 3em;
+    padding-top: 3em;
   }
 
   .l--registration-pitch__complete__text {
@@ -150,6 +150,11 @@ $_registration-pitch--z-complete: 2;
 }
 
 @include himation--breakpoint-phone {
+
+  .l--registration-pitch__registration {
+    padding-bottom: 2em;
+    padding-top: 2em;
+  }
 
   .l--registration-pitch__complete__text {
     font-size: 1.25em;
