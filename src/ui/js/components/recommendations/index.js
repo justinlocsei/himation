@@ -17,7 +17,18 @@ const Recommendations = React.createClass({
   propTypes: {
     basics: PropTypes.array.isRequired,
     categories: PropTypes.array.isRequired,
+    isStatic: PropTypes.bool,
     onViewBasic: PropTypes.func.isRequired
+  },
+
+  getDefaultProps: function() {
+    return {
+      isStatic: false
+    };
+  },
+
+  shouldComponentUpdate: function() {
+    return !this.props.isStatic;
   },
 
   componentWillMount: function() {

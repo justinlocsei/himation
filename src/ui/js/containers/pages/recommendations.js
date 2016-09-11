@@ -48,7 +48,12 @@ let RecommendationsPage = React.createClass({
 
     return (
       <Page slug="recommendations">
-        <Recommendations basics={basics} categories={categories} onViewBasic={onViewBasic} />
+        <Recommendations
+          basics={basics}
+          categories={categories}
+          onViewBasic={onViewBasic}
+          isStatic={true}
+        />
         {pitchTag}
       </Page>
     );
