@@ -1,6 +1,7 @@
 'use strict';
 
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var express = require('express');
 var helmet = require('helmet');
 var nunjucks = require('nunjucks');
@@ -55,12 +56,12 @@ function configureSecurity(app) {
 }
 
 /**
- * Configure body parsing for the application
+ * Configure request parsing for the application
  *
  * @param {express.Application} app An application instance
  * @private
  */
-function configureBodyParsing(app) {
+function configureParsing(app) {
   app.use(bodyParser.urlencoded({
     extended: false
   }));
@@ -68,6 +69,8 @@ function configureBodyParsing(app) {
   app.use(bodyParser.json({
     strict: true
   }));
+
+  app.use(cookieParser());
 }
 
 /**
@@ -124,7 +127,7 @@ function create(options) {
   simplifyConfiguration(app);
   configureTemplates(app, settings.templatesDirectory);
   configureSecurity(app);
-  configureBodyParsing(app);
+  configureParsing(app);
 
   return app;
 }
