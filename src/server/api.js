@@ -62,6 +62,7 @@ function simplifyRecommendations(original) {
         brand: garment.garment.brand,
         brandedName: garment.garment.branded_name,
         care: garment.garment.care,
+        hasMultipleColors: offering.has_multiple_colors,
         id: garment.garment.id,
         images: offering.images,
         name: garment.garment.name,
