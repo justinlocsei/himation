@@ -48,6 +48,7 @@ var serverSchema = Joi.object().keys({
  * @property {boolean} errors.track Whether or not to track errors
  * @property {string} facebookAppId The Facebook app ID to use
  * @property {string} googleAnalyticsId The Google Analytics ID to use
+ * @property {string} sendgridApiKey The SendGrid API key to use
  * @property {object} server Settings for the server
  * @property {boolean} server.debugLogging Whether to use a debugging-friendly log format
  * @property {object} servers Addresses for all known servers
@@ -81,6 +82,7 @@ var schema = Joi.object().keys({
   }).default(),
   facebookAppId: Joi.string().default(null),
   googleAnalyticsId: Joi.string(),
+  sendgridApiKey: Joi.string(),
   server: Joi.object().keys({
     debugLogging: Joi.boolean().default(false)
   }).default(),
