@@ -82,6 +82,7 @@
     "resolve-url-loader": "^1.6.0",
     "rimraf": "^2.4.4",
     "sass-loader": "^4.0.0",
+    "sendgrid": "^4.1.0",
     "style-loader": "^0.13.0",
     "stylelint": "^7.2.0",
     "stylelint-webpack-plugin": "^0.3.1",
