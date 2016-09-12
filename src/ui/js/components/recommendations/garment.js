@@ -9,6 +9,7 @@ const Garment = React.createClass({
     averageAspectRatio: PropTypes.number.isRequired,
     brandedName: PropTypes.string.isRequired,
     care: PropTypes.string,
+    hasMultipleColors: PropTypes.bool.isRequired,
     image: PropTypes.shape({
       height: PropTypes.number.isRequired,
       url: PropTypes.string.isRequired,
@@ -56,6 +57,7 @@ const Garment = React.createClass({
       averageAspectRatio,
       brandedName,
       care,
+      hasMultipleColors,
       image,
       price,
       retailer,
@@ -68,13 +70,18 @@ const Garment = React.createClass({
     const previewStyle = {backgroundImage: `url(${image.url})`};
     const mediaStyle = {paddingTop: `${averageAspectRatio * 100}%`};
 
+    const meta = [];
+    if (hasMultipleColors) { meta.push({value: 'More colors available', slug: 'colors'}); }
+    if (care) { meta.push({value: care, slug: 'care'}); }
+
     let metaTag;
     if (care) {
       metaTag = (
-        <dl className="c--garment__meta">
-          <dt className="c--garment__meta__key">Care</dt>
-          <dd className="c--garment__meta__value">{care}</dd>
-        </dl>
+        <ul className="c--garment__meta">
+          {meta.map(function(metum, index) {
+            return <li className={`c--garment__metum for-${metum.slug}`} key={index}>{metum.value}</li>;
+          })}
+        </ul>
       );
     }
 

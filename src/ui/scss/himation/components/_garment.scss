@@ -59,15 +59,20 @@ $_garment--details-v-padding: 0.75em;
 
 .c--garment__meta {
   border-top: 1px solid lighten($himation--text-muted-color, 25%);
-  color: $himation--text-muted-color;
   margin-top: $_garment--details-v-padding;
   padding-top: $_garment--details-v-padding;
 }
 
-.c--garment__meta__key {
-  display: none;
-}
-
-.c--garment__meta__value {
+.c--garment__metum {
+  color: $himation--text-muted-color;
   font-size: 0.75em;
+  line-height: 1.125;
+
+  & + & {
+    margin-top: 0.375em;
+  }
+
+  &.for-colors {
+    color: $himation--branding-primary-color;
+  }
 }
