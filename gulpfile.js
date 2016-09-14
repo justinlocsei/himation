@@ -2,7 +2,16 @@
 
 var gulp = require('gulp');
 
-var taskFiles = ['api', 'build', 'cache', 'develop', 'export', 'lint'];
+var taskFiles = [
+  'api',
+  'build',
+  'cache',
+  'develop',
+  'email',
+  'export',
+  'lint'
+];
+
 var tasks = taskFiles.reduce(function(previous, name) {
   previous[name] = require('./tasks/' + name);
   return previous;
@@ -29,3 +38,5 @@ gulp.task('lint-scss', tasks.lint.lintScss);
 gulp.task('export-404-page', tasks.export.export404Page);
 gulp.task('export-500-page', tasks.export.export500Page);
 gulp.task('export-sitemap', tasks.export.exportSitemap);
+
+gulp.task('preview-emails', tasks.email.preview);
