@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Preview Email</title>
+
+  <style>
+    {% include "preview/styles.css" %}
+  </style>
+</head>
+
+<body class="l--app">
+
+  <nav class="c--navigation">
+    <h1 class="c--navigation__title">Email Templates</h1>
+    <ul class="c--navigation__emails">
+      {% for email in emails %}
+        <li class="c--navigation__email">
+          <a href="?email={{ email.slug }}" class="c--navigation__email__name {% if currentEmail == email.slug %}is-current{% endif %}">{{ email.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+  <main class="c--preview {% if not email %}for-placeholder{% endif %}">
+    {% if email %}
+
+      <section class="c--preview__content">
+        <h2 class="c--preview__content__type">HTML</h2>
+        <div class="c--preview__content__data for-html">
+          <iframe class="c--preview__sandbox" seamless sandbox srcdoc="{{ email.html }}"></iframe>
+        </div>
+      </section>
+
+      <section class="c--preview__content">
+        <h2 class="c--preview__content__type">Text</h2>
+        <pre class="c--preview__content__data for-text">{{ email.text }}</pre>
+      </section>
+
+    {% else %}
+
+      <p class="c--preview__placeholder">Select an email from the list</p>
+
+    {% endif %}
+  </main>
+
+</body>
+
+</html>
