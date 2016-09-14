@@ -10,6 +10,7 @@ var build = path.join(root, 'build');
 var modules = path.join(root, 'node_modules');
 var src = path.join(root, 'src');
 
+var email = path.join(src, 'email');
 var server = path.join(src, 'server');
 var ui = path.join(src, 'ui');
 
@@ -31,6 +32,11 @@ function resolve() {
       root: build
     },
     core: path.join(src, 'core'),
+    email: {
+      emails: path.join(email, 'emails'),
+      root: email,
+      templates: path.join(email, 'templates')
+    },
     modules: {
       bin: path.join(modules, '.bin'),
       root: modules
