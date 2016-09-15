@@ -48,7 +48,7 @@ var EmailRecipient = createValidator({
  */
 var EmailDefinition = createValidator({
   getContext: Joi.func().required(),
-  getRecipientContext: Joi.func(),
+  getRecipientContext: Joi.func().default(function() { return {}; }),
   getRecipients: Joi.func().required(),
   getSubject: Joi.func().required(),
   name: Joi.string().required()
