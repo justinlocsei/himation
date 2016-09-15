@@ -71,15 +71,20 @@ Email.prototype._render = function(recipient, baseContext) {
     throwOnUndefined: true
   });
 
+  var subject = this.definition.getSubject(recipient);
+
   var recipientContext;
   if (this.definition.getRecipientContext) {
     recipientContext = this.definition.getRecipientContext();
   }
-  var context = extend(baseContext, recipientContext || {});
+
+  var context = extend({
+    __title: subject,
+  }, baseContext, recipientContext || {});
 
   var email = {
     recipient: recipient.email,
-    subject: this.definition.getSubject(recipient)
+    subject: subject
   };
 
   CONTENT_TYPES.forEach(contentType => {
