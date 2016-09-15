@@ -1,0 +1,4 @@
+{{ __content }}
+--
+Cover Your Basics: {{ __siteUrl }}
+{{ __unsubscribeTag | safe }}

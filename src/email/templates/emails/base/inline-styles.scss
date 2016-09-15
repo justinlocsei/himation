@@ -1,0 +1,142 @@
+$container-bg-color: #eee;
+$content-bg-color: #fff;
+$rhythm: 1.5em;
+$text-color: #333;
+$branding-color: #2d444d;
+$branding-secondary-color: #6a99ab;
+$branding-text-color: #fff;
+$link-color: $branding-secondary-color;
+$width: {{ __width }}px;
+
+//==============================================================================
+// Resets
+//==============================================================================
+
+// Normalize the font size for the email
+body {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  background-color: $container-bg-color;
+  font-family: Helvetica Neue, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100% !important;
+}
+
+// Normalize table borders and spacing
+table {
+  border-collapse: collapse;
+  mso-table-lspace: 0;
+  mso-table-rspace: 0;
+}
+td {
+  border-collapse: collapse;
+}
+
+// Use block display for all images to remove excess whitespace
+img {
+  -ms-interpolation-mode: bicubic;
+  display: block;
+  outline: none;
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: $link-color;
+}
+
+a img {
+  border: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $text-color !important;
+  margin: 0;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+  color: $link-color !important;
+}
+
+//==============================================================================
+// Email
+//==============================================================================
+
+.cyb--email {
+  background-color: $container-bg-color;
+  margin: 0;
+  padding: 0;
+  width: 100% !important;
+}
+
+.cyb--email__wrapper {
+  padding: $rhythm * 0.5 0;
+}
+
+.cyb--email__container {
+  width: $width;
+}
+
+.cyb--email__content {
+  background-color: $content-bg-color;
+  padding: $rhythm;
+  width: 100%;
+}
+
+.cyb--email__footer {
+  background-color: $branding-color;
+  border-top: $rhythm * 0.5 solid $container-bg-color;
+  color: $branding-text-color;
+  padding: $rhythm;
+  text-align: center;
+  width: 100%;
+}
+
+.cyb--email__site {
+  font-size: 0.8em;
+  text-transform: uppercase;
+}
+
+.cyb--email__site-link {
+  background-color: $branding-secondary-color;
+  color: $branding-text-color;
+  display: inline-block;
+  padding: $rhythm;
+  text-decoration: none;
+}
+
+.cyb--email__unsubscribe {
+  font-size: 0.75em;
+  margin-top: $rhythm;
+}
+
+//==============================================================================
+// Media Queries
+//==============================================================================
+
+@media screen and (max-width: $width) {
+
+  .cyb--email__container {
+    width: 100% !important;
+  }
+  .cyb--email__wrapper {
+    padding: $rhythm * 0.5 !important;
+  }
+
+}
+
+{{ __extraStyles }}

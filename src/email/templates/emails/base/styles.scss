@@ -1,0 +1,19 @@
+// Force Outlook to show a "View in Browser" link
+#outlook a {
+  padding:0;
+}
+
+// Force Hotmail to display emails at full width with normal line height
+.ExternalClass {
+  width:100%;
+}
+.ExternalClass,
+.ExternalClass p,
+.ExternalClass span,
+.ExternalClass font,
+.ExternalClass td,
+.ExternalClass div {
+  line-height: 100%;
+}
+
+{{ __extraStyles }}

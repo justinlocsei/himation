@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>{{ __title }}</title>
+  {{ __headStylesTag | safe }}
+  <style type="text/css">{{ __inlineStyles }}</style>
+</head>
+
+<body>
+  <table cellpadding="0" cellspacing="0" border="0" class="cyb--email">
+    <tr>
+      <td class="cyb--email__wrapper">
+        <table cellpadding="0" cellspacing="0" border="0" align="center" width="{{ __width }}" class="cyb--email__container">
+
+          <tr>
+            <td class="cyb--email__content" width="100%">
+              {{ __content | safe }}
+            </td>
+          </tr>
+
+          <tr>
+            <td class="cyb--email__footer" width="100%">
+              <p class="cyb--email__site">
+                <a class="cyb--email__site-link" href="{{ __siteUrl }}">Cover Your Basics</a>
+              </p>
+              <p class="cyb--email__unsubscribe">
+                {{ __unsubscribeTag | safe }}
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>
