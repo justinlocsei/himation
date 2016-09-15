@@ -60,6 +60,7 @@
     "joi": "^9.0.0",
     "json-loader": "^0.5.4",
     "json-stable-stringify": "^1.0.1",
+    "juice": "^3.0.0",
     "linklocal": "^2.5.2",
     "lodash": "^4.15.0",
     "modernizr": "^3.3.1",
