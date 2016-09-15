@@ -36,33 +36,34 @@ function loadAll() {
  * Resolve an email slug to an email class
  *
  * @param {string} slug An email slug
- * @returns {HimationEmail}
+ * @returns {HimationEmailDefinition}
  * @throws {DataError} If no email with the slug exists
  */
-function findBySlug(slug) {
+function findDefinitionBySlug(slug) {
   loadAll();
 
-  var email = EMAILS[slug];
-  if (!email) {
+  var definition = EMAILS[slug];
+  if (!definition) {
     throw new errors.DataError('No email with a slug of ' + slug + ' was found');
+  } else {
+    return definition;
   }
-
-  return new Email(slug, email);
 }
 
 /**
  * Get all registered emails, sorted by name
  *
+ * @param {HimationSettings} settings The current environment's settings
  * @returns {HimationEmail[]}
  */
-function getAll() {
+function getAll(settings) {
   loadAll();
 
-  var emails = Object.keys(EMAILS).map(slug => new Email(slug, EMAILS[slug]));
+  var emails = Object.keys(EMAILS).map(slug => new Email(slug, EMAILS[slug], settings));
   return sortBy(emails, email => email.name);
 }
 
 module.exports = {
-  findBySlug: findBySlug,
+  findDefinitionBySlug: findDefinitionBySlug,
   getAll: getAll
 };

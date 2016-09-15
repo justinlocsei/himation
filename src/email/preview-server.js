@@ -7,7 +7,7 @@ var https = require('https');
 var nunjucks = require('nunjucks');
 var Promise = require('bluebird');
 
-var api = require('himation/server/api');
+var Email = require('himation/email/email');
 var emails = require('himation/email/emails');
 var paths = require('himation/core/paths').resolve();
 
@@ -36,21 +36,22 @@ function configureAppTemplates(app, directory) {
  *
  * @param {express.Request} req An Express request
  * @param {express.Response} res An Express response
- * @param {ApiClient} apiClient An API client
+ * @param {HimationSettings} settings The current environment's settings
  * @private
  */
-function showPreview(req, res, apiClient) {
+function showPreview(req, res, settings) {
   var slug = req.query.email;
 
   var context = {
     currentEmail: slug,
-    emails: emails.getAll()
+    emails: emails.getAll(settings)
   };
 
   if (slug) {
-    var email = emails.findBySlug(req.query.email);
+    var definition = emails.findDefinitionBySlug(slug);
+    var email = new Email(slug, definition, settings);
 
-    email.batchRender(apiClient, {
+    email.batchRender({
       rangeStart: 1,
       rangeEnd: 2,
       onRender: function(rendered) {
@@ -155,13 +156,11 @@ PreviewServer.prototype.stop = function() {
  */
 PreviewServer.prototype._createApplication = function() {
   var app = express();
-
   configureAppTemplates(app, paths.email.templates);
 
-  var apiClient = api.createApiClient(this.settings.chiton.endpoint, this.settings.chiton.token);
-
+  var settings = this.settings;
   app.get('/', function(req, res) {
-    return showPreview(req, res, apiClient);
+    return showPreview(req, res, settings);
   });
 
   var factory = this.settings.servers.app.protocol === 'https' ? https : http;
