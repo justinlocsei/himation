@@ -63,9 +63,10 @@ Email.prototype.batchRender = function(options) {
     .getRecipients(this._apiClient)
     .slice(settings.rangeStart, settings.rangeEnd);
 
-  var context = this.definition.getContext(this._apiClient);
-  recipients.forEach(recipient => {
-    var rendered = this.render(recipient, context);
+  var contexts = this.definition.mapRecipientsToContext(recipients, this._apiClient);
+
+  recipients.forEach((recipient, index) => {
+    var rendered = this.render(recipient, contexts[index]);
     options.onRender(rendered);
   });
 };
@@ -74,21 +75,31 @@ Email.prototype.batchRender = function(options) {
  * Render the email
  *
  * @param {HimationEmailRecipient} recipient The recipient of the email
- * @param {object} [messageContext] The base context for rendering the message
+ * @param {object} [context] The base context for rendering the message
  * @returns {HimationRenderedEmail}
  */
-Email.prototype.render = function(recipient, messageContext) {
+Email.prototype.render = function(recipient, context) {
+  var recipientContext = this.definition.mapRecipientsToContext([recipient], this._apiClient)[0];
+  var messageContext = extend({}, context, recipientContext);
+
+  return this._render(recipient, messageContext);
+};
+
+/**
+ * Render an email
+ *
+ * @param {HimationEmailRecipient} recipient The recipient of the email
+ * @param {object} messageContext The context for rendering the message
+ * @returns {HimationRenderedEmail}
+ */
+Email.prototype._render = function(recipient, messageContext) {
   var templateLoader = new nunjucks.FileSystemLoader(paths.email.templates);
   var templateRenderer = new nunjucks.Environment(templateLoader, {
     autoescape: true,
     throwOnUndefined: true
   });
 
-  var context = extend(
-    this._getBaseContext(),
-    messageContext || {},
-    this.definition.getRecipientContext(recipient)
-  );
+  var context = extend({}, messageContext, this._getBaseContext());
 
   return new data.RenderedEmail({
     html: this._renderHtml(templateRenderer, context),

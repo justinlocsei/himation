@@ -51,15 +51,11 @@ function showPreview(req, res, settings) {
     var definition = emails.findDefinitionBySlug(slug);
     var email = new Email(slug, definition, settings);
 
-    email.batchRender({
-      rangeStart: 1,
-      rangeEnd: 2,
-      onRender: function(rendered) {
-        res.render('preview', extend({
-          email: rendered
-        }, context));
-      }
-    });
+    var rendered = email.render({email: 'test@example.com'});
+
+    res.render('preview', extend({
+      email: rendered
+    }, context));
   } else {
     res.render('preview', context);
   }

@@ -6,19 +6,8 @@ var WelcomeEmail = defineEmail({
 
   name: 'Welcome',
 
-  getRecipients: function() {
-    return [
-      {email: 'alpha@example.com'},
-      {email: 'beta@example.com'}
-    ];
-  },
-
   getSubject: function() {
     return 'Welcome to Cover Your Basics';
-  },
-
-  getContext: function() {
-    return {};
   }
 
 });

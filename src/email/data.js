@@ -25,32 +25,51 @@ function createValidator(schema) {
 }
 
 /**
+ * A function to return an empty context for each recipient
+ *
+ * @param {HimationEmailRecipient[]} recipients The recipients of the email
+ * @returns {object[]}
+ * @private
+ */
+function emptyMapRecipientsToContext(recipients) {
+  return recipients.map(function() {
+    return {};
+  });
+}
+
+/**
+ * A function to return an empty recipient list
+ *
+ * @returns {object[]}
+ * @private
+ */
+function emptyRecipients() {
+  return [];
+}
+
+/**
  * A Himation email recipient
  *
  * @typedef {object} HimationEmailRecipient
  * @property {string} email The recipient's email address
- * @property {object} [email] Additional metadata for the recipient
  */
 var EmailRecipient = createValidator({
-  email: Joi.string().required(),
-  meta: Joi.object()
+  email: Joi.string().required()
 });
 
 /**
  * A Himation email definition
  *
  * @typedef {object} HimationEmailDefinition
- * @property {function} getContext A function that returns a rendering context object when given an ApiClient instance
- * @property {function} [getRecipientContext] A function that returns a rendering context object when given a HimationEmailRecipient
- * @property {function} getRecipients A function that returns a list of HimationEmailRecipient objects when given an ApiClient instance
+ * @property {function} [getRecipients] A function that returns a list of HimationEmailRecipient objects when given an ApiClient instance
  * @property {function} getSubject A function that will provide the subject of the email when given a HimationEmailRecipient
+ * @property {function} [mapRecipientsToContext] A function that maps HimationEmailRecipient instances and an API client to rendering contexts
  * @property {string} name The human-readable name of the email
  */
 var EmailDefinition = createValidator({
-  getContext: Joi.func().required(),
-  getRecipientContext: Joi.func().default(function() { return {}; }),
-  getRecipients: Joi.func().required(),
+  getRecipients: Joi.func().default(emptyRecipients),
   getSubject: Joi.func().required(),
+  mapRecipientsToContext: Joi.func().default(emptyMapRecipientsToContext),
   name: Joi.string().required()
 });
 
