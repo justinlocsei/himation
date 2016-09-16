@@ -12,7 +12,6 @@
 <body class="l--app">
 
   <nav class="c--navigation">
-    <h1 class="c--navigation__title">Email Templates</h1>
     <ul class="c--navigation__emails">
       {% for email in emails %}
         <li class="c--navigation__email">
@@ -24,6 +23,17 @@
 
   <main class="c--preview {% if not email %}for-placeholder{% endif %}">
     {% if email %}
+
+      <section class="c--preview__meta">
+        <p class="c--preview__metum">
+          <span class="c--preview__metum__key">To</span>
+          <span class="c--preview__metum__value">{{ email.recipient }}</span>
+        </p>
+        <p class="c--preview__metum">
+          <span class="c--preview__metum__key">Subject</span>
+          <span class="c--preview__metum__value">{{ email.subject }}</span>
+        </p>
+      </section>
 
       <section class="c--preview__content">
         <h2 class="c--preview__content__type">HTML</h2>
