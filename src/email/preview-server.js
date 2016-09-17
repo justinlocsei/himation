@@ -7,7 +7,6 @@ var https = require('https');
 var nunjucks = require('nunjucks');
 var Promise = require('bluebird');
 
-var Email = require('himation/email/email');
 var emails = require('himation/email/emails');
 var paths = require('himation/core/paths').resolve();
 
@@ -48,9 +47,7 @@ function showPreview(req, res, settings) {
   };
 
   if (slug) {
-    var definition = emails.findDefinitionBySlug(slug);
-    var email = new Email(slug, definition, settings);
-
+    var email = emails.createEmail(slug, settings);
     var rendered = email.render({email: settings.emailSenderAddress});
 
     res.render('preview', extend({

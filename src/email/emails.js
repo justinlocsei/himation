@@ -43,21 +43,22 @@ function loadAll() {
 }
 
 /**
- * Resolve an email slug to an email class
+ * Create a new email class when given a slug
  *
  * @param {string} slug An email slug
- * @returns {HimationEmailDefinition}
+ * @param {HimationSettings} settings The current environment's settings
+ * @returns {HimationEmail}
  * @throws {DataError} If no email with the slug exists
  */
-function findDefinitionBySlug(slug) {
+function createEmail(slug, settings) {
   loadAll();
 
   var definition = EMAILS[slug];
   if (!definition) {
     throw new errors.DataError('No email with a slug of ' + slug + ' was found');
-  } else {
-    return definition;
   }
+
+  return new Email(slug, definition, settings);
 }
 
 /**
@@ -74,7 +75,7 @@ function getAll(settings) {
 }
 
 module.exports = {
+  createEmail: createEmail,
   defineEmail: defineEmail,
-  findDefinitionBySlug: findDefinitionBySlug,
   getAll: getAll
 };
