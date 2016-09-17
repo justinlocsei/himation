@@ -1,20 +1,21 @@
 'use strict';
 
-var path = require('path');
 var sortBy = require('lodash/sortBy');
 
 var data = require('himation/email/data');
 var Email = require('himation/email/email');
 var errors = require('himation/core/errors');
-var paths = require('himation/core/paths').resolve();
 
 // Load all known emails
-var EMAIL_SLUGS = ['welcome'];
-var EMAILS = EMAIL_SLUGS.reduce(function(emails, slug) {
-  var definition = require('himation/email/emails/' + slug);
-  emails[slug] = new data.EmailDefinition(definition);
-
-  return emails;
+//
+// This uses explicit requires for each email to allow webpack to easily analyze
+// the dependencies for this file.
+var EMAILS = {
+  welcome: require('himation/email/emails/welcome')
+};
+var DEFINITIONS = Object.keys(EMAILS).reduce(function(definitions, slug) {
+  definitions[slug] = new data.EmailDefinition(EMAILS[slug]);
+  return definitions;
 }, {});
 
 /**
@@ -26,7 +27,7 @@ var EMAILS = EMAIL_SLUGS.reduce(function(emails, slug) {
  * @throws {DataError} If no email with the slug exists
  */
 function createEmail(slug, settings) {
-  var definition = EMAILS[slug];
+  var definition = DEFINITIONS[slug];
   if (!definition) {
     throw new errors.DataError('No email with a slug of ' + slug + ' was found');
   }
@@ -41,7 +42,7 @@ function createEmail(slug, settings) {
  * @returns {HimationEmail[]}
  */
 function getAll(settings) {
-  var emails = Object.keys(EMAILS).map(slug => new Email(slug, EMAILS[slug], settings));
+  var emails = Object.keys(DEFINITIONS).map(slug => new Email(slug, DEFINITIONS[slug], settings));
   return sortBy(emails, email => email.name);
 }
 
