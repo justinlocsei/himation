@@ -29,6 +29,8 @@ structure below, which shows the available settings and their defaults:
     "registered": null // The name of the registered-user cookie
   },
   "debug": false,               // Whether to enable debug tools
+  "emailSenderAddress": null,   // The address of the sender of all emails
+  "emailSenderName": null,      // The name of the sender of all emails
   "environment": "development", // The name of the application environment
   "errors": {
     "sentryDsn": null,       // The Sentry DSN for reporting errors

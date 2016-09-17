@@ -41,6 +41,8 @@ var serverSchema = Joi.object().keys({
  * @property {object} cookies The names of common cookies
  * @property {string} cookies.registered The name of the registered cookie
  * @property {boolean} debug Whether to run in debugging mode
+ * @property {string} emailSenderAddress The address for the sender of all emails
+ * @property {string} emailSenderName The name for the sender of all emails
  * @property {string} environment The name of the application environment
  * @property {object} errors Information on handling errors
  * @property {string} errors.sentryDsn The Sentry DSN to use
@@ -74,6 +76,8 @@ var schema = Joi.object().keys({
     registered: Joi.string().default('registered')
   }).default(),
   debug: Joi.boolean().default(false),
+  emailSenderAddress: Joi.string(),
+  emailSenderName: Joi.string(),
   environment: Joi.string().default('development'),
   errors: Joi.object().keys({
     sentryDsn: Joi.string(),
