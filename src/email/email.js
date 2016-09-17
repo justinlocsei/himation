@@ -5,12 +5,14 @@ var htmlMinify = require('html-minifier');
 var path = require('path');
 var juice = require('juice');
 var nunjucks = require('nunjucks');
+var querystring = require('querystring');
 var sass = require('node-sass');
 
 var api = require('himation/server/api');
 var data = require('himation/email/data');
 var files = require('himation/core/files');
 var paths = require('himation/core/paths').resolve();
+var random = require('himation/email/random');
 
 // The base width of the email, in pixels
 var EMAIL_WIDTH = 550;
@@ -105,7 +107,8 @@ Email.prototype._render = function(recipient, messageContext) {
     html: this._renderHtml(templateRenderer, context),
     recipient: recipient.email,
     subject: context.__title,
-    text: this._renderText(templateRenderer, context)
+    text: this._renderText(templateRenderer, context),
+    tags: this.definition.getRecipientTags(recipient)
   });
 };
 
@@ -166,12 +169,39 @@ Email.prototype._renderHtml = function(renderer, context) {
  * @returns {object}
  */
 Email.prototype._getBaseContext = function(recipient) {
+  var subject = this.definition.getSubject(recipient);
+
   return {
+    __gaQueryString: this._buildGoogleAnalyticsQueryString(subject),
     __siteUrl: this.settings.servers.app.publicUrl,
-    __title: this.definition.getSubject(recipient),
+    __title: subject,
     __unsubscribeTag: Email.UNSUBSCRIBE_TAG,
     __width: EMAIL_WIDTH
   };
+};
+
+/**
+ * Produce the query string used by Google Analytics for email tracking
+ *
+ * @param {string} subject The subject of the email
+ * @returns {string}
+ */
+Email.prototype._buildGoogleAnalyticsQueryString = function(subject) {
+  var data = {
+    tid: this.settings.googleAnalyticsId,
+    cid: random.randInt32() + '.' + random.randInt32(),
+    t: 'event',
+    ec: 'email',
+    ea: 'open',
+    dt: subject
+  };
+
+  if (this.definition.campaignName) {
+    data.cm = 'email';
+    data.cn = this.definition.campaignName;
+  }
+
+  return querystring.stringify(data);
 };
 
 /**

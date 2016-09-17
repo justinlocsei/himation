@@ -48,6 +48,16 @@ function emptyRecipients() {
 }
 
 /**
+ * A function to return an empty list of tags
+ *
+ * @returns {object[]}
+ * @private
+ */
+function emptyTags() {
+  return [];
+}
+
+/**
  * A Himation email recipient
  *
  * @typedef {object} HimationEmailRecipient
@@ -73,13 +83,17 @@ var EmailSender = createValidator({
  * A Himation email definition
  *
  * @typedef {object} HimationEmailDefinition
+ * @property {string} [campaignName] The name of the email campaign
  * @property {function} [getRecipients] A function that returns a list of HimationEmailRecipient objects when given an ApiClient instance
+ * @property {function} [getRecipientTags] A function that returns the tags to associate with an email to a HimationEmailRecipient
  * @property {function} getSubject A function that will provide the subject of the email when given a HimationEmailRecipient
  * @property {function} [mapRecipientsToContext] A function that maps HimationEmailRecipient instances and an API client to rendering contexts
  * @property {string} name The human-readable name of the email
  */
 var EmailDefinition = createValidator({
+  campaignName: Joi.string(),
   getRecipients: Joi.func().default(emptyRecipients),
+  getRecipientTags: Joi.func().default(emptyTags),
   getSubject: Joi.func().required(),
   mapRecipientsToContext: Joi.func().default(emptyMapRecipientsToContext),
   name: Joi.string().required()

@@ -33,6 +33,10 @@
           <span class="c--preview__metum__key">Subject</span>
           <span class="c--preview__metum__value">{{ email.subject }}</span>
         </p>
+        <p class="c--preview__metum">
+          <span class="c--preview__metum__key">Tags</span>
+          <span class="c--preview__metum__value">{{ email.tags | join(", ") }}</span>
+        </p>
       </section>
 
       <section class="c--preview__content">
