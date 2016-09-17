@@ -1,8 +1,8 @@
 'use strict';
 
-var defineEmail = require('himation/email/define-email');
+var emails = require('himation/email/emails');
 
-var WelcomeEmail = defineEmail({
+var WelcomeEmail = emails.defineEmail({
 
   name: 'Welcome',
 
