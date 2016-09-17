@@ -58,6 +58,18 @@ var EmailRecipient = createValidator({
 });
 
 /**
+ * A Himation email sender
+ *
+ * @typedef {object} HimationEmailSender
+ * @property {string} email The sender's email address
+ * @property {string} name The sender's display name
+ */
+var EmailSender = createValidator({
+  email: Joi.string().required(),
+  name: Joi.string().required()
+});
+
+/**
  * A Himation email definition
  *
  * @typedef {object} HimationEmailDefinition
@@ -80,17 +92,20 @@ var EmailDefinition = createValidator({
  * @property {string} html The HTML version of the email
  * @property {string} recipient The recipient's email address
  * @property {string} subject The subject of the email
+ * @property {string[]} [tags] Text tags to associate with the email
  * @property {string} text The text version of the email
  */
 var RenderedEmail = createValidator({
   html: Joi.string().required(),
   recipient: Joi.string().required(),
   subject: Joi.string().required(),
+  tags: Joi.array().items(Joi.string()).default([]),
   text: Joi.string().required()
 });
 
 module.exports = {
   EmailDefinition: EmailDefinition,
   EmailRecipient: EmailRecipient,
+  EmailSender: EmailSender,
   RenderedEmail: RenderedEmail
 };
