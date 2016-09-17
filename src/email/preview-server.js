@@ -51,7 +51,7 @@ function showPreview(req, res, settings) {
     var definition = emails.findDefinitionBySlug(slug);
     var email = new Email(slug, definition, settings);
 
-    var rendered = email.render({email: 'test@example.com'});
+    var rendered = email.render({email: settings.emailSenderAddress});
 
     res.render('preview', extend({
       email: rendered
