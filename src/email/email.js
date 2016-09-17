@@ -42,7 +42,7 @@ function Email(slug, definition, settings) {
  *
  * @type {string}
  */
-Email.UNSUBSCRIBE_TAG = '{{ unsubscribe }}';
+Email.UNSUBSCRIBE_TAG = '[unsubscribeUrl]';
 
 /**
  * Render a batch of emails
