@@ -24,7 +24,12 @@ var BUILD_IDS = {
 };
 
 // Modules that cannot be include in a server-side build
-var SERVER_MODULE_BLACKLIST = ['request'];
+var SERVER_MODULE_BLACKLIST = [
+  'juice',
+  'node-sass',
+  'nunjucks',
+  'request'
+];
 
 /**
  * Create a webpack config by applying settings on top of a baseline
