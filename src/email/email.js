@@ -187,7 +187,7 @@ Email.prototype._getBaseContext = function(recipient) {
  * @returns {string}
  */
 Email.prototype._buildGoogleAnalyticsQueryString = function(subject) {
-  var data = {
+  var query = {
     tid: this.settings.googleAnalyticsId,
     cid: random.randInt32() + '.' + random.randInt32(),
     t: 'event',
@@ -197,11 +197,11 @@ Email.prototype._buildGoogleAnalyticsQueryString = function(subject) {
   };
 
   if (this.definition.campaignName) {
-    data.cm = 'email';
-    data.cn = this.definition.campaignName;
+    query.cm = 'email';
+    query.cn = this.definition.campaignName;
   }
 
-  return querystring.stringify(data);
+  return querystring.stringify(query);
 };
 
 /**
