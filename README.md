@@ -39,6 +39,7 @@ structure below, which shows the available settings and their defaults:
   },
   "facebookAppId": null,     // The Facebook app ID for the site
   "googleAnalyticsId": null, // The Google Analytics ID to use for tracking
+  "redisUrl": null,          // The Redis connection URL
   "sendgridApiKey": null,    // The SendGrid API key to use
   "server": {
     "debugLogging": false // Setting this to true will log all requests made to the app server
