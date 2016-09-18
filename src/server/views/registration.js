@@ -29,11 +29,13 @@ export function renderResponse(req, res, next, settings) {
         return res.redirect(homePage.path);
       }
     })
-    .catch(function() {
+    .catch(function(error) {
       if (wantsJson) {
-        return res.json({error: true});
+        res.json({error: true});
       } else {
-        return res.redirect(homePage.path);
+        res.redirect(homePage.path);
       }
+
+      throw(error);
     });
 }
