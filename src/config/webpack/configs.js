@@ -23,15 +23,14 @@ var BUILD_IDS = {
   ui: 'ui'
 };
 
-// The subset of node modules that can be bundled in server builds
-var OPTIMIZED_SERVER_REQUIRES = [
-  'modernizr-build',
-  'react',
-  'react-dom',
-  'react-redux',
-  'redux',
-  'redux-form',
-  'redux-thunk'
+// A blacklist of modules that will not be included in server-side builds
+var SERVER_BLACKLIST = [
+  'html-minifier',
+  'joi',
+  'juice',
+  'node-sass',
+  'nunjucks',
+  'request'
 ];
 
 /**
@@ -301,30 +300,6 @@ function addModernizrBuild(config, compress) {
 }
 
 /**
- * Resolve a require call to an absolute path
- *
- * @param {object} paths A mapping of labels to source-code paths
- * @param {string} root The directory in which the require call was made
- * @param {string} required The exact format for the require call
- * @returns {string} The absolute path to the module
- * @private
- */
-function resolveModulePath(paths, root, required) {
-  var submoduleName;
-
-  if (required[0] === '.') {
-    return path.normalize(path.join(root, required));
-  } else if (required.indexOf('himation') === 0) {
-    return path.join(paths.src, required.replace(new RegExp('^himation' + path.sep + '?'), ''));
-  } else if (/node_modules/.test(root)) {
-    submoduleName = root.split(paths.modules.root + path.sep)[1].split(path.sep)[0];
-    return path.join(paths.modules.root, submoduleName, 'node_modules', required);
-  } else {
-    return path.join(paths.modules.root, required);
-  }
-}
-
-/**
  * Create a webpack configuration for use on the server
  *
  * This produces compiled ES3 JS files that are used exclusively for server-side
@@ -341,7 +316,8 @@ function server(settings) {
     root: 'himation'
   });
 
-  var isOptimizableNodeModule = new RegExp('node_modules' + path.sep + '(' + OPTIMIZED_SERVER_REQUIRES.join('|') + ')($|' + path.sep + ')');
+  var isModuleRequire = new RegExp('^(' + SERVER_BLACKLIST.join('|') + ')($|/)');
+  var isModulePath = new RegExp(path.join(paths.modules.root, '(' + SERVER_BLACKLIST.join('|') + ')($|' + path.sep + ')'));
   var isHimationCode = new RegExp(paths.src + '($|' + path.sep + ')');
 
   var optimize = settings.assets.optimize;
@@ -351,9 +327,18 @@ function server(settings) {
     devtool: false,
     entry: entries,
     externals: function(context, request, callback) {
-      var fullPath = resolveModulePath(paths, context, request);
-      var canBundle = isHimationCode.test(fullPath) || isOptimizableNodeModule.test(fullPath);
-      return callback(null, !canBundle);
+      var isExternal, requested;
+
+      if (request[0] === '.') {
+        requested = path.normalize(path.join(context, request));
+        isExternal = !isHimationCode.test(requested) && isModulePath.test(requested);
+      } else if (isHimationCode.test(context)) {
+        isExternal = isModuleRequire.test(request);
+      } else {
+        isExternal = isModulePath.test(context);
+      }
+
+      return callback(null, isExternal);
     },
     module: {
       loaders: flatten([
