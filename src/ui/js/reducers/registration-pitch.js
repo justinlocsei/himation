@@ -41,7 +41,7 @@ export default function registrationPitch(state = defaultState, action) {
     case COMPLETE_REGISTRATION: {
       return {
         ...state,
-        isComplete: true
+        isComplete: !action.error
       };
     }
     default: {
