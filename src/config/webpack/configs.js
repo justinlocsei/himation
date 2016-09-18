@@ -310,10 +310,15 @@ function addModernizrBuild(config, compress) {
  * @private
  */
 function resolveModulePath(paths, root, required) {
+  var submoduleName;
+
   if (required[0] === '.') {
     return path.normalize(path.join(root, required));
   } else if (required.indexOf('himation') === 0) {
     return path.join(paths.src, required.replace(new RegExp('^himation' + path.sep + '?'), ''));
+  } else if (/node_modules/.test(root)) {
+    submoduleName = root.split(paths.modules.root + path.sep)[1].split(path.sep)[0];
+    return path.join(paths.modules.root, submoduleName, 'node_modules', required);
   } else {
     return path.join(paths.modules.root, required);
   }
