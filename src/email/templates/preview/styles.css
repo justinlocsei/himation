@@ -76,10 +76,10 @@ li {
 }
 
 .c--navigation__email__name {
-  background-color: #fff;
   border: 1px solid #ddd;
+  border-bottom-right-radius: 0.25em;
   border-left: 0;
-  border-right: 0;
+  border-top-right-radius: 0.25em;
   color: inherit;
   display: block;
   padding: 1em;
@@ -87,14 +87,12 @@ li {
 
 .c--navigation__email__name:hover,
 .c--navigation__email__name:focus {
-  background-color: #f5f5f5;
+  background-color: #fff;
 }
 
 .c--navigation__email__name.is-current {
   background-color: #2d444d;
-  border-bottom-right-radius: 0.25em;
   border-color: #2d444d;
-  border-top-right-radius: 0.25em;
   color: #fff;
 }
 
