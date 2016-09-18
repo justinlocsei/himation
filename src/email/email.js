@@ -11,7 +11,7 @@ var sass = require('node-sass');
 var api = require('himation/server/api');
 var data = require('himation/email/data');
 var files = require('himation/core/files');
-var paths = require('himation/core/paths').resolve();
+var resolvePaths = require('himation/core/paths').resolve;
 var random = require('himation/email/random');
 
 // The base width of the email, in pixels
@@ -95,6 +95,7 @@ Email.prototype.render = function(recipient, context) {
  * @returns {HimationRenderedEmail}
  */
 Email.prototype._render = function(recipient, messageContext) {
+  var paths = resolvePaths();
   var templateLoader = new nunjucks.FileSystemLoader(paths.email.templates);
   var templateRenderer = new nunjucks.Environment(templateLoader, {
     autoescape: true,
@@ -214,6 +215,7 @@ Email.prototype._buildGoogleAnalyticsQueryString = function(subject) {
  * @returns {object}
  */
 Email.prototype._getTemplates = function(filename) {
+  var paths = resolvePaths();
   var forEmailRelative = path.join('emails', this.slug, filename);
   var forEmailAbsolute = path.join(paths.email.templates, forEmailRelative);
 
