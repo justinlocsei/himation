@@ -3,6 +3,7 @@
 var fs = require('fs');
 
 var errors = require('himation/core/errors');
+var paths = require('himation/core/paths');
 var settings = require('himation/config/settings');
 
 /**
@@ -15,10 +16,11 @@ var settings = require('himation/config/settings');
 function load(file) {
   var contents, config;
 
+  var settingsFile = file || paths.resolve().settings;
   try {
-    contents = fs.readFileSync(file);
+    contents = fs.readFileSync(settingsFile);
   } catch (e) {
-    throw new errors.ConfigurationError('Could not load the settings file at "' + file + '": ' + e.message);
+    throw new errors.ConfigurationError('Could not load the settings file at "' + settingsFile + '": ' + e.message);
   }
 
   try {

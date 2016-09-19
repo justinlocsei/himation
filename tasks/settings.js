@@ -3,9 +3,8 @@
 var yargs = require('yargs');
 
 var environment = require('himation/config/environment');
-var paths = require('himation/core/paths');
 
-var settings = environment.load(paths.resolve().settings);
+var settings = environment.load();
 
 var options = yargs
   .option('optimize', {
