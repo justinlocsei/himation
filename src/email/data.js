@@ -2,27 +2,7 @@
 
 var Joi = require('joi');
 
-var errors = require('himation/core/errors');
-
-/**
- * Create a schema validator
- *
- * @param {object} schema A Joi object schema
- * @returns {function} A function that validates and creates an object
- * @private
- */
-function createValidator(schema) {
-  var fullSchema = Joi.object().keys(schema).default();
-
-  return function validator(data) {
-    var validation = Joi.validate(data, fullSchema, {convert: false});
-    if (validation.error) {
-      throw new errors.DataError(validation.error.annotate());
-    }
-
-    return validation.value;
-  };
-}
+var data = require('himation/core/data');
 
 /**
  * A function to return an empty context for each recipient
@@ -63,7 +43,7 @@ function emptyTags() {
  * @typedef {object} HimationEmailRecipient
  * @property {string} email The recipient's email address
  */
-var EmailRecipient = createValidator({
+var EmailRecipient = data.createValidator({
   email: Joi.string().required()
 });
 
@@ -78,7 +58,7 @@ var EmailRecipient = createValidator({
  * @property {function} [mapRecipientsToContext] A function that maps HimationEmailRecipient instances and an API client to rendering contexts
  * @property {string} name The human-readable name of the email
  */
-var EmailDefinition = createValidator({
+var EmailDefinition = data.createValidator({
   campaignName: Joi.string(),
   getRecipients: Joi.func().default(emptyRecipients),
   getRecipientTags: Joi.func().default(emptyTags),
@@ -97,7 +77,7 @@ var EmailDefinition = createValidator({
  * @property {string[]} [tags] Text tags to associate with the email
  * @property {string} text The text version of the email
  */
-var RenderedEmail = createValidator({
+var RenderedEmail = data.createValidator({
   html: Joi.string().required(),
   recipient: Joi.string().required(),
   subject: Joi.string().required(),
