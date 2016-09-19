@@ -22905,6 +22905,9 @@
       },
       "version": "3.8.0"
     },
+    "node-uuid": {
+      "version": "1.4.7"
+    },
     "nunjucks": {
       "dependencies": {
         "asap": {
