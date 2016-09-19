@@ -36,6 +36,6 @@ export function renderResponse(req, res, next, settings) {
         res.redirect(homePage.path);
       }
 
-      throw(error);
+      throw error;
     });
 }
