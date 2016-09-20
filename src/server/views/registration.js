@@ -1,10 +1,11 @@
 'use strict';
 
 var api = require('himation/server/api');
-var queue = require('himation/queue');
+var Client = require('himation/email/client');
 var routes = require('himation/config/routes');
 var routing = require('himation/core/routing');
 var settings = require('himation/core/settings');
+var WelcomeEmail = require('himation/email/emails/welcome');
 
 module.exports = function renderResponse(req, res) {
   var apiClient = api.createApiClient();
@@ -20,7 +21,8 @@ module.exports = function renderResponse(req, res) {
 
   registerUser
     .then(function() {
-      return queue.addTask('send-welcome-email', data.email);
+      var email = new WelcomeEmail().render({email: data.email});
+      return new Client().sendEmail(email);
     })
     .then(function() {
       var wardrobeProfileId = registerUser.value();
