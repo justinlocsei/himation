@@ -51,7 +51,7 @@ function renderInvalidSurveyForm(res, data, errors) {
  * @private
  */
 function renderRecommendations(res, next, options) {
-  options.apiClient.requestRecommendations(api.packageSurvey(options.data), {ip: options.ipAddress})
+  options.apiClient.requestRecommendations(api.packageSurvey(options.surveyData), {ip: options.ipAddress})
     .then(function(recommendations) {
       rendering.prerenderPageComponent(res, RecommendationsPage, {
         state: {
