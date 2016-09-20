@@ -12,7 +12,7 @@ var data = require('himation/core/data');
  * @property {function} slug The unique slug for the task
  */
 var TaskType = data.createValidator({
-  process: Joi.func().required(),
+  handle: Joi.func().required(),
   slug: Joi.string().required()
 });
 

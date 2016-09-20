@@ -1,5 +1,6 @@
 'use strict';
 
+var extend = require('extend');
 var glob = require('glob');
 var path = require('path');
 
@@ -45,9 +46,11 @@ function defineTask(schema) {
   var definition = new data.TaskType(schema);
 
   function Task() { BaseTask.call(this, arguments); }
+
   Task.prototype = Object.create(BaseTask.prototype);
-  Task.prototype.slug = definition.slug;
-  Task.prototype.process = definition.process;
+  extend(Task.prototype, definition);
+
+  Task.slug = definition.slug;
 
   return Task;
 }
