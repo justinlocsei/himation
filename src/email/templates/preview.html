@@ -15,7 +15,7 @@
     <ul class="c--navigation__emails">
       {% for email in emails %}
         <li class="c--navigation__email">
-          <a href="?email={{ email.slug }}" class="c--navigation__email__name {% if currentEmail == email.slug %}is-current{% endif %}">{{ email.name }}</a>
+          <a href="?email={{ email.slug }}" class="c--navigation__email__name {% if currentEmail == email.slug %}is-current{% endif %}">{{ email.displayName }}</a>
         </li>
       {% endfor %}
     </ul>

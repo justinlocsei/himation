@@ -1,8 +1,11 @@
 'use strict';
 
-var welcome = {
+var emails = require('himation/email/emails');
+
+var Welcome = emails.defineEmail({
   campaignName: 'Welcome',
   name: 'Welcome',
+  slug: 'welcome',
 
   getRecipientTags: function() {
     return ['welcome'];
@@ -11,6 +14,6 @@ var welcome = {
   getSubject: function() {
     return 'Welcome to Cover Your Basics';
   }
-};
+});
 
-module.exports = welcome;
+module.exports = Welcome;

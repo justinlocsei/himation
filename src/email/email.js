@@ -10,6 +10,7 @@ var sass = require('node-sass');
 
 var api = require('himation/server/api');
 var data = require('himation/email/data');
+var environment = require('himation/config/environment');
 var files = require('himation/core/files');
 var resolvePaths = require('himation/core/paths').resolve;
 var random = require('himation/email/random');
@@ -24,19 +25,10 @@ var HEAD_STYLES_TAG = '{{ __headStyles }}';
  * A class for sending a particular type of email
  *
  * @typedef {HimationEmail}
- * @property {string} name The email's name
- * @property {string} slug The email's slug
- * @param {string} slug The slug for the email
- * @param {HimationEmailDefinition} definition The definition for the email
- * @param {HimationSettings} settings The current environment's settings
  */
-function Email(slug, definition, settings) {
-  this.slug = slug;
-  this.definition = definition;
-  this.settings = settings;
-
-  this.name = definition.name;
-  this._apiClient = api.createApiClient(settings.chiton.endpoint, settings.chiton.token);
+function Email() {
+  this._settings = environment.load();
+  this._apiClient = api.createApiClient(this._settings.chiton.endpoint, this._settings.chiton.token);
 }
 
 /**
@@ -45,6 +37,73 @@ function Email(slug, definition, settings) {
  * @type {string}
  */
 Email.UNSUBSCRIBE_TAG = '[unsubscribeUrl]';
+
+/**
+ * The name of the email
+ *
+ * @type {string}
+ * @abstract
+ */
+Email.prototype.name = null;
+
+/**
+ * The slug of the email
+ *
+ * @type {string}
+ * @abstract
+ */
+Email.prototype.slug = null;
+
+/**
+ * The campaign name of the email
+ *
+ * @type {string}
+ * @abstract
+ */
+Email.prototype.campaignName = null;
+
+/**
+ * Get the recipients of the email
+ *
+ * @returns {HimationEmailRecipient[]}
+ * @abstract
+ */
+Email.prototype.getRecipients = function() {
+  return [];
+};
+
+/**
+ * Get the tags to associate with a recipient
+ *
+ * @param {HimationEmailRecipient} recipient An email recipient
+ * @returns {string[]}
+ * @abstract
+ */
+Email.prototype.getRecipientTags = function() {
+  return [];
+};
+
+/**
+ * Get the subject of an email to a recipient
+ *
+ * @param {HimationEmailRecipient} recipient An email recipient
+ * @returns {string}
+ * @abstract
+ */
+Email.prototype.getSubject = function() {
+  return [];
+};
+
+/**
+ * Return a rendering context for each recipient in a list
+ *
+ * @param {HimationEmailRecipient[]} recipients A list of email recipients
+ * @returns {object[]}
+ * @abstract
+ */
+Email.prototype.mapRecipientsToContexts = function(recipients) {
+  return recipients.map(() => {});
+};
 
 /**
  * Render a batch of emails
@@ -61,11 +120,11 @@ Email.prototype.batchRender = function(options) {
     rangeStart: undefined
   }, options || {});
 
-  var recipients = this.definition
+  var recipients = this
     .getRecipients(this._apiClient)
     .slice(settings.rangeStart, settings.rangeEnd);
 
-  var contexts = this.definition.mapRecipientsToContext(recipients, this._apiClient);
+  var contexts = this.mapRecipientsToContexts(recipients, this._apiClient);
 
   recipients.forEach((recipient, index) => {
     var rendered = this.render(recipient, contexts[index]);
@@ -81,7 +140,7 @@ Email.prototype.batchRender = function(options) {
  * @returns {HimationRenderedEmail}
  */
 Email.prototype.render = function(recipient, context) {
-  var recipientContext = this.definition.mapRecipientsToContext([recipient], this._apiClient)[0];
+  var recipientContext = this.mapRecipientsToContexts([recipient], this._apiClient)[0];
   var messageContext = extend({}, context, recipientContext);
 
   return this._render(recipient, messageContext);
@@ -109,7 +168,7 @@ Email.prototype._render = function(recipient, messageContext) {
     recipient: recipient.email,
     subject: context.__title,
     text: this._renderText(templateRenderer, context),
-    tags: this.definition.getRecipientTags(recipient)
+    tags: this.getRecipientTags(recipient)
   });
 };
 
@@ -170,11 +229,11 @@ Email.prototype._renderHtml = function(renderer, context) {
  * @returns {object}
  */
 Email.prototype._getBaseContext = function(recipient) {
-  var subject = this.definition.getSubject(recipient);
+  var subject = this.getSubject(recipient);
 
   return {
     __gaQueryString: this._buildGoogleAnalyticsQueryString(subject),
-    __siteUrl: this.settings.servers.app.publicUrl,
+    __siteUrl: this._settings.servers.app.publicUrl,
     __title: subject,
     __unsubscribeTag: Email.UNSUBSCRIBE_TAG,
     __width: EMAIL_WIDTH
@@ -189,7 +248,7 @@ Email.prototype._getBaseContext = function(recipient) {
  */
 Email.prototype._buildGoogleAnalyticsQueryString = function(subject) {
   var query = {
-    tid: this.settings.googleAnalyticsId,
+    tid: this._settings.googleAnalyticsId,
     cid: random.randInt32() + '.' + random.randInt32(),
     t: 'event',
     ec: 'email',
@@ -197,9 +256,9 @@ Email.prototype._buildGoogleAnalyticsQueryString = function(subject) {
     dt: subject
   };
 
-  if (this.definition.campaignName) {
+  if (this.campaignName) {
     query.cm = 'email';
-    query.cn = this.definition.campaignName;
+    query.cn = this.campaignName;
   }
 
   return querystring.stringify(query);

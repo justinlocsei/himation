@@ -43,11 +43,11 @@ function showPreview(req, res, settings) {
 
   var context = {
     currentEmail: slug,
-    emails: emails.getAll(settings)
+    emails: emails.getAll()
   };
 
   if (slug) {
-    var email = emails.createEmail(slug, settings);
+    var email = emails.createEmail(slug);
     var rendered = email.render({email: settings.emailSenderAddress});
 
     res.render('preview', extend({
