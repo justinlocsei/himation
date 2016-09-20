@@ -48,7 +48,7 @@
 
       <section class="c--preview__content">
         <h2 class="c--preview__content__type">Text</h2>
-        <pre class="c--preview__content__data for-text">{{ email.text }}</pre>
+        <pre class="c--preview__content__data for-text">{{ email.text | safe }}</pre>
       </section>
 
     {% else %}
