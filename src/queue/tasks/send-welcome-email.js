@@ -2,7 +2,7 @@
 
 var Client = require('himation/email/client');
 var tasks = require('himation/queue/tasks');
-var WelcomeEmail = require('himation/email/welcome');
+var WelcomeEmail = require('himation/email/emails/welcome');
 
 var SendWelcomeEmail = tasks.defineTask({
 
