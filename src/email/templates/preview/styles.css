@@ -76,6 +76,7 @@ li {
 }
 
 .c--navigation__email__name {
+  background-color: #fff;
   border: 1px solid #ddd;
   border-bottom-right-radius: 0.25em;
   border-left: 0;
@@ -87,7 +88,7 @@ li {
 
 .c--navigation__email__name:hover,
 .c--navigation__email__name:focus {
-  background-color: #fff;
+  border-color: #aaa;
 }
 
 .c--navigation__email__name.is-current {
