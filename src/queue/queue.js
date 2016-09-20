@@ -4,6 +4,7 @@ var Promise = require('bluebird');
 var redis = require('redis');
 
 var errors = require('himation/core/errors');
+var settings = require('himation/core/settings');
 var tasks = require('himation/queue/tasks');
 
 Promise.promisifyAll(redis.RedisClient.prototype);
@@ -16,11 +17,9 @@ var WORKING_LIST = 'working';
 
 /**
  * Create a new queue for handling background tasks
- *
- * @param {HimationSettings} settings The current environment's settings
  */
-function Queue(settings) {
-  this.settings = settings;
+function Queue() {
+
 }
 
 /**
@@ -81,7 +80,7 @@ Queue.prototype.processNextTask = function() {
 Queue.prototype._getRedisClient = function() {
   if (this._redis) { return this._redis; }
 
-  var redisClient = redis.createClient(this.settings.redisUrl);
+  var redisClient = redis.createClient(settings.redisUrl);
 
   redisClient.on('error', function(error) {
     throw new errors.DataError('Redis error: ' + error);

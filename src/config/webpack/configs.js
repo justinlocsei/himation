@@ -12,10 +12,11 @@ var StyleLintPlugin = require('stylelint-webpack-plugin');
 var webpack = require('webpack');
 var WriteFilePlugin = require('write-file-webpack-plugin');
 
+var BuildManifestPlugin = require('himation/config/webpack/plugins/build-manifest');
 var paths = require('himation/core/paths');
 var routes = require('himation/config/routes');
+var settings = require('himation/core/settings');
 var sources = require('himation/config/webpack/sources');
-var BuildManifestPlugin = require('himation/config/webpack/plugins/build-manifest');
 
 // The IDs of each build
 var BUILD_IDS = {
@@ -36,12 +37,11 @@ var SERVER_BLACKLIST = [
 /**
  * Create a webpack config by applying settings on top of a baseline
  *
- * @param {HimationSettings} settings The settings to use for creating the config
  * @param {object} custom Custom settings to add to the baseline
  * @returns {object}
  * @private
  */
-function create(settings, custom) {
+function create(custom) {
   return extend(true, {
     cache: true,
     debug: settings.assets.debug,
@@ -185,12 +185,11 @@ function imageLoaders(optimize) {
  *
  * @param {string} label The label for the build
  * @param {boolean} optimize Whether to optimize assets
- * @param {HimationSettings} settings Settings for the current build
  * @param {boolean} compress Whether to compress the files
  * @returns {object[]}
  * @private
  */
-function globalPlugins(label, optimize, settings, compress) {
+function globalPlugins(label, optimize, compress) {
   var extractTo = compress ? '[name]-[contenthash].css' : '[name]-[id].css';
   var plugins = [new ExtractTextPlugin(extractTo)];
 
@@ -300,10 +299,9 @@ function addModernizrBuild(config, compress) {
  * This produces compiled ES3 JS files that are used exclusively for server-side
  * rendering, allowing us to skip optimization, even for production builds.
  *
- * @param {HimationSettings} settings The current settings
  * @returns {object} A server-appropriate webpack configuration
  */
-function server(settings) {
+function server() {
   var entries = sources.routesToEntryPoints(routes, {
     directory: paths.server.root,
     modules: ['views'],
@@ -316,7 +314,7 @@ function server(settings) {
 
   var optimize = settings.assets.optimize;
 
-  var config = create(settings, {
+  var config = create({
     context: paths.server.root,
     devtool: false,
     entry: entries,
@@ -347,7 +345,7 @@ function server(settings) {
       path: paths.build.assets,
       publicPath: settings.servers.assets.publicUrl
     },
-    plugins: globalPlugins(BUILD_IDS.server, optimize, settings, false),
+    plugins: globalPlugins(BUILD_IDS.server, optimize, false),
     target: 'node'
   });
 
@@ -360,10 +358,9 @@ function server(settings) {
  *
  * This produces the publicy visible assets and client-facing JS code.
  *
- * @param {HimationSettings} settings The current settings
  * @returns {object} A browser-appropriate webpack configuration
  */
-function ui(settings) {
+function ui() {
   var optimizeAssets = settings.assets.optimize;
   var entries = sources.routesToEntryPoints(routes, {
     directory: paths.ui.js,
@@ -374,7 +371,7 @@ function ui(settings) {
   var commonsOptions = sources.entryPointsToCommonsChunks(entries, {optimize: optimizeAssets});
   var commons = commonsOptions.map(options => new CommonsChunkPlugin(options));
 
-  var config = create(settings, {
+  var config = create({
     context: paths.ui.js,
     devtool: 'source-map',
     entry: entries,
@@ -397,7 +394,7 @@ function ui(settings) {
       path: settings.assets.distDir,
       publicPath: settings.servers.assets.publicUrl
     },
-    plugins: commons.concat(globalPlugins(BUILD_IDS.ui, optimizeAssets, settings, optimizeAssets)),
+    plugins: commons.concat(globalPlugins(BUILD_IDS.ui, optimizeAssets, optimizeAssets)),
     target: 'web'
   });
 

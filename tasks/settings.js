@@ -2,9 +2,7 @@
 
 var yargs = require('yargs');
 
-var environment = require('himation/config/environment');
-
-var settings = environment.load();
+var settings = require('himation/core/settings');
 
 var options = yargs
   .option('optimize', {

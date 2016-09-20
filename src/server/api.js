@@ -7,6 +7,7 @@ var request = require('request');
 var sortBy = require('lodash/sortBy');
 
 var errors = require('himation/core/errors');
+var settings = require('himation/core/settings');
 var surveyData = require('himation/core/data/survey');
 var urls = require('himation/core/urls');
 
@@ -82,6 +83,7 @@ function simplifyRecommendations(original) {
 /**
  * A Chiton API client
  *
+ * @typedef {HimationApiClient}
  * @param {string} endpoint The URL for the root API endpoint
  * @param {string} token The token used to authenticate API requests
  */
@@ -101,7 +103,7 @@ function ApiClient(endpoint, token) {
  * @reject {Error} A request or parsing error
  */
 ApiClient.prototype.requestRecommendations = function(profile, options) {
-  var settings = extend({
+  var _options = extend({
     ip: null
   }, options || {});
 
@@ -113,7 +115,7 @@ ApiClient.prototype.requestRecommendations = function(profile, options) {
       url: urls.relativeToAbsolute('recommendations', endpoint) + '/',
       method: 'POST',
       body: extend({}, profile, {
-        'client_ip_address': settings.ip,
+        'client_ip_address': _options.ip,
         'max_garments_per_group': 2
       }),
       json: true,
@@ -207,20 +209,10 @@ ApiClient.prototype.registerUser = function(options) {
 /**
  * Create a Chiton API client
  *
- * @param {string} endpoint The URL for the root API endpoint
- * @param {string} token The token used to authenticate API requests
  * @returns {ApiClient} An API client
  */
-function createApiClient(endpoint, token) {
-  if (!endpoint) {
-    throw new errors.ConfigurationError('You must provide the root API endpoint');
-  }
-
-  if (!token) {
-    throw new errors.ConfigurationError('You must provide the API token');
-  }
-
-  return new ApiClient(endpoint, token);
+function createApiClient() {
+  return new ApiClient(settings.chiton.endpoint, settings.chiton.token);
 }
 
 module.exports = {

@@ -12,16 +12,13 @@ var builds = require('himation/config/webpack/configs');
 var paths = require('himation/core/paths');
 var routers = require('himation/server/routers');
 var routes = require('himation/config/routes');
+var settings = require('himation/core/settings');
 var trackStats = require('himation/server/middleware/track-stats');
 
 /**
  * An application server
- *
- * @param {HimationSettings} settings Environment settings for the server
  */
-function Server(settings) {
-  this.settings = settings;
-
+function Server() {
   this._app = null;
   this._isBound = false;
 }
@@ -35,7 +32,7 @@ function Server(settings) {
  */
 Server.prototype.start = function() {
   var that = this;
-  var address = this.settings.servers.app;
+  var address = settings.servers.app;
 
   var app = this._app;
   if (!app) {
@@ -106,23 +103,23 @@ Server.prototype.stop = function() {
  */
 Server.prototype._createApplication = function(rootPath) {
   var app = application.create({
-    enviroment: this.settings.environment,
-    sentryDsn: this.settings.errors.track && this.settings.errors.sentryDsn,
+    enviroment: settings.environment,
+    sentryDsn: settings.errors.track && settings.errors.sentryDsn,
     templatesDirectory: paths.ui.templates
   });
 
   app.use(this._createLogger());
   app.use(this._createAssetMiddleware());
-  app.use(trackStats.create(this.settings.trackStats));
+  app.use(trackStats.create(settings.trackStats));
   app.use(rootPath, this._createRouter());
 
-  if (this.settings.errors.track) {
+  if (settings.errors.track) {
     app.use(this._createErrorHandler());
   }
 
   app.use(this._create404Handler());
 
-  var factory = this.settings.servers.app.protocol === 'https' ? https : http;
+  var factory = settings.servers.app.protocol === 'https' ? https : http;
   return factory.createServer(app);
 };
 
@@ -132,7 +129,7 @@ Server.prototype._createApplication = function(rootPath) {
  * @returns {morgan} The morgan logger instance
  */
 Server.prototype._createLogger = function() {
-  var format = this.settings.server.debugLogging ? 'dev' : 'combined';
+  var format = settings.server.debugLogging ? 'dev' : 'combined';
   return morgan(format);
 };
 
@@ -142,9 +139,9 @@ Server.prototype._createLogger = function() {
  * @returns {function} An Express middleware function
  */
 Server.prototype._createAssetMiddleware = function() {
-  var uiBuild = builds.ui(this.settings);
+  var uiBuild = builds.ui();
   var buildManifest = build.loadManifest(uiBuild);
-  var assetHost = this.settings.servers.assets.publicUrl;
+  var assetHost = settings.servers.assets.publicUrl;
 
   return addRouteAssets.create(buildManifest, assetHost, routes);
 };
@@ -155,10 +152,10 @@ Server.prototype._createAssetMiddleware = function() {
  * @returns {express.Router}
  */
 Server.prototype._createRouter = function() {
-  var serverBuild = builds.server(this.settings);
+  var serverBuild = builds.server();
   var buildManifest = build.loadManifest(serverBuild);
 
-  return routers.create(buildManifest, routes, this.settings);
+  return routers.create(buildManifest, routes);
 };
 
 /**
@@ -167,8 +164,8 @@ Server.prototype._createRouter = function() {
  * @returns {function} A request handler that renders an error page
  */
 Server.prototype._createErrorHandler = function() {
-  var environment = this.settings.environment;
-  var homePageUrl = this.settings.servers.app.publicUrl;
+  var environment = settings.environment;
+  var homePageUrl = settings.servers.app.publicUrl;
 
   return function(err, req, res, next) { // eslint-disable-line no-unused-vars
     var raven = res.locals.raven;
@@ -195,7 +192,7 @@ Server.prototype._createErrorHandler = function() {
  * @returns {function} A handler for showing a 404 page
  */
 Server.prototype._create404Handler = function() {
-  var homePageUrl = this.settings.servers.app.publicUrl;
+  var homePageUrl = settings.servers.app.publicUrl;
 
   return function(req, res) {
     res.status(404);

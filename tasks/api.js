@@ -5,7 +5,6 @@ var gutil = require('gulp-util');
 var yargs = require('yargs');
 
 var api = require('himation/server/api');
-var settings = require('./settings');
 var surveyData = require('himation/server/data/survey');
 
 // View the contents of an API response from a data dump
@@ -24,7 +23,7 @@ function testApiResponse(done) {
   }
 
   var postData = surveyData.convertPostDataToProfile(JSON.parse(rawPostData));
-  var apiClient = api.createApiClient(settings.chiton.endpoint, settings.chiton.token);
+  var apiClient = api.createApiClient();
   var apiData = api.packageSurvey(postData);
 
   gutil.log(logLabel, 'Sending API request');

@@ -3,13 +3,13 @@
 var sendgrid = require('sendgrid');
 
 var Email = require('himation/email/email');
-var environment = require('himation/config/environment');
+var settings = require('himation/core/settings');
 
 /**
  * Create a client for sending email through the SendGrid API
  */
 function Client() {
-  this._settings = environment.load();
+
 }
 
 /**
@@ -29,8 +29,8 @@ Client.prototype.sendEmail = function(email) {
     }],
     'subject': email.subject,
     'from': {
-      'email': this._settings.emailSenderAddress,
-      'name': this._settings.emailSenderName
+      'email': settings.emailSenderAddress,
+      'name': settings.emailSenderName
     },
     'content': [
       {
@@ -76,7 +76,7 @@ Client.prototype.sendEmail = function(email) {
 Client.prototype._getConnection = function() {
   if (this._api) { return this._api; }
 
-  var api = sendgrid(this._settings.sendgridApiKey);
+  var api = sendgrid(settings.sendgridApiKey);
   this._api = api;
 
   return api;

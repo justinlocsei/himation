@@ -1,5 +1,6 @@
 import IndexPage from 'himation/ui/containers/pages';
 import RecommendationsPage from 'himation/ui/containers/pages/recommendations';
+import settings from 'himation/core/settings';
 import { convertPostDataToProfile } from 'himation/server/data/survey';
 import { createApiClient, packageSurvey } from 'himation/server/api';
 import { defaultState as defaultRegistrationPitchState } from 'himation/ui/reducers/registration-pitch';
@@ -64,7 +65,7 @@ function renderRecommendations(res, next, options) {
     });
 }
 
-export function renderResponse(req, res, next, settings) {
+export function renderResponse(req, res, next) {
   if (isSpamSubmission(req.body)) {
     renderInvalidSurveyForm(res, {});
     return;
@@ -76,7 +77,7 @@ export function renderResponse(req, res, next, settings) {
   if (Object.keys(surveyValidationErrors).length) {
     renderInvalidSurveyForm(res, surveyData, surveyValidationErrors);
   } else {
-    const apiClient = createApiClient(settings.chiton.endpoint, settings.chiton.token);
+    const apiClient = createApiClient();
     renderRecommendations(res, next, {
       apiClient: apiClient,
       ipAddress: req.ip,

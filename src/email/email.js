@@ -10,9 +10,9 @@ var sass = require('node-sass');
 
 var api = require('himation/server/api');
 var data = require('himation/email/data');
-var environment = require('himation/config/environment');
 var files = require('himation/core/files');
 var paths = require('himation/core/paths');
+var settings = require('himation/core/settings');
 var random = require('himation/email/random');
 
 // The base width of the email, in pixels
@@ -27,8 +27,7 @@ var HEAD_STYLES_TAG = '{{ __headStyles }}';
  * @typedef {HimationEmail}
  */
 function Email() {
-  this._settings = environment.load();
-  this._apiClient = api.createApiClient(this._settings.chiton.endpoint, this._settings.chiton.token);
+
 }
 
 /**
@@ -114,17 +113,19 @@ Email.prototype.mapRecipientsToContexts = function(recipients) {
  * @param {number} [options.rangeStart] The index of the first recipient to render
  */
 Email.prototype.batchRender = function(options) {
-  var settings = extend({
+  var _options = extend({
     onRender: null,
     rangeEnd: undefined,
     rangeStart: undefined
   }, options || {});
 
-  var recipients = this
-    .getRecipients(this._apiClient)
-    .slice(settings.rangeStart, settings.rangeEnd);
+  var apiClient = this._getApiClient();
 
-  var contexts = this.mapRecipientsToContexts(recipients, this._apiClient);
+  var recipients = this
+    .getRecipients(apiClient)
+    .slice(_options.rangeStart, _options.rangeEnd);
+
+  var contexts = this.mapRecipientsToContexts(recipients, apiClient);
 
   recipients.forEach((recipient, index) => {
     var rendered = this.render(recipient, contexts[index]);
@@ -140,7 +141,7 @@ Email.prototype.batchRender = function(options) {
  * @returns {HimationRenderedEmail}
  */
 Email.prototype.render = function(recipient, context) {
-  var recipientContext = this.mapRecipientsToContexts([recipient], this._apiClient)[0];
+  var recipientContext = this.mapRecipientsToContexts([recipient], this._getApiClient())[0];
   var messageContext = extend({}, context, recipientContext);
 
   return this._render(recipient, messageContext);
@@ -232,7 +233,7 @@ Email.prototype._getBaseContext = function(recipient) {
 
   return {
     __gaQueryString: this._buildGoogleAnalyticsQueryString(subject),
-    __siteUrl: this._settings.servers.app.publicUrl,
+    __siteUrl: settings.servers.app.publicUrl,
     __title: subject,
     __unsubscribeTag: Email.UNSUBSCRIBE_TAG,
     __width: EMAIL_WIDTH
@@ -247,7 +248,7 @@ Email.prototype._getBaseContext = function(recipient) {
  */
 Email.prototype._buildGoogleAnalyticsQueryString = function(subject) {
   var query = {
-    tid: this._settings.googleAnalyticsId,
+    tid: settings.googleAnalyticsId,
     cid: random.randInt32() + '.' + random.randInt32(),
     t: 'event',
     ec: 'email',
@@ -305,6 +306,18 @@ Email.prototype._renderStyles = function(name, renderer, context) {
       __extraStyles: extraStyles
     }, context))
   }).css.toString();
+};
+
+/**
+ * Get an instance of the chiton API client
+ *
+ * @returns {HimationApiClient}
+ */
+Email.prototype._getApiClient = function() {
+  if (this._apiClient) { return this._apiClient; }
+
+  this._apiClient = api.createApiClient(settings.chiton.endpoint, settings.chiton.token);
+  return this._apiClient;
 };
 
 module.exports = Email;

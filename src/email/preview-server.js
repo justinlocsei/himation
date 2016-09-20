@@ -9,6 +9,7 @@ var Promise = require('bluebird');
 
 var emails = require('himation/email/emails');
 var paths = require('himation/core/paths');
+var settings = require('himation/core/settings');
 
 /**
  * Configure the app's template engine
@@ -35,10 +36,9 @@ function configureAppTemplates(app, directory) {
  *
  * @param {express.Request} req An Express request
  * @param {express.Response} res An Express response
- * @param {HimationSettings} settings The current environment's settings
  * @private
  */
-function showPreview(req, res, settings) {
+function showPreview(req, res) {
   var slug = req.query.email;
 
   var context = {
@@ -60,12 +60,8 @@ function showPreview(req, res, settings) {
 
 /**
  * Create a new preview server for emails
- *
- * @param {HimationSettings} settings Environment settings for the server
  */
-function PreviewServer(settings) {
-  this.settings = settings;
-
+function PreviewServer() {
   this._app = null;
   this._isBound = false;
 }
@@ -79,7 +75,7 @@ function PreviewServer(settings) {
  */
 PreviewServer.prototype.start = function() {
   var that = this;
-  var address = this.settings.servers.app;
+  var address = settings.servers.app;
 
   var app = this._app;
   if (!app) {
@@ -151,12 +147,11 @@ PreviewServer.prototype._createApplication = function() {
   var app = express();
   configureAppTemplates(app, paths.email.templates);
 
-  var settings = this.settings;
   app.get('/', function(req, res) {
-    return showPreview(req, res, settings);
+    return showPreview(req, res);
   });
 
-  var factory = this.settings.servers.app.protocol === 'https' ? https : http;
+  var factory = settings.servers.app.protocol === 'https' ? https : http;
   return factory.createServer(app);
 };
 

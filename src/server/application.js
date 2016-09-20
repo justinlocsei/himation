@@ -107,7 +107,6 @@ function configureErrorTracking(app, environment, sentryDsn) {
  * @param {object} options Configuration for the server
  * @param {string} options.environment The name of the current application environment
  * @param {string} [options.sentryDsn] The Sentry DSN to use
- * @param {HimationSettings} options.settings The application settings
  * @param {string} options.templatesDirectory The path to the templates directory
  * @returns {express.Application} An application server that can be bound to an address
  */

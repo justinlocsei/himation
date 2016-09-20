@@ -1,7 +1,5 @@
 'use strict';
 
-var environment = require('himation/config/environment');
-var paths = require('himation/core/paths');
 var Server = require('himation/server');
 
 /**
@@ -10,9 +8,7 @@ var Server = require('himation/server');
  * @returns {Promise} The results of starting the server
  */
 function startServer() {
-  var settings = environment.load(paths.settings);
-
-  var server = new Server(settings);
+  var server = new Server();
   return server.start();
 }
 

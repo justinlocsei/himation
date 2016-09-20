@@ -1,9 +1,10 @@
 import routes from 'himation/config/routes';
+import settings from 'himation/core/settings';
 import { createApiClient } from 'himation/server/api';
 import { guidToRoute } from 'himation/core/routing';
 
-export function renderResponse(req, res, next, settings) {
-  const apiClient = createApiClient(settings.chiton.endpoint, settings.chiton.token);
+export function renderResponse(req, res) {
+  const apiClient = createApiClient();
   const homePage = guidToRoute(routes, 'himation.index');
   const wantsJson = req.accepts(['html', 'json']) === 'json';
 
