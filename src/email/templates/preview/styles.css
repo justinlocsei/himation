@@ -154,6 +154,7 @@ li {
   font-size: 0.8em;
   font-weight: bold;
   margin-bottom: 0.375em;
+  text-transform: uppercase;
 }
 
 .c--preview__content__data {
