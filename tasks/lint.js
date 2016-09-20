@@ -5,7 +5,7 @@ var gulpEslint = require('gulp-eslint');
 var gulpStylelint = require('gulp-stylelint');
 
 var files = require('himation/core/files');
-var paths = require('himation/core/paths').resolve();
+var paths = require('himation/core/paths');
 
 // Globs for matching all known files of a type
 var filesByType = {

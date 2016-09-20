@@ -6,7 +6,7 @@ var gutil = require('gulp-util');
 var nunjucks = require('nunjucks');
 var yargs = require('yargs');
 
-var paths = require('himation/core/paths').resolve();
+var paths = require('himation/core/paths');
 var routes = require('himation/config/routes');
 var settings = require('./settings');
 var urls = require('himation/core/urls');

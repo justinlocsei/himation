@@ -45,7 +45,7 @@ function buildServer(done) {
  */
 function clearBuildDirs(done) {
   var cleared = 0;
-  var buildDirs = [paths.resolve().build.root, settings.assets.distDir];
+  var buildDirs = [paths.build.root, settings.assets.distDir];
 
   buildDirs.forEach(function(buildDir) {
     rimraf(buildDir, function(rmrfErr) {

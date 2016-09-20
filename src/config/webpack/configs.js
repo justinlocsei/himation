@@ -12,7 +12,7 @@ var StyleLintPlugin = require('stylelint-webpack-plugin');
 var webpack = require('webpack');
 var WriteFilePlugin = require('write-file-webpack-plugin');
 
-var resolvePaths = require('himation/core/paths').resolve;
+var paths = require('himation/core/paths');
 var routes = require('himation/config/routes');
 var sources = require('himation/config/webpack/sources');
 var BuildManifestPlugin = require('himation/config/webpack/plugins/build-manifest');
@@ -42,8 +42,6 @@ var SERVER_BLACKLIST = [
  * @private
  */
 function create(settings, custom) {
-  var paths = resolvePaths();
-
   return extend(true, {
     cache: true,
     debug: settings.assets.debug,
@@ -193,7 +191,6 @@ function imageLoaders(optimize) {
  * @private
  */
 function globalPlugins(label, optimize, settings, compress) {
-  var paths = resolvePaths();
   var extractTo = compress ? '[name]-[contenthash].css' : '[name]-[id].css';
   var plugins = [new ExtractTextPlugin(extractTo)];
 
@@ -283,8 +280,6 @@ function forceFileWriting(config) {
  * @returns {object} The updated configuration file
  */
 function addModernizrBuild(config, compress) {
-  var paths = resolvePaths();
-
   var loaders = ['file?name=[hash].js'];
   if (compress) { loaders.push('uglify'); }
   loaders.push(path.join(paths.src, 'config', 'webpack', 'loaders', 'modernizr.js'));
@@ -309,7 +304,6 @@ function addModernizrBuild(config, compress) {
  * @returns {object} A server-appropriate webpack configuration
  */
 function server(settings) {
-  var paths = resolvePaths();
   var entries = sources.routesToEntryPoints(routes, {
     directory: paths.server.root,
     modules: ['views'],
@@ -370,7 +364,6 @@ function server(settings) {
  * @returns {object} A browser-appropriate webpack configuration
  */
 function ui(settings) {
-  var paths = resolvePaths();
   var optimizeAssets = settings.assets.optimize;
   var entries = sources.routesToEntryPoints(routes, {
     directory: paths.ui.js,

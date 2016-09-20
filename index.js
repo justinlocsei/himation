@@ -10,7 +10,7 @@ var Server = require('himation/server');
  * @returns {Promise} The results of starting the server
  */
 function startServer() {
-  var settings = environment.load(paths.resolve().settings);
+  var settings = environment.load(paths.settings);
 
   var server = new Server(settings);
   return server.start();

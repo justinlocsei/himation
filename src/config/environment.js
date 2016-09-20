@@ -16,7 +16,7 @@ var settings = require('himation/config/settings');
 function load(file) {
   var contents, config;
 
-  var settingsFile = file || paths.resolve().settings;
+  var settingsFile = file || paths.settings;
   try {
     contents = fs.readFileSync(settingsFile);
   } catch (e) {

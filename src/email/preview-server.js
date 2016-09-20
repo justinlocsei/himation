@@ -8,7 +8,7 @@ var nunjucks = require('nunjucks');
 var Promise = require('bluebird');
 
 var emails = require('himation/email/emails');
-var paths = require('himation/core/paths').resolve();
+var paths = require('himation/core/paths');
 
 /**
  * Configure the app's template engine
