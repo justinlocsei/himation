@@ -24,12 +24,16 @@
 
           <tr>
             <td class="cyb--email__footer" width="100%">
-              <p class="cyb--email__site">
-                <a class="cyb--email__site-link" href="{{ __siteUrl }}">Cover Your Basics</a>
-              </p>
-              <p class="cyb--email__unsubscribe">
-                <a class="cyb--email__unsubscribe-link" href="{{ __unsubscribeTag | safe }}">Unsubscribe</a> from these emails
-              </p>
+              <table cellpadding="0" cellspacing="0" border="0" width="100%" class="cyb--email__footer__content">
+                <tr>
+                  <td class="cyb--email__site">
+                    <a class="cyb--email__site-link" href="{{ __siteUrl }}">Cover Your Basics</a>
+                  </td>
+                  <td class="cyb--email__unsubscribe">
+                    <a class="cyb--email__unsubscribe-link" href="{{ __unsubscribeTag | safe }}">Unsubscribe</a> from these emails
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
 

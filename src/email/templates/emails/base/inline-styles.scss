@@ -1,10 +1,11 @@
-$container-bg-color: #eee;
+$container-bg-color: #fff;
 $content-bg-color: #fff;
 $rhythm: 1.5em;
+$gutter: 0.25em;
 $text-color: #333;
-$branding-color: #2d444d;
+$branding-primary-color: #2d444d;
 $branding-secondary-color: #6a99ab;
-$branding-text-color: #fff;
+$footer-text-color: #aaa;
 $link-color: $branding-secondary-color;
 $width: {{ __width }}px;
 
@@ -84,7 +85,7 @@ h6 a {
 }
 
 .cyb--email__wrapper {
-  padding: $rhythm * 0.5 0;
+  padding: $rhythm 0;
 }
 
 .cyb--email__container {
@@ -93,27 +94,30 @@ h6 a {
 
 .cyb--email__content {
   background-color: $content-bg-color;
-  padding: $rhythm;
+  border-bottom: 2px solid $text-color;
+  padding: 0 $gutter $rhythm * 1.5;
   width: 100%;
 }
 
 .cyb--email__footer {
-  background-color: $branding-color;
-  border-top: $rhythm * 0.5 solid $container-bg-color;
-  color: $branding-text-color;
-  padding: $rhythm;
+  padding: $rhythm * 1.5 $gutter 0;
   text-align: center;
   width: 100%;
 }
 
+.cyb--email__footer__content {
+  color: $footer-text-color;
+}
+
 .cyb--email__site {
   font-size: 0.8em;
+  text-align: left;
   text-transform: uppercase;
 }
 
 .cyb--email__site-link {
-  background-color: $branding-secondary-color;
-  color: $branding-text-color;
+  border: 1px solid $branding-secondary-color;
+  color: $branding-secondary-color;
   display: inline-block;
   padding: $rhythm;
   text-decoration: none;
@@ -122,10 +126,11 @@ h6 a {
 .cyb--email__unsubscribe {
   font-size: 0.75em;
   margin-top: $rhythm;
+  text-align: right;
 }
 
 .cyb--email__unsubscribe-link {
-  color: $branding-text-color !important;
+  color: $footer-text-color !important;
 }
 
 //==============================================================================
