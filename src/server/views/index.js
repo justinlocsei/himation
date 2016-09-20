@@ -1,11 +1,13 @@
-import IndexPage from 'himation/ui/containers/pages';
-import settings from 'himation/core/settings';
-import { allowGatewayCaching } from 'himation/server/caching';
-import { prerenderPageComponent } from 'himation/ui/rendering';
+'use strict';
 
-export function renderResponse(req, res) {
-  const cachedResponse = allowGatewayCaching(res, settings.caching.ttl);
-  prerenderPageComponent(cachedResponse, IndexPage, {
+var caching = require('himation/server/caching');
+var IndexPage = require('himation/ui/containers/pages').default;
+var rendering = require('himation/ui/rendering');
+var settings = require('himation/core/settings');
+
+module.exports = function renderResponse(req, res) {
+  var cachedResponse = caching.allowGatewayCaching(res, settings.caching.ttl);
+  rendering.prerenderPageComponent(cachedResponse, IndexPage, {
     template: 'pages/home.html'
   });
-}
+};

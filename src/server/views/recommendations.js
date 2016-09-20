@@ -1,11 +1,15 @@
-import IndexPage from 'himation/ui/containers/pages';
-import RecommendationsPage from 'himation/ui/containers/pages/recommendations';
-import settings from 'himation/core/settings';
-import { convertPostDataToProfile } from 'himation/server/data/survey';
-import { createApiClient, packageSurvey } from 'himation/server/api';
-import { defaultState as defaultRegistrationPitchState } from 'himation/ui/reducers/registration-pitch';
-import { prerenderPageComponent } from 'himation/ui/rendering';
-import { isSpamSubmission, validate } from 'himation/ui/components/survey';
+'use strict';
+
+var extend = require('extend');
+
+var api = require('himation/server/api');
+var defaultRegistrationPitchState = require('himation/ui/reducers/registration-pitch').defaultState;
+var IndexPage = require('himation/ui/containers/pages').default;
+var RecommendationsPage = require('himation/ui/containers/pages/recommendations').default;
+var rendering = require('himation/ui/rendering');
+var settings = require('himation/core/settings');
+var survey = require('himation/ui/components/survey');
+var surveyData = require('himation/server/data/survey');
 
 /**
  * Render an invalid survey form
@@ -13,18 +17,18 @@ import { isSpamSubmission, validate } from 'himation/ui/components/survey';
  * @param {Response} res The server response
  * @param {HimationSurveyData} data The survey state shape
  * @param {object} errors Possible validation errors
+ * @private
  */
 function renderInvalidSurveyForm(res, data, errors) {
-  prerenderPageComponent(res, IndexPage, {
+  rendering.prerenderPageComponent(res, IndexPage, {
     state: {
-      survey: {
-        ...data,
+      survey: extend({}, data, {
         errors: errors,
         form: {
           failedValidation: true,
           isSubmitting: false
         }
-      }
+      })
     },
     template: 'pages/home.html',
     context: {
@@ -43,19 +47,17 @@ function renderInvalidSurveyForm(res, data, errors) {
  * @param {string} options.ipAddress The IP address of the requester
  * @param {boolean} options.isRegistered Whether the user is registered
  * @param {HimationSurveyData} options.surveyData The survey data
+ * @private
  */
 function renderRecommendations(res, next, options) {
-  const { apiClient, ipAddress, isRegistered, surveyData } = options;
-
-  apiClient.requestRecommendations(packageSurvey(surveyData), {ip: ipAddress})
+  options.apiClient.requestRecommendations(api.packageSurvey(options.data), {ip: options.ipAddress})
     .then(function(recommendations) {
-      prerenderPageComponent(res, RecommendationsPage, {
+      rendering.prerenderPageComponent(res, RecommendationsPage, {
         state: {
           recommendations: recommendations,
-          registrationPitch: {
-            ...defaultRegistrationPitchState,
-            isBanished: isRegistered
-          }
+          registrationPitch: extend({}, defaultRegistrationPitchState, {
+            isBanished: options.isRegistered
+          })
         },
         template: 'pages/recommendations.html'
       });
@@ -65,24 +67,24 @@ function renderRecommendations(res, next, options) {
     });
 }
 
-export function renderResponse(req, res, next) {
-  if (isSpamSubmission(req.body)) {
+module.exports = function renderResponse(req, res, next) {
+  if (survey.isSpamSubmission(req.body)) {
     renderInvalidSurveyForm(res, {});
     return;
   }
 
-  const surveyData = convertPostDataToProfile(req.body);
-  const surveyValidationErrors = validate(surveyData);
+  var data = surveyData.convertPostDataToProfile(req.body);
+  var surveyValidationErrors = survey.validate(data);
 
   if (Object.keys(surveyValidationErrors).length) {
-    renderInvalidSurveyForm(res, surveyData, surveyValidationErrors);
+    renderInvalidSurveyForm(res, data, surveyValidationErrors);
   } else {
-    const apiClient = createApiClient();
+    var apiClient = api.createApiClient();
     renderRecommendations(res, next, {
       apiClient: apiClient,
       ipAddress: req.ip,
       isRegistered: req.cookies[settings.cookies.registered] === '1',
-      surveyData: surveyData
+      surveyData: data
     });
   }
-}
+};

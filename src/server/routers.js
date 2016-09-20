@@ -54,7 +54,7 @@ function create(build, routes) {
   routes.forEach(function(route) {
     router[route.method](route.path, function(req, res, next) {
       var handler = loadRouteHandler(build, route);
-      handler.renderResponse(req, res, next);
+      handler(req, res, next);
     });
   });
 

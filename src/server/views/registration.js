@@ -1,20 +1,30 @@
-import routes from 'himation/config/routes';
-import settings from 'himation/core/settings';
-import { createApiClient } from 'himation/server/api';
-import { guidToRoute } from 'himation/core/routing';
+'use strict';
 
-export function renderResponse(req, res) {
-  const apiClient = createApiClient();
-  const homePage = guidToRoute(routes, 'himation.index');
-  const wantsJson = req.accepts(['html', 'json']) === 'json';
+var api = require('himation/server/api');
+var queue = require('himation/queue');
+var routes = require('himation/config/routes');
+var routing = require('himation/core/routing');
+var settings = require('himation/core/settings');
 
-  const data = {
+module.exports = function renderResponse(req, res) {
+  var apiClient = api.createApiClient();
+  var homePage = routing.guidToRoute(routes, 'himation.index');
+  var wantsJson = req.accepts(['html', 'json']) === 'json';
+
+  var data = {
     email: req.body.email,
     recommendationId: parseInt(req.body.recommendationId, 10)
   };
 
-  apiClient.registerUser(data)
-    .then(function(wardrobeProfileId) {
+  var registerUser = apiClient.registerUser(data);
+
+  registerUser
+    .then(function() {
+      return queue.addTask('send-welcome-email', data.email);
+    })
+    .then(function() {
+      var wardrobeProfileId = registerUser.value();
+
       res.cookie(settings.cookies.registered, '1', {
         httpOnly: true,
         maxAge: 90000,
@@ -39,4 +49,4 @@ export function renderResponse(req, res) {
 
       throw error;
     });
-}
+};
