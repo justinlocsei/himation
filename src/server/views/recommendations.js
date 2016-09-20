@@ -3,13 +3,14 @@
 var extend = require('extend');
 
 var api = require('himation/server/api');
+var settings = require('himation/core/settings');
+var surveyData = require('himation/server/data/survey');
+
 var defaultRegistrationPitchState = require('himation/ui/reducers/registration-pitch').defaultState;
 var IndexPage = require('himation/ui/containers/pages').default;
 var RecommendationsPage = require('himation/ui/containers/pages/recommendations').default;
 var rendering = require('himation/ui/rendering');
-var settings = require('himation/core/settings');
 var survey = require('himation/ui/components/survey');
-var surveyData = require('himation/server/data/survey');
 
 /**
  * Render an invalid survey form
