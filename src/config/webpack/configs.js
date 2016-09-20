@@ -25,13 +25,11 @@ var BUILD_IDS = {
 };
 
 // A blacklist of modules that will not be included in server-side builds
-var SERVER_BLACKLIST = [
-  'html-minifier',
-  'joi',
-  'juice',
-  'node-sass',
-  'nunjucks',
-  'request'
+var SERVER_MODULE_BLACKLIST = [
+  'himation/config',
+  'himation/core',
+  'himation/email',
+  'himation/server'
 ];
 
 /**
@@ -308,10 +306,7 @@ function server() {
     root: 'himation'
   });
 
-  var isModuleRequire = new RegExp('^(' + SERVER_BLACKLIST.join('|') + ')($|/)');
-  var isModulePath = new RegExp(path.join(paths.modules.root, '(' + SERVER_BLACKLIST.join('|') + ')($|' + path.sep + ')'));
-  var isHimationCode = new RegExp(paths.src + '($|' + path.sep + ')');
-
+  var isExternalModule = new RegExp('^(' + SERVER_MODULE_BLACKLIST.join('|') + ')($|/)');
   var optimize = settings.assets.optimize;
 
   var config = create({
@@ -319,18 +314,7 @@ function server() {
     devtool: false,
     entry: entries,
     externals: function(context, request, callback) {
-      var isExternal, requested;
-
-      if (request[0] === '.') {
-        requested = path.normalize(path.join(context, request));
-        isExternal = !isHimationCode.test(requested) && isModulePath.test(requested);
-      } else if (isHimationCode.test(context)) {
-        isExternal = isModuleRequire.test(request);
-      } else {
-        isExternal = isModulePath.test(context);
-      }
-
-      return callback(null, isExternal);
+      return callback(null, isExternalModule.test(request));
     },
     module: {
       loaders: flatten([
