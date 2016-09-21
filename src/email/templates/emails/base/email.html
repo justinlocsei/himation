@@ -8,6 +8,14 @@
   <title>{{ __title }}</title>
   {{ __headStylesTag | safe }}
   <style type="text/css">{{ __inlineStyles }}</style>
+
+  <!--[if mso]>
+    <style type=”text/css”>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    </style>
+  <![endif]-->
 </head>
 
 <body>
