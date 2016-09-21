@@ -120,6 +120,7 @@ h6 a {
   color: $branding-secondary-color;
   display: inline-block;
   padding: $rhythm;
+  text-align: center;
   text-decoration: none;
 }
 
@@ -129,8 +130,15 @@ h6 a {
   text-align: right;
 }
 
+.cyb--email__unsubscribe__text {
+  color: $footer-text-color;
+  padding: 0 0.5em;
+  text-align: center;
+}
+
 .cyb--email__unsubscribe-link {
   color: $footer-text-color !important;
+  text-align: center;
 }
 
 //==============================================================================
@@ -144,6 +152,16 @@ h6 a {
   }
   .cyb--email__wrapper {
     padding: $rhythm * 0.5 !important;
+  }
+
+}
+
+@media screen and (max-width: 420px) {
+
+  .cyb--email__site,
+  .cyb--email__unsubscribe {
+    display: block !important;
+    text-align: center !important;
   }
 
 }
