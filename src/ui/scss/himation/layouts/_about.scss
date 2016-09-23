@@ -1,0 +1,91 @@
+@import "himation/mixins/forms";
+
+$_about--text-width: 42rem;
+
+.l--about {
+  padding: 3em 0;
+}
+
+.l--about__intro {
+  padding: 0 $himation--site-gutter;
+}
+
+.l--about__intro__title {
+  font-size: 2.25em;
+  font-weight: $himation--font-weight-semi-bold;
+  line-height: 1.25;
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+
+.l--about__intro__title-phrase {
+  display: block;
+}
+
+.l--about__intro__content {
+  display: flex;
+  margin: 0 auto;
+  max-width: $_about--text-width * 1.5;
+}
+
+.l--about__intro__text {
+  box-sizing: border-box;
+  flex: 1 1 60%;
+  font-size: 1.375em;
+  line-height: 1.5;
+  padding-right: 5%;
+}
+
+.l--about__intro__bethany {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex: 1 40%;
+}
+
+.l--about__story {
+  padding: 0 $himation--site-gutter;
+
+  h2 {
+    border: 1px solid #ccc;
+    border-left: 0;
+    border-right: 0;
+    font-size: 1.5em;
+    font-weight: $himation--font-weight-bold;
+    line-height: 1.25;
+    margin: 2.5rem 0;
+    padding: 1.5em $himation--site-gutter;
+    text-align: center;
+
+    &.for-climax {
+      font-size: 2.5em;
+    }
+  }
+
+  p {
+    font-size: 1.25em;
+    line-height: 1.375;
+    margin: 0 auto;
+    max-width: $_about--text-width;
+
+    & + p {
+      margin-top: 1em;
+    }
+  }
+
+}
+
+.l--about__cta {
+  margin-top: 3em;
+  text-align: center;
+}
+
+.l--about__cta-button {
+  @include himation--button;
+  display: inline-block;
+  font-size: 1.5em;
+  letter-spacing: 0.0125em;
+  padding: 1.5em 0.25em;
+  text-transform: uppercase;
+  width: $_about--text-width;
+}
