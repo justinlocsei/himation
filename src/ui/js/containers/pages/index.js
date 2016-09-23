@@ -6,10 +6,9 @@ import Pitch from 'himation/ui/components/pitch';
 import routes from 'himation/config/routes';
 import Survey from 'himation/ui/components/survey';
 import { guidToRoute } from 'himation/core/routing';
+import { SURVEY_ANCHOR } from 'himation/ui/constants';
 
 import 'himation/styles/survey';
-
-const SURVEY_ANCHOR = 'start-survey';
 
 const HomePage = React.createClass({
 
