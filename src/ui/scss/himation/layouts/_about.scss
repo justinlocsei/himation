@@ -1,6 +1,6 @@
 @import "himation/mixins/forms";
 
-$_about--text-width: 42rem;
+$_about--text-width: 46rem;
 
 .l--about {
   padding: 3em 0;
@@ -23,24 +23,28 @@ $_about--text-width: 42rem;
 }
 
 .l--about__intro__content {
+  align-items: center;
   display: flex;
   margin: 0 auto;
-  max-width: $_about--text-width * 1.5;
+  max-width: $_about--text-width;
+  padding-bottom: 2em;
 }
 
 .l--about__intro__text {
-  box-sizing: border-box;
-  flex: 1 1 60%;
-  font-size: 1.375em;
+  flex: 3;
+  font-size: 1.125em;
   line-height: 1.5;
   padding-right: 5%;
 }
 
 .l--about__intro__bethany {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  flex: 1 40%;
+  flex: 1.5;
+}
+
+.l--about__intro__bethany-photo {
+  display: block;
+  height: auto;
+  max-width: 100%;
 }
 
 .l--about__story {

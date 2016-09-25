@@ -1,14 +1,23 @@
 import React from 'react';
 
-import bethany from 'himation/images/about/bethany.jpg';
+import routes from 'himation/config/routes';
+import { guidToRoute } from 'himation/core/routing';
+import { imageSizesToDimensions, imageSizesToSrcset } from 'himation/core/images';
+import { SURVEY_ANCHOR } from 'himation/ui/constants';
+
+const IMAGES = ['1x', '2x'].map(function(size) {
+  const image = require(`himation/images/about/bethany-${size}.jpg`);
+  return {
+    height: image.height,
+    path: image.src,
+    size: size,
+    width: image.width
+  };
+});
 
 const About = React.createClass({
 
   render: function() {
-    const bethanyStyles = {
-      backgroundImage: `url(${bethany.src})`
-    };
-
     return (
       <div className="l--about">
 
@@ -24,7 +33,9 @@ const About = React.createClass({
               I’ve never been interested in fashion. I know, what’s wrong with me, right? Don’t all women love to shop? Well, I don’t. In college, I liked theories, ideas, politics — even math problems were more interesting to me. And it was okay. Everyone else around me was wearing jeans and T-shirts, and so was I. When I graduated, I thought I would be awesome in the real world. I had all these big ideas, I could solve problems, and I was a hard worker. What wasn’t to love? But the real world didn’t have tests I could take to prove my brilliance. The real world operated as much on the impression I left as on whether or not I did a good job.
             </p>
 
-            <div className="l--about__intro__bethany" style={bethanyStyles} />
+            <div className="l--about__intro__bethany">
+              <img className="l--about__intro__bethany-photo" src={IMAGES[0].path} srcSet={imageSizesToSrcset(IMAGES)} alt="Bethany" {...imageSizesToDimensions(IMAGES, 450)} />
+            </div>
           </div>
 
         </div>
@@ -63,7 +74,7 @@ const About = React.createClass({
         </div>
 
         <p className="l--about__cta">
-          <button className="l--about__cta-button">Get Started Now</button>
+          <a className="l--about__cta-button" href={`${guidToRoute(routes, 'himation.index').path}#${SURVEY_ANCHOR}`}>Get Started Now</a>
         </p>
 
       </div>
