@@ -1,4 +1,6 @@
 @import "himation/mixins/forms";
+@import "himation/mixins/layout";
+@import "himation/mixins/responsive";
 
 $_about--text-width: 46rem;
 
@@ -30,15 +32,17 @@ $_about--text-width: 46rem;
   padding-bottom: 2em;
 }
 
+.l--about__intro__bethany {
+  flex: 1.5;
+  order: 2;
+}
+
 .l--about__intro__text {
   flex: 3;
   font-size: 1.125em;
   line-height: 1.5;
+  order: 1;
   padding-right: 5%;
-}
-
-.l--about__intro__bethany {
-  flex: 1.5;
 }
 
 .l--about__intro__bethany-photo {
@@ -80,8 +84,8 @@ $_about--text-width: 46rem;
 }
 
 .l--about__cta {
-  margin-top: 3em;
-  text-align: center;
+  margin: 3em auto 0;
+  width: $_about--text-width;
 }
 
 .l--about__cta-button {
@@ -90,6 +94,109 @@ $_about--text-width: 46rem;
   font-size: 1.5em;
   letter-spacing: 0.0125em;
   padding: 1.5em 0.25em;
+  text-align: center;
   text-transform: uppercase;
-  width: $_about--text-width;
+  width: 100%;
+}
+
+@include himation--breakpoint-tablet {
+
+  .l--about__intro__title {
+    font-size: 1.75em;
+    text-align: left;
+  }
+  .l--about__intro__title-phrase {
+    & + & {
+      margin-top: 0.25em;
+    }
+  }
+
+  .l--about__intro__content {
+    @include himation--clearfix;
+    display: block;
+    padding-bottom: 0;
+  }
+  .l--about__intro__bethany {
+    box-sizing: border-box;
+    float: right;
+    padding: 1em 0 1em 5%;
+    width: 45%;
+  }
+  .l--about__intro__text {
+    padding-right: 0;
+  }
+
+  .l--about__story {
+
+    h2 {
+      font-size: 1.125em;
+      margin-left: -100%;
+      margin-right: -100%;
+      padding: 1em 100%;
+      text-align: left;
+
+      &.for-climax {
+        font-size: 1.5em;
+      }
+    }
+
+    p {
+      font-size: 1.125em;
+      line-height: 1.5;
+    }
+
+  }
+
+  .l--about__cta {
+    box-sizing: border-box;
+    padding-left: $himation--site-gutter;
+    padding-right: $himation--site-gutter;
+    width: 100%;
+  }
+  .l--about__cta-button {
+    font-size: 1.25em;
+  }
+
+}
+
+@include himation--breakpoint-phone {
+
+  .l--about__intro__title {
+    font-size: 1.125em;
+    font-weight: $himation--font-weight-bold;
+    margin-bottom: 0;
+    text-align: center;
+  }
+  .l--about__intro__title-phrase {
+    display: inline;
+
+    & + & {
+      margin-left: 0.25em;
+      margin-top: 0;
+    }
+  }
+
+  .l--about__intro__bethany {
+    display: block;
+    float: none;
+    margin: 1.5em auto;
+    padding: 0;
+    width: 90%;
+  }
+  .l--about__intro__text {
+    font-size: 1em;
+  }
+
+  .l--about__story {
+
+    h2 {
+      text-align: center;
+    }
+
+    p {
+      font-size: 1em;
+    }
+
+  }
+
 }

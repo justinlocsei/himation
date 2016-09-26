@@ -29,13 +29,13 @@ const About = React.createClass({
           </h2>
 
           <div className="l--about__intro__content">
-            <p className="l--about__intro__text">
-              I’ve never been interested in fashion. I know, what’s wrong with me, right? Don’t all women love to shop? Well, I don’t. In college, I liked theories, ideas, politics — even math problems were more interesting to me. And it was okay. Everyone else around me was wearing jeans and T-shirts, and so was I. When I graduated, I thought I would be awesome in the real world. I had all these big ideas, I could solve problems, and I was a hard worker. What wasn’t to love? But the real world didn’t have tests I could take to prove my brilliance. The real world operated as much on the impression I left as on whether or not I did a good job.
-            </p>
-
             <div className="l--about__intro__bethany">
               <img className="l--about__intro__bethany-photo" src={IMAGES[0].path} srcSet={imageSizesToSrcset(IMAGES)} alt="Bethany" {...imageSizesToDimensions(IMAGES, 450)} />
             </div>
+
+            <p className="l--about__intro__text">
+              I’ve never been interested in fashion. I know, what’s wrong with me, right? Don’t all women love to shop? Well, I don’t. In college, I liked theories, ideas, politics — even math problems were more interesting to me. And it was okay. Everyone else around me was wearing jeans and T-shirts, and so was I. When I graduated, I thought I would be awesome in the real world. I had all these big ideas, I could solve problems, and I was a hard worker. What wasn’t to love? But the real world didn’t have tests I could take to prove my brilliance. The real world operated as much on the impression I left as on whether or not I did a good job.
+            </p>
           </div>
 
         </div>
