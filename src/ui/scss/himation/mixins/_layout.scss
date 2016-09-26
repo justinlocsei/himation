@@ -39,3 +39,12 @@
   position: absolute;
   width: 1px;
 }
+
+// Make the caller clears its floats
+@mixin himation--clearfix {
+  &::after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+}
