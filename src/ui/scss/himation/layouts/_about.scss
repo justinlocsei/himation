@@ -1,3 +1,4 @@
+@import "himation/mixins/capabilities";
 @import "himation/mixins/forms";
 @import "himation/mixins/layout";
 @import "himation/mixins/responsive";
@@ -197,6 +198,18 @@ $_about--text-width: 46rem;
       font-size: 1em;
     }
 
+  }
+
+}
+
+@mixin himation--flexbox-fallback {
+
+  .l--about__intro__content {
+    display: block;
+  }
+  .l--about__intro__bethany {
+    display: block;
+    margin: 0 auto 2em;
   }
 
 }
