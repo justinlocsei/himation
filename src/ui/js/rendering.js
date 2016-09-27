@@ -12,9 +12,12 @@ import appReducers from 'himation/ui/reducers';
 import facebookShareImage from 'himation/images/branding/facebook-share.jpg';
 import favicon from 'himation/images/branding/favicon.ico';
 import logo from 'himation/images/branding/logo.svg';
+import routes from 'himation/config/routes';
 import touchIcon from 'himation/images/branding/apple-touch-icon.png';
 import twitterLogo from 'himation/images/branding/twitter-logo.png';
 import { getSetting } from 'himation/ui/config';
+import { guidToRoute } from 'himation/core/routing';
+import { relativeToAbsolute } from 'himation/core/urls';
 
 import 'himation/styles/site';
 
@@ -94,6 +97,12 @@ export function prerenderPageComponent(res, Page, options = {}) {
   const page = React.createElement(Page);
   const connectedPage = bindComponentToStore(page, settings.state);
 
+  const urls = ['index'].reduce(function(previous, route) {
+    const path = guidToRoute(routes, `himation.${route}`).path;
+    previous[route] = relativeToAbsolute(path, getSetting('rootUrl'));
+    return previous;
+  }, {});
+
   res.render(settings.template, {
     ...settings.context,
     assets: res.locals.assets,
@@ -107,10 +116,10 @@ export function prerenderPageComponent(res, Page, options = {}) {
     logo: logo,
     modernizrUrl: modernizrUrl,
     reduxState: JSON.stringify(connectedPage.props.store.getState()),
-    rootUrl: getSetting('rootUrl'),
     stateVariableName: STATE_VARIABLE_NAME,
     twitterLogo: twitterLogo.src,
-    touchIcon: touchIcon.src
+    touchIcon: touchIcon.src,
+    urls: urls
   });
 }
 
