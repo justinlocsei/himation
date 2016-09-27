@@ -97,7 +97,7 @@ export function prerenderPageComponent(res, Page, options = {}) {
   const page = React.createElement(Page);
   const connectedPage = bindComponentToStore(page, settings.state);
 
-  const urls = ['index'].reduce(function(previous, route) {
+  const urls = ['index', 'about'].reduce(function(previous, route) {
     const path = guidToRoute(routes, `himation.${route}`).path;
     previous[route] = relativeToAbsolute(path, getSetting('rootUrl'));
     return previous;
