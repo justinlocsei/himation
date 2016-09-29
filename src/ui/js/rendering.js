@@ -29,6 +29,11 @@ if (__WEBPACK_DEF_HIMATION_DEBUG) {
 const APP_CONTAINER_ID = 'app-content';
 const STATE_VARIABLE_NAME = 'HIMATION_STATE';
 
+const SOCIAL_ICONS = ['facebook', 'linkedin', 'twitter'].reduce(function(icons, site) {
+  icons[site] = require(`himation/images/icons/social/${site}.svg`);
+  return icons;
+}, {});
+
 /**
  * Bind an instantiated React component to the Redux store
  *
@@ -116,6 +121,7 @@ export function prerenderPageComponent(res, Page, options = {}) {
     logo: logo,
     modernizrUrl: modernizrUrl,
     reduxState: JSON.stringify(connectedPage.props.store.getState()),
+    socialIcons: SOCIAL_ICONS,
     stateVariableName: STATE_VARIABLE_NAME,
     twitterLogo: twitterLogo.src,
     touchIcon: touchIcon.src,

@@ -73,26 +73,64 @@ $_site--slogan-font-size: 1.125em;
 
 .l--site__footer__links {
   display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.l--site__footer__copyright {
+  color: lighten($himation--text-color, 45%);
+  display: table-cell;
+  font-size: 0.85em;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.l--site__footer__social-links {
+  display: table-cell;
+  text-align: right;
+  vertical-align: middle;
 }
 
 .l--site__footer__link {
   display: inline-block;
+  font-size: 1.25em;
 
   & + & {
-    margin-left: 8%;
+    margin-left: 2em;
   }
 }
 
 .l--site__footer__link-name {
   color: inherit;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
 }
 
-.l--site__footer__copyright {
-  display: table-cell;
-  font-size: 0.9em;
-  opacity: 0.75;
-  text-align: right;
-  width: 14em;
+.l--site__footer__social-link {
+  display: inline-block;
+
+  & + & {
+    margin-left: 1.5em;
+  }
+}
+
+.l--site__footer__social-link__name {
+  display: block;
+  opacity: 0.95;
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
+}
+
+.l--site__footer__social-link__icon {
+  display: block;
+  height: auto;
+  width: 2em;
 }
 
 @include himation--breakpoint-tablet {
@@ -125,10 +163,22 @@ $_site--slogan-font-size: 1.125em;
   }
 
   .l--site__footer {
+    display: block;
     padding: $_site--footer-v-padding * 0.5 $himation--site-gutter;
   }
-  .l--site__footer__links {
-    margin-bottom: 1.5em;
+
+  .l--site__footer__links,
+  .l--site__footer__copyright,
+  .l--site__footer__social-links {
+    display: block;
+    text-align: center;
+  }
+  .l--site__footer__copyright {
+    border: 1px solid lighten($himation--text-color, 10%);
+    border-left: 0;
+    border-right: 0;
+    margin: 2.5em 0;
+    padding: 1.25em 0;
   }
 
 }
