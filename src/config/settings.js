@@ -17,7 +17,7 @@ var errors = require('himation/core/errors');
  */
 var serverSchema = Joi.object().keys({
   address: Joi.string().default('127.0.0.1'),
-  caCertificatePath: Joi.string(),
+  caCertificatePath: Joi.string().default(null),
   path: Joi.string().default('/'),
   port: Joi.number().default(80),
   protocol: Joi.string().default('http'),
