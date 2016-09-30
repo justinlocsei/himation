@@ -23841,11 +23841,69 @@
     },
     "sendgrid": {
       "dependencies": {
+        "async.ensureasync": {
+          "dependencies": {
+            "async.util.ensureasync": {
+              "dependencies": {
+                "async.util.restparam": {
+                  "version": "0.5.2"
+                },
+                "async.util.setimmediate": {
+                  "version": "0.5.2"
+                }
+              },
+              "version": "0.5.2"
+            }
+          },
+          "version": "0.5.2"
+        },
+        "async.queue": {
+          "dependencies": {
+            "async.util.queue": {
+              "dependencies": {
+                "async.util.arrayeach": {
+                  "version": "0.5.2"
+                },
+                "async.util.isarray": {
+                  "version": "0.5.2"
+                },
+                "async.util.map": {
+                  "version": "0.5.2"
+                },
+                "async.util.noop": {
+                  "version": "0.5.2"
+                },
+                "async.util.onlyonce": {
+                  "version": "0.5.2"
+                },
+                "async.util.setimmediate": {
+                  "version": "0.5.2"
+                }
+              },
+              "version": "0.5.2"
+            }
+          },
+          "version": "0.5.2"
+        },
+        "bottleneck": {
+          "version": "1.13.1"
+        },
+        "debug": {
+          "dependencies": {
+            "ms": {
+              "version": "0.7.1"
+            }
+          },
+          "version": "2.2.0"
+        },
+        "lodash.chunk": {
+          "version": "4.2.0"
+        },
         "sendgrid-rest": {
-          "version": "2.2.1"
+          "version": "2.2.2"
         }
       },
-      "version": "4.1.0"
+      "version": "4.4.0"
     },
     "style-loader": {
       "dependencies": {
