@@ -23,7 +23,12 @@ function refreshCache(done) {
 
   var gateway = settings.caching.gatewayUrl;
   var appUrl = settings.servers.app.publicUrl;
-  var caCertificate = fs.readFileSync(settings.servers.app.caCertificatePath);
+  var caCertificatePath = settings.servers.app.caCertificatePath;
+
+  var agentOptions = {};
+  if (caCertificatePath) {
+    agentOptions.ca = fs.readFileSync(caCertificatePath);
+  }
 
   var banRoutes = routes.filter(route => route.method === 'get');
   var primeRoutes = banRoutes.reduce(function(previous, route) {
@@ -49,9 +54,7 @@ function refreshCache(done) {
       return requestAsync({
         url: route.url,
         gzip: route.gzip,
-        agentOptions: {
-          ca: caCertificate
-        }
+        agentOptions: agentOptions
       });
     });
   }).catch(function(error) {
