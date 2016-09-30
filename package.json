@@ -36,7 +36,7 @@
     "body-parser": "^1.15.2",
     "clone": "^1.0.2",
     "cookie-parser": "^1.4.3",
-    "css-loader": "^0.24.0",
+    "css-loader": "^0.25.0",
     "cssnano": "^3.7.4",
     "eslint": "^3.4.0",
     "eslint-config-justinlocsei": "justinlocsei/eslint-config-justinlocsei#v1.6.0",
