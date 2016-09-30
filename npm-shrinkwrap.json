@@ -25483,10 +25483,10 @@
           "version": "0.5.1"
         },
         "moment": {
-          "version": "2.14.1"
+          "version": "2.15.1"
         }
       },
-      "version": "3.1.8"
+      "version": "3.3.0"
     },
     "yargs": {
       "dependencies": {
