@@ -2260,6 +2260,36 @@
         },
         "postcss": {
           "dependencies": {
+            "chalk": {
+              "dependencies": {
+                "ansi-styles": {
+                  "version": "2.2.1"
+                },
+                "escape-string-regexp": {
+                  "version": "1.0.5"
+                },
+                "has-ansi": {
+                  "dependencies": {
+                    "ansi-regex": {
+                      "version": "2.0.0"
+                    }
+                  },
+                  "version": "2.0.0"
+                },
+                "strip-ansi": {
+                  "dependencies": {
+                    "ansi-regex": {
+                      "version": "2.0.0"
+                    }
+                  },
+                  "version": "3.0.1"
+                },
+                "supports-color": {
+                  "version": "2.0.0"
+                }
+              },
+              "version": "1.1.3"
+            },
             "js-base64": {
               "version": "2.1.9"
             },
@@ -2275,7 +2305,7 @@
               "version": "3.1.2"
             }
           },
-          "version": "5.1.2"
+          "version": "5.2.4"
         },
         "postcss-calc": {
           "dependencies": {
@@ -2285,7 +2315,7 @@
             "reduce-css-calc": {
               "dependencies": {
                 "balanced-match": {
-                  "version": "0.1.0"
+                  "version": "0.4.2"
                 },
                 "math-expression-evaluator": {
                   "dependencies": {
@@ -2296,10 +2326,15 @@
                   "version": "1.2.14"
                 },
                 "reduce-function-call": {
+                  "dependencies": {
+                    "balanced-match": {
+                      "version": "0.1.0"
+                    }
+                  },
                   "version": "1.0.1"
                 }
               },
-              "version": "1.2.7"
+              "version": "1.3.0"
             }
           },
           "version": "5.3.1"
@@ -2311,7 +2346,7 @@
                 "color": {
                   "dependencies": {
                     "color-convert": {
-                      "version": "1.4.0"
+                      "version": "1.5.0"
                     },
                     "color-string": {
                       "dependencies": {
@@ -2331,10 +2366,10 @@
               "version": "1.1.2"
             }
           },
-          "version": "2.2.0"
+          "version": "2.2.1"
         },
         "postcss-convert-values": {
-          "version": "2.4.0"
+          "version": "2.4.1"
         },
         "postcss-discard-comments": {
           "version": "2.0.4"
@@ -2420,7 +2455,7 @@
                   "version": "1.0.1"
                 }
               },
-              "version": "2.2.0"
+              "version": "2.2.1"
             }
           },
           "version": "2.0.5"
@@ -2455,13 +2490,13 @@
                   "version": "1.1.2"
                 }
               },
-              "version": "1.6.0"
+              "version": "1.6.1"
             }
           },
           "version": "3.0.7"
         },
         "postcss-ordered-values": {
-          "version": "2.2.1"
+          "version": "2.2.2"
         },
         "postcss-reduce-idents": {
           "version": "2.3.0"
@@ -2536,7 +2571,7 @@
                       "version": "0.5.6"
                     }
                   },
-                  "version": "2.0.0"
+                  "version": "2.2.1"
                 },
                 "js-yaml": {
                   "dependencies": {
@@ -2546,7 +2581,7 @@
                           "version": "1.0.3"
                         }
                       },
-                      "version": "1.0.7"
+                      "version": "1.0.9"
                     },
                     "esprima": {
                       "version": "2.7.3"
@@ -2569,10 +2604,10 @@
                   "version": "0.9.9"
                 }
               },
-              "version": "0.6.6"
+              "version": "0.7.1"
             }
           },
-          "version": "2.1.4"
+          "version": "2.1.5"
         },
         "postcss-unique-selectors": {
           "dependencies": {
@@ -2597,7 +2632,7 @@
           "version": "2.1.1"
         }
       },
-      "version": "3.7.4"
+      "version": "3.7.5"
     },
     "eslint": {
       "dependencies": {
