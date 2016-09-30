@@ -22344,7 +22344,7 @@
     "redux": {
       "dependencies": {
         "lodash-es": {
-          "version": "4.14.1"
+          "version": "4.16.2"
         },
         "loose-envify": {
           "dependencies": {
@@ -22355,10 +22355,10 @@
           "version": "1.2.0"
         },
         "symbol-observable": {
-          "version": "0.2.4"
+          "version": "1.0.2"
         }
       },
-      "version": "3.5.2"
+      "version": "3.6.0"
     },
     "redux-form": {
       "dependencies": {
