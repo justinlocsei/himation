@@ -4071,6 +4071,36 @@
       "dependencies": {
         "postcss": {
           "dependencies": {
+            "chalk": {
+              "dependencies": {
+                "ansi-styles": {
+                  "version": "2.2.1"
+                },
+                "escape-string-regexp": {
+                  "version": "1.0.5"
+                },
+                "has-ansi": {
+                  "dependencies": {
+                    "ansi-regex": {
+                      "version": "2.0.0"
+                    }
+                  },
+                  "version": "2.0.0"
+                },
+                "strip-ansi": {
+                  "dependencies": {
+                    "ansi-regex": {
+                      "version": "2.0.0"
+                    }
+                  },
+                  "version": "3.0.1"
+                },
+                "supports-color": {
+                  "version": "2.0.0"
+                }
+              },
+              "version": "1.1.3"
+            },
             "js-base64": {
               "version": "2.1.9"
             },
@@ -4086,7 +4116,7 @@
               "version": "3.1.2"
             }
           },
-          "version": "5.1.2"
+          "version": "5.2.4"
         },
         "vinyl-sourcemaps-apply": {
           "dependencies": {
@@ -4097,7 +4127,7 @@
           "version": "0.2.1"
         }
       },
-      "version": "6.1.1"
+      "version": "6.2.0"
     },
     "gulp-stylelint": {
       "dependencies": {
