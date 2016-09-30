@@ -5487,7 +5487,7 @@
               "version": "0.4.4"
             }
           },
-          "version": "3.4.19"
+          "version": "3.4.20"
         },
         "commander": {
           "dependencies": {
@@ -5599,7 +5599,7 @@
           "version": "2.7.3"
         }
       },
-      "version": "3.0.2"
+      "version": "3.1.0"
     },
     "image-size-loader": {
       "dependencies": {
