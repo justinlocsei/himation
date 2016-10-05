@@ -221,7 +221,9 @@ function globalPlugins(label, optimize, compress) {
 
   if (compress) {
     plugins.push(new webpack.optimize.UglifyJsPlugin({
-      compressor: {warnings: false}
+      compressor: {warnings: false},
+      comments: false,
+      sourceMap: false
     }));
   }
 
@@ -287,6 +289,13 @@ function addModernizrBuild(config, compress) {
   });
 
   config.resolve.alias['modernizr-build$'] = path.join(paths.root, '.modernizrrc');
+
+  if (compress) {
+    config['uglify-loader'] = {
+      comments: false,
+      sourceMap: false
+    };
+  }
 
   return config;
 }
