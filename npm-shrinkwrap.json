@@ -432,17 +432,6 @@
     "babel-plugin-transform-runtime": {
       "version": "6.15.0"
     },
-    "babel-polyfill": {
-      "dependencies": {
-        "core-js": {
-          "version": "2.4.1"
-        },
-        "regenerator-runtime": {
-          "version": "0.9.5"
-        }
-      },
-      "version": "6.16.0"
-    },
     "babel-preset-es2015": {
       "dependencies": {
         "babel-plugin-check-es2015-constants": {
@@ -2083,6 +2072,9 @@
         }
       },
       "version": "1.4.3"
+    },
+    "core-js": {
+      "version": "2.4.1"
     },
     "css-loader": {
       "dependencies": {
