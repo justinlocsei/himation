@@ -68,6 +68,7 @@ function entryPointsToCommonsChunks(points, options) {
  *
  * @param {HimationRoute[]} routes All available routes
  * @param {object} [options] Options for generating the map of entries
+ * @param {string[]} options.dependencies Extra modules to add to each entry point
  * @param {string} options.directory The absolute path to the modules' root directory
  * @param {string[]} options.modules The hierarchy to use for each module
  * @param {string} options.root The name of the root route
@@ -75,6 +76,7 @@ function entryPointsToCommonsChunks(points, options) {
  */
 function routesToEntryPoints(routes, options) {
   var settings = extend({
+    dependencies: [],
     directory: null,
     modules: [],
     root: ''
@@ -105,7 +107,7 @@ function routesToEntryPoints(routes, options) {
     }
 
     if (fileExists) {
-      points[guid] = entryPoint;
+      points[guid] = settings.dependencies.concat([entryPoint]);
     }
 
     return points;
