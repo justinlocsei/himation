@@ -76,14 +76,20 @@ function useSourcemaps(loaders) {
 /**
  * Return an array of loaders for Sass files
  *
+ * @param {boolean} compress Whether to compress the files
  * @returns {object[]}
  * @private
  */
-function sassLoaders() {
+function sassLoaders(compress) {
+  var loaders = ['css?-minimize', 'postcss', 'sass'];
+  if (!compress) {
+    loaders = useSourcemaps(loaders);
+  }
+
   return [
     {
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('style', useSourcemaps(['css?-minimize', 'postcss', 'sass']))
+      loader: ExtractTextPlugin.extract('style', loaders)
     }
   ];
 }
@@ -248,6 +254,7 @@ function postCssPlugins(optimize) {
   if (optimize) {
     plugins.push(cssnano({
       autoprefixer: false,
+      discardComments: {removeAll: true},
       zindex: false
     }));
   }
@@ -329,7 +336,7 @@ function server() {
       loaders: flatten([
         imageLoaders(optimize),
         jsLoaders([paths.server.views, paths.ui.js], true, optimize),
-        sassLoaders()
+        sassLoaders(optimize)
       ])
     },
     output: {
@@ -366,13 +373,13 @@ function ui() {
 
   var config = create({
     context: paths.ui.js,
-    devtool: 'source-map',
+    devtool: optimizeAssets ? 'hidden-source-map' : 'source-map',
     entry: entries,
     module: {
       loaders: flatten([
         imageLoaders(optimizeAssets),
         jsLoaders([paths.src], false, false),
-        sassLoaders()
+        sassLoaders(optimizeAssets)
       ]),
       preLoaders: [
         {
