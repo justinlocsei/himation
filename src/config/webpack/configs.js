@@ -32,6 +32,12 @@ var SERVER_MODULE_BLACKLIST = [
   'himation/server'
 ];
 
+// Core.js polyfills to enable in the browser
+var POLYFILLS = [
+  'es5',
+  'fn/array/find'
+];
+
 /**
  * Create a webpack config by applying settings on top of a baseline
  *
@@ -362,7 +368,9 @@ function server() {
  */
 function ui() {
   var optimizeAssets = settings.assets.optimize;
+
   var entries = sources.routesToEntryPoints(routes, {
+    dependencies: POLYFILLS.map(name => 'core-js/' + name),
     directory: paths.ui.js,
     modules: ['pages'],
     root: 'himation'
