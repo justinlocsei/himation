@@ -4,6 +4,7 @@
     "ecmaVersion": 6
   },
   "rules": {
+    "quotes": [2, "single", {"avoidEscape": true}],
     "strict": [2, "global"]
   }
 }
