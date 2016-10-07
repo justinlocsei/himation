@@ -65,7 +65,7 @@ const FormalityPicker = React.createClass({
                   field={field}
                   id={id}
                   images={IMAGES[formality.slug]}
-                  name={formality.name}
+                  name={formality.name.title}
                   slug={formality.slug}
                 />
               </li>

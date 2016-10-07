@@ -33,7 +33,7 @@ const BodyShape = React.createClass({
         <input className="c--body-shape__input" id={inputID} type="radio" {...extractInputProps(field)} value={slug} checked={selected} />
 
         <label className="c--body-shape__example" htmlFor={inputID}>
-          <img className="c--body-shape__example__image" src={images[0].path} srcSet={imageSizesToSrcset(images)} alt={`${name} body shape`} {...imageSizesToDimensions(images, 120)} />
+          <img className="c--body-shape__example__image" src={images[0].path} srcSet={imageSizesToSrcset(images)} alt="" {...imageSizesToDimensions(images, 120)} />
           <span className="c--body-shape__example__caption">{name}</span>
         </label>
       </div>

@@ -26,7 +26,7 @@ const Style = React.createClass({
     return (
       <li className="c--style-picker__style">
         <input className="c--style-picker__style__input" id={inputID} type="checkbox" {...extractInputProps(field.isSelected)} checked={field.isSelected.value} disabled={disabled} />
-        <label className="c--style-picker__style__label" htmlFor={inputID}>{style.name}</label>
+        <label className="c--style-picker__style__label" htmlFor={inputID}>{style.name.title}</label>
         <input type="hidden" {...extractInputProps(field.slug)} />
       </li>
     );

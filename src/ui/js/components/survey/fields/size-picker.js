@@ -39,7 +39,7 @@ const SizePicker = React.createClass({
           {SIZE_GROUPS.map(function(group, index) {
             return (
               <fieldset className="c--size-picker__group" key={index}>
-                <legend className="c--size-picker__group__name">{group.name}</legend>
+                <legend className="c--size-picker__group__name">{group.name.title}</legend>
                 <ul className="c--size-picker__group__sizes">
                   {group.sizes.reduce(function(sizes, size, sizeIndex) {
                     const field = fields.find(f => f.slug.value === size.slug);

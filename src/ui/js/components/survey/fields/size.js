@@ -30,7 +30,7 @@ const Size = React.createClass({
       <li className="c--size-picker__size">
         <input className="c--size-picker__size__input" id={inputID} type="checkbox" {...extractInputProps(field.isSelected)} checked={field.isSelected.value} />
         <label className="c--size-picker__size__label" htmlFor={inputID}>
-          <span className="c--size-picker__size__name">{size.name}</span>
+          <span className="c--size-picker__size__name">{size.name.title}</span>
           <span className="c--size-picker__size__range">{range}</span>
         </label>
         <input type="hidden" {...extractInputProps(field.slug)} />

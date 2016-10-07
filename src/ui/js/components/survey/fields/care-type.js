@@ -22,7 +22,7 @@ const CareType = React.createClass({
     return (
       <li className="c--care-type-picker__type">
         <input className="c--care-type-picker__type__input" id={inputID} type="checkbox" {...extractInputProps(field.isSelected)} checked={field.isSelected.value} />
-        <label className="c--care-type-picker__type__label" htmlFor={inputID}>Avoid {careType.name.toLowerCase()}</label>
+        <label className="c--care-type-picker__type__label" htmlFor={inputID}>Avoid {careType.name.lower}</label>
         <input type="hidden" {...extractInputProps(field.slug)} />
       </li>
     );

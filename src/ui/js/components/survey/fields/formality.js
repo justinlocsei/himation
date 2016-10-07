@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import { anyPropsChanged } from 'himation/core/extensions/react';
+import { capitalize } from 'himation/core/language';
 import { extractInputProps } from 'himation/core/extensions/redux-form';
 import { FREQUENCIES } from 'himation/core/data/survey';
 import { imageSizesToDimensions, imageSizesToSrcset } from 'himation/core/images';
@@ -33,7 +34,7 @@ const Formality = React.createClass({
       return (
         <li className="c--formality__frequency" key={index}>
           <input className="c--formality__frequency__input" id={inputID} type="radio" {...extractInputProps(field.frequency)} value={frequency.slug} checked={field.frequency.value === frequency.slug} />
-          <label className="c--formality__frequency__label" htmlFor={inputID}>{frequency.name}</label>
+          <label className="c--formality__frequency__label" htmlFor={inputID}>{capitalize(frequency.name.lower)}</label>
         </li>
       );
     });
@@ -42,7 +43,7 @@ const Formality = React.createClass({
       <div className="c--formality">
         <div className="c--formality__details">
           <div className="c--formality__media">
-            <img className="c--formality__media__image" src={images[0].path} srcSet={imageSizesToSrcset(images)} alt={name} {...imageSizesToDimensions(images, 120)} />
+            <img className="c--formality__media__image" src={images[0].path} srcSet={imageSizesToSrcset(images)} alt="" {...imageSizesToDimensions(images, 120)} />
           </div>
 
           <fieldset className="c--formality__text">
