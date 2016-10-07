@@ -48,7 +48,6 @@ var serverSchema = Joi.object().keys({
  * @property {string} errors.sentryDsn The Sentry DSN to use
  * @property {string} errors.sentryDsnPublic The public Sentry DSN to use
  * @property {boolean} errors.track Whether or not to track errors
- * @property {string} facebookAppId The Facebook app ID to use
  * @property {string} googleAnalyticsId The Google Analytics ID to use
  * @property {string} redisUrl The connection URL for Redis
  * @property {string} sendgridApiKey The SendGrid API key to use
@@ -85,7 +84,6 @@ var schema = Joi.object().keys({
     sentryDsnPublic: Joi.string(),
     track: Joi.boolean().default(false)
   }).default(),
-  facebookAppId: Joi.string().default(null),
   googleAnalyticsId: Joi.string(),
   redisUrl: Joi.string(),
   sendgridApiKey: Joi.string(),
