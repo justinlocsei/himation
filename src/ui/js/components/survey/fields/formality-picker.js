@@ -19,6 +19,15 @@ const IMAGES = FORMALITIES.reduce(function(previous, formality) {
   return previous;
 }, {});
 
+const OUTFITS = {
+  'business-casual': 'slacks and a button-down shirt',
+  'casual': 'jeans and a T-shirt',
+  'dressy-business-casual': 'dress pants, a button-down shirt, and a tie',
+  'dressy-casual': 'dressy jeans and a sweater',
+  'executive': 'a suit and tie',
+  'executive-casual': 'a suit without a tie'
+};
+
 const FormalityPicker = React.createClass({
 
   propTypes: {
@@ -62,6 +71,7 @@ const FormalityPicker = React.createClass({
             return (
               <li className={classes.join(' ')} key={index}>
                 <Formality
+                  description={OUTFITS[formality.slug]}
                   field={field}
                   id={id}
                   images={IMAGES[formality.slug]}

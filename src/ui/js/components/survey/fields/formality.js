@@ -9,6 +9,7 @@ import { imageSizesToDimensions, imageSizesToSrcset } from 'himation/core/images
 const Formality = React.createClass({
 
   propTypes: {
+    description: PropTypes.string.isRequired,
     field: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     images: PropTypes.arrayOf(PropTypes.shape({
@@ -26,7 +27,7 @@ const Formality = React.createClass({
   },
 
   render: function() {
-    const { field, id, images, name, slug } = this.props;
+    const { description, field, id, images, name, slug } = this.props;
 
     const frequencyTags = FREQUENCIES.map(function(frequency, index) {
       const inputID = `${id}-${slug}-${frequency.slug}`;
@@ -43,7 +44,7 @@ const Formality = React.createClass({
       <div className="c--formality">
         <div className="c--formality__details">
           <div className="c--formality__media">
-            <img className="c--formality__media__image" src={images[0].path} srcSet={imageSizesToSrcset(images)} alt="" {...imageSizesToDimensions(images, 120)} />
+            <img className="c--formality__media__image" src={images[0].path} srcSet={imageSizesToSrcset(images)} alt={`A man wearing ${description}`} {...imageSizesToDimensions(images, 120)} />
           </div>
 
           <fieldset className="c--formality__text">
