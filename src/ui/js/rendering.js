@@ -1,3 +1,4 @@
+import fastdom from 'fastdom';
 import modernizrUrl from 'modernizr-build';
 import Raven from 'raven-js';
 import React from 'react';
@@ -152,5 +153,9 @@ export function renderPageComponent(Page) {
 
   const connectedPage = bindComponentToStore.apply(bindComponentToStore, storeArgs);
 
-  reactRender(connectedPage, document.getElementById(APP_CONTAINER_ID));
+  reactRender(connectedPage, document.getElementById(APP_CONTAINER_ID), function() {
+    fastdom.mutate(function() {
+      document.documentElement.classList.add('is-ready');
+    });
+  });
 }
