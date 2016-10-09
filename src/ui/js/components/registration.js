@@ -55,7 +55,7 @@ let Registration = React.createClass({
 
     return (
       <div className={classes.join(' ')}>
-        <h3 className="c--registration__title">Sign up for email reminders to keep your basics covered</h3>
+        <h3 className="c--registration__title">Bored by just looking at black clothes?</h3>
 
         <div className="c--registration__content">
           <form className="c--registration__form" method={SUBMIT_ROUTE.method} action={SUBMIT_ROUTE.path} onSubmit={form.handleSubmit}>
@@ -72,15 +72,10 @@ let Registration = React.createClass({
           </form>
 
           <p className="c--registration__pitch">
-            <span className="c--registration__pitch-text for-long">
-              We'll send you occasional updates about newly added items,
-              seasonally featured basics, and major sales. You'll receive about
-              one email per month, and you can unsubscribe at any time.
-            </span>
-            <span className="c--registration__pitch-text for-short">
-              We'll send you about one update per month, and you can unsubscribe
-              at any time.
-            </span>
+            Yeah, we know it’s boring, but having all your basics covered makes
+            the difference between a closet that works and a closet that
+            doesn’t. Sign up for our email list, and we'll tell you about major
+            sales and remind you to keep your basics covered.
           </p>
         </div>
       </div>

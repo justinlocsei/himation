@@ -34,17 +34,6 @@ $_registration--gutter: 2em;
   padding: 1em 0 1em $_registration--gutter;
 }
 
-.c--registration__pitch-text {
-
-  &.for-long {
-
-  }
-
-  &.for-short {
-    display: none;
-  }
-}
-
 .c--registration__form {
   align-items: stretch;
   display: flex;
@@ -218,11 +207,6 @@ $_registration--gutter: 2em;
 
   .c--registration__title {
     font-size: 1.125em;
-  }
-
-  .c--registration__pitch-text {
-    &.for-short { display: inline; }
-    &.for-long { display: none; }
   }
 
   .c--registration__pitch {
