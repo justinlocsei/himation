@@ -47,7 +47,7 @@ const About = React.createClass({
             I wore a jean skirt to a very professional, suit-type environment without blinking an eye.  I kid you not.  Because, you know, it was a skirt, and therefore dressy. To be fair, it was one of the few dressy items I had in my closet, so I guess it was better than showing up in jean shorts — but not much better!
           </p>
           <p>
-            Some of my mistakes were less obvious. For example, I tried to buy a blazer. One article told me it was hopeless. For my shape, everything would look terrible. The best I could do was wear a cardigan and cross the professional-looking finish line by the skin of my teeth.  So I did.  For years I sat through meetings wearing a cardigan while everyone else in the room had on a blazer.  I definitely didn’t feel like I was awesome.
+            I wasn't completely clueless, though.  I did try to buy a blazer. One article told me it was hopeless. For my shape, everything would look terrible. The best I could do was wear a cardigan and cross the professional-looking finish line by the skin of my teeth.  So I did.  For years I sat through meetings wearing a cardigan while everyone else in the room had on a blazer.  I definitely didn’t feel like I was awesome.
           </p>
 
           <h2>I started caring about fashion and was appalled by trying to make sense of it all</h2>
@@ -55,7 +55,7 @@ const About = React.createClass({
             A decade after I entered the professional world, I decided enough was enough. I needed to make myself care about clothes whether I liked it or not. So I started asking around for advice, and the answers I got were completely useless. Some people told me I needed some nice jeans and fitted T-shirts and I’d be fine. Others told me I needed to buy full-blown matchy-matchy suits. In my workplace, neither of those extremes was right.
           </p>
           <p>
-            I tried turning to the internet, where experts wrote articles to help people like me dress themselves. But the experts were full of it. One expert would explain the “Do’s and Don’ts of Dressing for Your Shape,” and then tack on a slideshow of examples that contradicted the advice they’d just written! Or, they’d offer no examples and send me off to find that perfect dress for my shape. You know, the wrap dress with ruffles on the side and an asymmetrical hem in a dark color on top and a light color on the bottom. Good luck trying to find that.
+            I turned to the internet, where experts wrote articles to help people like me dress themselves. But the experts were full of it. One expert explained the “Do’s and Don’ts of Dressing for Your Shape,” and then tacked on a slideshow of examples that contradicted the advice they’d just written! Another offered no examples and sent me off to find that perfect dress for my shape. You know, the wrap dress with ruffles on the side and an asymmetrical hem in a dark color on top and a light color on the bottom. Good luck trying to find that.
           </p>
 
           <h2>I got so frustrated, I made my own algorithm</h2>
@@ -65,10 +65,8 @@ const About = React.createClass({
           <p>
             To me, it sounded sloppy. I wanted to shake them and scream, “You know those are two different variables, right? They shouldn’t be lumped together!” I was so fed up with the nonsense advice I was getting, I set out on a mission to make all of this make more sense. I picked apart what variables mattered the most when dressing for work. I defined what clothes a woman needs just to get off the ground. I researched what mattered for different body types. This website is the result of that effort. It takes all those crazy, contradictory variables into account, and gives you a short list of options to pick from.
           </p>
-
-          <h2 className="for-climax">I hope it helps you too</h2>
           <p>
-            I use this site to shop for my own work clothes. And now, I finally have a blazer. And it looks good on me. I hope it helps you too, so you can be brilliant, hard-working AND leave a good impression without devoting your life to shopping for work clothes.
+            I use this site to shop for my own work clothes.  I hope it helps you too.
           </p>
 
         </div>
