@@ -23571,7 +23571,7 @@
           "version": "0.5.2"
         },
         "bottleneck": {
-          "version": "1.13.1"
+          "version": "1.14.0"
         },
         "debug": {
           "dependencies": {
@@ -23585,10 +23585,10 @@
           "version": "4.2.0"
         },
         "sendgrid-rest": {
-          "version": "2.2.2"
+          "version": "2.3.0"
         }
       },
-      "version": "4.4.0"
+      "version": "4.5.0"
     },
     "style-loader": {
       "dependencies": {
