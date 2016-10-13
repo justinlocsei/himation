@@ -35,7 +35,8 @@ var SERVER_MODULE_BLACKLIST = [
 // Core.js polyfills to enable in the browser
 var POLYFILLS = [
   'es5',
-  'fn/array/find'
+  'fn/array/find',
+  'fn/promise'
 ];
 
 /**
