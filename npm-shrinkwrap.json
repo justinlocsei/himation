@@ -22991,7 +22991,7 @@
           "version": "5.2.4"
         }
       },
-      "version": "0.3.0"
+      "version": "0.3.1"
     },
     "raven": {
       "dependencies": {
