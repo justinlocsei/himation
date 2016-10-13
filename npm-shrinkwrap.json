@@ -5444,7 +5444,7 @@
           "version": "1.0.0"
         },
         "hpkp": {
-          "version": "1.1.0"
+          "version": "1.2.0"
         },
         "hsts": {
           "dependencies": {
@@ -5472,7 +5472,7 @@
           "version": "1.0.0"
         }
       },
-      "version": "2.2.0"
+      "version": "2.3.0"
     },
     "hot-shots": {
       "version": "4.3.0"
