@@ -29,7 +29,7 @@ module.exports = function renderResponse(req, res) {
 
       res.cookie(settings.cookies.registered, '1', {
         httpOnly: true,
-        maxAge: 90000,
+        maxAge: 60 * 60 * 24 * 365,
         secure: true
       });
 
