@@ -12,7 +12,7 @@ var Welcome = emails.defineEmail({
   },
 
   getSubject: function() {
-    return 'You\'re In!';
+    return 'You’re In!';
   }
 });
 
