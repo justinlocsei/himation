@@ -23874,7 +23874,7 @@
       "version": "0.5.7"
     },
     "validator": {
-      "version": "6.0.0"
+      "version": "6.2.0"
     },
     "webpack": {
       "dependencies": {
