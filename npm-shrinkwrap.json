@@ -22891,15 +22891,15 @@
           "version": "0.5.2"
         },
         "bottleneck": {
-          "version": "1.14.0"
+          "version": "1.15.0"
         },
         "debug": {
           "dependencies": {
             "ms": {
-              "version": "0.7.1"
+              "version": "0.7.2"
             }
           },
-          "version": "2.2.0"
+          "version": "2.6.0"
         },
         "lodash.chunk": {
           "version": "4.2.0"
@@ -22908,7 +22908,7 @@
           "version": "2.3.0"
         }
       },
-      "version": "4.5.0"
+      "version": "4.7.1"
     },
     "style-loader": {
       "dependencies": {
