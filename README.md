@@ -71,32 +71,23 @@ Once you have created this file, set its absolute path as the value of the
 
 ## Development
 
-Himation is controlled via Gulp tasks exposed as NPM scripts.  In order to work
-on Himation, you must first generate asset manifests for a build by running the
-following command:
-
-```sh
+```bash
+# Create required files
 $ npm run bootstrap
-```
 
-Once a build has been performed, you can start a development server by running:
-
-```sh
+# Run a development server
 $ npm run develop
-```
 
-To upgrade a dependency, run the following:
-
-```sh
+# Upgrade a dependency
 $ npm upgrade <package> --save && ./scripts/package
 ```
 
-## Deployment
-
-To run the application server in a production environment, run the following
-commands to build the assets and run the server:
+## Production Use
 
 ```sh
+# Compile assets
 $ npm run build
+
+# Run a server
 $ npm run serve
 ```
