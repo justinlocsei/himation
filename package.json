@@ -62,7 +62,7 @@
     "json-loader": "^0.5.4",
     "json-stable-stringify": "^1.0.1",
     "juice": "^3.0.0",
-    "linklocal": "^2.5.2",
+    "linklocal": "^2.7.0",
     "lodash": "^4.17.4",
     "modernizr": "^3.3.1",
     "morgan": "^1.6.1",
