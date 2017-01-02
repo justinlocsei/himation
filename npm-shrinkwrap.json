@@ -21287,7 +21287,7 @@
           "version": "3.0.0"
         }
       },
-      "version": "0.12.3"
+      "version": "1.1.1"
     },
     "raven-js": {
       "dependencies": {
