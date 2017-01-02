@@ -23150,35 +23150,7 @@
           "version": "0.6.0"
         },
         "aws4": {
-          "version": "1.4.1"
-        },
-        "bl": {
-          "dependencies": {
-            "readable-stream": {
-              "dependencies": {
-                "core-util-is": {
-                  "version": "1.0.2"
-                },
-                "inherits": {
-                  "version": "2.0.3"
-                },
-                "isarray": {
-                  "version": "1.0.0"
-                },
-                "process-nextick-args": {
-                  "version": "1.0.7"
-                },
-                "string_decoder": {
-                  "version": "0.10.31"
-                },
-                "util-deprecate": {
-                  "version": "1.0.2"
-                }
-              },
-              "version": "2.0.6"
-            }
-          },
-          "version": "1.1.2"
+          "version": "1.5.0"
         },
         "caseless": {
           "version": "0.11.0"
@@ -23200,7 +23172,7 @@
               "version": "0.4.0"
             }
           },
-          "version": "2.0.0"
+          "version": "2.1.2"
         },
         "har-validator": {
           "dependencies": {
@@ -23256,13 +23228,13 @@
                   "version": "1.2.0"
                 },
                 "jsonpointer": {
-                  "version": "2.0.0"
+                  "version": "4.0.1"
                 },
                 "xtend": {
                   "version": "4.0.1"
                 }
               },
-              "version": "2.14.0"
+              "version": "2.15.0"
             },
             "pinkie-promise": {
               "dependencies": {
@@ -23323,7 +23295,7 @@
                   "version": "1.0.0"
                 },
                 "dashdash": {
-                  "version": "1.14.0"
+                  "version": "1.14.1"
                 },
                 "ecc-jsbn": {
                   "version": "0.1.1"
@@ -23338,7 +23310,7 @@
                   "version": "0.1.0"
                 },
                 "tweetnacl": {
-                  "version": "0.14.3"
+                  "version": "0.14.5"
                 }
               },
               "version": "1.10.1"
@@ -23358,28 +23330,36 @@
         "mime-types": {
           "dependencies": {
             "mime-db": {
-              "version": "1.24.0"
+              "version": "1.25.0"
             }
           },
-          "version": "2.1.12"
+          "version": "2.1.13"
         },
         "oauth-sign": {
           "version": "0.8.2"
         },
         "qs": {
-          "version": "6.2.1"
+          "version": "6.3.0"
         },
         "stringstream": {
           "version": "0.0.5"
         },
         "tough-cookie": {
-          "version": "2.3.1"
+          "dependencies": {
+            "punycode": {
+              "version": "1.4.1"
+            }
+          },
+          "version": "2.3.2"
         },
         "tunnel-agent": {
           "version": "0.4.3"
+        },
+        "uuid": {
+          "version": "3.0.1"
         }
       },
-      "version": "2.75.0"
+      "version": "2.79.0"
     },
     "resolve-url-loader": {
       "dependencies": {
