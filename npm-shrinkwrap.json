@@ -19733,14 +19733,11 @@
         "items": {
           "version": "2.1.1"
         },
-        "moment": {
-          "version": "2.15.1"
-        },
         "topo": {
           "version": "2.0.2"
         }
       },
-      "version": "9.1.1"
+      "version": "10.1.0"
     },
     "json-loader": {
       "version": "0.5.4"

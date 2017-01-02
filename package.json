@@ -58,7 +58,7 @@
     "html-minifier": "^3.2.3",
     "image-size-loader": "^0.7.0",
     "image-webpack-loader": "^3.1.0",
-    "joi": "^9.0.0",
+    "joi": "^10.1.0",
     "json-loader": "^0.5.4",
     "json-stable-stringify": "^1.0.1",
     "juice": "^3.0.0",
