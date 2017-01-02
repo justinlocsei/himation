@@ -61,7 +61,7 @@
     "joi": "^10.1.0",
     "json-loader": "^0.5.4",
     "json-stable-stringify": "^1.0.1",
-    "juice": "^3.0.0",
+    "juice": "^4.0.2",
     "linklocal": "^2.7.0",
     "lodash": "^4.17.4",
     "modernizr": "^3.3.1",
