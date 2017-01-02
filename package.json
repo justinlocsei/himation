@@ -66,7 +66,7 @@
     "lodash": "^4.17.4",
     "modernizr": "^3.3.1",
     "morgan": "^1.6.1",
-    "node-sass": "^3.4.2",
+    "node-sass": "^4.1.1",
     "node-uuid": "^1.4.7",
     "nunjucks": "^2.2.0",
     "object-assign": "^4.1.0",
