@@ -71,7 +71,7 @@
     "nunjucks": "^2.2.0",
     "object-assign": "^4.1.0",
     "postcss-loader": "^0.13.0",
-    "postcss-scss": "^0.3.0",
+    "postcss-scss": "^0.4.0",
     "raven": "^0.12.3",
     "raven-js": "^3.9.1",
     "raw-loader": "^0.5.1",
