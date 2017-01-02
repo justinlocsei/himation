@@ -85,6 +85,12 @@ Once a build has been performed, you can start a development server by running:
 $ npm run develop
 ```
 
+To upgrade a dependency, run the following:
+
+```sh
+$ npm upgrade <package> --save && ./scripts/package
+```
+
 ## Deployment
 
 To run the application server in a production environment, run the following
