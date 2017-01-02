@@ -83,7 +83,7 @@
     "redux-form": "^5.3.3",
     "redux-thunk": "^2.1.0",
     "request": "^2.79.0",
-    "resolve-url-loader": "^1.6.0",
+    "resolve-url-loader": "^1.6.1",
     "rimraf": "^2.4.4",
     "sass-loader": "^4.1.1",
     "sendgrid": "^4.7.1",
