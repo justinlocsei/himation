@@ -157,6 +157,9 @@ function imageLoaders(optimize) {
   if (optimize) {
     var rasterCompression = {
       interlaced: false,
+      mozjpeg: {
+        quality: 65
+      },
       optimizationLevel: 4,
       pngquant: {
         quality: '65-90',
