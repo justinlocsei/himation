@@ -1,6 +1,7 @@
 import fastdom from 'fastdom';
 import React, { PropTypes } from 'react';
 
+import { addClass } from 'himation/core/dom';
 import { addResizeHandler, removeResizeHandler } from 'himation/ui/events';
 
 const Garment = React.createClass({
@@ -121,7 +122,7 @@ const Garment = React.createClass({
 
       if (imageHeight >= previewHeight) {
         fastdom.mutate(() => {
-          this._dom.preview.classList.add('is-cropped');
+          addClass('is-cropped', this._dom.preview);
         });
       }
     });

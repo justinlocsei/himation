@@ -16,6 +16,7 @@ import logo from 'himation/images/branding/logo.svg';
 import routes from 'himation/config/routes';
 import touchIcon from 'himation/images/branding/apple-touch-icon.png';
 import twitterLogo from 'himation/images/branding/twitter-logo.png';
+import { addClass } from 'himation/core/dom';
 import { getSetting } from 'himation/ui/config';
 import { guidToRoute } from 'himation/core/routing';
 import { relativeToAbsolute } from 'himation/core/urls';
@@ -155,7 +156,7 @@ export function renderPageComponent(Page) {
 
   reactRender(connectedPage, document.getElementById(APP_CONTAINER_ID), function() {
     fastdom.mutate(function() {
-      document.documentElement.classList.add('is-ready');
+      addClass('is-ready', document.documentElement);
     });
   });
 }
