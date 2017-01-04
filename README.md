@@ -78,6 +78,12 @@ $ npm run bootstrap
 # Run a development server
 $ npm run develop
 
+# Lint JavaScript and SCSS
+$ npm run lint
+
+# Run a server to preview emails
+$ npm run preview-emails
+
 # Upgrade a dependency
 $ npm upgrade <package> --save && ./scripts/freeze-deps
 ```
@@ -90,4 +96,7 @@ $ npm run build
 
 # Run a server
 $ npm run serve
+
+# Refresh the external gateway cache (i.e., Varnish)
+$ npm run refresh-cache
 ```
