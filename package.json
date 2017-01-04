@@ -13,8 +13,7 @@
     "postinstall": "linklocal link",
     "preview-emails": "gulp preview-emails",
     "refresh-cache": "gulp refresh-cache",
-    "serve": "gulp serve",
-    "test": "gulp test; exit 0"
+    "serve": "gulp serve"
   },
   "dependencies": {
     "animejs": "^1.1.3",
