@@ -79,7 +79,7 @@ $ npm run bootstrap
 $ npm run develop
 
 # Upgrade a dependency
-$ npm upgrade <package> --save && ./scripts/package
+$ npm upgrade <package> --save && ./scripts/freeze-deps
 ```
 
 ## Production Use
