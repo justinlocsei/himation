@@ -3,7 +3,7 @@ import React from 'react';
 import routes from 'himation/config/routes';
 import { guidToRoute } from 'himation/core/routing';
 import { imageSizesToDimensions, imageSizesToSrcset } from 'himation/core/images';
-import { SURVEY_ANCHOR } from 'himation/ui/constants';
+import { SURVEY_ANCHOR } from 'himation/core/constants';
 
 const IMAGES = ['1x', '2x'].map(function(size) {
   const image = require(`himation/images/about/bethany-${size}.jpg`);
