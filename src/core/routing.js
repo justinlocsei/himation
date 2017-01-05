@@ -27,6 +27,7 @@ var INDEX_ROUTE = 'index';
  *
  * @typedef {object} HimationRoute
  * @property {HimationRouteGUID} guid The route's GUID
+ * @property {boolean} isAnchor Whether the route is for an anchor on a page
  * @property {string} method The HTTP method to use for accessing the URL
  * @property {string} path The full path to the route
  */
@@ -65,6 +66,7 @@ function defineRoutes(definitions) {
       var guid = namespacesToGuid(levels);
       var data = {
         guid: guid,
+        isAnchor: route.path.indexOf('#') === 0,
         method: (route.method || DEFAULT_METHOD).toLowerCase(),
         path: resolveRouteDefinitionPath(definitions, guid)
       };

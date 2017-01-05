@@ -47,11 +47,15 @@ function create(build, routes) {
 
   global.window = global.window || {};
 
-  routes.forEach(function(route) {
+  var serverRoutes = routes.filter(function(route) {
+    return !route.isAnchor;
+  });
+
+  serverRoutes.forEach(function(route) {
     loadRouteHandler(build, route);
   });
 
-  routes.forEach(function(route) {
+  serverRoutes.forEach(function(route) {
     router[route.method](route.path, function(req, res, next) {
       var handler = loadRouteHandler(build, route);
       handler(req, res, next);

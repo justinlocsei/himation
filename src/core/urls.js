@@ -63,7 +63,10 @@ function relativeToAbsolute(url, root) {
   if (relativeParts.host) {
     return url;
   } else {
-    rootParts.pathname = joinPaths([rootParts.pathname, url]);
+    rootParts.pathname = joinPaths([rootParts.pathname, relativeParts.pathname]);
+    if (relativeParts.hash) {
+      rootParts.hash = relativeParts.hash;
+    }
     return URL.format(rootParts);
   }
 }
