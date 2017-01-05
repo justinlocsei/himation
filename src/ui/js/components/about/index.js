@@ -3,7 +3,6 @@ import React from 'react';
 import routes from 'himation/config/routes';
 import { guidToRoute } from 'himation/core/routing';
 import { imageSizesToDimensions, imageSizesToSrcset } from 'himation/core/images';
-import { SURVEY_ANCHOR } from 'himation/core/constants';
 
 const IMAGES = ['1x', '2x'].map(function(size) {
   const image = require(`himation/images/about/bethany-${size}.jpg`);
@@ -72,7 +71,7 @@ const About = React.createClass({
         </div>
 
         <p className="l--about__cta">
-          <a className="l--about__cta-button" href={`${guidToRoute(routes, 'himation.index').path}#${SURVEY_ANCHOR}`}>Get Started Now</a>
+          <a className="l--about__cta-button" href={`${guidToRoute(routes, 'himation.survey').path}`}>Get Started Now</a>
         </p>
 
       </div>
