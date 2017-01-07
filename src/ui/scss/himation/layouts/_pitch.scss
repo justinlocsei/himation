@@ -7,8 +7,9 @@ $_pitch--image-width: 33% * ($_pitch--content-width / 100%);
 $_pitch--tagline-image-width: 35%;
 
 .l--pitch {
-  background-color: $himation--form-field-bg-color;
+  background-color: $himation--pitch-bg-color;
   box-sizing: border-box;
+  color: $himation--pitch-text-color;
   display: flex;
   flex-direction: column;
   justify-content: center;
