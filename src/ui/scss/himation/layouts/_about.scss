@@ -2,11 +2,13 @@
 @import "himation/mixins/forms";
 @import "himation/mixins/layout";
 @import "himation/mixins/responsive";
+@import "himation/mixins/typography";
 
 $_about--text-width: 46rem;
 
 .l--about {
-  padding: 3em 0;
+  @include himation--font-stack-serif;
+  padding: 3em 0 4em;
 }
 
 .l--about__intro {
@@ -14,9 +16,10 @@ $_about--text-width: 46rem;
 }
 
 .l--about__intro__title {
-  font-size: 2.25em;
-  font-weight: $himation--font-weight-semi-bold;
-  line-height: 1.25;
+  font-size: 2.5em;
+  font-style: italic;
+  font-weight: $himation--font-weight-normal;
+  line-height: 1.375;
   margin-bottom: 1.5em;
   text-align: center;
 }
@@ -47,6 +50,7 @@ $_about--text-width: 46rem;
 }
 
 .l--about__intro__bethany-photo {
+  border: 1px solid $himation--text-color;
   display: block;
   height: auto;
   max-width: 100%;
@@ -56,20 +60,21 @@ $_about--text-width: 46rem;
   padding: 0 $himation--site-gutter;
 
   h2 {
-    border: 1px solid #ccc;
+    border: 1px solid lighten($himation--text-color, 50%);
     border-left: 0;
     border-right: 0;
-    font-size: 1.5em;
-    font-weight: $himation--font-weight-bold;
-    line-height: 1.25;
+    font-size: 1.625em;
+    font-style: italic;
+    font-weight: $himation--font-weight-normal;
+    line-height: 1.375;
     margin: 2.5rem 0;
     padding: 1.5em $himation--site-gutter;
     text-align: center;
   }
 
   p {
-    font-size: 1.25em;
-    line-height: 1.375;
+    font-size: 1.125em;
+    line-height: 1.5;
     margin: 0 auto;
     max-width: $_about--text-width;
 
@@ -87,10 +92,11 @@ $_about--text-width: 46rem;
 
 .l--about__cta-button {
   @include himation--button;
+  @include himation--font-stack-sans-serif;
   display: inline-block;
-  font-size: 1.5em;
+  font-size: 1.75em;
   letter-spacing: 0.0125em;
-  padding: 1.5em 0.25em;
+  padding: 1.25em 0.25em;
   text-align: center;
   text-transform: uppercase;
   width: 100%;
@@ -100,7 +106,6 @@ $_about--text-width: 46rem;
 
   .l--about__intro__title {
     font-size: 1.75em;
-    text-align: left;
   }
   .l--about__intro__title-phrase {
     & + & {
@@ -126,16 +131,9 @@ $_about--text-width: 46rem;
   .l--about__story {
 
     h2 {
-      font-size: 1.125em;
-      margin-left: -100%;
-      margin-right: -100%;
-      padding: 1em 100%;
+      font-size: 1.75em;
+      padding: 1em 0;
       text-align: left;
-    }
-
-    p {
-      font-size: 1.125em;
-      line-height: 1.5;
     }
 
   }
@@ -155,10 +153,8 @@ $_about--text-width: 46rem;
 @include himation--breakpoint-phone {
 
   .l--about__intro__title {
-    font-size: 1.125em;
-    font-weight: $himation--font-weight-bold;
+    font-size: 1.25em;
     margin-bottom: 0;
-    text-align: center;
   }
   .l--about__intro__title-phrase {
     display: inline;
@@ -183,7 +179,7 @@ $_about--text-width: 46rem;
   .l--about__story {
 
     h2 {
-      font-size: 1.25em;
+      font-size: 1.375em;
       text-align: center;
     }
 
