@@ -2,6 +2,7 @@
 
 $_site--footer-v-padding: 5em;
 $_site--slogan-font-size: 1.125em;
+$_site--page-name-border-color: lighten($himation--text-color, 37.5%);
 
 .l--site {
   color: $himation--text-color;
@@ -9,9 +10,9 @@ $_site--slogan-font-size: 1.125em;
 }
 
 .l--site__header {
-  background-color: $himation--branding-primary-color;
+  background: linear-gradient(darken($himation--page-bg-color, 5%), $himation--page-bg-color);
+  background-color: $himation--page-bg-color;
   box-sizing: border-box;
-  color: $himation--branding-text-color;
   display: table;
   min-height: $himation--site-header-height;
   padding: 1em $himation--site-gutter;
@@ -20,34 +21,67 @@ $_site--slogan-font-size: 1.125em;
 }
 
 .l--site__header__logo {
-  background-color: $himation--branding-secondary-color;
-  color: inherit;
   display: table-cell;
+  vertical-align: middle;
   width: 9em;
-
-  &:hover {
-    background-color: lighten($himation--branding-secondary-color, 2.5%);
-  }
 }
 
-.l--site__header__branding {
+.l--site__header__navigation {
   display: table-cell;
   text-align: right;
   vertical-align: middle;
 }
 
 .l--site__logo {
+  display: block;
+}
+
+.l--site__logo__image {
+  background-color: $himation--branding-secondary-color;
   box-sizing: border-box;
+  color: $himation--branding-text-color;
   display: block;
   height: auto;
   padding: 1em 2em;
   width: 100%;
+
+  .l--site__logo:hover & {
+    background-color: lighten($himation--branding-secondary-color, 2.5%);
+  }
 }
 
-.l--site__slogan {
-  font-size: $_site--slogan-font-size;
-  font-weight: $himation--font-weight-light;
-  line-height: 1.375;
+.l--site__pages {
+  margin-right: 0.5em;
+}
+
+.l--site__page {
+  display: inline-block;
+
+  & + & {
+    margin-left: 2em;
+  }
+}
+
+%l--active-page-name {
+  border-color: $himation--text-color;
+  color: $himation--text-color;
+}
+
+.l--site__page__name {
+  border: 1px solid $_site--page-name-border-color;
+  border-left: 0;
+  border-right: 0;
+  box-shadow: 0 -1px rgba(255, 255, 255, 0.75) inset, 0 1px rgba(255, 255, 255, 0.75) inset;
+  color: $himation--branding-primary-color;
+  display: block;
+  font-size: 0.85em;
+  font-weight: $himation--font-weight-semi-bold;
+  padding: 1.5em 3em;
+  text-transform: uppercase;
+
+  &:hover {
+    @extend %l--active-page-name;
+  }
 }
 
 .l--site__body {
@@ -85,7 +119,7 @@ $_site--slogan-font-size: 1.125em;
 
 .l--site__footer__links {
   display: table-cell;
-  padding-left: 5em;
+  padding-left: 4em;
   text-align: left;
   vertical-align: middle;
 }
@@ -145,14 +179,32 @@ $_site--slogan-font-size: 1.125em;
   width: 2em;
 }
 
+.l--site.for-home {
+  .l--site__header {
+    background: linear-gradient(darken($himation--pitch-bg-color, 5%), $himation--pitch-bg-color);
+    background-color: $himation--pitch-bg-color;
+  }
+}
+
 @include himation--breakpoint-tablet {
 
-  .l--site__header__branding {
-    padding-left: $himation--site-gutter;
-    text-align: center;
+  .l--site__pages {
+    margin-left: auto;
+    margin-right: 0;
+    max-width: 65%;
   }
-  .l--site__slogan {
-    font-size: $_site--slogan-font-size * 0.9;
+  .l--site__page {
+    display: block;
+  }
+  .l--site__page + .l--site__page {
+    margin-left: 0;
+    margin-top: 1.5em;
+  }
+
+  .l--site__page__name {
+    border-color: lighten($_site--page-name-border-color, 20%);
+    padding: 0.75em 1.5em;
+    text-align: center;
   }
 
   .l--site__footer__links {
@@ -165,17 +217,19 @@ $_site--slogan-font-size: 1.125em;
 
   .l--site__header {
     min-height: 0;
-    padding: 0;
-    padding-right: $himation--site-gutter;
   }
   .l--site__header__logo {
-    width: 6em;
+    width: 7em;
   }
-  .l--site__logo {
+  .l--site__logo__image {
     padding: 1em 1.5em;
   }
-  .l--site__slogan {
-    font-size: $_site--slogan-font-size * 0.7;
+
+  .l--site__header__navigation {
+    font-size: 0.8em;
+  }
+  .l--site__pages {
+    max-width: 90%;
   }
 
   .l--site__footer {
