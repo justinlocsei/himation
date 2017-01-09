@@ -6,7 +6,9 @@
 //
 // @param <color> $background The background color for the button
 // @param <color> $text The background color for the button
-@mixin himation--button($background: $himation--branding-primary-color, $text: $himation--branding-text-color) {
+// @param <percentage> $gradient-strength The strength of the gradient
+@mixin himation--button($background: $himation--branding-primary-color, $text: $himation--branding-text-color, $gradient-strength: 5%) {
+  background: linear-gradient(rgba(255, 255, 255, $gradient-strength / 100%), rgba(255, 255, 255, 0));
   background-color: $background;
   border: 1px solid $background;
   box-sizing: border-box;
