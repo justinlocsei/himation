@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en" class="supports-no-js">
 
+  {% block variables %}{% endblock %}
+
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
@@ -33,7 +35,7 @@
   </head>
 
   <body class="l--app">
-    <div class="l--site for-{% block page_id %}{% endblock %}">
+    <div class="l--site for-{{ page_id }}">
       <header class="l--site__header">
 
         <div class="l--site__header__logo">
