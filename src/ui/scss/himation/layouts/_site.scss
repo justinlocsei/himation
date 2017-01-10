@@ -205,7 +205,7 @@ $_site--page-name-border-color: lighten($himation--text-color, 37.5%);
   .l--site__page__name {
     background-color: rgba(255, 255, 255, 0.75);
     border: 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.0625);
     box-shadow: none;
     padding: 0.75em 1.5em;
     text-align: center;
