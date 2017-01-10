@@ -50,7 +50,7 @@
               <a href="{{ urls.survey }}" class="l--site__page__name">Take Our Survey</a>
             </li>
             <li class="l--site__page">
-              <a href="{{ urls.about }}" class="l--site__page__name">About Us</a>
+              <a href="{{ urls.about }}" class="l--site__page__name {% if page_id == 'about' %}for-current{% endif %}">About Us</a>
             </li>
           </ul>
         </navigation>
