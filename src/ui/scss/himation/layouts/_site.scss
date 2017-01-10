@@ -62,11 +62,6 @@ $_site--page-name-border-color: lighten($himation--text-color, 37.5%);
   }
 }
 
-%l--active-page-name {
-  border-color: $himation--text-color;
-  color: $himation--text-color;
-}
-
 .l--site__page__name {
   border: 1px solid $_site--page-name-border-color;
   border-left: 0;
@@ -80,7 +75,13 @@ $_site--page-name-border-color: lighten($himation--text-color, 37.5%);
   text-transform: uppercase;
 
   &:hover {
-    @extend %l--active-page-name;
+    border-color: $himation--text-color;
+    color: $himation--text-color;
+  }
+
+  &.for-current {
+    border-width: 2px;
+    font-weight: $himation--font-weight-bold;
   }
 }
 
@@ -208,6 +209,10 @@ $_site--page-name-border-color: lighten($himation--text-color, 37.5%);
     box-shadow: none;
     padding: 0.75em 1.5em;
     text-align: center;
+
+    &.for-current {
+      border-width: 1px;
+    }
   }
 
   .l--site__footer__links {
