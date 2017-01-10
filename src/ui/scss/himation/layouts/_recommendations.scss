@@ -10,20 +10,18 @@ $_recommendations--basic-teaser-gutter: 2px;
 }
 
 .l--recommendations__title {
-  margin: 3em auto 1em;
-  padding: 1em;
-  text-align: center;
+  margin: 2em auto 0;
+  padding-top: 1em;
 }
 
 .l--recommendations__title__text {
-  border: 2px solid currentColor;
+  border-top: 4px solid currentColor;
   box-sizing: border-box;
   color: $himation--branding-primary-color;
-  display: inline-block;
-  font-size: 1.125em;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  padding: 1em 3em;
+  display: block;
+  font-size: 1.25em;
+  font-weight: $himation--font-weight-bold;
+  padding: 0.75em 0;
   text-transform: uppercase;
 }
 
