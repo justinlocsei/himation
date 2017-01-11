@@ -37,7 +37,7 @@ const Pitch = React.createClass({
           </p>
 
           <div className="l--pitch__cta">
-            <a href={`#${surveyId}`} className="l--pitch__button" onClick={this.handleClick}>Take Our Survey</a>
+            <a href={`#${surveyId}`} className="l--pitch__button" onClick={this.handleClick}>Get Started</a>
           </div>
 
         </div>
