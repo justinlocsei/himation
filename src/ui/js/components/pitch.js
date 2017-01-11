@@ -24,16 +24,11 @@ const Pitch = React.createClass({
         <div className="l--pitch__content">
 
           <h1 className="l--pitch__tagline">
-            Ladies, take the pain out of keeping your professional wardrobe
-            stocked with essentials.
+            For women who have to wear clothes to work
           </h1>
 
           <p className="l--pitch__details">
-            We use your shape, style, and workplace formality to provide you
-            with the best clothes available from a wide range of retailers.
-            There’s no charge to use our site and no markup to the clothing. So
-            get started now and never spend your weekend shopping for work
-            clothes again.
+            No one likes to shop for work clothes, especially not the basic ones. We simplify your hunt by using your shape, style, and workplace formality to provide you with the best clothes available from a wide range of retailers. There’s no charge to use our site and no markup to the clothing. So get started now and cover your basics the easy way.
           </p>
 
           <div className="l--pitch__cta">
