@@ -107,14 +107,27 @@ $_site--page-name-border-color: lighten($himation--text-color, 37.5%);
 }
 
 .l--site__footer__logo {
-  border: 2px solid $himation--branding-text-color;
   display: table-cell;
+  width: 7em;
+}
+
+.l--site__footer__logo__link {
+  border: 2px solid $himation--branding-text-color;
+  box-sizing: border-box;
+  display: block;
+  height: 100%;
   padding: 2em 1em;
-  width: 5em;
+  width: 100%;
+
+  &:hover,
+  &:focus {
+    background-color: lighten($himation--text-color, 2.5%);
+  }
 }
 
 .l--site__footer__logo__image {
   display: block;
+  margin: 0 auto;
   max-width: 100%;
 }
 
