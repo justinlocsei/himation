@@ -45,7 +45,8 @@ $_site--page-name-border-color: lighten($himation--text-color, 37.5%);
   padding: 1em 2em;
   width: 100%;
 
-  .l--site__logo:hover & {
+  .l--site__logo:hover &,
+  .l--site__logo:focus & {
     background-color: lighten($himation--branding-secondary-color, 2.5%);
   }
 }
@@ -74,7 +75,8 @@ $_site--page-name-border-color: lighten($himation--text-color, 37.5%);
   padding: 1.5em 3em;
   text-transform: uppercase;
 
-  &:hover {
+  &:hover,
+  &:focus {
     border-color: $himation--text-color;
     color: $himation--text-color;
   }
