@@ -6,7 +6,7 @@
 $_registration--input-padding: 0.5rem;
 $_registration--label-color: #aaa;
 $_registration--error-gap: 0.25em;
-$_registration--gutter: 2em;
+$_registration--gutter: 2rem;
 
 .c--registration {
 
@@ -29,9 +29,15 @@ $_registration--gutter: 2em;
 
 .c--registration__pitch {
   border-left: 1px solid rgba(255, 255, 255, 0.75);
-  flex: 1;
-  line-height: 1.375;
+  flex: 1.5;
+  line-height: 1.5;
   padding: 1em 0 1em $_registration--gutter;
+}
+
+.c--registration__pitch__text {
+  & + & {
+    margin-top: 1em;
+  }
 }
 
 .c--registration__form {
@@ -61,6 +67,7 @@ $_registration--gutter: 2em;
   flex: 2.5;
   font-size: 1.75em;
   padding: $_registration--input-padding;
+  width: 75%;
 
   &::placeholder {
     color: $himation--text-muted-color;

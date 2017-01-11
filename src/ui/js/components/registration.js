@@ -55,7 +55,7 @@ let Registration = React.createClass({
 
     return (
       <div className={classes.join(' ')}>
-        <h3 className="c--registration__title">Bored by just looking at black clothes?</h3>
+        <h3 className="c--registration__title">Bored by just looking at basic clothes?</h3>
 
         <div className="c--registration__content">
           <form className="c--registration__form" method={SUBMIT_ROUTE.method} action={SUBMIT_ROUTE.path} onSubmit={form.handleSubmit}>
@@ -71,12 +71,10 @@ let Registration = React.createClass({
             <input type="hidden" name="recommendationId" value={recommendationId} />
           </form>
 
-          <p className="c--registration__pitch">
-            Yeah, we know it’s boring, but having all your basics covered makes
-            the difference between a closet that works and a closet that
-            doesn’t. Sign up for our email list, and we'll tell you about major
-            sales and remind you to keep your basics covered.
-          </p>
+          <div className="c--registration__pitch">
+            <p className="c--registration__pitch__text">Yeah, we know it’s boring, but having your basics covered is the difference between a closet that works and a closet that doesn’t.  It’s normal to not find everything you need after just one visit, but let’s be honest here.  You won’t remember to come back.  That’s why you should sign up for our email list.</p>
+            <p className="c--registration__pitch__text">Don’t worry.  We don’t send emails every day &mdash; just once every month or two.  We’ll tell you about our latest featured clothes and remind you to check for any great basics to add to your closet.  That’s it.</p>
+          </div>
         </div>
       </div>
     );
