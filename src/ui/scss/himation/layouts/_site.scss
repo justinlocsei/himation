@@ -214,15 +214,15 @@ $_site--page-name-border-color: lighten($himation--text-color, 37.5%);
   }
   .l--site__page + .l--site__page {
     margin-left: 0;
-    margin-top: 1.5em;
+    margin-top: 1em;
   }
 
   .l--site__page__name {
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgba(255, 255, 255, 0.625);
     border: 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.0625);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
     box-shadow: none;
-    padding: 0.75em 1.5em;
+    padding: 1em 1.5em;
     text-align: center;
 
     &.for-current {
