@@ -70,7 +70,8 @@ $_basic-teaser--total-groups: 6;
   $_basic-teaser--current-group: $_basic-teaser--current-group + 1;
 }
 
-.c--basic-teaser:hover {
+.c--basic-teaser:hover,
+.c--basic-teaser:focus {
 
   .c--basic-teaser__media {
     opacity: 1;
