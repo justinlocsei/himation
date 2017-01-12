@@ -133,7 +133,6 @@ $_about--text-width: 46rem;
     h2 {
       font-size: 1.75em;
       padding: 1em 0;
-      text-align: left;
     }
 
   }
@@ -151,6 +150,10 @@ $_about--text-width: 46rem;
 }
 
 @include himation--breakpoint-phone {
+
+  .l--about {
+    padding-top: 1.5em;
+  }
 
   .l--about__intro__title {
     font-size: 1.25em;
