@@ -15,7 +15,7 @@
 }
 
 // Generate styles that apply to agents that do not support JavaScript
-@mixin himation--no-js() {
+@mixin himation--no-js {
   .supports-no-js {
     @content;
   }
