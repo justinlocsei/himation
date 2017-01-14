@@ -5,15 +5,6 @@
   }
 }
 
-// Generate styles that apply to agents that support a Modernizr feature
-//
-// @param <string> $feature The name of a Modernizr feature
-@mixin himation--supports($feature) {
-  .supports-#{$feature} {
-    @content;
-  }
-}
-
 // Generate styles that apply to agents that do not support JavaScript
 @mixin himation--no-js {
   .supports-no-js {
