@@ -247,8 +247,8 @@ $_site--page-name-border-color: lighten($himation--text-color, 37.5%);
 
   .l--site__pages {
     margin-left: auto;
-    margin-right: 0.75em;
-    width: 10em;
+    padding-right: 7.5%;
+    width: 75%;
   }
   .l--site__page {
     display: block;
