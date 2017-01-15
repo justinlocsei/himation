@@ -42,6 +42,7 @@ module.exports = {
   tasks: path.join(root, 'tasks'),
   ui: {
     images: path.join(ui, 'images'),
+    inlineJs: path.join(ui, 'inline-js'),
     js: path.join(ui, 'js'),
     root: ui,
     scss: path.join(ui, 'scss'),
