@@ -54,6 +54,7 @@ function create(custom) {
       extensions: ['', '.js', '.scss'],
       alias: {
         'himation/images': paths.ui.images,
+        'himation/inline': paths.ui.inlineJs,
         'himation/server': paths.server.root,
         'himation/styles': paths.ui.scssFiles,
         'himation/ui': paths.ui.js
@@ -288,25 +289,24 @@ function forceFileWriting(config) {
 }
 
 /**
- * Add a loader to produce a custom Modernizr build
+ * Add configuration to expose the raw text of inlined scripts
  *
  * @param {object} config A webpack configuration
- * @param {boolean} compress Whether to compress the build
+ * @param {boolean} optimize Whether to optimize the files
  * @returns {object} The updated configuration file
  */
-function addModernizrBuild(config, compress) {
+function enableInlineScripts(config, optimize) {
   var loaders = ['raw'];
-  if (compress) { loaders.push('uglify'); }
-  loaders.push(path.join(paths.src, 'config', 'webpack', 'loaders', 'modernizr.js'));
+  if (optimize) { loaders.push('uglify'); }
+  loaders.push(path.join(paths.src, 'config', 'webpack', 'loaders', 'inline-script.js'));
 
   config.module.loaders.push({
-    test: /\.modernizrrc$/,
-    loaders: loaders
+    test: /\.js$/,
+    loaders: loaders,
+    include: [paths.ui.inlineJs]
   });
 
-  config.resolve.alias['modernizr-build$'] = path.join(paths.root, '.modernizrrc');
-
-  if (compress) {
+  if (optimize) {
     config['uglify-loader'] = {
       comments: false,
       sourceMap: false
@@ -358,7 +358,7 @@ function server() {
     target: 'node'
   });
 
-  config = addModernizrBuild(config, optimize);
+  config = enableInlineScripts(config, optimize);
   return forceFileWriting(config);
 }
 
@@ -409,7 +409,7 @@ function ui() {
     target: 'web'
   });
 
-  config = addModernizrBuild(config, optimizeAssets);
+  config = enableInlineScripts(config, optimizeAssets);
   return forceFileWriting(config);
 }
 
