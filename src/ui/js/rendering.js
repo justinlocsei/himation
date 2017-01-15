@@ -1,5 +1,4 @@
 import fastdom from 'fastdom';
-import modernizrUrl from 'modernizr-build';
 import Raven from 'raven-js';
 import React from 'react';
 import thunkMiddleware from 'redux-thunk';
@@ -13,6 +12,7 @@ import appReducers from 'himation/ui/reducers';
 import facebookShareImage from 'himation/images/branding/facebook-share.jpg';
 import favicon from 'himation/images/branding/favicon.ico';
 import logo from 'himation/images/branding/logo.svg';
+import modernizrUrl from 'modernizr-build';
 import routes from 'himation/config/routes';
 import touchIcon from 'himation/images/branding/apple-touch-icon.png';
 import twitterLogo from 'himation/images/branding/twitter-logo.png';
