@@ -10,6 +10,8 @@
 
     <title>{% block title %}{% endblock %}</title>
 
+    <script>{{ capabilitiesScript | safe }}</script>
+
     {% for stylesheet in assets.stylesheets %}
       <link rel="stylesheet" href="{{ stylesheet }}" />
     {% endfor %}
@@ -30,8 +32,6 @@
     <meta name="twitter:image:alt" content="The logo for Cover Your Basics">
 
     {% block meta %}{% endblock %}
-
-    <script>{{ modernizrText | safe }}</script>
   </head>
 
   <body class="l--app">

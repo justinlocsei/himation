@@ -1,6 +1,6 @@
 // Generate styles that apply to user agents that do not support flexbox
 @mixin himation--flexbox-fallback {
-  .supports-no-flexbox.supports-no-flexwrap {
+  .supports-no-flexbox {
     @content;
   }
 }
