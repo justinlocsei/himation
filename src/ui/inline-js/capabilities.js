@@ -9,6 +9,9 @@ var CSS_FEATURES = [
   }
 ];
 
+// A cached reference to the root HTML element
+var HTML = document.documentElement;
+
 /**
  * Create a class name for a feature
  *
@@ -54,7 +57,7 @@ function makeFeatureClassName(feature, properties) {
   var accessors = makePropertyAccessors(properties);
 
   for (var i = 0; i < accessors.length; i++) {
-    if (html.style[accessors[i]] === undefined) {
+    if (HTML.style[accessors[i]] === undefined) {
       return makeSupportClassName(feature, false);
     }
   }
@@ -62,9 +65,7 @@ function makeFeatureClassName(feature, properties) {
   return makeSupportClassName(feature, true);
 }
 
-var html = document.documentElement;
-
-var classes = html.className.replace(
+var classes = HTML.className.replace(
   makeSupportClassName('js', false),
   makeSupportClassName('js', true)
 );
@@ -73,4 +74,4 @@ for (var i = 0; i < CSS_FEATURES.length; i++) {
   classes += ' ' + makeFeatureClassName(CSS_FEATURES[i].feature, CSS_FEATURES[i].properties);
 }
 
-html.className = classes;
+HTML.className = classes;
