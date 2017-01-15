@@ -12,7 +12,7 @@ import appReducers from 'himation/ui/reducers';
 import facebookShareImage from 'himation/images/branding/facebook-share.jpg';
 import favicon from 'himation/images/branding/favicon.ico';
 import logo from 'himation/images/branding/logo.svg';
-import modernizrUrl from 'modernizr-build';
+import modernizrText from 'modernizr-build';
 import routes from 'himation/config/routes';
 import touchIcon from 'himation/images/branding/apple-touch-icon.png';
 import twitterLogo from 'himation/images/branding/twitter-logo.png';
@@ -120,7 +120,7 @@ export function prerenderPageComponent(res, Page, options = {}) {
     favicon: favicon,
     googleAnalyticsId: getSetting('googleAnalyticsId'),
     logo: logo,
-    modernizrUrl: modernizrUrl,
+    modernizrText: modernizrText,
     reduxState: JSON.stringify(connectedPage.props.store.getState()),
     socialIcons: SOCIAL_ICONS,
     stateVariableName: STATE_VARIABLE_NAME,

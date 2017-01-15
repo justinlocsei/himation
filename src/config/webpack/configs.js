@@ -295,7 +295,7 @@ function forceFileWriting(config) {
  * @returns {object} The updated configuration file
  */
 function addModernizrBuild(config, compress) {
-  var loaders = ['file?name=[hash].js'];
+  var loaders = ['raw'];
   if (compress) { loaders.push('uglify'); }
   loaders.push(path.join(paths.src, 'config', 'webpack', 'loaders', 'modernizr.js'));
 

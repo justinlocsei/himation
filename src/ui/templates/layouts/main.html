@@ -31,7 +31,7 @@
 
     {% block meta %}{% endblock %}
 
-    <script src="{{ modernizrUrl }}"></script>
+    <script>{{ modernizrText | safe }}</script>
   </head>
 
   <body class="l--app">
