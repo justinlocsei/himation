@@ -1,6 +1,7 @@
 'use strict';
 
 var escapeRegExp = require('lodash/escapeRegExp');
+var parseUrl = require('url').parse;
 
 var routing = require('himation/core/routing');
 var urls = require('himation/core/urls');
@@ -9,12 +10,6 @@ var urls = require('himation/core/urls');
 var ASSET_GROUPS = {
   javascripts: ['.js'],
   stylesheets: ['.css']
-};
-
-// A map between asset groups and preload destinations
-var ASSET_PRELOAD_DESTINATIONS = {
-  javascripts: 'script',
-  stylesheets: 'style'
 };
 
 /**
@@ -45,14 +40,10 @@ function create(manifest, host, routes) {
       return groups;
     }, {});
 
-    var linkHeaders = Object.keys(assetTypes).reduce(function(headers, type) {
-      return headers.concat(assetTypes[type].map(function(assetUrl) {
-        return '<' + assetUrl + '>; rel=preload; as=' + ASSET_PRELOAD_DESTINATIONS[type];
-      }));
-    }, []);
-
     res.locals.assets = assetTypes;
-    res.set('Link', linkHeaders);
+
+    var assetServer = parseUrl(host);
+    res.set('Link', '<' + assetServer.protocol + '//' + assetServer.host + '>; rel=preconnect');
 
     return next();
   };
